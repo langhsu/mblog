@@ -1,0 +1,11 @@
+#if($!message)
+	<div class="alert alert-danger">$!message</div>
+#end
+
+#if($!data)
+	#if($data.code >= 0)
+		<div class="alert alert-success">$!{data.message}</div>
+	#else
+		<div class="alert alert-danger">$!{data.message}</div>
+	#end
+#end

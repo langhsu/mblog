@@ -1,0 +1,104 @@
+/**
+ * 
+ */
+package hilo.core.persist.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+/**
+ * @author langhsu
+ *
+ */
+@Entity
+@Table(name = "tb_comment")
+public class CommentPO {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	@Column(name = "to_id")
+	private long toId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id")
+	private ProjectPO project;
+	
+	@Column(name = "content")
+	private String content;
+	
+	@Column(name = "created")
+	private Date created;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "owner_id")
+	private UserPO owner;
+	
+	private int status;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getToId() {
+		return toId;
+	}
+
+	public void setToId(long toId) {
+		this.toId = toId;
+	}
+
+	public ProjectPO getProject() {
+		return project;
+	}
+
+	public void setProject(ProjectPO project) {
+		this.project = project;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public UserPO getOwner() {
+		return owner;
+	}
+
+	public void setOwner(UserPO owner) {
+		this.owner = owner;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+}

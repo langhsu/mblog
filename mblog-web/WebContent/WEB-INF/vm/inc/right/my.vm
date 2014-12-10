@@ -1,0 +1,47 @@
+<aside id="secondary" class="sidebar-container">
+	<div class="widget-area">
+		<div class="panel panel-default">
+			<div class="panel-heading">快速发布</div>
+			<div class="text-center widget_social_widget">
+				<ul class="clr">
+    				<li>
+    					<a href="$base/blog/post?type=text" class="text">
+    						<i class="fa fa-paper-plane-o fa-2x"></i>
+    					</a>
+    				</li>
+    				<li>
+    					<a href="$base/blog/post?type=image" class="image">
+    						<i class="fa fa-image fa-2x"></i>
+    					</a>
+    				</li>
+    			</ul>
+			</div>
+		</div>
+	
+		<div class="sidebar-widget widget_categories clr">
+			<span class="widget-title">最新文章</span>
+			<ul id="recents"></ul>
+		</div>
+	</div>
+</aside>
+<!-- #secondary -->
+
+<script type="text/javascript">
+var recent_li_template = '<li class="cat-item cat-item-6"><a href="{0}">{1}</a></li>'
+						
+$(function () {
+	jQuery.getJSON('$base/browse/recents_json', function(ret){
+		if(ret && ret.length > 0){
+      		jQuery.each(ret, function(i, n) {
+				if (n.title != undefined && n.title.length > 0) {
+					var url = '$base/browse/detail/' + n.id;
+      				var item = jQuery.format(recent_li_template, url, n.title);
+      				$('#recents').append(item);
+				}
+      		});
+      	} else {
+      		$('#recents').append('<li class="cat-item cat-item-6"><span>沒有相关记录</span></li>');
+      	}
+	});
+})
+</script>

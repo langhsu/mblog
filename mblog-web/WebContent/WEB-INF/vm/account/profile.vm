@@ -1,0 +1,59 @@
+#set($title = "Profile")
+
+<div class="container main-sm">
+	<div class="row">
+		<div class="panel panel-default stacked">
+			<div class="panel-heading"><span class="glyphicon glyphicon-user"></span> 修改账号信息</div>
+			<div class="panel-body">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="profile">用户信息</a></li>
+					<li class=""><a href="password">修改密码</a></li>
+				</ul>
+				<br>
+				<div id="message">
+				#parse("/inc/action_message.vm")
+				</div>
+				<div class="tab-content" id="tab">
+					<div class="tab-pane active" id="profile">
+						<form id="pf" action="profile" method="post" class="form-horizontal">
+        					<fieldset>
+								<div class="form-group">											
+        							<label class="control-label col-lg-3" for="nickname">昵称</label>
+        							<div class="col-lg-4">
+        								<input type="text" class="form-control" name="nickname" value="$!{profile.nickname}" data-required>
+        							</div>		
+        						</div>
+        						<div class="form-group">											
+        							<label class="control-label col-lg-3" for="email">邮箱地址</label>
+        							<div class="col-lg-6">
+        								<input type="text" class="form-control" name="email" value="$!{profile.email}" data-required >
+        							</div>		
+        						</div>
+        						<div class="form-group">
+        							<div class="text-center">
+        							<button type="submit" class="btn btn-primary">提交</button> 
+        							</div>
+        						</div><!-- /form-actions -->
+        					</fieldset>
+        				</form>
+					</div>
+                </div>
+			</div><!-- /panel-content -->
+        </div><!-- /panel -->
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('#pf').validate({
+		onKeyup : true,
+		onChange : true,
+		eachValidField : function() {
+			$(this).closest('div').removeClass('has-error').addClass('has-success');
+		},
+		eachInvalidField : function() {
+			$(this).closest('div').removeClass('has-success').addClass('has-error');
+		}
+	});
+
+})
+</script>

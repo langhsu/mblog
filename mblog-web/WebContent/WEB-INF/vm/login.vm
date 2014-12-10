@@ -1,0 +1,57 @@
+#set($layout="layout/login.vm")
+
+<section class="hero-unit">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0  signupForm">
+				<h2 class="fontlato">Mtons, 轻松分享你的兴趣</h2>
+				<form action="login" method="post" id="signupform">
+					<fieldset>
+						<div class="signup-form-block">
+							<div class="row">
+								<div class="col-md-4 col-sm-4 ">
+									<input type="text" placeholder="Username"
+										class="form-control input-lg input-bigger" name="username" data-required>
+								</div>
+								<div class="col-md-4 col-sm-4 ">
+									<input type="password" placeholder="Password"
+										class="form-control input-lg input-bigger" name="password" data-required>
+									<div id="password_icon" class="checkpswd"></div>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									<button type="submit" id="validation"
+										class="btn btn-lg btn-block btn-success btn-uppercase btn-bigger">登录 Use it</button>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<a class="getmore" href="#footer">
+		<span class="icon-bar icon-bar-left"></span>
+		<span class="icon-bar icon-bar-right"></span>
+	</a>
+</section>
+
+<script type="text/javascript">
+$(function(){
+	$('form').validate({
+		onKeyup : true,
+		onChange : true,
+		eachValidField : function() {
+			$(this).closest('div').removeClass('has-error').addClass('has-success');
+		},
+		eachInvalidField : function() {
+
+			$(this).closest('div').removeClass('has-success').addClass('has-error');
+		},
+		description : {
+			message : {
+				required : '<div class="alert alert-danger">请先输入用户名/密码再进行登录操作</div>'
+			}
+		}
+	});
+})
+</script>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<toolbox>   
+   <!-- [ DateTool ]   
+         @see http://www.jajakarta.org/velocity/tools/velocity-tools-1.1/docs-ja/generic/DateTool.html  (ja)   
+        @see http://velocity.apache.org/tools/devel/javadoc/org/apache/velocity/tools/generic/DateTool.html  (en)   
+        @since VelocityTools 1.0  
+    -->   
+    <tool>   
+        <key>date</key>   
+        <scope>application</scope>   
+        <class>org.apache.velocity.tools.generic.DateTool</class>   
+    </tool>   
+</toolbox> 

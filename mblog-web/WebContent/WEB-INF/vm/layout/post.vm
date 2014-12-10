@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$!title</title>
+	<meta name="description" content="Mtons, 轻松分享你的兴趣">
+	<meta name="keywords" content="博客,blog,轻博客">
+		
+	<!--[if lt IE 9]>
+    	<script src="$base/js/html5.js"></script>
+    <![endif]-->
+	
+	<link rel='stylesheet' media='all' href='$base/dist/css/font-awesome.min.css'/>
+	<link rel="stylesheet" href="$base/dist/css/bootstrap.min.css">
+	<link rel='stylesheet' media='all' href='$base/dist/css/style.css'/>
+	<link rel='stylesheet' media='all' href='$base/dist/css/tagit.css'/>
+	<link rel='stylesheet' media='all' href='$base/dist/css/addons.css'/>
+	<script type='text/javascript' src='$base/dist/js/jquery.min.js'></script>
+	<script type="text/javascript" src="$base/dist/js/jquery.lazyload.js"></script>
+	<script type="text/javascript" src="$base/dist/js/plugins.js"></script>
+	<script type='text/javascript' src='$base/dist/js/global.js'></script>
+	<script type='text/javascript' src='$base/dist/js/app.js'></script>
+	
+	<script type="text/javascript" charset="utf-8" src="$base/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="$base/ueditor/ueditor.all.min.js"></script>
+	
+	<script type="text/javascript" src="$base/dist/libraries/jquery.ui.js"></script>
+	<script type="text/javascript" src="$base/dist/libraries/tag-it.js"></script>
+	<script type='text/javascript' src='$base/dist/js/jquery-validate.js'></script>
+	
+	<script type="text/javascript" src="$base/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Favicons -->
+	<link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/ico/mtons.png"/>
+	<link rel="shortcut icon" href="http://mtons.com/dist/images/ico/mtons.png"/>
+	
+</head>
+<body class="page page-template-default wpex-theme dark-skin no-sidebar  with-sidebar breadcrumbs-enabled image-rendering">
+	<div id="wrap" class="clr">
+		#parse("/inc/header.vm")
+	
+    	<div class="site-main-wrap clr">
+			<div id="main" class="site-main clr container">
+    		${screen_content}
+            </div>
+			<!--.site-main -->
+    	</div>
+		<!-- .site-main-wrap -->
+	</div>
+	<!-- #wrap -->
+	
+	#parse("/inc/footer.vm")
+	
+	<div id="mobile-search">
+		<form method="get" action="http://wpexplorer-demos.com/fabulous/"
+			role="search" id="mobile-search-form">
+			<input type="search" class="field" name="s" value=""
+				placeholder="To search type and hit enter" />
+		</form>
+	</div>
+	<a href="#" class="site-scroll-top"><span class="fa fa-arrow-up"></span></a>
+	
+	<script type='text/javascript'>
+		/* <![CDATA[ */
+		var wpexLocalize = {
+			"mobileMenuOpen" : "Click here to navigate",
+			"mobileMenuClosed" : "Close navigation",
+			"isOriginLeft" : "1"
+		};
+		/* ]]> */
+	</script>
+	
+	<script type="text/javascript">
+    $(function(){
+    	$("img").lazyload({
+    		 placeholder : "./images/spinner.gif",
+    		 effect      : "fadeIn"
+    	});
+    	
+    })
+    </script>
+</body>
+</html>

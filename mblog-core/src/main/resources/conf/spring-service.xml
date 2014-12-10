@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans.xsd"
+  default-autowire="byName">
+    
+    <bean id="userDao" class="hilo.core.persist.dao.impl.UserDaoImpl" />
+	<bean id="projectDao" class="hilo.core.persist.dao.impl.ProjectDaoImpl" />
+	<bean id="mblogDao" class="hilo.core.persist.dao.impl.MblogDaoImpl" />
+	<bean id="albumDao" class="hilo.core.persist.dao.impl.AlbumDaoImpl"/>
+	<bean id="commentDao" class="hilo.core.persist.dao.impl.CommentDaoImpl" />
+	
+    <bean id="userService" class="hilo.core.service.impl.UserServiceImpl"/>
+    <bean id="projectService" class="hilo.core.service.impl.ProjectServiceImpl"/>
+    <bean id="mblogService" class="hilo.core.service.impl.MblogServiceImpl"/>
+    <bean id="albumService" class="hilo.core.service.impl.AlbumServiceImpl"/>
+    <bean id="commentService" class="hilo.core.service.impl.CommentServiceImpl"/>
+    
+    <bean id="appContext" class="hilo.core.context.AppContext"/>
+    
+</beans>

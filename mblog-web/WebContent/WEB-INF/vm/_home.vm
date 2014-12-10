@@ -1,0 +1,50 @@
+#set($title = "Home")
+
+<div id="primary" class="content-area clr">
+	<div id="content" class="site-content left-content clr" role="main">
+		<div class="clr">
+			#foreach($row in $paging.results)
+			<article class="loop-entry span_1_of_1 col clr">
+				#mblog($row)
+				<!-- .post-entry-thumbnail -->
+				<div class="loop-entry-content clr">
+					#if($row.title)
+					<header>
+						<h2 class="loop-entry-title">
+							<a href="$base/browse/detail/${row.id}">${row.title}</a>
+						</h2>
+					</header>
+					#end
+					<div class="loop-entry-excerpt entry clr">
+						${row.summary}
+						<span class="wpex-readmore">
+							<a href="$base/browse/detail/${row.id}">Read more</a>
+						</span>
+					</div>
+					<!-- .loop-entry-excerpt -->
+				</div>
+				<!-- .loop-entry-content -->
+
+				<div class="loop-entry-meta clr">
+					<div class="loop-entry-meta-date">
+						<span class="strong">发布:</span> $date.format('yyyy-MM-dd HH:mm:ss', $row.created)
+					</div>
+					<div class="loop-entry-meta-category">
+						<span class="strong">标签:</span> $!{row.tags}
+					</div>
+				</div>
+				<!-- .loop-entry-meta -->
+			</article>
+			#end
+			<!-- .loop-entry -->
+        </div>
+		<!-- #blog-wrap -->
+		
+		<div class="text-center clr">
+			#page("home.do" $paging 5)
+		</div>
+    </div>
+	<!-- #content -->
+	#parse("/inc/right/my.vm")
+</div>
+<!-- #primary -->

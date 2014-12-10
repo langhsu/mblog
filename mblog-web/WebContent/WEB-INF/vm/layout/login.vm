@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mtons</title>
+	<meta name="description" content="Mtons, 轻松分享你的兴趣">
+	<meta name="keywords" content="博客,blog,轻博客">
+		
+	<!-- v3 -->
+	<link rel="stylesheet" href="$base/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="$base/dist/css/first.css">
+	
+	<!-- JavaScript -->
+	<script type="text/javascript" src="$base/dist/js/jquery.min.js"></script>
+	<script type="text/javascript" src="$base/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="$base/dist/js/jquery-validate.js"></script>
+	
+	<!-- Favicons -->
+	<link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/ico/mtons.png"/>
+	<link rel="shortcut icon" href="http://mtons.com/dist/images/ico/mtons.png"/>
+	
+</head>
+<body class="default">
+	<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+	<header id="nav">
+		<div class="container">
+			<h1 class="pull-left">
+				<a href="https://www.mtons.com"><img src="$base/dist/images/ico/mtons-white.png"></a>
+			</h1>
+			<nav class="navPublic">
+				<div class="navTop pull-right">
+					<div class="btn-group">
+						<a href="$base/reg" class="btn btn-outline-inverse login login-attractive">注册</a>
+					</div>
+					<a href="$base/browse/gallery" class="btn btn-red gallery-attractive">
+							<span class="glyphicon glyphicon-th"></span>走廊</a>
+				</div>
+			</nav>
+		</div>
+	</header>
+	
+	${screen_content}
+		
+	<footer id="footer">
+		<div class="container">
+			<div class="row copyright">
+				<div class="col-md-12 col-sm-12">
+					<div class="row">
+						<div class="col-md-4 col-sm-5">Copyright 2014 Mtons. All rights reserved.</div>
+						<div class="col-md-6 col-sm-5">
+							<a href="http://mtons.com">Mtons</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

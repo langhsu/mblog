@@ -1,0 +1,9 @@
+/*------------------------------------------------------------------
+[ 分享图片按钮 / .share ]
+*/
+.share-upload {background: url(../images/btn/upload_newshare.gif) no-repeat; width: 164px; height: 44px; overflow: hidden; z-index: 5;opacity: 1;}
+.share-upload:hover {background-position:0 -44px; opacity:1;}
+.share-upload input{width: 164px; height: 44px; filter: alpha(opacity=0); opacity: 0; outline: none;}
+
+.zan-thumb {height: 166px; background: #f5f5f5; overflow: hidden; padding: 0; border-radius: 3px;}
+.zan-thumb img {display: block; width: 100%;}

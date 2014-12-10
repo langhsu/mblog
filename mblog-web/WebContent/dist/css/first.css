@@ -1,0 +1,238 @@
+body {
+	font-family: "Microsoft Yahei","STHeiti","SimSun","Arail","Verdana","Helvetica","sans-serif";
+}
+
+#nav {
+	position: relative;
+	z-index: 2;
+	border-bottom: none;
+	padding: 20px 0;
+}
+
+#nav .navPublic .navTop>li a.btn-link {
+	color: #eee;
+	text-decoration: underline;
+}
+
+#nav .navPublic .navTop>li a.active {
+	color: #fff;
+}
+
+#nav h1 {
+	margin: 0;
+	padding: 0;
+}
+
+.hero-unit {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	max-height: 100%;
+	background-image: url("../images/first/hero-home03.jpg");
+	background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	-ms-background-size: cover;
+	background-position: center;
+}
+
+.hero-unit h1, .hero-unit h2 {
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+	text-align: center;
+}
+
+.hero-unit h1 {
+	font-size: 50px;
+	line-height: 60px;
+}
+
+.hero-unit .signupForm h1 {
+	letter-spacing: -2px;
+}
+
+.hero-unit h2 {
+	font-style: italic;
+	font-weight: 500;
+	margin: 0 auto 40px;
+}
+
+.hero-unit .container {
+	position: relative;
+	height: 100%;
+}
+
+.hero-unit .signup-form-block {
+	background-color: rgba(255, 255, 255, .25);
+	padding: 15px;
+	border-radius: 8px;
+}
+
+.hero-unit .signupForm .input-bigger {
+	height: 56px;
+	padding: 10px 18px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-color: #fff;
+}
+
+.hero-unit .btn-uppercase {
+	text-transform: uppercase;
+}
+
+.hero-unit .signupForm .btn-bigger {
+	padding: 16px 16px;
+	font-size: 17px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+.hero-unit .signupForm {
+	margin-top: 18%;
+}
+
+.hero-unit .signupForm #password_icon.btn-danger {
+	background: #eee;
+}
+
+.hero-unit .signupForm #password_icon.checkpswd {
+	position: absolute;
+	bottom: 5px;
+	left: 26px;
+	right: 26px;
+	height: 2px;
+}
+
+.hero-unit .getmore {
+	position: absolute;
+	bottom: 24px;
+	width: 52px;
+	height: 52px;
+	display: block;
+	left: 50%;
+	margin-left: -26px;
+	transition: ease all .4s;
+	-webkit-transition: ease all .4s;
+	-moz-transition: ease all .4s;
+	-o-transition: ease all .4s;
+}
+
+.hero-unit .getmore:hover {
+	bottom: 10px;
+	transition: ease all .6s;
+	-webkit-transition: ease all .6s;
+	-moz-transition: ease all .6s;
+	-o-transition: ease all .6s;
+}
+
+.hero-unit .getmore .icon-bar {
+	width: 24px;
+	height: 2px;
+	display: block;
+	background-color: #fff;
+}
+
+.hero-unit .getmore .icon-bar-left {
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	position: relative;
+	top: 27px;
+	left: 4px;
+}
+
+.hero-unit .getmore .icon-bar-right {
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	position: relative;
+	top: 25px;
+	left: 20px;
+}
+
+#footer {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: #fff;
+	border-top: 1px solid #ddd;
+	padding: 50px 0 10px 0;
+	overflow: hidden;
+}
+
+#footer .copyright {
+	border-top: 1px solid #ddd;
+	color: #464d55;
+	margin-top: 50px;
+	padding: 10px 0 0;
+	font-size: 13px;
+	line-height: 33px;
+}
+
+#footer .copyright a {
+	color: #777;
+	font-size: 13px;
+}
+
+/**************************************************************************************
+*
+* BUTTONS
+*
+**************************************************************************************/
+a.btn-outline-inverse {
+	color: #fff;
+	background-color: transparent;
+	border-color: #fff;
+}
+
+.btn-red {
+	background-color: #e67862;
+	border: 1px solid #e1644f;
+	color: #fff;
+}
+
+.btn-red:hover, .btn-red:focus, .btn-red:active {
+	color: #fff;
+	background-color: #df5736;
+	border-color: #c34e2e;
+}
+
+.login-attractive, .signup-attractive {
+	border-width: 2px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border-radius: 50px;
+	padding: 8px 18px;
+	background-color: rgba(255, 255, 255, .25) !important;
+	font-size: 14px;
+}
+
+.login-attractive:hover, .signup-attractive:hover {
+	background-color: #fff !important;
+	transition: ease background-color 0.4s;
+}
+
+.gallery-attractive {
+	border-width: 2px;
+	font-weight: 700;
+	text-transform: uppercase;
+	border-radius: 50px;
+	padding: 8px 18px;
+	font-size: 14px;
+	margin-left: 8px;
+}
+
+.navPublic a span {
+	margin-right: 5px;
+}

@@ -1,0 +1,56 @@
+#set($title=$!{ret.title})
+#set($layout="layout/blog.vm")
+#set($bodyClass="home blog dark-skin fullwidth entry-columns-3 no-sidebar breadcrumbs-enabled image-rendering")
+
+<div id="primary" class="content-area clr">
+	<div id="content" class="site-content left-content clr" role="main">
+		<div id="blog-wrap" class="clr masonry-grid">
+			
+			#foreach($row in $paging.results)
+			<article class="loop-entry masonry-entry span_1_of_3 col clr">
+				#if($row.type == 'image' && ${row.snapshot.preview})
+				<div class="loop-entry-thumbnail">
+					<a href="$base/browse/detail/${row.id}">
+						<img src="$base${row.snapshot.preview}"/>
+    				</a>
+				</div>
+				#end
+				<!-- .post-entry-thumbnail -->
+				<div class="loop-entry-content clr">
+					<div class="loop-entry-excerpt entry clr">
+						${row.summary}
+					</div>
+					<!-- .loop-entry-excerpt -->
+				</div>
+				<!-- .loop-entry-content -->
+
+				<div class="loop-entry-meta clr">
+					<div class="loop-entry-meta-date">
+						<span class="strong">发布:</span> $date.format('yyyy-MM-dd HH:mm', $row.created)
+					</div>
+					<div class="loop-entry-meta-category">
+						<span class="strong">标签:</span> $!{row.tags}
+					</div>
+				</div>
+				<!-- .loop-entry-meta -->
+			</article>
+			<!-- .loop-entry -->
+			#end
+        </div>
+		
+		<!-- #blog-wrap -->
+		<div class="page-jump clr">
+			<div class="newer-posts alignleft"></div>
+			<div class="older-posts alignright">
+				<a href="$base/browse/gallery_snippet/2">Older
+					Posts &rarr;</a>
+			</div>
+		</div>
+    </div>
+</div>
+	
+<script type="text/javascript">
+$(function(){
+	
+});
+</script>
