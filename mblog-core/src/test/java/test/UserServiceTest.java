@@ -3,9 +3,9 @@
  */
 package test;
 
-import hilo.core.persist.entity.UserPO;
-import hilo.core.pojos.User;
 import junit.framework.TestCase;
+import mblog.core.persist.entity.UserPO;
+import mblog.core.pojos.User;
 
 import org.junit.Test;
 import org.springframework.util.Assert;

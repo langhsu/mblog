@@ -40,7 +40,7 @@
 	<mvc:resources mapping="*.html" location="/" />
 	
 	<!-- Web层基于注解的扫描路径 -->
-	<context:component-scan base-package="hilo.web.controller" />
+	<context:component-scan base-package="mblog.web.controller" />
 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
 		<property name="toolboxConfigLocation" value="/WEB-INF/tool.xml" />
@@ -90,10 +90,10 @@
             <!-- 需排除拦截的地址 -->
             <mvc:exclude-mapping path="/login"/>
             <mvc:exclude-mapping path="/reg"/>
-            <bean class="hilo.web.interceptor.AccessInterceptor"/>
+            <bean class="mblog.web.interceptor.AccessInterceptor"/>
         </mvc:interceptor>
         
-        <bean class="hilo.web.interceptor.BaseInterceptor"/>  
+        <bean class="mblog.web.interceptor.BaseInterceptor"/>  
     </mvc:interceptors>
     
 </beans>

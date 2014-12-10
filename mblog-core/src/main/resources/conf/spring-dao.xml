@@ -39,7 +39,7 @@
 		<!-- Entity package -->
 		<property name="packagesToScan">
 			<list>
-				<value>hilo.core.persist.entity</value>
+				<value>mblog.core.persist.entity</value>
 			</list>
 		</property>
 		<property name="dataSource" ref="dataSource" />
