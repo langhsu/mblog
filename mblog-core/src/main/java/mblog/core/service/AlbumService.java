@@ -12,6 +12,6 @@ import mblog.core.pojos.Album;
  *
  */
 public interface AlbumService {
-	List<Album> list(int projectId, long toId);
+	List<Album> list(long toId);
 	long add(Album album);
 }

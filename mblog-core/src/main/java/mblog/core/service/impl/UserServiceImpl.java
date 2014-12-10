@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 		UserPO po = userDao.get(user.getId());
 		if (null != po) {
 			po.setEmail(user.getEmail());
-			po.setNickname(user.getNickname());
+			po.setName(user.getName());
 		}
 		
 		return wrapperProfile(po);
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 	
 	private UserProfile wrapperProfile(UserPO po) {
 		UserProfile profile = new UserProfile(po.getId(), po.getUsername());
-		profile.setNickname(po.getNickname());
+		profile.setName(po.getName());
 		profile.setEmail(po.getEmail());
 		profile.setLastLogin(po.getLastLogin());
 		profile.setStatus(po.getStatus());

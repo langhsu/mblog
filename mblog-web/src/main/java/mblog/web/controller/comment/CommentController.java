@@ -26,21 +26,17 @@ public class CommentController extends BaseController {
 	private CommentService commentService;
 	
 	@RequestMapping("/list")
-	public @ResponseBody Paging view(Integer pageNo, Integer projectId, long contentId) {
-		if (projectId == null) {
-			projectId = 1;
-		}
+	public @ResponseBody Paging view(Integer pageNo, long contentId) {
 		Paging paging = wrapPaging(pageNo);
-		commentService.paging(paging, projectId, contentId);
+		commentService.paging(paging, contentId);
 		return paging;
 	}
 	
 	@RequestMapping("/j_post")
-	public @ResponseBody Data post(Integer projectId, Long contentId, String content) {
+	public @ResponseBody Data post(Long contentId, String content) {
 		Data data = Data.failure("failure");
 		if (contentId > 0 && StringUtils.isNotEmpty(content)) {
 			Comment c = new Comment();
-			c.setProjectId(projectId);
 			c.setToId(contentId);
 			c.setContent(content);
 			commentService.post(c);

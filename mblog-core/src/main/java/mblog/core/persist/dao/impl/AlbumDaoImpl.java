@@ -23,11 +23,8 @@ public class AlbumDaoImpl extends DaoImpl<AlbumPO> implements AlbumDao {
 	}
 
 	@Override
-	public List<AlbumPO> list(int projectId, long toId) {
+	public List<AlbumPO> list(long toId) {
 		TopQuery<AlbumPO> q = topQuery(0);
-		if (projectId > 0) {
-			q.add(Restrictions.eq("project.id", projectId));
-		}
 		q.add(Restrictions.eq("toId", toId));
 		return q.list();
 	}

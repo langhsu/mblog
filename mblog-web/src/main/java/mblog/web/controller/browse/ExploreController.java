@@ -22,12 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ExploreController extends BaseController {
 	@Autowired
 	private MblogService mblogService;
-	private int projectId = 1;
 	
 	@RequestMapping("/explore")
 	public String view(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
-		mblogService.paging(paging, projectId);
+		mblogService.paging(paging);
 		model.put("paging", paging);
 		return "/browse/explore";
 	}
@@ -35,7 +34,7 @@ public class ExploreController extends BaseController {
 	@RequestMapping("/explore_json")
 	public @ResponseBody Paging ajax(Integer pageNo) {
 		Paging paging = wrapPaging(pageNo);
-		mblogService.paging(paging, projectId);
+		mblogService.paging(paging);
 		return paging;
 	}
 	

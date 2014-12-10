@@ -10,14 +10,11 @@ package mblog.core.pojos;
 public class Album {
 	private long id;
 	private long toId;
-	private Project project;
 	private String original;
 	private String preview;
 	private int width;
 	private int height;
 	private int status;
-	
-	private int projectId;
 	
 	public long getId() {
 		return id;
@@ -35,14 +32,6 @@ public class Album {
 		this.toId = toId;
 	}
 
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
 	public String getOriginal() {
 		return original;
 	}
@@ -57,14 +46,6 @@ public class Album {
 
 	public void setPreview(String preview) {
 		this.preview = preview;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public int getStatus() {

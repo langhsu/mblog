@@ -13,5 +13,5 @@ import mtons.commons.persist.Dao;
  *
  */
 public interface AlbumDao extends Dao<AlbumPO> {
-	List<AlbumPO> list(int projectId, long toId);
+	List<AlbumPO> list(long toId);
 }

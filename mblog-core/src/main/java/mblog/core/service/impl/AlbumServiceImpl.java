@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mblog.core.persist.dao.AlbumDao;
-import mblog.core.persist.dao.ProjectDao;
 import mblog.core.persist.entity.AlbumPO;
 import mblog.core.pojos.Album;
 import mblog.core.service.AlbumService;
@@ -23,15 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class AlbumServiceImpl implements AlbumService {
 	@Autowired
 	private AlbumDao albumDao;
-	@Autowired
-	private ProjectDao projectDao;
 	
-	private static String[] IGNORE = new String[]{"project"};
+	private static String[] IGNORE = new String[]{};
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Album> list(int projectId, long toId) {
-		List<AlbumPO> list = albumDao.list(projectId, toId);
+	public List<Album> list(long toId) {
+		List<AlbumPO> list = albumDao.list(toId);
 		List<Album> rets = new ArrayList<Album>();
 		for (AlbumPO po : list) {
 			rets.add(toVo(po));
@@ -44,7 +41,6 @@ public class AlbumServiceImpl implements AlbumService {
 	public long add(Album album) {
 		AlbumPO po = new AlbumPO();
 		BeanUtils.copyProperties(album, po, IGNORE);
-		po.setProject(projectDao.get(album.getProjectId()));
 		albumDao.save(po);
 		return po.getId();
 	}

@@ -22,12 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GalleryController extends BaseController {
 	@Autowired
 	private MblogService mblogService;
-	private int projectId = 1;
 	
 	@RequestMapping("/gallery")
 	public String view(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
-		mblogService.paging(paging, projectId);
+		mblogService.paging(paging);
 		model.put("paging", paging);
 		return "/browse/gallery";
 	}
@@ -35,7 +34,7 @@ public class GalleryController extends BaseController {
 	@RequestMapping("/gallery_snippet/{pageNo}")
 	public String snippet(@PathVariable Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
-		mblogService.paging(paging, projectId);
+		mblogService.paging(paging);
 		model.put("paging", paging);
 		return "/browse/snippet";
 	}

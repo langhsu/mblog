@@ -14,7 +14,7 @@ import mtons.commons.pojos.Paging;
  *
  */
 public interface MblogDao extends Dao<MblogPO> {
-	List<MblogPO> paging(Paging paging, int projectId);
+	List<MblogPO> paging(Paging paging);
 	List<MblogPO> pagingByUserId(Paging paging, long userId);
 	List<MblogPO> recents(int maxResutls, long ignoreUserId);
 }

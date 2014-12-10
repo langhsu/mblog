@@ -24,12 +24,9 @@ public class CommentDaoImpl extends DaoImpl<CommentPO> implements CommentDao {
 	}
 
 	@Override
-	public List<CommentPO> paging(Paging paging, int projectId, long contentId) {
+	public List<CommentPO> paging(Paging paging, long toId) {
 		PagingQuery<CommentPO> q = pagingQuery(paging);
-		if (projectId > 0) {
-			q.add(Restrictions.eq("project.id", projectId));
-		}
-		q.add(Restrictions.eq("toId", contentId));
+		q.add(Restrictions.eq("toId", toId));
 		q.desc("created");
 		return q.list();
 	}

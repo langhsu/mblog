@@ -126,8 +126,7 @@
 			var opts = this.options;
 			
 			var cid = $('#contentId').val();
-			var pid = $('#projectId').val();
-			jQuery.getJSON(opts.loadUrl, {contentId: cid, projectId: pid}, function(ret){
+			jQuery.getJSON(opts.loadUrl, {contentId: cid}, function(ret){
 				if(ret){
 					$('#c_count').text(ret.totalCount);
 	          		jQuery.each(ret.results, function(i, n) {
@@ -154,11 +153,10 @@
 				alert('内容过长，请输入255以内个字符');
 			}
 			var cid = $('#contentId').val();
-			var pid = $('#projectId').val();
 			
 			jQuery.ajax({
 				url: opts.postUrl, 
-				data: {contentId: cid, projectId: pid, content: content},
+				data: {contentId: cid, content: content},
 				dataType: "json",
 				type :  "POST",
 				cache : false,

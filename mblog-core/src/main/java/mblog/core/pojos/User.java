@@ -6,7 +6,7 @@ public class User {
 	private long id;
 	private String username;
 	private String password;
-	private String nickname;
+	private String name;
 	private String email;
 	private String mobile;
 	private Date created;
@@ -37,12 +37,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getName() {
+		return name;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {

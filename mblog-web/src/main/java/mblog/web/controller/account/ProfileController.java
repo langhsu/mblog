@@ -28,11 +28,11 @@ public class ProfileController extends BaseController {
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-	public String post(String nickname, String email) {
+	public String post(String name, String email) {
 		User user = new User();
 		user.setId(getProfile().getId());
 		user.setEmail(email);
-		user.setNickname(nickname);
+		user.setName(name);
 		putProfile(userService.update(user));
 		return "/account/profile";
 	}

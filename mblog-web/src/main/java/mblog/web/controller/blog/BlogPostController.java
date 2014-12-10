@@ -11,7 +11,6 @@ import mblog.core.context.AppContext;
 import mblog.core.pojos.Album;
 import mblog.core.pojos.Mblog;
 import mblog.core.service.MblogService;
-import mblog.core.service.ProjectService;
 import mblog.web.controller.BaseController;
 import mtons.commons.utils.GMagickUtils;
 
@@ -33,8 +32,6 @@ public class BlogPostController extends BaseController {
 	@Autowired
 	private MblogService mblogService;
 	@Autowired
-	private ProjectService projectService;
-	@Autowired
 	private AppContext appContext;
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
@@ -47,7 +44,6 @@ public class BlogPostController extends BaseController {
 	public String post(Mblog blog) {
 		if (blog != null) {
 			handleAlbums(blog.getAlbums());
-			blog.setProjectId(1);
 			mblogService.add(blog);
 		}
 		return "redirect:/home";

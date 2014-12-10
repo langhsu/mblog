@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import mblog.core.persist.dao.CommentDao;
-import mblog.core.persist.dao.ProjectDao;
 import mblog.core.persist.dao.UserDao;
 import mblog.core.persist.entity.CommentPO;
 import mblog.core.pojos.Comment;
@@ -32,15 +31,13 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDao commentDao;
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private ProjectDao projectDao;
 	
-	private static String[] IGNORE = new String[]{"owner", "project"};
+	private static String[] IGNORE = new String[]{"owner"};
 	
 	@Override
 	@Transactional(readOnly = true)
-	public void paging(Paging paging, int projectId, long contentId) {
-		List<CommentPO> list = commentDao.paging(paging, projectId, contentId);
+	public void paging(Paging paging, long toId) {
+		List<CommentPO> list = commentDao.paging(paging, toId);
 		List<Comment> rets = new ArrayList<Comment>();
 		for (CommentPO po : list) {
 			rets.add(toVo(po));
@@ -57,7 +54,6 @@ public class CommentServiceImpl implements CommentService {
 		Assert.notNull(up, "not login");
 		
 		po.setOwner(userDao.get(up.getId()));
-		po.setProject(projectDao.get(comment.getProjectId()));
 		po.setToId(comment.getToId());
 		po.setContent(comment.getContent());
 		po.setCreated(new Date());
@@ -74,7 +70,7 @@ public class CommentServiceImpl implements CommentService {
 			User u = new User();
 			u.setId(po.getOwner().getId());
 			u.setUsername(po.getOwner().getUsername());
-			u.setNickname(po.getOwner().getNickname());
+			u.setName(po.getOwner().getName());
 			d.setOwner(u);
 		}
 		return d;

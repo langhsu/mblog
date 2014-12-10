@@ -64,7 +64,6 @@
 				<div id="respond" class="comment-respond">
 					<h3 id="reply-title" class="comment-reply-title">发表评论</h3>
 					<input type="hidden" id="contentId" value="${ret.id}"/>
-					<input type="hidden" id="projectId" value="${ret.projectId}"/>
 					<p class="comment-form-comment">
 						<textarea id="c_content" class="form-control" rows="3" placeholder="说点什么吧…"></textarea>
 					</p>

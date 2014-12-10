@@ -11,6 +11,6 @@ import mtons.commons.pojos.Paging;
  *
  */
 public interface CommentService {
-	void paging(Paging paging, int projectId, long contentId);
+	void paging(Paging paging, long toId);
 	long post(Comment comment);
 }

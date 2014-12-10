@@ -13,7 +13,7 @@ import mtons.commons.pojos.Paging;
  *
  */
 public interface MblogService {
-	void paging(Paging paging, int projectId);
+	void paging(Paging paging);
 	void pagingByUserId(Paging paging, long userId);
 	
 	List<Mblog> recents(int maxResutls, long ignoreUserId);

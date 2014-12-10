@@ -29,9 +29,6 @@ public class MblogPO {
 	
 	private String type;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id")
-	private ProjectPO project;
 	private String title;
 	
 	private String summary;
@@ -51,8 +48,8 @@ public class MblogPO {
 	private Date updated;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "owner_id")
-	private UserPO owner;
+	@JoinColumn(name = "author_id")
+	private UserPO author;
 	
 	private int status;
 
@@ -70,14 +67,6 @@ public class MblogPO {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public ProjectPO getProject() {
-		return project;
-	}
-
-	public void setProject(ProjectPO project) {
-		this.project = project;
 	}
 
 	public String getTitle() {
@@ -136,12 +125,12 @@ public class MblogPO {
 		this.updated = updated;
 	}
 
-	public UserPO getOwner() {
-		return owner;
+	public UserPO getAuthor() {
+		return author;
 	}
 
-	public void setOwner(UserPO owner) {
-		this.owner = owner;
+	public void setAuthor(UserPO author) {
+		this.author = author;
 	}
 
 	public int getStatus() {

@@ -24,11 +24,8 @@ public class MblogDaoImpl extends DaoImpl<MblogPO> implements MblogDao {
 	}
 
 	@Override
-	public List<MblogPO> paging(Paging paging, int projectId) {
+	public List<MblogPO> paging(Paging paging) {
 		PagingQuery<MblogPO> q = pagingQuery(paging);
-		if (projectId > 0) {
-			q.add(Restrictions.eq("project.id", projectId));
-		}
 		q.desc("created");
 		return q.list();
 	}

@@ -5,12 +5,9 @@ package mblog.core.persist.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,10 +23,6 @@ public class AlbumPO {
 	
 	@Column(name = "to_id")
 	private long toId;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id")
-	private ProjectPO project;
 	
 	private String original;
 	
@@ -55,14 +48,6 @@ public class AlbumPO {
 
 	public void setToId(long toId) {
 		this.toId = toId;
-	}
-
-	public ProjectPO getProject() {
-		return project;
-	}
-
-	public void setProject(ProjectPO project) {
-		this.project = project;
 	}
 
 	public String getOriginal() {

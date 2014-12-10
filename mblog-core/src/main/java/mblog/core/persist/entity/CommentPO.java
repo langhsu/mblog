@@ -29,10 +29,6 @@ public class CommentPO {
 	@Column(name = "to_id")
 	private long toId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id")
-	private ProjectPO project;
-	
 	@Column(name = "content")
 	private String content;
 	
@@ -59,14 +55,6 @@ public class CommentPO {
 
 	public void setToId(long toId) {
 		this.toId = toId;
-	}
-
-	public ProjectPO getProject() {
-		return project;
-	}
-
-	public void setProject(ProjectPO project) {
-		this.project = project;
 	}
 
 	public String getContent() {

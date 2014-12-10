@@ -9,12 +9,10 @@ import java.util.List;
 
 import mblog.core.persist.dao.AlbumDao;
 import mblog.core.persist.dao.MblogDao;
-import mblog.core.persist.dao.ProjectDao;
 import mblog.core.persist.dao.UserDao;
 import mblog.core.persist.entity.MblogPO;
 import mblog.core.pojos.Album;
 import mblog.core.pojos.Mblog;
-import mblog.core.pojos.Project;
 import mblog.core.pojos.User;
 import mblog.core.service.AlbumService;
 import mblog.core.service.MblogService;
@@ -41,16 +39,14 @@ public class MblogServiceImpl implements MblogService {
 	private AlbumService albumService;
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private ProjectDao projectDao;
 	
-	private static String[] IGNORE = new String[]{"owner", "project", "snapshot"};
-	private static String[] IGNORE_LIST = new String[]{"owner", "project", "snapshot", "content"};
+	private static String[] IGNORE = new String[]{"author", "project", "snapshot"};
+	private static String[] IGNORE_LIST = new String[]{"author", "project", "snapshot", "content"};
 	
 	@Override
 	@Transactional(readOnly = true)
-	public void paging(Paging paging, int projectId) {
-		List<MblogPO> list = mblogDao.paging(paging, projectId);
+	public void paging(Paging paging) {
+		List<MblogPO> list = mblogDao.paging(paging);
 		List<Mblog> rets = new ArrayList<Mblog>();
 		for (MblogPO po : list) {
 			rets.add(toVo(po, 0));
@@ -82,39 +78,37 @@ public class MblogServiceImpl implements MblogService {
 	
 	@Override
 	@Transactional
-	public void add(Mblog weblog) {
-		MblogPO po = mblogDao.get(weblog.getId());
+	public void add(Mblog post) {
+		MblogPO po = mblogDao.get(post.getId());
 		if (po != null) {
 			po.setUpdated(new Date());
 			// po.setProject(projectDao.get(art.getProjectId()));
-			po.setTitle(weblog.getTitle());
-			po.setContent(weblog.getContent());
-			po.setSummary(trimSummary(weblog.getContent()));
-			po.setTags(weblog.getTags());
+			po.setTitle(post.getTitle());
+			po.setContent(post.getContent());
+			po.setSummary(trimSummary(post.getContent()));
+			po.setTags(post.getTags());
 		} else {
 			po = new MblogPO();
 			UserProfile up = UserContextHolder.getUserProfile();
 			
-			po.setOwner(userDao.get(up.getId()));
-			po.setProject(projectDao.get(weblog.getProjectId()));
+			po.setAuthor(userDao.get(up.getId()));
 			po.setCreated(new Date());
 			po.setStatus(EntityStatus.ENABLED);
 			
 			// content
-			po.setType(weblog.getType());
-			po.setTitle(weblog.getTitle());
-			po.setContent(weblog.getContent());
-			po.setSummary(trimSummary(weblog.getContent())); // summary handle
-			po.setTags(weblog.getTags());
+			po.setType(post.getType());
+			po.setTitle(post.getTitle());
+			po.setContent(post.getContent());
+			po.setSummary(trimSummary(post.getContent())); // summary handle
+			po.setTags(post.getTags());
 			
 			mblogDao.save(po);
 		}
 		
 		// album handle
-		if (weblog.getAlbums() != null) {
-			for (int i = 0; i < weblog.getAlbums().size(); i++) {
-				Album a = weblog.getAlbums().get(i);
-				a.setProjectId(weblog.getProjectId());
+		if (post.getAlbums() != null) {
+			for (int i = 0; i < post.getAlbums().size(); i++) {
+				Album a = post.getAlbums().get(i);
 				a.setToId(po.getId());
 				long id = albumService.add(a);
 				if (i == 0) {
@@ -132,7 +126,7 @@ public class MblogServiceImpl implements MblogService {
 		if (po != null) {
 			d = toVo(po, 1);
 		}
-		List<Album> albs = albumService.list(d.getProjectId(), d.getId());
+		List<Album> albs = albumService.list(d.getId());
 		d.setAlbums(albs);
 		return d;
 	}
@@ -146,19 +140,12 @@ public class MblogServiceImpl implements MblogService {
 			BeanUtils.copyProperties(po, d, IGNORE_LIST);
 		}
 		
-		if (po.getOwner() != null) {
+		if (po.getAuthor() != null) {
 			User u = new User();
-			u.setId(po.getOwner().getId());
-			u.setUsername(po.getOwner().getUsername());
-			u.setNickname(po.getOwner().getNickname());
-			d.setOwner(u);
-		}
-		if (po.getProject() != null) {
-			Project c = new Project();
-			c.setId(po.getProject().getId());
-			c.setName(po.getProject().getName());
-			d.setProject(c);
-			d.setProjectId(po.getProject().getId());
+			u.setId(po.getAuthor().getId());
+			u.setUsername(po.getAuthor().getUsername());
+			u.setName(po.getAuthor().getName());
+			d.setAuthor(u);
 		}
 		if (po.getSnapshot() != null) {
 			Album a = new Album();

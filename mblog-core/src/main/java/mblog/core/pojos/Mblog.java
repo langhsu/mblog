@@ -13,7 +13,6 @@ import java.util.List;
 public class Mblog {
 	private long id;
 	private String type;
-	private Project project;
 	private String title;
 	private String summary;
 	private String content;
@@ -21,11 +20,10 @@ public class Mblog {
 	private String tags;
 	private Date created;
 	private Date updated;
-	private User owner;
+	private User author;
 	private int status;
 
 	// extends
-	private int projectId;
 	private List<Album> albums;
 
 	public long getId() {
@@ -42,14 +40,6 @@ public class Mblog {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
 	}
 
 	public String getTitle() {
@@ -108,12 +98,12 @@ public class Mblog {
 		this.updated = updated;
 	}
 
-	public User getOwner() {
-		return owner;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setOwner(User owner) {
-		this.owner = owner;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	public int getStatus() {
@@ -122,14 +112,6 @@ public class Mblog {
 
 	public void setStatus(int status) {
 		this.status = status;
-	}
-
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
 	}
 
 	public List<Album> getAlbums() {

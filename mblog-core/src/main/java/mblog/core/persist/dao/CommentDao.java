@@ -14,5 +14,5 @@ import mtons.commons.pojos.Paging;
  *
  */
 public interface CommentDao extends Dao<CommentPO> {
-	List<CommentPO> paging(Paging paging, int projectId, long contentId);
+	List<CommentPO> paging(Paging paging, long toId);
 }
