@@ -1,59 +1,42 @@
-
-<div id="header-wrap" class="clr">
-	<header id="header" class="site-header clr container" role="banner">
-
-		<div id="logo" class="clr">
-			<a href="http://www.mtons.com" title="Mtons"
-				rel="home"><img
-				src="$base/dist/images/ico/logo.png"
-				alt="Mtons" /></a>
-			<div class="blog-description">Photography masonry blog theme</div>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand logo" href="https://www.mtons.com"><img src="$base/dist/images/logo/m.png"></a>
 		</div>
-		<!-- #logo -->
-		
-		#if($profile)
-				<a href="$base/account/profile" class="btn btn-link white" title="settings">
-					<span class="glyphicon glyphicon-cog"></span> $!{profile.username}
-				</a>
-				<a href="$base/logout" class="btn btn-link white" title="Sign out">
-					<span class="glyphicon glyphicon-log-out"></span>
-				</a>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="$base/home">我的首页</a>
+				</li>
+				<li>
+					<a href="$base/browse/explore">发现</a>
+				</li>
+				<li>
+					<a href="$base/browse/gallery">走廊</a>
+				</li>
+					
+				#if($profile)
+				<li>
+    				<a href="$base/account/profile" class="btn btn-link white" title="settings">
+    					<span class="glyphicon glyphicon-cog"></span> $!{profile.username}
+    				</a>
+				</li>
+				<li>
+    				<a href="$base/logout" class="btn btn-link white" title="Sign out">
+    					<span class="glyphicon glyphicon-log-out"></span>
+    				</a>
+				</li>
 				#else
-				<a href="$base/login" class="btn btn-primary">登录</a>
-                <a href="$base/reg" class="btn btn-info">注册</a>
-		#end
-		
-	</header>
-	<!-- #header -->
-</div>
-<!-- #header-wrap -->
-
-<div id="site-navigation-wrap" class="clr sticky-nav">
-	<div id="site-navigation-inner" class="clr">
-		<div id="sidr-close">
-			<a href="#sidr-close" class="toggle-sidr-close"></a>
+				<li><a href="$base/login">登录</a></li>
+                <li><a href="$base/reg">注册</a></li>
+				#end
+			</ul>
 		</div>
-		<nav id="site-navigation" class="navigation main-navigation clr container" role="navigation">
-			<a href="#mobile-nav" class="navigation-toggle">
-				<span class="fa fa-bars navigation-toggle-icon"></span>
-				<span class="navigation-toggle-text">Click here to navigate</span>
-			</a>
-			<div class="menu-main-container">
-				<ul id="menu-main" class="main-nav menu-dropdown sf-menu">
-					<li class="menu-item menu-item-home #current-menu-ancestor">
-						<a href="$base/home">我的首页</a>
-					</li>
-					<li class="menu-item menu-item-has-children">
-						<a href="$base/browse/explore">发现</a>
-					</li>
-					<li id="menu-item-35" class="menu-item">
-						<a href="$base/browse/gallery">走廊</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		<!-- #site-navigation -->
 	</div>
-	<!-- #site-navigation-inner -->
-</div>
-<!-- #site-navigation-wrap -->
+</nav>

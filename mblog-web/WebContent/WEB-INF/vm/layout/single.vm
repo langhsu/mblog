@@ -32,7 +32,9 @@
 	#parse("/inc/header.vm")
 	
 	<section class="site-main container">
-		${screen_content}
+		<div class="site-content">
+			${screen_content}
+        </div>
     </section>
 	<!--.site-main -->
 	
@@ -43,7 +45,7 @@
 	<script type="text/javascript">
     $(function(){
     	$("img").lazyload({
-    		 placeholder : "$base/images/spinner.gif",
+    		 placeholder : "./images/spinner.gif",
     		 effect      : "fadeIn"
     	});
 		

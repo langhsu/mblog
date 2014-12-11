@@ -2,6 +2,20 @@ body {
 	font-family: "Microsoft Yahei","STHeiti","SimSun","Arail","Verdana","Helvetica","sans-serif";
 }
 
+.logo {float: left; padding: 8px; font-size: 18px; line-height: 20px; height: 50px;}
+.logo img {width: 40px; height: 40px;}
+
+.navbar-toggle {
+color: #fff;
+background-color: transparent;
+border-color: #fff;
+}
+
+.navbar-toggle .icon-bar {
+	background-color: #fff;
+	color: #fff;
+}
+
 #nav {
 	position: relative;
 	z-index: 2;
@@ -221,16 +235,6 @@ a.btn-outline-inverse {
 .login-attractive:hover, .signup-attractive:hover {
 	background-color: #fff !important;
 	transition: ease background-color 0.4s;
-}
-
-.gallery-attractive {
-	border-width: 2px;
-	font-weight: 700;
-	text-transform: uppercase;
-	border-radius: 50px;
-	padding: 8px 18px;
-	font-size: 14px;
-	margin-left: 8px;
 }
 
 .navPublic a span {

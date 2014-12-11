@@ -1,30 +1,21 @@
 #set($layout="layout/noop.vm")
 
 #foreach($row in $paging.results)
-<article class="loop-entry masonry-entry span_1_of_3 col clr">
+<article class="loop masonry-entry span_1_of_3 col ">
 	#if($row.type == 'image' && ${row.snapshot.preview})
-	<div class="loop-entry-thumbnail">
+	<figure class="thumbnail zan-thumb">
 		<a href="$base/browse/detail/${row.id}">
 			<img src="$base${row.snapshot.preview}"/>
 		</a>
-	</div>
+	</figure>
 	#end
 	<!-- .post-entry-thumbnail -->
-	<div class="loop-entry-content clr">
-		<div class="loop-entry-excerpt entry clr">
-			${row.summary}
-		</div>
-		<!-- .loop-entry-excerpt -->
+	<div class="zan-outline">
+		${row.summary}
 	</div>
 	<!-- .loop-entry-content -->
-
-	<div class="loop-entry-meta clr">
-		<div class="loop-entry-meta-date">
-			<span class="strong">发布:</span> $date.format('yyyy-MM-dd HH:mm', $row.created)
-		</div>
-		<div class="loop-entry-meta-category">
-			<span class="strong">标签:</span> $!{row.tags}
-		</div>
+	<div class="loop-meta">
+		<span>发布: $date.format('yyyy-MM-dd HH:mm', $row.created)</span>
 	</div>
 	<!-- .loop-entry-meta -->
 </article>

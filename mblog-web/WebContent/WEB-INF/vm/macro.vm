@@ -9,28 +9,26 @@
 #end
 
 #macro(showmb $row)
-	<div class="row">
-		#if($row.type == 'image' && ${row.snapshot.preview})
-    		<div class="col-md-5">
-    			<figure class="thumbnail zan-thumb">
-    				<a href="$base/browse/detail/${row.id}">
-						<img src="$base/dist/images/spinner.gif" original="$base${row.snapshot.preview}"/>
-    				</a>
-    			</figure>  
-    		</div>        
-    		<div class="col-md-7 zan-outline">
-				<div class="loop-entry-excerpt entry clr">
-					${row.summary}
-				</div>
+	#if($row.type == 'image' && ${row.snapshot.preview})
+		<div class="col-md-5">
+			<figure class="thumbnail zan-thumb">
+				<a href="$base/browse/detail/${row.id}">
+					<img src="$base/dist/images/spinner.gif" original="$base${row.snapshot.preview}"/>
+				</a>
+			</figure>  
+		</div>        
+		<div class="col-md-7 zan-outline">
+			<div class="loop-entry-excerpt entry clr">
+				${row.summary}
 			</div>
-		#else
-			<div class="col-md-12">
-				<div class="loop-entry-excerpt entry clr">
-					${row.summary}
-				</div>
+		</div>
+	#else
+		<div class="col-md-12">
+			<div class="loop-entry-excerpt entry clr">
+				${row.summary}
 			</div>
-		#end
-	</div>
+		</div>
+	#end
 #end
         
 #macro (page $url $p $maxList)

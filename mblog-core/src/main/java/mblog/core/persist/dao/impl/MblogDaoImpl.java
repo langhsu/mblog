@@ -34,7 +34,7 @@ public class MblogDaoImpl extends DaoImpl<MblogPO> implements MblogDao {
 	public List<MblogPO> pagingByUserId(Paging paging, long userId) {
 		PagingQuery<MblogPO> q = pagingQuery(paging);
 		if (userId > 0) {
-			q.add(Restrictions.eq("owner.id", userId));
+			q.add(Restrictions.eq("author.id", userId));
 		}
 		q.desc("created");
 		return q.list();
@@ -45,7 +45,7 @@ public class MblogDaoImpl extends DaoImpl<MblogPO> implements MblogDao {
 		TopQuery<MblogPO> q = topQuery(maxResutls);
 		//q.add(Restrictions.eq("type", Const.TYPE_TEXT));
 		if (ignoreUserId > 0) {
-			q.add(Restrictions.ne("owner.id", ignoreUserId));
+			q.add(Restrictions.ne("author.id", ignoreUserId));
 		}
 		q.desc("created");
 		return q.list();

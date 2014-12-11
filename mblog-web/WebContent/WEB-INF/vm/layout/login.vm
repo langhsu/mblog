@@ -17,28 +17,32 @@
 	<script type="text/javascript" src="$base/dist/js/jquery-validate.js"></script>
 	
 	<!-- Favicons -->
-	<link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/ico/mtons.png"/>
-	<link rel="shortcut icon" href="http://mtons.com/dist/images/ico/mtons.png"/>
+	<link rel="apple-touch-icon-precomposed" href="$base/dist/images/logo/m.png"/>
+	<link rel="shortcut icon" href="$base/dist/images/logo/m.png"/>
 	
 </head>
 <body class="default">
 	<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-	<header id="nav">
+	
+	<nav class="navbar navbar-static-top" role="navigation">
 		<div class="container">
-			<h1 class="pull-left">
-				<a href="https://www.mtons.com"><img src="$base/dist/images/ico/mtons-white.png"></a>
-			</h1>
-			<nav class="navPublic">
-				<div class="navTop pull-right">
-					<div class="btn-group">
-						<a href="$base/reg" class="btn btn-outline-inverse login login-attractive">注册</a>
-					</div>
-					<a href="$base/browse/gallery" class="btn btn-red gallery-attractive">
-							<span class="glyphicon glyphicon-th"></span>走廊</a>
-				</div>
-			</nav>
+			<div class="navbar-header">
+				<button id="main_nav_btn" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand logo" href="https://www.mtons.com"><img src="$base/dist/images/logo/m.png"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="$base/reg">注册</a></li>
+					<li><a href="$base/browse/gallery">走廊</a></li>
+				</ul>
+			</div>
 		</div>
-	</header>
+	</nav>
 	
 	${screen_content}
 		
@@ -56,5 +60,12 @@
 			</div>
 		</div>
 	</footer>
+	
+	<script type="text/javascript">
+	$(function() {
+		$("#main_nav_btn").on("click",function(){return $(".navbar").toggleClass("navbar-default")})
+	})
+	</script>
+	
 </body>
 </html>

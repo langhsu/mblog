@@ -40,8 +40,8 @@ public class MblogServiceImpl implements MblogService {
 	@Autowired
 	private UserDao userDao;
 	
-	private static String[] IGNORE = new String[]{"author", "project", "snapshot"};
-	private static String[] IGNORE_LIST = new String[]{"author", "project", "snapshot", "content"};
+	private static String[] IGNORE = new String[]{"author", "snapshot"};
+	private static String[] IGNORE_LIST = new String[]{"author", "snapshot", "content"};
 	
 	@Override
 	@Transactional(readOnly = true)

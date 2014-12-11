@@ -1,101 +1,55 @@
 #set($title=$!{ret.title})
-#set($layout="layout/blog.vm")
-#set($bodyClass="single single-post single-format-standard dark-skin fullwidth entry-columns-3 no-sidebar breadcrumbs-enabled image-rendering")
 
-<div id="primary" class="content-area clr">
-	<div class="site-content left-content clr" role="main">
-		<article class="single-post-article clr">
-			<div class="single-post-media clr">
-				#if($ret.albums)
-					#foreach($row in $ret.albums)
-					<div class="post-thumbnail">
-						<img src="$base/dist/images/spinner.gif" original="$base${row.original}">
-					</div><!-- .post-thumbnail -->	
-					#end
+<div class="sidebar-left">
+	<ol class="breadcrumb">
+		<li><a href="$base/home">Home</a></li>
+		<li><a href="#">admin</a></li>
+	</ol>
+	<div class="posts">
+		<article class="loop clearfix">
+			<section class="loop-content">
+				#if($ret.title)
+				<header class="post-title ">
+					<h2>${ret.title}</h2>
+				</header>
 				#end
-				
-			</div>
-			#if($ret.title)
-			<header class="post-header clr">
-				<h1 class="post-header-title">${ret.title}</h1>
-			</header>
-			#end
-			<div class="entry clr">
-				${ret.content}
-            </div>
-			<div class="post-meta clr">
-				<div class="post-meta-date">
-					<span class="strong">发布:</span> $date.format('yyyy-MM-dd HH:mm:ss', $ret.created)
-				</div>
-				<div class="post-meta-tags">
-					<span class="strong">标签:</span> $!{ret.tags}
-				</div>
-			</div>
-        </article>
-		
-		<!-- comments -->
-		<div id="comments" class="comments-area clr">
-			<div class="comments-title">
-				<span class="fa fa-comments"></span>评论	( <span class="highlight" id="c_count">0</span> )
-			</div>
-			<div class="comments-inner clr">
-				<ol class="commentlist" id="commentlist">
-					<!--
-					<li id="li-comment-27">
-						<article class="comment clr">
-							<div class="comment-author">
-								<img alt="" src="http://0.gravatar.com/avatar/403d47c8b227172b283afd4e3ef7d969?s=45&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D45&amp;r=G" class="avatar avatar-45 photo" height="45" width="45">
-							</div>
-							<div class="comment-details clr">
-								<header class="comment-meta">
-									<cite class="fn"><a href="#" class="url">langhsu</a></cite>
-									<span class="comment-date">
-										<time datetime="2014-03-02T00:50:16+00:00">March 2, 2014</time>
-									</span>
-								</header>
-								<div class="comment-content entry clr">
-									<p>Integer scelerisque est mi, sed viverra sapien condimentum sit amet. Fusce urna mauris, facilisis a sollicitudin eget</p>
-								</div>
-							</div>
-						</article>
-					</li>
-					-->
-                </ol>
-				<div id="respond" class="comment-respond">
-					<h3 id="reply-title" class="comment-reply-title">发表评论</h3>
-					<input type="hidden" id="contentId" value="${ret.id}"/>
-					<p class="comment-form-comment">
-						<textarea id="c_content" class="form-control" rows="3" placeholder="说点什么吧…"></textarea>
-					</p>
-					<div class="post-toolbar">
-						<button id="c_post" class="btn btn-primary" type="button">发布</button>
+				<div class="entry">
+					#if($ret.albums)
+    					#foreach($row in $ret.albums)
+    					<div class="single-post-media">
+    						<img src="$base/dist/images/spinner.gif" original="$base${row.original}" style="display: block;">
+    					</div><!-- .post-thumbnail -->	
+    					#end
+    				#end
+					<div class="zan-outline">
+						${ret.content}
 					</div>
 				</div>
-			</div>
-		</div>
-		<!-- comments -->
-    </div>
+				<div class="post-meta">
+					<div class="post-like">
+						<span><a href="#" class="btn btn-primary">喜欢</a></span>
+					</div>
+					<span><i class="fa fa-calendar"></i>$date.format('yyyy-MM-dd HH:mm:ss', $ret.created)</span>
+					<span><i class="fa fa-comment"></i><a href="#">0</a></span>
+				</div>
+			</section>
+			
+			<!-- 大型设备文章显示结束 -->
+		</article>
+	</div>
+	<!-- post/end -->
 </div>
-	
+
+<div class="sidebar-right bounceInRight animated">
+	#parse("/inc/right/public.vm")
+</div>
+
 <script type="text/javascript">
 $(function(){
 	$("img").lazyload({
-		 placeholder : "../dist/images/spinner.gif",
+		 placeholder : "$base/dist/images/spinner.gif",
 		 effect      : "fadeIn"
 	});
 	
-	var comment = new Comment();
-	comment.init($('#commentlist'), {
-		loadUrl: '$base/comment/list', 
-		postUrl: '$base/comment/j_post'
-	});
-	
-	$('#c_post').click(function() {
-		var c = $('#c_content').val();
-		var status = comment.post(c);
-		if (status) {
-			$('#c_content').val('');
-		}
-	});
 });
 </script>
