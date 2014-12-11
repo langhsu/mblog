@@ -54,7 +54,7 @@ jQuery( function($) {
 			},
 				navSelector  : 'div.page-jump',
 				nextSelector : 'div.page-jump div.older-posts a',
-				itemSelector : '.loop-entry',
+				itemSelector : '.masonry-entry',
 			},
 			// trigger Masonry as a callback
 			function( newElements ) {
