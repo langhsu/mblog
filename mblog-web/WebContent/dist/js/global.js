@@ -5,7 +5,6 @@ jQuery( function($) {
 		// Vars
 		var $window = $(window);
 
-
 		// Lightbox
 		$('.wpex-lightbox').magnificPopup({ type: 'image' });
 		$('.wpex-gallery-lightbox').each(function() {
@@ -19,6 +18,7 @@ jQuery( function($) {
 		});
 
 		// Back to top link
+		/*
 		$scrollTopLink = $( 'a.site-scroll-top' );
 		$window.scroll(function () {
 			if ($(this).scrollTop() > 100) {
@@ -31,6 +31,8 @@ jQuery( function($) {
 			$( 'html, body' ).animate({scrollTop:0}, 400);
 			return false;
 		} );
+		
+		*/
 
 		// Masonry
 		var $container = $('.masonry-grid');

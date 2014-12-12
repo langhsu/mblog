@@ -9,7 +9,7 @@
 		#if($row.type == 'image' && ${row.snapshot.preview})
 		<figure class="thumbnail zan-thumb">
 			<a href="$base/browse/detail/${row.id}">
-				<img src="$base${row.snapshot.preview}"/>
+				<img src="$base/dist/images/spinner.gif" data-original="$base${row.snapshot.preview}"/>
 			</a>
 		</figure>
 		#end
