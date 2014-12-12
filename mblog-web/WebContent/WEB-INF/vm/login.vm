@@ -5,7 +5,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0  signupForm">
+			<div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 signupForm bounceInDown animated">
 				<h2 class="fontlato">Mtons, 轻松分享你的兴趣</h2>
 				<form action="login" method="post" id="signupform">
 					<input type="hidden" name="source" value="Home Main">

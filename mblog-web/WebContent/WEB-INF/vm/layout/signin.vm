@@ -10,6 +10,7 @@
 	<!-- v3 -->
 	<link rel="stylesheet" href="$base/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="$base/dist/css/first.css">
+	<link rel="stylesheet" href="$base/dist/css/animate.css">
 	
 	<!-- JavaScript -->
 	<script type="text/javascript" src="$base/dist/js/jquery.min.js"></script>
