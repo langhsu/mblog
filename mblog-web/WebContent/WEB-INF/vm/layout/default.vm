@@ -20,12 +20,13 @@
 	<link rel='stylesheet' media='all' href='$base/dist/css/animate.css'/>
 	
 	<script type='text/javascript' src='$base/dist/js/jquery.min.js'></script>
+	<script type="text/javascript" src="$base/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="$base/dist/js/jquery.lazyload.js"></script>
 	<script type='text/javascript' src='$base/dist/js/jquery-validate.js'></script>
 	
 	<!-- Favicons -->
-	<link rel="apple-touch-icon-precomposed" href="$base/dist/images/logo/m.png"/>
-	<link rel="shortcut icon" href="$base/dist/images/logo/m.png"/>
+	<link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo/m.png"/>
+	<link rel="shortcut icon" href="http://mtons.com/dist/images/logo/m.png"/>
 	
 </head>
 <body>
