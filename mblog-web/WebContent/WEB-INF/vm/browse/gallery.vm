@@ -1,6 +1,8 @@
 #set($title=$!{ret.title})
+
 <script type="text/javascript" src="$base/dist/js/plugins.js"></script>
 <script type="text/javascript" src="$base/dist/js/global.js"></script>
+
 <div id="blog-wrap" class="masonry-grid">
 	#foreach($row in $paging.results)
 	<article class="loop masonry-entry span_1_of_3 col ">
