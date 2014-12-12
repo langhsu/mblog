@@ -46,20 +46,7 @@
 	
 	${screen_content}
 		
-	<footer id="footer">
-		<div class="container">
-			<div class="row copyright">
-				<div class="col-md-12 col-sm-12">
-					<div class="row">
-						<div class="col-md-4 col-sm-5">Copyright 2014 Mtons. All rights reserved.</div>
-						<div class="col-md-6 col-sm-5">
-							<a href="http://mtons.com">Mtons</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+	#parse("/inc/footer.vm")
 	
 	<script type="text/javascript">
 	$(function() {
