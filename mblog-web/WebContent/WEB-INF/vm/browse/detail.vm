@@ -17,7 +17,7 @@
 					#if($ret.albums)
     					#foreach($row in $ret.albums)
     					<div class="single-post-media">
-    						<img src="$base/dist/images/spinner.gif" original="$base${row.original}" style="display: block;">
+    						<img src="$base/dist/images/spinner.gif" data-original="$base${row.original}" style="display: block;">
     					</div><!-- .post-thumbnail -->	
     					#end
     				#end

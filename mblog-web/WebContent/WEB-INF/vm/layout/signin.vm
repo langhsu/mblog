@@ -10,6 +10,7 @@
 	<!-- v3 -->
 	<link rel="stylesheet" href="$base/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="$base/dist/css/first.css">
+	<link rel="stylesheet" href="$base/dist/css/animate.css">
 	
 	<!-- JavaScript -->
 	<script type="text/javascript" src="$base/dist/js/jquery.min.js"></script>
@@ -17,8 +18,8 @@
 	<script type="text/javascript" src="$base/dist/js/jquery-validate.js"></script>
 	
 	<!-- Favicons -->
-	<link rel="apple-touch-icon-precomposed" href="$base/dist/images/logo/m.png"/>
-	<link rel="shortcut icon" href="$base/dist/images/logo/m.png"/>
+	<link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo/m.png"/>
+	<link rel="shortcut icon" href="http://mtons.com/dist/images/logo/m.png"/>
 	
 </head>
 <body class="default">
@@ -33,7 +34,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand logo" href="https://www.mtons.com"><img src="$base/dist/images/logo/m.png"></a>
+				<a class="navbar-brand logo" href="http://www.mtons.com"><img src="$base/dist/images/logo/m.png"></a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -46,20 +47,7 @@
 	
 	${screen_content}
 		
-	<footer id="footer">
-		<div class="container">
-			<div class="row copyright">
-				<div class="col-md-12 col-sm-12">
-					<div class="row">
-						<div class="col-md-4 col-sm-5">Copyright 2014 Mtons. All rights reserved.</div>
-						<div class="col-md-6 col-sm-5">
-							<a href="http://mtons.com">Mtons</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+	#parse("/inc/footer.vm")
 	
 	<script type="text/javascript">
 	$(function() {

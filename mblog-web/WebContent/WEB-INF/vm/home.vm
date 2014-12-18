@@ -6,7 +6,7 @@
     </ol>
     <div class="posts">
     	#foreach($row in $paging.results)
-    	<article class="loop clearfix fadeInUpBig animated">
+    	<article class="loop clearfix">
     		<section class="loop-content">
     			#if($row.title)
     			<header>
