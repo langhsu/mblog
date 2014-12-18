@@ -5,7 +5,7 @@
 	#foreach($row in $paging.results)
 	<article class="loop masonry-entry span_1_of_3 col ">
 		#if($row.type == 'image' && ${row.snapshot.preview})
-		<figure class="thumbnail zan-thumb">
+		<figure class="loop-entry-thumbnail">
 			<a href="$base/browse/detail/${row.id}">
 				<img src="$base${row.snapshot.preview}"/>
 			</a>
