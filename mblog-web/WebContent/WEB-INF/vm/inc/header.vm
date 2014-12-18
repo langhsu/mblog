@@ -23,12 +23,12 @@
 					
 				#if($profile)
 				<li>
-    				<a href="$base/account/profile" class="btn btn-link white" title="settings">
+    				<a href="$base/account/profile" class="btn btn-link highlight" title="settings">
     					<span class="glyphicon glyphicon-cog"></span> $!{profile.username}
     				</a>
 				</li>
 				<li>
-    				<a href="$base/logout" class="btn btn-link white" title="Sign out">
+    				<a href="$base/logout" class="btn btn-link highlight" title="Sign out">
     					<span class="glyphicon glyphicon-log-out"></span>
     				</a>
 				</li>
