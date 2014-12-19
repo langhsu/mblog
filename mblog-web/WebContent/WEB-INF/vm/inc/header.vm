@@ -1,5 +1,5 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 				<span class="sr-only">Toggle navigation</span>
@@ -24,12 +24,12 @@
 				#if($profile)
 				<li>
     				<a href="$base/account/profile" class="btn btn-link highlight" title="settings">
-    					<span class="glyphicon glyphicon-cog"></span> $!{profile.username}
+    					<span class="fa fa-user"></span> $!{profile.username}
     				</a>
 				</li>
 				<li>
     				<a href="$base/logout" class="btn btn-link highlight" title="Sign out">
-    					<span class="glyphicon glyphicon-log-out"></span>
+    					<span class="fa fa-sign-out"></span>
     				</a>
 				</li>
 				#else

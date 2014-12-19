@@ -5,18 +5,16 @@ a:hover {text-decoration: none;}
 
 img {height: auto; max-width: 100%; }
 
-.logo {float: left; margin-left: -15px; padding: 8px; font-size: 18px; line-height: 20px; height: 50px;}
+.logo {float: left; padding: 7px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
 .logo img {width: 36px; height: 36px;}
 
 .navbar-inverse .navbar-nav>li>a { color: #EFEEEF; }
 .navbar-inverse .navbar-nav>li>a:hover {color: #F9A265;}
-.navbar .nav>li .highlight {
-color: #EFEEEF;
-border-radius: 2px;
--webkit-border-radius: 2px;
+
+.navbar .nav>li .highlight { color: #EFEEEF; border-radius: 2px; -webkit-border-radius: 2px;
 -moz-border-radius: 2px;
 padding: 4px 12px;
-margin: 10px 0 5px 10px;
+margin: 10px 15px 5px 0px;
 text-transform: uppercase;
 border: 2px solid #EFEEEF;
 transition: .15s all ease;
@@ -315,4 +313,87 @@ transition: .15s all ease;
 }
 .page-jump {
 	display: none;
+}
+
+
+/* -------------------------------------------------------------------
+[ profile]
+*/
+.profile {
+	background: #7f8c8d;
+	color: #fff;
+	text-align: center;
+	padding: 85px 0 35px;
+}
+.profile h1 {
+	font-size: 28px;
+	margin: 10px 0 15px;
+}
+.profile h2 {
+	font-size: 16px;
+	margin: 5px 0 15px;
+}
+.avatar img {
+	position: relative;
+	width: 120px;
+	height: 120px;
+	border: 6px solid #fff;
+	margin: 0 auto;
+}
+.btn-white {
+	border: 2px solid #fff;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 12px;
+	padding: 9px 20px;
+	background: transparent;
+	
+	-moz-border-radius: 30px;
+	-webkit-border-radius: 30px;
+	-o-border-radius: 30px;
+	-ms-border-radius: 30px;
+	
+	transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-webkit-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	-ms-transition-duration: 0.3s;
+}
+.btn-white:hover {
+	background:#fff!important;
+	color: #323A45!important;
+}
+
+.profile-navbar {
+	background: #7f8c8d;
+	margin-bottom: 0;
+}
+
+.profile-navbar .content {
+	border-top: 1px solid rgba(255,255,255,.4);
+}
+.profile-navbar .nav {
+	margin: 0;
+	padding: 0;
+}
+.profile-navbar .nav>li {
+	float: left;
+	margin-top: -1px;
+	border-top: 1px solid transparent;
+}
+.profile-navbar a {
+	padding: 15px 20px;
+	color: rgba(255,255,255,.4);
+	text-transform: uppercase;
+	border: none;
+}
+.profile-navbar .nav>li.active {
+	border-top-color: #fff;
+}
+.profile-navbar .nav>li.active a {
+	color: #fff;
+}
+.profile-navbar a:hover, .profile-navbar a:active, .profile-navbar a:focus {
+	color: #000;
 }

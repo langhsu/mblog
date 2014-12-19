@@ -25,7 +25,7 @@
     			<span><i class="fa fa-calendar"></i>&nbsp;$date.format('yyyy-MM-dd HH:mm', $row.created)</span>
     			<span><i class="fa fa-comment"></i>&nbsp;<a href="#">0</a></span>
     			<div class="pull-right">
-    				<span><a href="$base/browse/detail/${row.id}">阅读全文<i class="glyphicon glyphicon-send"></i></a></span>
+    				<span><a href="$base/browse/detail/${row.id}">阅读全文<i class="fa fa-send"></i></a></span>
     			</div>
     		</div>
         </article>
