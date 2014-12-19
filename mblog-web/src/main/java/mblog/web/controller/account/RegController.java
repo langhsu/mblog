@@ -7,6 +7,7 @@ import mblog.core.pojos.User;
 import mblog.core.service.UserService;
 import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Data;
+import mtons.commons.pojos.UserContextHolder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class RegController extends BaseController {
 	
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String view(ModelMap model) {
+		if (UserContextHolder.getUserProfile() != null) {
+			return "redirect:/home";
+		}
 		return "/account/reg";
 	}
 	
@@ -42,7 +46,6 @@ public class RegController extends BaseController {
 			data = Data.failure(e.getMessage());
 		}
 		model.put("data", data);
-		
 		return ret;
 	}
 

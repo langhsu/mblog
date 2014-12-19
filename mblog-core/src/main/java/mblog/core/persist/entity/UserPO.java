@@ -30,6 +30,7 @@ public class UserPO {
 	private long id;
 	private String username;
 	private String password;
+	private String avater;
 	private String name;
 	private String email;
 	private String mobile;
@@ -108,6 +109,14 @@ public class UserPO {
 
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+
+	public String getAvater() {
+		return avater;
+	}
+
+	public void setAvater(String avater) {
+		this.avater = avater;
 	}
 	
 }

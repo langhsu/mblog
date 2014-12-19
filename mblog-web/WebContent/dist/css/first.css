@@ -204,9 +204,9 @@ body {
 	margin-top: 10px;
 	color: #fff;
 	background-color: rgba(255, 255, 255, .25) !important;
-	border-radius: 2px;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
 	padding: 4px 12px;
 	margin: 5px 0 5px 10px;
 	text-transform: uppercase;

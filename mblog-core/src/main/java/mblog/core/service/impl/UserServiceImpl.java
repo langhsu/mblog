@@ -37,8 +37,11 @@ public class UserServiceImpl implements UserService {
 	public void register(User user) {
 		Assert.notNull(user, "Parameter user can not be null!");
 		
+		Assert.notNull(user.getUsername(), "用户名不能为空!");
+		Assert.notNull(user.getPassword(), "密码不能为空!");
+		
 		UserPO check = userDao.get(user.getUsername());
-		Assert.isNull(check, "Username already exists!");
+		Assert.isNull(check, "用户名已经存在!");
 		
 		UserPO po = new UserPO();
 		
@@ -65,7 +68,23 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void updatePassword(long id, String newPassword) {
 		UserPO po = userDao.get(id);
+		
+		Assert.notNull(newPassword, "密码不能为空!");
+		
 		if (null != po) {
+			po.setPassword(MD5Helper.md5(newPassword));
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void updatePassword(long id, String oldPassword, String newPassword) {
+		UserPO po = userDao.get(id);
+		
+		Assert.notNull(newPassword, "密码不能为空!");
+		
+		if (po != null) {
+			Assert.isTrue(MD5Helper.md5(oldPassword).equals(po.getPassword()), "当前密码不正确");
 			po.setPassword(MD5Helper.md5(newPassword));
 		}
 	}
@@ -74,6 +93,7 @@ public class UserServiceImpl implements UserService {
 		UserProfile profile = new UserProfile(po.getId(), po.getUsername());
 		profile.setName(po.getName());
 		profile.setEmail(po.getEmail());
+		profile.setAvater(po.getAvater());
 		profile.setLastLogin(po.getLastLogin());
 		profile.setStatus(po.getStatus());
 		return profile;

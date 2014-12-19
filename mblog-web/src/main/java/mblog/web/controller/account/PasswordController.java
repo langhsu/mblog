@@ -5,10 +5,11 @@ package mblog.web.controller.account;
 
 import mblog.core.service.UserService;
 import mblog.web.controller.BaseController;
+import mtons.commons.pojos.Data;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,10 +29,16 @@ public class PasswordController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/password", method = RequestMethod.POST)
-	public String post(String password) {
-		if (StringUtils.isNotEmpty(password)) {
-			userService.updatePassword(getProfile().getId(), password);
+	public String post(String oldPassword, String password, ModelMap model) {
+		Data data = Data.failure("操作失败");
+		try {
+			userService.updatePassword(getProfile().getId(), oldPassword, password);
+			
+			data = Data.success("操作成功");
+		} catch (Exception e) {
+			data = Data.failure(e.getMessage());
 		}
+		model.put("data", data);
 		return "/account/password";
 	}
 

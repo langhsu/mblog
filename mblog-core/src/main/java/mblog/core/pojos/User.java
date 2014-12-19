@@ -6,6 +6,7 @@ public class User {
 	private long id;
 	private String username;
 	private String password;
+	private String avater;
 	private String name;
 	private String email;
 	private String mobile;
@@ -83,6 +84,14 @@ public class User {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getAvater() {
+		return avater;
+	}
+
+	public void setAvater(String avater) {
+		this.avater = avater;
 	}
 
 }

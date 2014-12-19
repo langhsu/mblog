@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$!title</title>
+	<meta name="description" content="Mtons, 轻松分享你的兴趣">
+	<meta name="keywords" content="博客,blog,轻博客">
+
+		
+	<!--[if lt IE 9]>
+    	<script src="$base/js/html5.js"></script>
+    <![endif]-->
+	
+	<link rel='stylesheet' media='all' href='$base/dist/css/font-awesome.min.css'/>
+	<link rel="stylesheet" media='all' href="$base/dist/css/bootstrap.min.css">
+	<link rel='stylesheet' media='all' href='$base/dist/css/style.css'/>
+	<link rel='stylesheet' media='all' href='$base/dist/css/layout.css'/>
+	<link rel='stylesheet' media='all' href='$base/dist/css/animate.css'/>
+	
+	<script type='text/javascript' src='$base/dist/js/jquery.min.js'></script>
+	<script type="text/javascript" src="$base/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="$base/dist/js/jquery.lazyload.js"></script>
+	<script type='text/javascript' src='$base/dist/js/jquery-validate.js'></script>
+	
+	<!-- Favicons -->
+	<link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo/m.png"/>
+	<link rel="shortcut icon" href="http://mtons.com/dist/images/logo/m.png"/>
+	
+</head>
+<body>
+	#parse("/inc/header.vm")
+	
+	${screen_content}
+	<!--.site-main -->
+	
+	#parse("/inc/footer.vm")
+	
+	<a href="#" class="site-scroll-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
+	
+	<script type="text/javascript">
+    $(function(){
+    	$("img").lazyload({
+    		 placeholder : "$base/images/spinner.gif",
+    		 effect      : "fadeIn"
+    	});
+		
+		// Back to top link
+		scrollTopLink = $( 'a.site-scroll-top' );
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				scrollTopLink.fadeIn();
+			} else {
+				scrollTopLink.fadeOut();
+			}
+		});		
+		scrollTopLink.on('click', function() {
+			$( 'html, body' ).animate({scrollTop:0}, 400);
+			return false;
+		});
+    })
+    </script>
+</body>
+</html>

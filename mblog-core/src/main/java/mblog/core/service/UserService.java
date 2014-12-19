@@ -15,4 +15,5 @@ public interface UserService {
 	void register(User user);
 	UserProfile update(User user);
 	void updatePassword(long id, String newPassword);
+	void updatePassword(long id, String oldPassword, String newPassword);
 }

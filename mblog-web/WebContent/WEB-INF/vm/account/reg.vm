@@ -12,28 +12,28 @@
     					<label class="control-label col-lg-3" for="username">用户名</label>
     					<div class="col-lg-7">
     						<div style="width:200px;">
-    							<input type="text" class="form-control" name="username" data-required>
+    							<input type="text" class="form-control" name="username" maxlength="18" data-required>
     						</div>
-    						<p class="help-block">你的登录用户名,不能更改.</p>
+    						<p class="help-block">注册后,登录名将不能更改.</p>
     					</div>
     				</div>
     				<div class="form-group">											
     					<label class="control-label col-lg-3" for="email">邮箱地址</label>
     					<div class="col-lg-6">
-    						<input type="text" class="form-control" name="email" data-required >
+    						<input type="text" class="form-control" name="email" maxlength="64" data-required >
     					</div>		
     				</div>
     				<br><br>
     				<div class="form-group">											
     					<label class="control-label col-lg-3" for="password1">密码</label>
     					<div class="col-lg-4">
-    						<input type="password" class="form-control" id="password" name="password" data-required>
+    						<input type="password" class="form-control" id="password" maxlength="18" name="password" data-required>
     					</div>		
     				</div>
     				<div class="form-group">											
     					<label class="control-label col-lg-3" for="password2">确认密码</label>
     					<div class="col-lg-4">
-    						<input type="password" class="form-control" name="password2" data-required data-conditional="confirm" data-describedby="message" data-description="passwd">
+    						<input type="password" class="form-control" name="password2" maxlength="18" data-required data-conditional="confirm" data-describedby="message" data-description="passwd">
     					</div>
     				</div>
     				<br>
