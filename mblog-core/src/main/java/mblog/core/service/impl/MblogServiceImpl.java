@@ -161,7 +161,7 @@ public class MblogServiceImpl implements MblogService {
      * @return
      */
     private String trimSummary(String text){
-        return HtmlCutUtils.substring(text, 200);
+        return HtmlCutUtils.substring(text, 150);
     }
 
 }

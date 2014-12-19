@@ -38,7 +38,7 @@ transition: .15s all ease;
 .loop .zan-thumb { max-height: 166px; background: #f5f5f5; overflow: hidden; padding: 0; margin:0; border-radius: 3px;}
 .loop .zan-thumb img {display: block; width: 100%;}
 
-.loop .zan-outline { font-size: 15px; color: #333; line-height: 28px; }
+.loop .zan-outline { font-size: 15px; color: #333; line-height: 28px; overflow: hidden;}
 
 .loop-entry-thumbnail a { display: block; position: relative; }
 .loop-entry-thumbnail img { display: block; width: 100%; }
