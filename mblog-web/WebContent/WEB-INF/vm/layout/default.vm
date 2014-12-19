@@ -38,7 +38,7 @@
 	
 	#parse("/inc/footer.vm")
 	
-	<a href="#" class="site-scroll-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
+	<a href="#" class="site-scroll-top"></a>
 	
 	<script type="text/javascript">
     $(function(){
@@ -50,7 +50,7 @@
 		// Back to top link
 		scrollTopLink = $( 'a.site-scroll-top' );
 		$(window).scroll(function () {
-			if ($(this).scrollTop() > 100) {
+			if ($(this).scrollTop() > 100 ) {
 				scrollTopLink.fadeIn();
 			} else {
 				scrollTopLink.fadeOut();

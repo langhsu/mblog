@@ -5,11 +5,13 @@ a:hover {text-decoration: none;}
 
 img {height: auto; max-width: 100%; }
 
+a.trash {color: #F50A0A!important;}
+
 .logo {float: left; padding: 7px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
 .logo img {width: 36px; height: 36px;}
 
 .navbar-inverse .navbar-nav>li>a { color: #EFEEEF; }
-.navbar-inverse .navbar-nav>li>a:hover {color: #F9A265;}
+.navbar-inverse .navbar-nav>li>a:hover {color: #428bca;}
 
 .navbar .nav>li .highlight { color: #EFEEEF; border-radius: 2px; -webkit-border-radius: 2px;
 -moz-border-radius: 2px;
@@ -21,8 +23,8 @@ transition: .15s all ease;
 }
 
 .navbar .nav>li .highlight:hover {
-	color: #F9A265;
-	border-color: #F9A265;
+	color: #428bca;
+	border-color: #428bca;
 }
 
 .breadcrumb { background-color: #fff; border: 1px solid #ddd;}
@@ -271,9 +273,6 @@ transition: .15s all ease;
 }
 /* --- Sidebox end --- */
 
-/*back to top scroll button*/
-.site-scroll-top { z-index: 999; position: fixed; display: none; background: #000; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; height: 45px; line-height: 45px; width: 45px; text-align: center; bottom: 30px; right: 30px; color: #fff; font-size: 18px; }
-
 /*social*/
 .widget_social_widget {margin: 15px;}
 .widget_social_widget li { border: none !important; display: block; float: left; }
@@ -394,6 +393,19 @@ transition: .15s all ease;
 .profile-navbar .nav>li.active a {
 	color: #fff;
 }
+.profile-navbar .nav>li.active a:hover {
+	color: #000;
+}
 .profile-navbar a:hover, .profile-navbar a:active, .profile-navbar a:focus {
 	color: #000;
 }
+
+/*back to top scroll button*/
+.site-scroll-top { z-index: 999; position: fixed; display: none; background: url(../images/btn/icon_top.png) center center no-repeat; background-color: rgba(0,0,0,.6); border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; height: 45px; line-height: 45px; width: 45px; text-align: center; bottom: 30px; right: 20px; color: #fff; font-size: 18px;}
+
+/* footer */
+#footer { top: 100%; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e5e5; padding: 50px 0 10px 0; overflow: hidden; }
+#footer a { color: #777; font-size: 13px; }
+.footer-bottom {font-size: 13px;}
+.footer-bottom ul>li {padding:0;}
+.footer-bottom ul>li+li:before { padding: 0 10px; color: #ccc; content: "|"; }

@@ -3,13 +3,7 @@ body {
 		"Helvetica", "sans-serif";
 }
 
-.logo {
-	float: left;
-	padding: 8px;
-	font-size: 18px;
-	line-height: 20px;
-	height: 50px;
-}
+.logo {float: left; padding: 7px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
 
 .logo img {
 	width: 40px;
@@ -164,39 +158,20 @@ body {
 	left: 20px;
 }
 
-#footer {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	background: #fff;
-	border-top: 1px solid #ddd;
-	padding: 50px 0 10px 0;
-	overflow: hidden;
-}
-
-#footer .copyright {
-	border-top: 1px solid #ddd;
-	color: #464d55;
-	margin-top: 50px;
-	padding: 10px 0 0;
-	font-size: 13px;
-	line-height: 33px;
-}
-
-#footer .copyright a {
-	color: #777;
-	font-size: 13px;
-}
-
+/* footer */
+#footer { position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e5e5; padding: 50px 0 10px 0; overflow: hidden; }
+#footer a { color: #777; font-size: 13px; }
+.footer-bottom {font-size: 13px;}
+.footer-bottom ul>li {padding:0;}
+.footer-bottom ul>li+li:before { padding: 0 10px; color: #ccc; content: "|"; }
 /**************************************************************************************
 *
 * BUTTONS
 *
 **************************************************************************************/
 .navbar-nav>li>a {
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 8px;
+	padding-bottom: 8px;
 	line-height: 20px;
 }
 .highlight {
@@ -208,7 +183,7 @@ body {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	padding: 4px 12px;
-	margin: 5px 0 5px 10px;
+	margin: 5px 10px 5px 0;
 	text-transform: uppercase;
 	border: 2px solid #fff;
 	transition: .15s all ease;
@@ -226,6 +201,7 @@ body {
 * Mobile (Portrait only)
 *
 **************************************************************************************/
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 767px) {
 	.fontlato {padding-top: 20px;}
+	.highlight {margin-left: 15px; margin-right: 15px;}
 }

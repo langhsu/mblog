@@ -44,10 +44,22 @@ public class AlbumServiceImpl implements AlbumService {
 		albumDao.save(po);
 		return po.getId();
 	}
+	
+	@Override
+	@Transactional
+	public void deleteByToId(long toId) {
+		List<AlbumPO> list = albumDao.list(toId);
+		
+		for (AlbumPO po : list) {
+			//TODO: remove file
+			albumDao.delete(po);
+		}
+	}
 
 	private Album toVo(AlbumPO po) {
 		Album a = new Album();
 		BeanUtils.copyProperties(po, a, IGNORE);
 		return a;
 	}
+
 }

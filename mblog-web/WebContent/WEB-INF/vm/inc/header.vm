@@ -24,7 +24,7 @@
 				#if($profile)
 				<li>
     				<a href="$base/account/profile" class="btn btn-link highlight" title="settings">
-    					<span class="fa fa-user"></span> $!{profile.username}
+    					<span class="fa fa-twitch"></span> $!{profile.username}
     				</a>
 				</li>
 				<li>

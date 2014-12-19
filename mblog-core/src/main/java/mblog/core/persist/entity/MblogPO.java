@@ -28,18 +28,14 @@ public class MblogPO {
 	private long id;
 	
 	private String type;
-	
-	private String title;
-	
-	private String summary;
-	
-	private String content;
+	private String title;  // 标题
+	private String summary;  // 摘要
+	private String content;  // 内容
+	private String tags;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "snapshot_id")
 	private AlbumPO snapshot;
-	
-	private String tags;
 	
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date created;
@@ -51,6 +47,10 @@ public class MblogPO {
 	@JoinColumn(name = "author_id")
 	private UserPO author;
 	
+	private int featured; // 是否推荐
+	private int heart;     // 喜欢
+	private int comment;
+	private int view;     // 阅读
 	private int status;
 
 	public long getId() {
@@ -139,6 +139,38 @@ public class MblogPO {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getFeatured() {
+		return featured;
+	}
+
+	public void setFeatured(int featured) {
+		this.featured = featured;
+	}
+
+	public int getHeart() {
+		return heart;
+	}
+
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
+	}
+
+	public int getComment() {
+		return comment;
+	}
+
+	public void setComment(int comment) {
+		this.comment = comment;
 	}
 	
 }

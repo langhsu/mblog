@@ -31,11 +31,4 @@ public class ExploreController extends BaseController {
 		return "/browse/explore";
 	}
 	
-	@RequestMapping("/explore_json")
-	public @ResponseBody Paging ajax(Integer pageNo) {
-		Paging paging = wrapPaging(pageNo);
-		mblogService.paging(paging);
-		return paging;
-	}
-	
 }

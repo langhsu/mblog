@@ -14,4 +14,5 @@ import mblog.core.pojos.Album;
 public interface AlbumService {
 	List<Album> list(long toId);
 	long add(Album album);
+	void deleteByToId(long toId);
 }

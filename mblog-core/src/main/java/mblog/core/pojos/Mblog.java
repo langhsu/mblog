@@ -16,11 +16,15 @@ public class Mblog {
 	private String title;
 	private String summary;
 	private String content;
-	private Album snapshot;
 	private String tags;
+	private Album snapshot;
 	private Date created;
 	private Date updated;
 	private User author;
+	private int featured; // 是否推荐
+	private int heart;     // 喜欢
+	private int comment;
+	private int view;     // 阅读
 	private int status;
 
 	// extends
@@ -120,6 +124,38 @@ public class Mblog {
 
 	public void setAlbums(List<Album> albums) {
 		this.albums = albums;
+	}
+
+	public int getFeatured() {
+		return featured;
+	}
+
+	public void setFeatured(int featured) {
+		this.featured = featured;
+	}
+
+	public int getHeart() {
+		return heart;
+	}
+
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
+	}
+
+	public int getComment() {
+		return comment;
+	}
+
+	public void setComment(int comment) {
+		this.comment = comment;
 	}
 
 }

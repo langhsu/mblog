@@ -25,6 +25,7 @@ import mtons.commons.utils.HtmlCutUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 /**
  * @author langhsu
@@ -120,8 +121,8 @@ public class MblogServiceImpl implements MblogService {
 	
 	@Override
 	@Transactional
-	public Mblog get(long artId) {
-		MblogPO po = mblogDao.get(artId);
+	public Mblog get(long id) {
+		MblogPO po = mblogDao.get(id);
 		Mblog d = null;
 		if (po != null) {
 			d = toVo(po, 1);
@@ -131,9 +132,23 @@ public class MblogServiceImpl implements MblogService {
 		return d;
 	}
 	
+	@Override
+	@Transactional
+	public void delete(long id) {
+		UserProfile up = UserContextHolder.getUserProfile();
+		
+		Assert.notNull(up, "用户认证失败, 请重新登录!");
+		
+		MblogPO po = mblogDao.get(id);
+		if (po != null) {
+			Assert.isTrue(po.getAuthor().getId() == up.getId(), "认证失败");
+			albumService.deleteByToId(id);
+			mblogDao.delete(po);
+		}
+	}
+	
 	private Mblog toVo(MblogPO po, int level) {
 		Mblog d = new Mblog();
-		//TODO The list of query optimization
 		if (level > 0) {
 			BeanUtils.copyProperties(po, d, IGNORE);
 		} else {
@@ -161,7 +176,7 @@ public class MblogServiceImpl implements MblogService {
      * @return
      */
     private String trimSummary(String text){
-        return HtmlCutUtils.substring(text, 125);
+        return HtmlCutUtils.substring(text, 126);
     }
 
 }

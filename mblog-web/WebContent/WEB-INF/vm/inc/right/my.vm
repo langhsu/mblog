@@ -20,14 +20,14 @@
 <!-- #secondary -->
 
 <div class="sidebox sidebar-social-icon">
-	<img src="http://demo.suxing.me/wp-content/uploads/2014/11/erweima.png" class="weixin" width="100%" height="auto">
+	<img src="$base/dist/images/erweima.png" class="weixin" width="100%" height="auto">
 	<ul class="sidebar-social">
 		<li class="sidebar-social-icons"><a class="weibo hint--bottom" data-hint="微博" href=""></a></li>
 		<li class="sidebar-social-icons"><a class="qq hint--bottom" data-hint="QQ" href="" target="_blank" rel="nofollow"></a></li>
 		<li class="sidebar-social-icons"><a class="rss hint--bottom" data-hint="订阅" href=""></a></li>
 	</ul>
 </div>
-
+<!--
 <div class="sidebox">
 	<div id="tab-title">
 		<span class="selected"><i class="icon-arrows-cw"></i>随机推荐</span>
@@ -89,7 +89,7 @@
 		</div>
 	</div>
 </div>
-
+-->
 <script type="text/javascript">
 var recent_li_template = '<li class="cat-item cat-item-6"><a href="{0}">{1}</a></li>'
 						

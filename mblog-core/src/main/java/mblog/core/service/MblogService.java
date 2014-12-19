@@ -20,4 +20,5 @@ public interface MblogService {
 	
 	void add(Mblog mblog);
 	Mblog get(long id);
+	void delete(long id);
 }

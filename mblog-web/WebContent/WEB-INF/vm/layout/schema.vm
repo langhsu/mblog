@@ -36,7 +36,7 @@
 	
 	#parse("/inc/footer.vm")
 	
-	<a href="#" class="site-scroll-top"><span class="glyphicon glyphicon-chevron-up"></span></a>
+	<a href="#" class="site-scroll-top"></a>
 	
 	<script type="text/javascript">
     $(function(){

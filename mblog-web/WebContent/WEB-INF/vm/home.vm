@@ -1,12 +1,9 @@
 #set($title = "Home")
 
 <div class="sidebar-left">
-    <ol class="breadcrumb">
-    	<li class="active">Home</li>
-    </ol>
     <div class="posts">
     	#foreach($row in $paging.results)
-    	<article class="loop clearfix">
+    	<article id="loop-${row.id}" class="loop clearfix">
     		<section class="loop-content">
     			#if($row.title)
     			<header>
@@ -21,11 +18,12 @@
             </section>
     		
     		<div class="loop-meta">
-    			<span><i class="fa fa-user"></i>&nbsp;<a href="#" rel="author">Ketu</a></span>
-    			<span><i class="fa fa-calendar"></i>&nbsp;$date.format('yyyy-MM-dd HH:mm', $row.created)</span>
-    			<span><i class="fa fa-comment"></i>&nbsp;<a href="#">0</a></span>
+    			<span><i class="fa fa-calendar-o"></i>&nbsp;$date.format('yyyy-MM-dd', $row.created)</span>
+    			<span><i class="fa fa-heart-o"></i>&nbsp;${row.heart}</span>
+				<span><a href="javascript:void(0);" data-evt="trash" data-id="${row.id}" class="trash"><i class="fa fa-trash-o"></i>&nbsp;删除</a></span>
     			<div class="pull-right">
-    				<span><a href="$base/browse/detail/${row.id}">阅读全文<i class="fa fa-send"></i></a></span>
+    				<span><a href="$base/browse/detail/${row.id}">阅读全文<i class="fa fa-send-o"></i></a></span>
+					
     			</div>
     		</div>
         </article>
@@ -41,3 +39,21 @@
 <div class="sidebar-right bounceInRight animated">
 	#parse("/inc/right/my.vm")
 </div>
+
+<script type="text/javascript">
+$(function() {
+	$('a[data-evt=trash]').click(function () {
+		var id = $(this).attr('data-id');
+		
+		if (parseInt(id) > 0) {
+			jQuery.getJSON('$base/blog/delete/' + id, function (ret) {
+				alert(ret.message);
+				if (ret.code >=0) {
+					$('#loop-' + id).fadeOut();
+					$('#loop-' + id).remove();
+				}
+			});
+		}
+	});
+})
+</script>

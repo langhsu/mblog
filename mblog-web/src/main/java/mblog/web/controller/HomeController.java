@@ -5,6 +5,7 @@ package mblog.web.controller;
 
 import mblog.core.service.MblogService;
 import mtons.commons.pojos.Paging;
+import mtons.commons.pojos.UserProfile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +24,8 @@ public class HomeController extends BaseController {
 	@RequestMapping("/home")
 	public String home(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
-		paging.setMaxResults(5);
-		
-		mblogService.pagingByUserId(paging, getProfile().getId());
+		UserProfile profile = getProfile();
+		mblogService.pagingByUserId(paging,  profile.getId());
 		
 		model.put("paging", paging);
 		

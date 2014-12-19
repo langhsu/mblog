@@ -12,6 +12,7 @@ import mblog.core.pojos.Album;
 import mblog.core.pojos.Mblog;
 import mblog.core.service.MblogService;
 import mblog.web.controller.BaseController;
+import mtons.commons.pojos.Data;
 import mtons.commons.utils.GMagickUtils;
 
 import org.apache.commons.io.FileUtils;
@@ -19,8 +20,10 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author langhsu
@@ -48,7 +51,21 @@ public class BlogPostController extends BaseController {
 		}
 		return "redirect:/home";
 	}
-
+	
+	@RequestMapping("/delete/{id}")
+	public @ResponseBody Data delete(@PathVariable Long id) {
+		Data data = Data.failure("操作失败");
+		if (id != null) {
+			try {
+				mblogService.delete(id);
+				data = Data.success("操作成功");
+			} catch (Exception e) {
+				data = Data.failure(e.getMessage());
+			}
+		}
+		return data;
+	}
+	
 	private void handleAlbums(List<Album> albums) {
 		if (albums == null) {
 			return;

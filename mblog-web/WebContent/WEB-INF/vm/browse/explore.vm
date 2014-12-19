@@ -1,47 +1,40 @@
-#set($title=$!{ret.title})
+#set($title = "发现")
 
-<script type="text/javascript" src="$base/dist/js/plugins.js"></script>
-<script type="text/javascript" src="$base/dist/js/global.js"></script>
+<div class="sidebar-left">
+    <div class="posts">
+    	#foreach($row in $paging.results)
+    	<article class="loop clearfix">
+    		<section class="loop-content">
+    			#if($row.title)
+    			<header>
+    				<h3 class="loop-title">
+    					<a href="$base/browse/detail/${row.id}">${row.title}</a>
+    				</h3>
+    			</header>
+    			#end
+    			<div class="row">
+    				#showmb($row)
+    			</div>
+            </section>
+    		
+    		<div class="loop-meta">
+				<span><i class="fa fa-user"></i>&nbsp;${row.author.name}</span>
+    			<span><i class="fa fa-calendar-o"></i>&nbsp;$date.format('yyyy-MM-dd', $row.created)</span>
+    			<span><i class="fa fa-heart-o"></i>&nbsp;${row.heart}</span>
+    			<div class="pull-right">
+    				<span><a href="$base/browse/detail/${row.id}">阅读全文<i class="fa fa-send-o"></i></a></span>
+    			</div>
+    		</div>
+        </article>
+    	<!-- 文章显示结束 -->
+    	#end
+    </div>
+    		
+    <div class="text-center clr">
+    	#page("home" $paging 5)
+    </div>
+</div>
 
-<div id="blog-wrap" class="masonry-grid">
-	#foreach($row in $paging.results)
-	<article class="loop masonry-entry span_1_of_3 col ">
-		#if($row.type == 'image' && ${row.snapshot.preview})
-		<figure class="thumbnail zan-thumb">
-			<a href="$base/browse/detail/${row.id}">
-				<img src="$base${row.snapshot.preview}"/>
-			</a>
-		</figure>
-		#end
-		<!-- .post-entry-thumbnail -->
-		<div class="zan-outline">
-			${row.summary}
-		</div>
-		<!-- .loop-entry-content -->
-		<div class="loop-meta">
-			<span>发布: $date.format('yyyy-MM-dd HH:mm', $row.created)</span>
-		</div>
-		<!-- .loop-entry-meta -->
-	</article>
-	<!-- .loop-entry -->
-	#end
+<div class="sidebar-right bounceInRight animated">
+	#parse("/inc/right/public.vm")
 </div>
-<!-- #blog-wrap -->
-<div class="page-jump clr">
-	<div class="newer-posts alignleft"></div>
-	<div class="older-posts alignright">
-		<a href="$base/browse/gallery_snippet/2">Older
-			Posts &rarr;</a>
-	</div>
-</div>
-	
-<script type="text/javascript">
-/* <![CDATA[ */
-var wpexLocalize = {
-	"mobileMenuOpen" : "Click here to navigate",
-	"mobileMenuClosed" : "Close navigation",
-	"isOriginLeft" : "1"
-};
-/* ]]> */
-		
-</script>
