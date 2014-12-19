@@ -2,10 +2,11 @@
 	<div class="container">
 		<div class="row text-center">
 			<p>©2014 Mtons. All rights reserved. 京ICP备13042759号</p>
+		
+			<script type="text/javascript">
+				var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+				document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fa029e6c6dddf427f4cbfb2b00d7d5311' type='text/javascript'%3E%3C/script%3E"));
+			</script>
 		</div>
 	</div>
 </footer>
-<script type="text/javascript">
-	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fa029e6c6dddf427f4cbfb2b00d7d5311' type='text/javascript'%3E%3C/script%3E"));
-</script>

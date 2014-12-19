@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mtons</title>
-	<meta name="description" content="Mtons, 轻松分享你的兴趣">
-	<meta name="keywords" content="博客,blog,轻博客">
-		
+	<meta name="keywords" content="mtons,blog,轻博客,博客,社区,摄影,旅游,美食,时尚,艺术,娱乐 ">
+	<meta name="description" content="Mtons, 轻松分享你的兴趣. 便捷的文字、图片发布,扁平化的响应式设计,美观、大气,是您记录生活的最佳选择">
+	
 	<!-- v3 -->
 	<link rel="stylesheet" href="$base/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="$base/dist/css/first.css">
