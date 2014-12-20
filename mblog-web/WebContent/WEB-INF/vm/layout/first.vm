@@ -15,6 +15,7 @@
 	<!-- JavaScript -->
 	<script type="text/javascript" src="$base/dist/js/jquery.min.js"></script>
 	<script type="text/javascript" src="$base/dist/js/bootstrap.min.js"></script>
+	<script type='text/javascript' src='$base/dist/js/html5.js'></script>
 	<script type="text/javascript" src="$base/dist/js/jquery-validate.js"></script>
 	
 	<!-- Favicons -->
@@ -23,9 +24,8 @@
 	
 </head>
 <body class="default">
-	<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-	
 	<nav class="navbar navbar-static-top" role="navigation">
+		#parse("/inc/browse_tips.vm")
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button id="main_nav_btn" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

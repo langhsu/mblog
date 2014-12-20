@@ -20,6 +20,7 @@
 	
 	<script type='text/javascript' src='$base/dist/js/jquery.min.js'></script>
 	<script type="text/javascript" src="$base/dist/js/bootstrap.min.js"></script>
+	<script type='text/javascript' src='$base/dist/js/html5.js'></script>
 	<script type="text/javascript" src="$base/dist/js/jquery.lazyload.js"></script>
 	<script type='text/javascript' src='$base/dist/js/jquery-validate.js'></script>
 	

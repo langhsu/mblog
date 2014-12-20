@@ -82,7 +82,7 @@ $(function() {
 		},
 		description : {
 			content : {
-				required : '<div class="alert alert-danger">写点内容吧</div>'
+				required : '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>写点内容吧</div>'
 			}
 		}
 	});

@@ -1,6 +1,6 @@
 #set($layout="layout/first.vm")
 
-<section class="hero-unit">
+<div class="hero-unit">
 	<div class="vegas-overlay" style="opacity: 0.2; margin: 0px; padding: 0px; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; background-image: url($base/dist/images/overlay.png);"></div>
 
 	<div class="container">
@@ -36,7 +36,7 @@
 		<span class="icon-bar icon-bar-left"></span>
 		<span class="icon-bar icon-bar-right"></span>
 	</a>
-</section>
+</div>
 
 <script type="text/javascript">
 $(function(){
