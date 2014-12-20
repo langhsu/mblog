@@ -1,13 +1,13 @@
-#macro(mblog $row)
-	#if($row.type == 'image' && ${row.snapshot.preview})
-	<div class="loop-entry-thumbnail">
-		<a href="#">
-			<img src="$base/dist/images/spinner.gif" data-original="$base${row.snapshot.preview}"/>
-		</a>
-	</div>
+## 用户名称显示
+#macro(showName $user)
+	#if ($user.name)
+		$user.name
+	#else
+		$user.username
 	#end
 #end
 
+## 文章显示
 #macro(showmb $row)
 	#if($row.type == 'image' && ${row.snapshot.preview})
 		<div class="col-md-5">
@@ -30,7 +30,8 @@
 		</div>
 	#end
 #end
-        
+
+## 翻页代码
 #macro (page $url $p $maxList)
 	#set($span = (${maxList} - 3)/2)
 	#set($__pc = $p.pageCount)

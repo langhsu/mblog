@@ -1,0 +1,10 @@
+<div class="row links">
+	<ul class="nav navbar-nav">
+		<li>
+			<a href="http://mtons.com/browse/explore">精选</a>
+		</li>
+		<li>
+			<a href="http://mtons.com/browse/gallery">走廊</a>
+		</li>
+	</ul>
+</div>

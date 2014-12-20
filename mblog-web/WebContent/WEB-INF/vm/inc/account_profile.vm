@@ -1,9 +1,9 @@
 <div class="profile">
 	<div class="container">
-		<div class="avatar">
-			<img class="img-circle" src="$base${profile.avater}" alt="">
+		<div class="avatar bounceInDown animated">
+			<img class="img-circle" src="$base${profile.avater}">
 		</div>
-		<h1>$!{profile.name}</h1>
+		<h1>#showName(${profile})</h1>
 		<!--
 		<a class="btn btn-white" href="#">Back</a>
 		-->

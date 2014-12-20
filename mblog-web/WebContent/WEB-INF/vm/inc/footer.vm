@@ -1,5 +1,6 @@
 <footer id="footer">
 	<div class="container">
+		#parse("/inc/links.vm")
 		<hr>
 		<div class="row footer-bottom">
 			<ul class="list-inline text-center">
