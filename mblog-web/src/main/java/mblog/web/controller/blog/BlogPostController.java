@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import mblog.core.context.AppContext;
-import mblog.core.pojos.Album;
+import mblog.core.pojos.Attach;
 import mblog.core.pojos.Mblog;
 import mblog.core.service.MblogService;
 import mblog.web.controller.BaseController;
@@ -66,16 +66,16 @@ public class BlogPostController extends BaseController {
 		return data;
 	}
 	
-	private void handleAlbums(List<Album> albums) {
+	private void handleAlbums(List<Attach> albums) {
 		if (albums == null) {
 			return;
 		}
-		for (Album alb : albums) {
+		for (Attach alb : albums) {
 			createPic(alb);
 		}
 	}
 
-	private void createPic(Album album) {
+	private void createPic(Attach album) {
 		String root = getRealPath("/");
 		String originPath = root + appContext.getOriDir();
 		String thumbsPath = root + appContext.getThumbsDir();
@@ -96,7 +96,7 @@ public class BlogPostController extends BaseController {
 			album.setOriginal(appContext.getOriDir() + rel);
 
 			// 创建缩放图片
-			GMagickUtils.scaleImage(temp.getAbsolutePath(), thumbs, 650);
+			GMagickUtils.scaleImage(temp.getAbsolutePath(), thumbs, 300);
 			
 			album.setPreview(appContext.getThumbsDir() + rel);
 			

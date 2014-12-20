@@ -35,7 +35,7 @@ public class MblogPO {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "snapshot_id")
-	private AlbumPO snapshot;
+	private AttachPO snapshot;
 	
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date created;
@@ -48,9 +48,9 @@ public class MblogPO {
 	private UserPO author;
 	
 	private int featured; // 是否推荐
-	private int heart;     // 喜欢
-	private int comment;
-	private int view;     // 阅读
+	private int hearts;     // 喜欢
+	private int comments;
+	private int views;     // 阅读
 	private int status;
 
 	public long getId() {
@@ -93,11 +93,11 @@ public class MblogPO {
 		this.content = content;
 	}
 
-	public AlbumPO getSnapshot() {
+	public AttachPO getSnapshot() {
 		return snapshot;
 	}
 
-	public void setSnapshot(AlbumPO snapshot) {
+	public void setSnapshot(AttachPO snapshot) {
 		this.snapshot = snapshot;
 	}
 
@@ -149,28 +149,28 @@ public class MblogPO {
 		this.featured = featured;
 	}
 
-	public int getHeart() {
-		return heart;
+	public int getHearts() {
+		return hearts;
 	}
 
-	public void setHeart(int heart) {
-		this.heart = heart;
+	public void setHearts(int hearts) {
+		this.hearts = hearts;
 	}
 
-	public int getView() {
-		return view;
+	public int getComments() {
+		return comments;
 	}
 
-	public void setView(int view) {
-		this.view = view;
+	public void setComments(int comments) {
+		this.comments = comments;
 	}
 
-	public int getComment() {
-		return comment;
+	public int getViews() {
+		return views;
 	}
 
-	public void setComment(int comment) {
-		this.comment = comment;
+	public void setViews(int views) {
+		this.views = views;
 	}
-	
+
 }

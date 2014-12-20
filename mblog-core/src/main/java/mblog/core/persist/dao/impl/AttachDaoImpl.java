@@ -5,8 +5,8 @@ package mblog.core.persist.dao.impl;
 
 import java.util.List;
 
-import mblog.core.persist.dao.AlbumDao;
-import mblog.core.persist.entity.AlbumPO;
+import mblog.core.persist.dao.AttachDao;
+import mblog.core.persist.entity.AttachPO;
 import mtons.commons.persist.hibernate.DaoImpl;
 
 import org.hibernate.criterion.Restrictions;
@@ -15,16 +15,16 @@ import org.hibernate.criterion.Restrictions;
  * @author langhsu
  *
  */
-public class AlbumDaoImpl extends DaoImpl<AlbumPO> implements AlbumDao {
+public class AttachDaoImpl extends DaoImpl<AttachPO> implements AttachDao {
 	private static final long serialVersionUID = -3561107849267517664L;
 
-	public AlbumDaoImpl() {
-		super(AlbumPO.class);
+	public AttachDaoImpl() {
+		super(AttachPO.class);
 	}
 
 	@Override
-	public List<AlbumPO> list(long toId) {
-		TopQuery<AlbumPO> q = topQuery(0);
+	public List<AttachPO> list(long toId) {
+		TopQuery<AttachPO> q = topQuery(0);
 		q.add(Restrictions.eq("toId", toId));
 		return q.list();
 	}

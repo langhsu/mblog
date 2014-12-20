@@ -5,14 +5,14 @@ package mblog.core.service;
 
 import java.util.List;
 
-import mblog.core.pojos.Album;
+import mblog.core.pojos.Attach;
 
 /**
  * @author langhsu
  *
  */
-public interface AlbumService {
-	List<Album> list(long toId);
-	long add(Album album);
+public interface AttachService {
+	List<Attach> list(long toId);
+	long add(Attach album);
 	void deleteByToId(long toId);
 }

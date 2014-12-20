@@ -17,18 +17,18 @@ public class Mblog {
 	private String summary;
 	private String content;
 	private String tags;
-	private Album snapshot;
+	private Attach snapshot;
 	private Date created;
 	private Date updated;
 	private User author;
 	private int featured; // 是否推荐
-	private int heart;     // 喜欢
-	private int comment;
-	private int view;     // 阅读
+	private int hearts;     // 喜欢
+	private int comments;
+	private int views;     // 阅读
 	private int status;
 
 	// extends
-	private List<Album> albums;
+	private List<Attach> albums;
 
 	public long getId() {
 		return id;
@@ -70,11 +70,11 @@ public class Mblog {
 		this.content = content;
 	}
 
-	public Album getSnapshot() {
+	public Attach getSnapshot() {
 		return snapshot;
 	}
 
-	public void setSnapshot(Album snapshot) {
+	public void setSnapshot(Attach snapshot) {
 		this.snapshot = snapshot;
 	}
 
@@ -118,11 +118,11 @@ public class Mblog {
 		this.status = status;
 	}
 
-	public List<Album> getAlbums() {
+	public List<Attach> getAlbums() {
 		return albums;
 	}
 
-	public void setAlbums(List<Album> albums) {
+	public void setAlbums(List<Attach> albums) {
 		this.albums = albums;
 	}
 
@@ -134,28 +134,28 @@ public class Mblog {
 		this.featured = featured;
 	}
 
-	public int getHeart() {
-		return heart;
+	public int getHearts() {
+		return hearts;
 	}
 
-	public void setHeart(int heart) {
-		this.heart = heart;
+	public void setHearts(int hearts) {
+		this.hearts = hearts;
 	}
 
-	public int getView() {
-		return view;
+	public int getComments() {
+		return comments;
 	}
 
-	public void setView(int view) {
-		this.view = view;
+	public void setComments(int comments) {
+		this.comments = comments;
 	}
 
-	public int getComment() {
-		return comment;
+	public int getViews() {
+		return views;
 	}
 
-	public void setComment(int comment) {
-		this.comment = comment;
+	public void setViews(int views) {
+		this.views = views;
 	}
 
 }

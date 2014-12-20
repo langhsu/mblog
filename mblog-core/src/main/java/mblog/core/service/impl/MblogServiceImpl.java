@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import mblog.core.persist.dao.AlbumDao;
+import mblog.core.persist.dao.AttachDao;
 import mblog.core.persist.dao.MblogDao;
 import mblog.core.persist.dao.UserDao;
 import mblog.core.persist.entity.MblogPO;
-import mblog.core.pojos.Album;
+import mblog.core.pojos.Attach;
 import mblog.core.pojos.Mblog;
 import mblog.core.pojos.User;
-import mblog.core.service.AlbumService;
+import mblog.core.service.AttachService;
 import mblog.core.service.MblogService;
 import mtons.commons.lang.EntityStatus;
 import mtons.commons.pojos.Paging;
 import mtons.commons.pojos.UserContextHolder;
 import mtons.commons.pojos.UserProfile;
-import mtons.commons.utils.HtmlCutUtils;
+import mtons.commons.utils.PreviewHtmlUtils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +35,9 @@ public class MblogServiceImpl implements MblogService {
 	@Autowired
 	private MblogDao mblogDao;
 	@Autowired
-	private AlbumDao albumDao;
+	private AttachDao attachDao;
 	@Autowired
-	private AlbumService albumService;
+	private AttachService attachService;
 	@Autowired
 	private UserDao userDao;
 	
@@ -109,11 +109,11 @@ public class MblogServiceImpl implements MblogService {
 		// album handle
 		if (post.getAlbums() != null) {
 			for (int i = 0; i < post.getAlbums().size(); i++) {
-				Album a = post.getAlbums().get(i);
+				Attach a = post.getAlbums().get(i);
 				a.setToId(po.getId());
-				long id = albumService.add(a);
+				long id = attachService.add(a);
 				if (i == 0) {
-					po.setSnapshot(albumDao.get(id));
+					po.setSnapshot(attachDao.get(id));
 				}
 			}
 		}
@@ -127,7 +127,7 @@ public class MblogServiceImpl implements MblogService {
 		if (po != null) {
 			d = toVo(po, 1);
 		}
-		List<Album> albs = albumService.list(d.getId());
+		List<Attach> albs = attachService.list(d.getId());
 		d.setAlbums(albs);
 		return d;
 	}
@@ -142,7 +142,7 @@ public class MblogServiceImpl implements MblogService {
 		MblogPO po = mblogDao.get(id);
 		if (po != null) {
 			Assert.isTrue(po.getAuthor().getId() == up.getId(), "认证失败");
-			albumService.deleteByToId(id);
+			attachService.deleteByToId(id);
 			mblogDao.delete(po);
 		}
 	}
@@ -163,7 +163,7 @@ public class MblogServiceImpl implements MblogService {
 			d.setAuthor(u);
 		}
 		if (po.getSnapshot() != null) {
-			Album a = new Album();
+			Attach a = new Attach();
 			BeanUtils.copyProperties(po.getSnapshot(), a);
 			d.setSnapshot(a);
 		}
@@ -176,7 +176,7 @@ public class MblogServiceImpl implements MblogService {
      * @return
      */
     private String trimSummary(String text){
-        return HtmlCutUtils.substring(text, 126);
+        return PreviewHtmlUtils.truncateHTML(text, 126);
     }
 
 }

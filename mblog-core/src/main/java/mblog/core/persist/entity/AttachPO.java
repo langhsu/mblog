@@ -15,8 +15,8 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "tb_album")
-public class AlbumPO {
+@Table(name = "tb_attach")
+public class AttachPO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

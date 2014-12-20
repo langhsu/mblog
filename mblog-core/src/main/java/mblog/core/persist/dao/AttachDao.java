@@ -5,13 +5,13 @@ package mblog.core.persist.dao;
 
 import java.util.List;
 
-import mblog.core.persist.entity.AlbumPO;
+import mblog.core.persist.entity.AttachPO;
 import mtons.commons.persist.Dao;
 
 /**
  * @author langhsu
  *
  */
-public interface AlbumDao extends Dao<AlbumPO> {
-	List<AlbumPO> list(long toId);
+public interface AttachDao extends Dao<AttachPO> {
+	List<AttachPO> list(long toId);
 }

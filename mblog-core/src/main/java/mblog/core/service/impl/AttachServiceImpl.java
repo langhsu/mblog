@@ -6,10 +6,10 @@ package mblog.core.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import mblog.core.persist.dao.AlbumDao;
-import mblog.core.persist.entity.AlbumPO;
-import mblog.core.pojos.Album;
-import mblog.core.service.AlbumService;
+import mblog.core.persist.dao.AttachDao;
+import mblog.core.persist.entity.AttachPO;
+import mblog.core.pojos.Attach;
+import mblog.core.service.AttachService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
  * @author langhsu
  *
  */
-public class AlbumServiceImpl implements AlbumService {
+public class AttachServiceImpl implements AttachService {
 	@Autowired
-	private AlbumDao albumDao;
+	private AttachDao attachDao;
 	
 	private static String[] IGNORE = new String[]{};
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Album> list(long toId) {
-		List<AlbumPO> list = albumDao.list(toId);
-		List<Album> rets = new ArrayList<Album>();
-		for (AlbumPO po : list) {
+	public List<Attach> list(long toId) {
+		List<AttachPO> list = attachDao.list(toId);
+		List<Attach> rets = new ArrayList<Attach>();
+		for (AttachPO po : list) {
 			rets.add(toVo(po));
 		}
 		return rets;
@@ -38,26 +38,26 @@ public class AlbumServiceImpl implements AlbumService {
 	
 	@Override
 	@Transactional
-	public long add(Album album) {
-		AlbumPO po = new AlbumPO();
+	public long add(Attach album) {
+		AttachPO po = new AttachPO();
 		BeanUtils.copyProperties(album, po, IGNORE);
-		albumDao.save(po);
+		attachDao.save(po);
 		return po.getId();
 	}
 	
 	@Override
 	@Transactional
 	public void deleteByToId(long toId) {
-		List<AlbumPO> list = albumDao.list(toId);
+		List<AttachPO> list = attachDao.list(toId);
 		
-		for (AlbumPO po : list) {
+		for (AttachPO po : list) {
 			//TODO: remove file
-			albumDao.delete(po);
+			attachDao.delete(po);
 		}
 	}
 
-	private Album toVo(AlbumPO po) {
-		Album a = new Album();
+	private Attach toVo(AttachPO po) {
+		Attach a = new Attach();
 		BeanUtils.copyProperties(po, a, IGNORE);
 		return a;
 	}

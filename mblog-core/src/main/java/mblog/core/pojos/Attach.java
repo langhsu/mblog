@@ -7,7 +7,7 @@ package mblog.core.pojos;
  * @author langhsu
  *
  */
-public class Album {
+public class Attach {
 	private long id;
 	private long toId;
 	private String original;
