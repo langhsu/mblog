@@ -3,6 +3,11 @@ body {
 		"Helvetica", "sans-serif";
 }
 
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+color: #e67862;
+font-weight: bold;
+}
+
 .logo {float: left; padding: 7px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
 
 .logo img {
@@ -30,7 +35,7 @@ body {
 	bottom: 0;
 	overflow: hidden;
 	max-height: 100%;
-	background-image: url("../images/first/hero-home03.jpg");
+	background-image: url("../images/first/hero-home02.jpg");
 	background-size: cover;
 	-moz-background-size: cover;
 	-webkit-background-size: cover;

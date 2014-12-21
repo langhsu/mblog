@@ -24,9 +24,7 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		UserProfile bean = (UserProfile) session.getAttribute(Const.KEY_LOGIN);
-		if (bean != null) {
-			UserContextHolder.setUserProfile(bean);
-		}
+		UserContextHolder.setUserProfile(bean);
 		return true;
 	}
 	@Override

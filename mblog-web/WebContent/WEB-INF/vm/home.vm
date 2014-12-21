@@ -23,7 +23,6 @@
 				<span><a href="javascript:void(0);" data-evt="trash" data-id="${row.id}" class="trash"><i class="fa fa-trash-o"></i>&nbsp;删除</a></span>
     			<div class="pull-right">
     				<span><a href="$base/browse/detail/${row.id}">阅读全文<i class="fa fa-send-o"></i></a></span>
-					
     			</div>
     		</div>
         </article>

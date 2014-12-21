@@ -5,17 +5,27 @@
 	#if($row.type == 'image' && ${row.snapshot.preview})
 	<figure class="loop-entry-thumbnail">
 		<a href="$base/browse/detail/${row.id}">
-			<img src="$base/dist/images/spinner.gif" data-original="$base${row.snapshot.preview}"/>
+			<img src="$base${row.snapshot.preview}"/>
 		</a>
 	</figure>
 	#end
 	<!-- .post-entry-thumbnail -->
 	<div class="zan-outline">
+		#if($row.title)
+		<header>
+			<h4 class="loop-entry-title"">
+				<a href="$base/browse/detail/${row.id}">${row.title}</a>
+			</h4>
+		</header>
+		#end
 		${row.summary}
 	</div>
 	<!-- .loop-entry-content -->
 	<div class="loop-meta">
-		<span>发布: $date.format('yyyy-MM-dd HH:mm', $row.created)</span>
+		<span><i class="fa fa-calendar"></i>&nbsp;$date.format('yyyy-MM-dd HH:mm', $row.created)</span>
+		<div class="pull-right">
+			<span><a href="$base/browse/detail/${row.id}">阅读</a></span>
+		</div>
 	</div>
 	<!-- .loop-entry-meta -->
 </article>

@@ -23,6 +23,8 @@ public class GalleryController extends BaseController {
 	@Autowired
 	private MblogService mblogService;
 	
+	private int jsonMaxResults = 6;
+	
 	@RequestMapping("/gallery")
 	public String view(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
@@ -34,6 +36,7 @@ public class GalleryController extends BaseController {
 	@RequestMapping("/gallery_snippet/{pageNo}")
 	public String snippet(@PathVariable Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
+		paging.setMaxResults(jsonMaxResults);
 		mblogService.paging(paging);
 		model.put("paging", paging);
 		return "/browse/snippet";

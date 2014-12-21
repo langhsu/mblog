@@ -24,13 +24,13 @@
 					
 				#if($profile)
 				<li>
-    				<a href="$base/account/profile" class="btn btn-link highlight" title="settings">
-    					<span class="fa fa-twitch"></span> $!{profile.username}
+    				<a href="$base/account/profile" class="ava" title="settings">
+                		<img class="img-circle" src="$base${profile.avater}">
     				</a>
 				</li>
 				<li>
-    				<a href="$base/logout" class="btn btn-link highlight" title="Sign out">
-    					<span class="fa fa-sign-out"></span>
+    				<a href="$base/logout" class="btn btn-link logout" title="Sign out">
+    					<span class="fa fa-power-off"></span>
     				</a>
 				</li>
 				#else

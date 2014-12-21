@@ -13,9 +13,13 @@
 	<link rel="stylesheet" href="$base/dist/css/animate.css">
 	
 	<!-- JavaScript -->
+	
+	<!--[if lt IE 9]>
+    <script src="$base/dist/js/html5.js"></script>
+    <![endif]-->
+	
 	<script type="text/javascript" src="$base/dist/js/jquery.min.js"></script>
 	<script type="text/javascript" src="$base/dist/js/bootstrap.min.js"></script>
-	<script type='text/javascript' src='$base/dist/js/html5.js'></script>
 	<script type="text/javascript" src="$base/dist/js/jquery-validate.js"></script>
 	
 	<!-- Favicons -->

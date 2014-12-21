@@ -28,10 +28,7 @@
 	position: relative;
 }
 
-.site-content { width: 75%; max-width: 710px; background: #fff; margin-left: auto; margin-right: auto; margin-bottom: 40px; box-sizing: border-box;
-	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.15); -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-}
+.site-content { width: 75%; max-width: 710px; margin-left: auto; margin-right: auto; margin-bottom: 40px;}
 
 /* Tablet (Portrait)
 ================================================== */

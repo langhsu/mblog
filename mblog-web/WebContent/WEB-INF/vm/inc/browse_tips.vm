@@ -1,4 +1,4 @@
-<!--[if lt IE 7]>
+<!--[if lt IE 8]>
 <div class="alert alert-danger alert-dismissible fade in" role="alert" style="margin-bottom:0">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
       <strong>您正在使用低版本浏览器，</strong> 在本页面的显示效果可能有差异。

@@ -26,7 +26,7 @@ public class RegController extends BaseController {
 	
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String view(ModelMap model) {
-		if (UserContextHolder.getUserProfile() != null) {
+		if (getProfile() != null) {
 			return "redirect:/home";
 		}
 		return "/account/reg";

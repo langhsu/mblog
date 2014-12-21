@@ -14,6 +14,7 @@ public interface UserService {
 	UserProfile login(String username, String password);
 	void register(User user);
 	UserProfile update(User user);
+	User get(long id);
 	void updatePassword(long id, String newPassword);
 	void updatePassword(long id, String oldPassword, String newPassword);
 }

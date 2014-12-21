@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/blog")
-public class BlogPostController extends BaseController {
+public class PostController extends BaseController {
 	@Autowired
 	private MblogService mblogService;
 	@Autowired
@@ -96,7 +96,7 @@ public class BlogPostController extends BaseController {
 			album.setOriginal(appContext.getOriDir() + rel);
 
 			// 创建缩放图片
-			GMagickUtils.scaleImage(temp.getAbsolutePath(), thumbs, 300);
+			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), thumbs, 360);
 			
 			album.setPreview(appContext.getThumbsDir() + rel);
 			

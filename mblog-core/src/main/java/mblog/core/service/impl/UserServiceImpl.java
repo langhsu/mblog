@@ -66,6 +66,18 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
+	public User get(long id) {
+		UserPO po = userDao.get(id);
+		User ret = null;
+		if (po != null) {
+			ret = new User();
+			BeanUtils.copyProperties(po, ret, new String[] {"password"});
+		}
+		return ret;
+	}
+	
+	@Override
+	@Transactional
 	public void updatePassword(long id, String newPassword) {
 		UserPO po = userDao.get(id);
 		
@@ -98,5 +110,5 @@ public class UserServiceImpl implements UserService {
 		profile.setStatus(po.getStatus());
 		return profile;
 	}
-	
+
 }
