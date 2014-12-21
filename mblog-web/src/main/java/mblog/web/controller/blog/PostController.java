@@ -91,12 +91,13 @@ public class PostController extends BaseController {
 		File temp = new File(root + album.getOriginal());
 		try {
 			// 保存原图
-			FileUtils.copyFile(temp, new File(dest));
-
+//			FileUtils.copyFile(temp, new File(dest));
+			GMagickUtils.scaleImage(temp.getAbsolutePath(), dest, 700);
+			
 			album.setOriginal(appContext.getOriDir() + rel);
 
 			// 创建缩放图片
-			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), thumbs, 360);
+			GMagickUtils.scaleImage(temp.getAbsolutePath(), thumbs, 360);
 			
 			album.setPreview(appContext.getThumbsDir() + rel);
 			

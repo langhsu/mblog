@@ -160,6 +160,7 @@ public class MblogServiceImpl implements MblogService {
 			u.setId(po.getAuthor().getId());
 			u.setUsername(po.getAuthor().getUsername());
 			u.setName(po.getAuthor().getName());
+			u.setAvater(po.getAuthor().getAvater());
 			d.setAuthor(u);
 		}
 		if (po.getSnapshot() != null) {

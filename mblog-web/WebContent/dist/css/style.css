@@ -95,18 +95,48 @@ a.trash {color: #F50A0A!important;}
 
 .loop .loop-meta a:hover { color: #428bca; }
 
-/* --- Content --- */
-
-/* --- Comment --- */
-.author { float: left; padding-right: 12px; }
-.author img { padding: 4px; border: 1px solid #ddd; width: 45px; height: 45px; }
-.name { font-size: 14px; font-size: 1.4rem; margin: 0; font-weight: bold; }
-
-.comments .text { }
-.comments .author { margin: 0 10px 10px; }
-
-.respond { padding: 20px 40px; }
-.respond-form { margin: 0 0 25px; }
+.author-head {
+	overflow: hidden;
+	padding: 10px;
+	position: relative;
+	background-color: #fff;
+	margin-bottom: 20px;
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+.author-ava {
+	float: left;
+	position: relative;
+	overflow: hidden;
+}
+.author-ava img {
+	width: 46px;
+	height: 46px;
+	border: 2px solid #DDD;
+	border-radius: 50%;
+}
+.author-info {
+	margin-left: 65px;
+}
+.author-info h1 {
+	font-size: 18px;
+	line-height: 24px;
+	margin: 0;
+}
+.author_icon {
+	color: #bbb;
+	margin-top: 4px;
+	font-size: 13px;
+	font-size: 1.3rem;
+}
+.author_icon span {
+	margin-right: 5px;
+}
 
 /* ---  Sidebox --- */
 .sidebox, .widget {

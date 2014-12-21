@@ -23,11 +23,12 @@ public class GalleryController extends BaseController {
 	@Autowired
 	private MblogService mblogService;
 	
-	private int jsonMaxResults = 6;
+	private int jsonMaxResults = 8;
 	
 	@RequestMapping("/gallery")
 	public String view(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
+		paging.setMaxResults(jsonMaxResults);
 		mblogService.paging(paging);
 		model.put("paging", paging);
 		return "/browse/gallery";
