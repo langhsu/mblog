@@ -27,7 +27,16 @@
     		</div>
         </article>
     	<!-- 文章显示结束 -->
-    	#end
+		#end
+		
+		#if($paging.results.size() == 0)
+		<article class="loop clearfix">
+			<section class="loop-content">
+				<i class="fa fa-frown-o fa-lg"></i> 您还没发表过文章!
+            </section>
+        </article>
+		#end
+		
     </div>
     		
     <div class="text-center clr">

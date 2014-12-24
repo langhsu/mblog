@@ -36,5 +36,11 @@
 </div>
 
 <div class="sidebar-right bounceInRight animated">
+	<div class="search">
+		<form class="form-inline clearfix" method="get" id="searchform" action="$base/browse/search">
+			<input class="form-control" type="text" name="q" placeholder="搜索..." value="${q}"/>
+			<button type="submit" class="btn btn-primary btn-small"><i class="fa fa-search"></i></button>
+		</form>
+	</div>
 	#parse("/inc/right/public.vm")
 </div>

@@ -7,6 +7,7 @@ import mblog.core.service.MblogService;
 import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Paging;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +28,9 @@ public class SearchController extends BaseController {
 		Paging paging = wrapPaging(pageNo);
 		paging.setMaxResults(1);
 		try {
-			mblogService.search(paging, q);
+			if (StringUtils.isNotEmpty(q)) {
+				mblogService.search(paging, q);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,8 +1,10 @@
 #set($title = "发现")
 
+#set($results = $paging.results)
+
 <div class="sidebar-left">
     <div class="posts">
-    	#foreach($row in $paging.results)
+    	#foreach($row in $results)
     	<article class="loop clearfix">
     		<section class="loop-content">
     			#if($row.title)
@@ -27,7 +29,15 @@
     		</div>
         </article>
     	<!-- 文章显示结束 -->
-    	#end
+		#end
+		
+		#if($results.size() == 0)
+		<article class="loop clearfix">
+			<section class="loop-content">
+                <i class="fa fa-frown-o fa-lg"></i> 没有相关记录!
+            </section>
+        </article>
+		#end
     </div>
     		
     <div class="text-center clr">
@@ -35,6 +45,14 @@
     </div>
 </div>
 
+<style>
+</style>
 <div class="sidebar-right bounceInRight animated">
+    <div class="search">
+		<form class="form-inline clearfix" method="get" id="searchform" action="$base/browse/search">
+			<input class="form-control" type="text" name="q" placeholder="搜索..." value="${q}"/>
+			<button type="submit" class="btn btn-primary btn-small"><i class="fa fa-search"></i></button>
+		</form>
+	</div>
 	#parse("/inc/right/public.vm")
 </div>

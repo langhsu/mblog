@@ -1,8 +1,8 @@
 #set($title=$!{ret.title})
 
 <div class="sidebar-left">
-	<div class="author-head">
-		<div class="author-ava">
+	<div class="posts-head">
+		<div class="ava">
 			<img src="$base${ret.author.avater}"/>
 		</div>
 		<div class="author-info">
