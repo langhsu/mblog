@@ -16,22 +16,41 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 /**
  * @author langhsu
  *
  */
 @Entity
 @Table(name = "tb_mblog")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)  
+@Indexed(index = "mblog") 
 public class MblogPO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@DocumentId
 	private long id;
 	
 	private String type;
+	
+	@Field(name = "title", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String title;  // 标题
+	
+	@Field(name = "summary", index = Index.YES, analyze = Analyze.YES, store = Store.YES) 
 	private String summary;  // 摘要
-	private String content;  // 内容
+	
+	@Field(name = "tags", index = Index.YES, analyze = Analyze.YES, store = Store.YES) 
 	private String tags;
+
+	private String content;  // 内容
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "snapshot_id")

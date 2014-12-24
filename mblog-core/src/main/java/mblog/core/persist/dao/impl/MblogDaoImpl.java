@@ -10,6 +10,7 @@ import mblog.core.persist.entity.MblogPO;
 import mtons.commons.persist.hibernate.DaoImpl;
 import mtons.commons.pojos.Paging;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -21,6 +22,11 @@ public class MblogDaoImpl extends DaoImpl<MblogPO> implements MblogDao {
 	
 	public MblogDaoImpl() {
 		super(MblogPO.class);
+	}
+	
+	@Override
+	public Session getSession() {
+		return super.session();
 	}
 
 	@Override
@@ -50,5 +56,5 @@ public class MblogDaoImpl extends DaoImpl<MblogPO> implements MblogDao {
 		q.desc("created");
 		return q.list();
 	}
-	
+
 }

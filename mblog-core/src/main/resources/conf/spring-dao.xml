@@ -34,6 +34,10 @@
 				<prop key="hibernate.order_updates">true</prop>
 				<prop key="hibernate.cache.use_second_level_cache">false</prop>
 				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.search.default.directory_provider">
+    				${hibernate.search.store}
+    			</prop>
+    			<prop key="hibernate.search.default.indexBase">${hibernate.search.indexs}</prop>
 			</props>
 		</property>
 		<!-- Entity package -->

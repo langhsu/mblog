@@ -12,9 +12,19 @@
 		<dependency>
 			<groupId>com.mtons</groupId>
 			<artifactId>mtons-commons-hibernate</artifactId>
-			<version>0.0.1</version>
+			<version>1.0.0</version>
 			<scope>compile</scope>
 			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-orm</artifactId>
+			<version>5.0.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-highlighter</artifactId>
+			<version>4.10.2</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -3,6 +3,7 @@
  */
 package mblog.core.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,17 @@ import mtons.commons.pojos.UserContextHolder;
 import mtons.commons.pojos.UserProfile;
 import mtons.commons.utils.PreviewHtmlUtils;
 
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
+import org.apache.lucene.util.Version;
+import org.hibernate.search.FullTextQuery;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.SearchFactory;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +76,44 @@ public class MblogServiceImpl implements MblogService {
 			rets.add(toVo(po ,0));
 		}
 		paging.setResults(rets);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Mblog> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException {
+		FullTextSession fullTextSession = Search.getFullTextSession(mblogDao.getSession());
+//	    fullTextSession.createIndexer().startAndWait();
+	    SearchFactory sf = fullTextSession.getSearchFactory();
+	    QueryBuilder qb = sf.buildQueryBuilder().forEntity(MblogPO.class).get();
+	    org.apache.lucene.search.Query luceneQuery  = qb.keyword().onFields("title","summary","tags").matching(q).createQuery();
+	    FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
+	    query.setFirstResult(paging.getFirstResult());
+	    query.setMaxResults(paging.getMaxResults());
+	   
+	    StandardAnalyzer standardAnalyzer = new StandardAnalyzer( Version.LUCENE_4_10_2); 
+	    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<span style='color:red;'>", "</span>");
+        QueryScorer queryScorer = new QueryScorer(luceneQuery);
+        Highlighter highlighter = new Highlighter(formatter, queryScorer);
+        
+	    List<MblogPO> list = query.list();
+	    int resultSize = query.getResultSize();
+	    
+	    List<Mblog> rets = new ArrayList<Mblog>();
+		for (MblogPO po : list) {
+			Mblog m = toVo(po ,0);
+			String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
+			String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
+			String tags = highlighter.getBestFragment(standardAnalyzer, "tags", m.getTags());
+			m.setTitle(title);
+			m.setSummary(summary);
+			m.setTags(tags);
+			
+			rets.add(m);
+		}
+		paging.setTotalCount(resultSize);
+		paging.setResults(rets);
+		return rets;
 	}
 	
 	@Override
