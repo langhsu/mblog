@@ -44,7 +44,7 @@ $(function() {
 	$('a[data-evt=trash]').click(function () {
 		var id = $(this).attr('data-id');
 		
-		if (parseInt(id) > 0) {
+		if (parseInt(id) > 0 && confirm('确定删除此项吗?')) {
 			jQuery.getJSON('$base/blog/delete/' + id, function (ret) {
 				alert(ret.message);
 				if (ret.code >=0) {
