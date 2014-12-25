@@ -23,6 +23,7 @@ import mtons.commons.pojos.UserContextHolder;
 import mtons.commons.pojos.UserProfile;
 import mtons.commons.utils.PreviewHtmlUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
@@ -104,10 +105,15 @@ public class MblogServiceImpl implements MblogService {
 			String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
 			String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
 			String tags = highlighter.getBestFragment(standardAnalyzer, "tags", m.getTags());
-			m.setTitle(title);
-			m.setSummary(summary);
-			m.setTags(tags);
-			
+			if (StringUtils.isNotEmpty(title)) {
+				m.setTitle(title);
+			}
+			if (StringUtils.isNotEmpty(summary)) {
+				m.setSummary(summary);
+			}
+			if (StringUtils.isNotEmpty(tags)) {
+				m.setTags(tags);
+			}
 			rets.add(m);
 		}
 		paging.setTotalCount(resultSize);

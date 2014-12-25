@@ -19,13 +19,13 @@ $user.username
 		</div>        
 		<div class="col-md-7 zan-outline">
 			<div class="loop-entry-excerpt entry clr">
-				${row.summary}
+				$!{row.summary}
 			</div>
 		</div>
 	#else
 		<div class="col-md-12">
 			<div class="loop-entry-excerpt entry clr">
-				${row.summary}
+				$!{row.summary}
 			</div>
 		</div>
 	#end
