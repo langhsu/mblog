@@ -31,7 +31,7 @@
     </div>
     		
     <div class="text-center clr">
-    	#page("home" $paging 5)
+    	#page("explore" $paging 5)
     </div>
 </div>
 

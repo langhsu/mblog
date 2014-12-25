@@ -42,7 +42,7 @@
     </div>
     		
     <div class="text-center clr">
-    	#page("search?q=${q}" $paging 5)
+    	#page("search?q=$!{q}" $paging 5)
     </div>
 </div>
 
