@@ -28,7 +28,6 @@ import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
-import org.apache.lucene.util.Version;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -91,7 +90,7 @@ public class MblogServiceImpl implements MblogService {
 	    query.setFirstResult(paging.getFirstResult());
 	    query.setMaxResults(paging.getMaxResults());
 	   
-	    StandardAnalyzer standardAnalyzer = new StandardAnalyzer( Version.LUCENE_4_10_2); 
+	    StandardAnalyzer standardAnalyzer = new StandardAnalyzer(); 
 	    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<span style='color:red;'>", "</span>");
         QueryScorer queryScorer = new QueryScorer(luceneQuery);
         Highlighter highlighter = new Highlighter(formatter, queryScorer);

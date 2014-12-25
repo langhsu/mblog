@@ -15,7 +15,6 @@ import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Data;
 import mtons.commons.utils.GMagickUtils;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,7 +1,7 @@
 #set($title = "修改用户信息")
 #set($layout = "/layout/schema.vm")
 
-#parse("/inc/account_profile.vm")
+#parse("/inc/snippet/profile.vm")
 
 <nav id="profile-navigation" class="profile-navbar">
 	<div class="container">
