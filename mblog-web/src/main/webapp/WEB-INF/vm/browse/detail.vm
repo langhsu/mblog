@@ -1,4 +1,6 @@
 #set($title=$!{ret.title})
+#set($tags=$!{ret.tags})
+#set($layout = "/layout/seo.vm")
 
 <div class="sidebar-left">
 	<div class="posts-head">
