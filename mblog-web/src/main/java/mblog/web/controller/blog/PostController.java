@@ -91,7 +91,7 @@ public class PostController extends BaseController {
 		try {
 			// 保存原图
 //			FileUtils.copyFile(temp, new File(dest));
-			GMagickUtils.scaleImage(temp.getAbsolutePath(), dest, 700);
+			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), dest, 700);
 			
 			album.setOriginal(appContext.getOriDir() + rel);
 
