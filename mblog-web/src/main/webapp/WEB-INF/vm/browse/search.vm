@@ -3,6 +3,15 @@
 #set($results = $paging.results)
 
 <div class="sidebar-left">
+	<div class="posts-head">
+		#if($results.size() == 0)
+			<i class="fa fa-frown-o fa-lg"></i> 没有相关记录!
+		#else
+			<div class="alert alert-success" style="margin-bottom:0">
+		     	 搜索 <strong>$!{q}</strong>, 共 ${paging.totalCount} 个结果.
+		    </div>
+		#end
+	</div>
     <div class="posts">
     	#foreach($row in $results)
     	<article class="loop clearfix">
@@ -50,7 +59,7 @@
 <div class="sidebar-right bounceInRight animated">
     <div class="search">
 		<form class="form-inline clearfix" method="get" id="searchform" action="$base/browse/search">
-			<input class="form-control" type="text" name="q" placeholder="搜索..." value="${q}"/>
+			<input class="form-control" type="text" name="q" placeholder="搜索..." value="${!q}"/>
 			<button type="submit" class="btn btn-primary btn-small"><i class="fa fa-search"></i></button>
 		</form>
 	</div>
