@@ -78,6 +78,16 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
+	public UserProfile updateAvater(long id, String path) {
+		UserPO po = userDao.get(id);
+		if (po != null) {
+			po.setAvater(path);
+		}
+		return wrapperProfile(po);
+	}
+	
+	@Override
+	@Transactional
 	public void updatePassword(long id, String newPassword) {
 		UserPO po = userDao.get(id);
 		

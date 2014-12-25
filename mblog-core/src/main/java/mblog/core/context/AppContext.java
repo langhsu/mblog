@@ -11,6 +11,7 @@ public class AppContext {
 	String root = "/store";
 	String oriDir = "/store/ori";
 	String thumbsDir = "/store/thumbs";
+	String avaDir = "/store/ava";
 	String tempDir = "/store/temp";
 
 	public String getRoot() {
@@ -43,6 +44,14 @@ public class AppContext {
 
 	public void setTempDir(String tempDir) {
 		this.tempDir = tempDir;
+	}
+
+	public String getAvaDir() {
+		return avaDir;
+	}
+
+	public void setAvaDir(String avaDir) {
+		this.avaDir = avaDir;
 	}
 
 }
