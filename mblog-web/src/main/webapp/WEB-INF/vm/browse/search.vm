@@ -8,7 +8,7 @@
 			<i class="fa fa-frown-o fa-lg"></i> 没有相关记录!
 		#else
 			<div class="alert alert-success" style="margin-bottom:0">
-		     	 搜索 <strong>$!{q}</strong> 共 ${paging.totalCount} 个结果.
+		     	 搜索 <strong>$!{q}</strong>, 共 ${paging.totalCount} 个结果.
 		    </div>
 		#end
 	</div>
