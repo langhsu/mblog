@@ -1,9 +1,9 @@
 ## 用户名称显示
 #macro(showName $user)
 	#if ($user.name)
-		$user.name
+$user.name
 	#else
-		$user.username
+$user.username
 	#end
 #end
 
@@ -19,13 +19,13 @@
 		</div>        
 		<div class="col-md-7 zan-outline">
 			<div class="loop-entry-excerpt entry clr">
-				${row.summary}
+				$!{row.summary}
 			</div>
 		</div>
 	#else
 		<div class="col-md-12">
 			<div class="loop-entry-excerpt entry clr">
-				${row.summary}
+				$!{row.summary}
 			</div>
 		</div>
 	#end

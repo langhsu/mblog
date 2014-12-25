@@ -42,8 +42,9 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="$base/reg" class="highlight">注册</a></li>
 					<li><a href="$base/browse/gallery" class="highlight">走廊</a></li>
+					<li><a href="$base/browse/explore" class="highlight">发现</a></li>
+					<li><a href="$base/reg" class="highlight">注册</a></li>
 				</ul>
 			</div>
 		</div>

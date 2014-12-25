@@ -3,11 +3,11 @@
  */
 package mblog.web.controller.account;
 
+import mblog.core.lang.Consts;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
 import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Data;
-import mtons.commons.pojos.UserContextHolder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +38,7 @@ public class RegController extends BaseController {
 		String ret = "/account/reg";
 		
 		try {
+			user.setAvater(Consts.avater);
 			userService.register(user);
 			data = Data.success("恭喜您! 注册成功");
 			ret = "/account/reg_result";

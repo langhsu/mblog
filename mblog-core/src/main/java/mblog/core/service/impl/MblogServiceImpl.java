@@ -23,12 +23,12 @@ import mtons.commons.pojos.UserContextHolder;
 import mtons.commons.pojos.UserProfile;
 import mtons.commons.utils.PreviewHtmlUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
-import org.apache.lucene.util.Version;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -91,7 +91,7 @@ public class MblogServiceImpl implements MblogService {
 	    query.setFirstResult(paging.getFirstResult());
 	    query.setMaxResults(paging.getMaxResults());
 	   
-	    StandardAnalyzer standardAnalyzer = new StandardAnalyzer( Version.LUCENE_4_10_2); 
+	    StandardAnalyzer standardAnalyzer = new StandardAnalyzer(); 
 	    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<span style='color:red;'>", "</span>");
         QueryScorer queryScorer = new QueryScorer(luceneQuery);
         Highlighter highlighter = new Highlighter(formatter, queryScorer);
@@ -105,10 +105,15 @@ public class MblogServiceImpl implements MblogService {
 			String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
 			String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
 			String tags = highlighter.getBestFragment(standardAnalyzer, "tags", m.getTags());
-			m.setTitle(title);
-			m.setSummary(summary);
-			m.setTags(tags);
-			
+			if (StringUtils.isNotEmpty(title)) {
+				m.setTitle(title);
+			}
+			if (StringUtils.isNotEmpty(summary)) {
+				m.setSummary(summary);
+			}
+			if (StringUtils.isNotEmpty(tags)) {
+				m.setTags(tags);
+			}
 			rets.add(m);
 		}
 		paging.setTotalCount(resultSize);

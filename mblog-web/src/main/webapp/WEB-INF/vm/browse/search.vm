@@ -39,18 +39,10 @@
         </article>
     	<!-- 文章显示结束 -->
 		#end
-		
-		#if($results.size() == 0)
-		<article class="loop clearfix">
-			<section class="loop-content">
-                <i class="fa fa-frown-o fa-lg"></i> 没有相关记录!
-            </section>
-        </article>
-		#end
     </div>
     		
     <div class="text-center clr">
-    	#page("search?q=${q}" $paging 5)
+    	#page("search?q=$!{q}" $paging 5)
     </div>
 </div>
 

@@ -46,7 +46,7 @@
         </div>
         		
         <div class="text-center clr">
-        	#page("home" $paging 5)
+        	#page("$base/user/$!{user.id}" $paging 5)
         </div>
 	</div>
 </section>

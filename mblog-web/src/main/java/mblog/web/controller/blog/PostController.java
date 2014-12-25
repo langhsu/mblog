@@ -15,7 +15,6 @@ import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Data;
 import mtons.commons.utils.GMagickUtils;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -92,7 +91,7 @@ public class PostController extends BaseController {
 		try {
 			// 保存原图
 //			FileUtils.copyFile(temp, new File(dest));
-			GMagickUtils.scaleImage(temp.getAbsolutePath(), dest, 700);
+			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), dest, 700);
 			
 			album.setOriginal(appContext.getOriDir() + rel);
 

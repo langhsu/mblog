@@ -13,11 +13,11 @@
 						<div class="signup-form-block">
 							<div class="row">
 								<div class="col-md-4 col-sm-4 ">
-									<input type="text" placeholder="Username"
+									<input type="text" placeholder="用户名"
 										class="form-control input-lg input-bigger" name="username" data-required>
 								</div>
 								<div class="col-md-4 col-sm-4 ">
-									<input type="password" placeholder="Password"
+									<input type="password" placeholder="密码"
 										class="form-control input-lg input-bigger" name="password" data-required>
 									<div id="password_icon" class="checkpswd"></div>
 								</div>

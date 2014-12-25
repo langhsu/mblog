@@ -35,7 +35,7 @@ font-weight: bold;
 	bottom: 0;
 	overflow: hidden;
 	max-height: 100%;
-	background-image: url("../images/first/hero-home03.jpg");
+	background-image: url("../images/first/portrait2.jpg");
 	background-size: cover;
 	-moz-background-size: cover;
 	-webkit-background-size: cover;
@@ -176,15 +176,15 @@ font-weight: bold;
 *
 **************************************************************************************/
 .navbar-nav>li>a {
-	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-top: 6px;
+	padding-bottom: 6px;
 	line-height: 20px;
 }
+
 .highlight {
 	line-height: 20px;
 	margin-top: 10px;
 	color: #fff;
-	background-color: rgba(255, 255, 255, .25) !important;
 	border-radius: 6px;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -197,9 +197,8 @@ font-weight: bold;
 }
 
 .highlight:hover,.highlight:focus,.highlight:active {
-	color: #fff;
-	background-color: #df5736;
-	border-color: #F9A265;
+	color: #da6426;
+	background-color: #fff!important;;
 }
 
 /**************************************************************************************
