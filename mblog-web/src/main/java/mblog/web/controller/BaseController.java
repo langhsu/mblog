@@ -69,7 +69,7 @@ public class BaseController{
 	protected String copyFile(String root, String dir, MultipartFile file) throws IOException {
 		String realpath = getRealPath(root) + dir;
 		Date current = new Date();
-		String path = DateFormatUtils.format(current, "/yyyyMMddHms") + getSuffix(file.getOriginalFilename());
+		String path = "/" + current.getTime() + getSuffix(file.getOriginalFilename());
 		File destFile = new File(realpath + path);
 		if (!destFile.getParentFile().exists()) {
 			destFile.getParentFile().mkdirs();

@@ -9,7 +9,7 @@
 <div class="site-content">
     <div class="panel panel-default">
     	<div class="panel-heading">
-    		<span class="glyphicon glyphicon-edit"></span> 发布文件
+    		<span class="glyphicon glyphicon-edit"></span> 发布文字
     	</div>
     	<div class="panel-body">
     		<div id="message"></div>
