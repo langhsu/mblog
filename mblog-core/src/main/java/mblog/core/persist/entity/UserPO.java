@@ -35,6 +35,7 @@ public class UserPO {
 	private String email;
 	private String mobile;
 	private Date created;
+	private Date updated;
 	@Column(name="last_login")
 	private Date lastLogin;
 	private int status;
@@ -117,6 +118,14 @@ public class UserPO {
 
 	public void setAvater(String avater) {
 		this.avater = avater;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 	
 }

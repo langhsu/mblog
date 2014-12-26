@@ -1,6 +1,7 @@
 package mblog.core.service.impl;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import mblog.core.persist.dao.UserDao;
 import mblog.core.persist.entity.UserPO;
@@ -46,9 +47,12 @@ public class UserServiceImpl implements UserService {
 		UserPO po = new UserPO();
 		
 		BeanUtils.copyProperties(user, po);
+		
+		Date current = Calendar.getInstance().getTime();
 		po.setPassword(MD5Helper.md5(user.getPassword()));
 		po.setStatus(EntityStatus.ENABLED);
-		po.setCreated(Calendar.getInstance().getTime());
+		po.setCreated(current);
+		po.setUpdated(current);
 		userDao.save(po);
 	}
 
@@ -82,6 +86,7 @@ public class UserServiceImpl implements UserService {
 		UserPO po = userDao.get(id);
 		if (po != null) {
 			po.setAvater(path);
+			po.setUpdated(new Date());
 		}
 		return wrapperProfile(po);
 	}

@@ -6,6 +6,7 @@ package mblog.web.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -66,7 +67,7 @@ public class BaseController{
 	 * @throws IOException
 	 */
 	protected String copyFile(String root, String dir, MultipartFile file) throws IOException {
-		String realpath = session.getServletContext().getRealPath(root) + dir;
+		String realpath = getRealPath(root) + dir;
 		Date current = new Date();
 		String path = DateFormatUtils.format(current, "/yyyyMMddHms") + getSuffix(file.getOriginalFilename());
 		File destFile = new File(realpath + path);
@@ -75,6 +76,12 @@ public class BaseController{
 		}
 		file.transferTo(destFile);
 		return dir + path;
+	}
+	
+	
+	
+	protected String genFileName(MultipartFile file) {
+		return UUID.randomUUID().toString() + getSuffix(file.getOriginalFilename());
 	}
 	
 	protected String getRealPath(String root) {

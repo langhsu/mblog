@@ -25,12 +25,6 @@
 	</div>
 </nav>
 
-<style>
-.update_ava {
-	width: 400px;
-	margin: 10px auto;
-}
-</style>
 <section class="site-main container">	
 	<div class="site-content">
 	    <div class="panel panel-default stacked">
@@ -63,7 +57,7 @@
 	</div>
 </section>
 <script type="text/javascript">
-var upload_url = '$base/blog/upload';
+var upload_url = '$base/blog/upload?scale=true&size=400';
 var base_url = '$base';
 
 #[[
