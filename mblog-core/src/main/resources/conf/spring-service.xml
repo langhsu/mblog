@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans 
-  http://www.springframework.org/schema/beans/spring-beans.xsd"
-  default-autowire="byName">
+	xmlns:cache="http://www.springframework.org/schema/cache"
+  	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  	http://www.springframework.org/schema/beans/spring-beans.xsd
+  	http://www.springframework.org/schema/cache
+	http://www.springframework.org/schema/cache/spring-cache.xsd"
+  	default-autowire="byName">
     
+	<bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+		<property name="shared" value="true"/>
+	</bean>
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+    	<property name="cacheManager" ref="ehcacheManager" />
+    </bean>
+    
+    <!-- 支持缓存注解 -->  
+    <cache:annotation-driven cache-manager="cacheManager" /> 
+    
+    <bean id="appContext" class="mblog.core.context.AppContext"/>
+     
     <bean id="userDao" class="mblog.core.persist.dao.impl.UserDaoImpl" />
 	<bean id="mblogDao" class="mblog.core.persist.dao.impl.MblogDaoImpl" />
 	<bean id="attachDao" class="mblog.core.persist.dao.impl.AttachDaoImpl"/>
@@ -14,6 +30,6 @@
     <bean id="attachService" class="mblog.core.service.impl.AttachServiceImpl"/>
     <bean id="commentService" class="mblog.core.service.impl.CommentServiceImpl"/>
     
-    <bean id="appContext" class="mblog.core.context.AppContext"/>
+	<bean id="postPlanet" class="mblog.core.planet.impl.PostPlanetImpl" />
     
 </beans>

@@ -1,60 +1,67 @@
-#set($layout="layout/first.vm")
+#set($title = "首页")
 
-<div class="hero-unit">
-	<div class="vegas-overlay" style="opacity: 0.2; margin: 0px; padding: 0px; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; background-image: url($base/dist/images/overlay.png);"></div>
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 signupForm bounceInDown animated">
-				<h2 class="fontlato">Mtons, 轻松分享你的兴趣</h2>
-				<form action="login" method="post" id="signupform">
-					<input type="hidden" name="source" value="Home Main">
-					<fieldset>
-						<div class="signup-form-block">
-							<div class="row">
-								<div class="col-md-4 col-sm-4 ">
-									<input type="text" placeholder="用户名"
-										class="form-control input-lg input-bigger" name="username" data-required>
-								</div>
-								<div class="col-md-4 col-sm-4 ">
-									<input type="password" placeholder="密码"
-										class="form-control input-lg input-bigger" name="password" data-required>
-									<div id="password_icon" class="checkpswd"></div>
-								</div>
-								<div class="col-md-4 col-sm-4">
-									<button type="submit" id="validation"
-										class="btn btn-lg btn-block btn-success btn-uppercase btn-bigger">登录 Use it</button>
-								</div>
-							</div>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-		</div>
-	</div>
-	<a class="getmore" href="#footer">
-		<span class="icon-bar icon-bar-left"></span>
-		<span class="icon-bar icon-bar-right"></span>
-	</a>
+<style>
+.navbar-inverse {background-color: rgba(0,0,0,.4); border: none;}
+.overlay {
+	margin: 0px; 
+	padding: 0px; 
+	position: fixed; 
+	left: 0px; 
+	top: 0px; 
+	width: 100%; 
+	height: 100%; 
+	background-image: url("./dist/images/first/portrait2.jpg");
+    background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    background-position: center;
+	z-index: -1;
+}
+</style>
+<div class="overlay" style=""></div>
+<div class="sidebar-left">
+    <div class="posts">
+    	#foreach($row in $paging.results)
+    	<article class="loop clearfix">
+    		<section class="loop-content">
+    			#if($row.title)
+    			<header>
+    				<h3 class="loop-title">
+    					<a href="$base/browse/detail/${row.id}">${row.title}</a>
+    				</h3>
+    			</header>
+    			#end
+    			<div class="row">
+    				#showmb($row)
+    			</div>
+            </section>
+    		
+    		<div class="loop-meta">
+				<span><a href="$base/user/${row.author.id}"><i class="fa fa-user"></i>&nbsp;#showName(${row.author})</a></span>
+    			<span><i class="fa fa-calendar-o"></i>&nbsp;$date.format('yyyy-MM-dd', $row.created)</span>
+    			<span><i class="fa fa-heart-o"></i>&nbsp;${row.hearts}</span>
+    			<div class="pull-right">
+    				<span><a href="$base/browse/detail/${row.id}">阅读全文<i class="fa fa-send-o"></i></a></span>
+    			</div>
+    		</div>
+        </article>
+    	<!-- 文章显示结束 -->
+    	#end
+    </div>
+    		
+    <div class="text-center clr">
+    	#page("index" $paging 5)
+    </div>
 </div>
 
-<script type="text/javascript">
-$(function(){
-	$('form').validate({
-		onKeyup : true,
-		onChange : true,
-		eachValidField : function() {
-			$(this).closest('div').removeClass('has-error').addClass('has-success');
-		},
-		eachInvalidField : function() {
-
-			$(this).closest('div').removeClass('has-success').addClass('has-error');
-		},
-		description : {
-			message : {
-				required : '<div class="alert alert-danger">请先输入用户名/密码再进行登录操作</div>'
-			}
-		}
-	});
-})
-</script>
+<div class="sidebar-right bounceInRight animated">
+	<div class="search">
+		<form class="form-inline clearfix" method="get" id="searchform" action="$base/browse/search">
+			<input class="form-control" type="text" name="q" placeholder="搜索..." value=""/>
+			<button type="submit" class="btn btn-primary btn-small"><i class="fa fa-search"></i></button>
+		</form>
+	</div>
+	#parse("/inc/right/public.vm")
+</div>

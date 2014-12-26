@@ -28,7 +28,7 @@
 	
 </head>
 <body class="default">
-	<nav class="navbar navbar-static-top" role="navigation">
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
 		#parse("/inc/browse_tips.vm")
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -43,7 +43,9 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="$base/browse/gallery" class="highlight">走廊</a></li>
+					<!--
 					<li><a href="$base/browse/explore" class="highlight">发现</a></li>
+					-->
 					<li><a href="$base/reg" class="highlight">注册</a></li>
 				</ul>
 			</div>

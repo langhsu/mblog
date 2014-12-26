@@ -3,11 +3,15 @@
  */
 package mblog.core.pojos;
 
+import java.io.Serializable;
+
 /**
  * @author langhsu
  *
  */
-public class Tag {
+public class Tag implements Serializable {
+	private static final long serialVersionUID = 3262289824211326798L;
+
 	private long id;
 	private String name;
 	private long ownId;

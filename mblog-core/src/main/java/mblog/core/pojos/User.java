@@ -1,8 +1,11 @@
 package mblog.core.pojos;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
+	private static final long serialVersionUID = 107193816173103116L;
+
 	private long id;
 	private String username;
 	private String password;

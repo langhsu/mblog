@@ -8,20 +8,21 @@ color: #e67862;
 font-weight: bold;
 }
 
-.logo {float: left; padding: 7px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
+.logo {float: left; padding: 5px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
 
 .logo img {
 	width: 40px;
 	height: 40px;
 }
 
-.navbar-toggle {
+.navbar-default {background-color: rgba(0,0,0,.2); border: none;}
+.navbar-toggle, .navbar-default .navbar-toggle {
 	color: #fff;
 	background-color: transparent;
 	border-color: #fff;
 }
 
-.navbar-toggle .icon-bar {
+.navbar-toggle .icon-bar, .navbar-default .navbar-toggle .icon-bar {
 	background-color: #fff;
 	color: #fff;
 }
@@ -179,6 +180,10 @@ font-weight: bold;
 	padding-top: 6px;
 	padding-bottom: 6px;
 	line-height: 20px;
+	color: #fff;
+}
+.navbar-default .navbar-nav>li>a {
+	color: #fff;
 }
 
 .highlight {
@@ -192,13 +197,14 @@ font-weight: bold;
 	margin: 5px 10px 5px 0;
 	text-transform: uppercase;
 	border: 2px solid #fff;
+	background-color: rgba(0,0,0,.2);
 	transition: .15s all ease;
 	font-weight: 700;
 }
 
 .highlight:hover,.highlight:focus,.highlight:active {
 	color: #da6426;
-	background-color: #fff!important;;
+	background-color: #fff!important;
 }
 
 /**************************************************************************************

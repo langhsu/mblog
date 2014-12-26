@@ -12,12 +12,16 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
+				#if($profile)
 				<li>
 					<a href="$base/home">我的首页</a>
 				</li>
+				#end
+				<!--
 				<li>
 					<a href="$base/browse/explore">发现</a>
 				</li>
+				-->
 				<li>
 					<a href="$base/browse/gallery">走廊</a>
 				</li>

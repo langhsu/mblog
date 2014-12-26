@@ -3,6 +3,7 @@
  */
 package mblog.core.pojos;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import java.util.List;
  * @author langhsu
  * 
  */
-public class Mblog {
+public class Mblog implements Serializable {
+	private static final long serialVersionUID = -1144627551517707139L;
+
 	private long id;
 	private String type;
 	private String title;

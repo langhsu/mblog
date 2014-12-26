@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import mblog.core.context.AppContext;
+import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.Attach;
 import mblog.core.pojos.Mblog;
 import mblog.core.service.MblogService;
@@ -34,6 +35,8 @@ public class PostController extends BaseController {
 	@Autowired
 	private MblogService mblogService;
 	@Autowired
+	private PostPlanet postPlanet;
+	@Autowired
 	private AppContext appContext;
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
@@ -56,7 +59,7 @@ public class PostController extends BaseController {
 		Data data = Data.failure("操作失败");
 		if (id != null) {
 			try {
-				mblogService.delete(id);
+				postPlanet.delete(id);
 				data = Data.success("操作成功");
 			} catch (Exception e) {
 				data = Data.failure(e.getMessage());

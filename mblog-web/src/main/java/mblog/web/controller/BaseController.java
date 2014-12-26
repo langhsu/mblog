@@ -14,7 +14,6 @@ import mtons.commons.lang.Const;
 import mtons.commons.pojos.Paging;
 import mtons.commons.pojos.UserProfile;
 
-import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,7 +55,7 @@ public class BaseController{
 		if (pageNo == null || pageNo == 0) {
 			pageNo = 1;
 		}
-		return new Paging(pageNo, Paging.DEFAULT_RESULTS);
+		return new Paging(pageNo, 10);
 	}
 	
 	/**

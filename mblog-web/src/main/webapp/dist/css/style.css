@@ -8,8 +8,8 @@ img {height: auto; max-width: 100%; }
 
 a.trash {color: #F50A0A!important;}
 
-.logo {float: left; padding: 7px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
-.logo img {width: 36px; height: 36px;}
+.logo {float: left; padding: 5px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
+.logo img {width: 40px; height: 40px;}
 
 .navbar-inverse .navbar-nav>li>a { color: #EFEEEF; }
 .navbar-inverse .navbar-nav>li>a:hover {color: #428bca;}
@@ -142,16 +142,16 @@ a.trash {color: #F50A0A!important;}
 
 .search {
 	margin-bottom: 20px;
-       border: 1px solid #ddd;
-       padding: 5px;
-       border-radius: 3px;
-       background-color: #fafafa;
+	border: 1px solid #ddd;
+   	padding: 5px;
+    border-radius: 3px;
+    background-color: #fafafa;
 }
 .search input[type="text"] {
-       width: 79%;
-       float: left;
-       margin-right: 6px;
-   }
+    width: 79%;
+    float: left;
+    margin-right: 2px;
+}
     
 .sidebox, .widget {
 	margin-bottom: 25px;
