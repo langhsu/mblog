@@ -3,7 +3,7 @@
  */
 package mblog.web.controller;
 
-import mblog.core.planet.PostPlanet;
+import mblog.core.planet.PostsPlanet;
 import mtons.commons.pojos.Paging;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController extends BaseController{
 	@Autowired
-	private PostPlanet postPlanet;
+	private PostsPlanet postsPlanet;
 	
 	@RequestMapping("/")
 	public String root(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
-		paging = postPlanet.paging(paging);
+		paging = postsPlanet.paging(paging);
 		model.put("paging", paging);
 		return "/index";
 	}
@@ -31,7 +31,7 @@ public class IndexController extends BaseController{
 	@RequestMapping("/index")
 	public String index(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
-		paging = postPlanet.paging(paging);
+		paging = postsPlanet.paging(paging);
 		model.put("paging", paging);
 		return "/index";
 	}

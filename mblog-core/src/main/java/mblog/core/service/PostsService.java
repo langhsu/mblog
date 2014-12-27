@@ -8,21 +8,21 @@ import java.util.List;
 
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
-import mblog.core.pojos.Mblog;
+import mblog.core.pojos.Posts;
 import mtons.commons.pojos.Paging;
 
 /**
  * @author langhsu
  *
  */
-public interface MblogService {
+public interface PostsService {
 	void paging(Paging paging);
 	void pagingByUserId(Paging paging, long userId);
-	List<Mblog> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException;
-	List<Mblog> recents(int maxResutls, long ignoreUserId);
+	List<Posts> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException;
+	List<Posts> recents(int maxResutls, long ignoreUserId);
 	
-	void add(Mblog mblog);
-	Mblog get(long id);
+	void add(Posts mblog);
+	Posts get(long id);
 	void delete(long id);
 	
 }

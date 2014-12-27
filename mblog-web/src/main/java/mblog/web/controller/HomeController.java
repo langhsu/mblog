@@ -3,7 +3,7 @@
  */
 package mblog.web.controller;
 
-import mblog.core.service.MblogService;
+import mblog.core.service.PostsService;
 import mtons.commons.pojos.Paging;
 import mtons.commons.pojos.UserProfile;
 
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController extends BaseController {
 	@Autowired
-	private MblogService mblogService;
+	private PostsService postsService;
 	
 	@RequestMapping("/home")
 	public String home(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
 		UserProfile profile = getProfile();
-		mblogService.pagingByUserId(paging,  profile.getId());
+		postsService.pagingByUserId(paging,  profile.getId());
 		
 		model.put("paging", paging);
 		

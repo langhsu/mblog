@@ -30,10 +30,10 @@ import org.hibernate.search.annotations.Store;
  *
  */
 @Entity
-@Table(name = "tb_mblog")
+@Table(name = "tb_posts")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)  
-@Indexed(index = "mblog") 
-public class MblogPO {
+@Indexed(index = "posts") 
+public class PostsPO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@DocumentId

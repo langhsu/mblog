@@ -9,14 +9,14 @@ import java.util.Date;
 import java.util.List;
 
 import mblog.core.persist.dao.AttachDao;
-import mblog.core.persist.dao.MblogDao;
+import mblog.core.persist.dao.PostsDao;
 import mblog.core.persist.dao.UserDao;
-import mblog.core.persist.entity.MblogPO;
+import mblog.core.persist.entity.PostsPO;
 import mblog.core.pojos.Attach;
-import mblog.core.pojos.Mblog;
+import mblog.core.pojos.Posts;
 import mblog.core.pojos.User;
 import mblog.core.service.AttachService;
-import mblog.core.service.MblogService;
+import mblog.core.service.PostsService;
 import mtons.commons.lang.EntityStatus;
 import mtons.commons.pojos.Paging;
 import mtons.commons.pojos.UserContextHolder;
@@ -43,9 +43,9 @@ import org.springframework.util.Assert;
  * @author langhsu
  *
  */
-public class MblogServiceImpl implements MblogService {
+public class PostsServiceImpl implements PostsService {
 	@Autowired
-	private MblogDao mblogDao;
+	private PostsDao postsDao;
 	@Autowired
 	private AttachDao attachDao;
 	@Autowired
@@ -59,9 +59,9 @@ public class MblogServiceImpl implements MblogService {
 	@Override
 	@Transactional(readOnly = true)
 	public void paging(Paging paging) {
-		List<MblogPO> list = mblogDao.paging(paging);
-		List<Mblog> rets = new ArrayList<Mblog>();
-		for (MblogPO po : list) {
+		List<PostsPO> list = postsDao.paging(paging);
+		List<Posts> rets = new ArrayList<Posts>();
+		for (PostsPO po : list) {
 			rets.add(toVo(po, 0));
 		}
 		paging.setResults(rets);
@@ -70,9 +70,9 @@ public class MblogServiceImpl implements MblogService {
 	@Override
 	@Transactional(readOnly = true)
 	public void pagingByUserId(Paging paging, long userId) {
-		List<MblogPO> list = mblogDao.pagingByUserId(paging, userId);
-		List<Mblog> rets = new ArrayList<Mblog>();
-		for (MblogPO po : list) {
+		List<PostsPO> list = postsDao.pagingByUserId(paging, userId);
+		List<Posts> rets = new ArrayList<Posts>();
+		for (PostsPO po : list) {
 			rets.add(toVo(po ,0));
 		}
 		paging.setResults(rets);
@@ -81,11 +81,11 @@ public class MblogServiceImpl implements MblogService {
 	@Override
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
-	public List<Mblog> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException {
-		FullTextSession fullTextSession = Search.getFullTextSession(mblogDao.getSession());
+	public List<Posts> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException {
+		FullTextSession fullTextSession = Search.getFullTextSession(postsDao.getSession());
 //	    fullTextSession.createIndexer().startAndWait();
 	    SearchFactory sf = fullTextSession.getSearchFactory();
-	    QueryBuilder qb = sf.buildQueryBuilder().forEntity(MblogPO.class).get();
+	    QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostsPO.class).get();
 	    org.apache.lucene.search.Query luceneQuery  = qb.keyword().onFields("title","summary","tags").matching(q).createQuery();
 	    FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
 	    query.setFirstResult(paging.getFirstResult());
@@ -96,12 +96,12 @@ public class MblogServiceImpl implements MblogService {
         QueryScorer queryScorer = new QueryScorer(luceneQuery);
         Highlighter highlighter = new Highlighter(formatter, queryScorer);
         
-	    List<MblogPO> list = query.list();
+	    List<PostsPO> list = query.list();
 	    int resultSize = query.getResultSize();
 	    
-	    List<Mblog> rets = new ArrayList<Mblog>();
-		for (MblogPO po : list) {
-			Mblog m = toVo(po ,0);
+	    List<Posts> rets = new ArrayList<Posts>();
+		for (PostsPO po : list) {
+			Posts m = toVo(po ,0);
 			String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
 			String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
 			String tags = highlighter.getBestFragment(standardAnalyzer, "tags", m.getTags());
@@ -123,10 +123,10 @@ public class MblogServiceImpl implements MblogService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Mblog> recents(int maxResutls, long ignoreUserId) {
-		List<MblogPO> list = mblogDao.recents(maxResutls, ignoreUserId);
-		List<Mblog> rets = new ArrayList<Mblog>();
-		for (MblogPO po : list) {
+	public List<Posts> recents(int maxResutls, long ignoreUserId) {
+		List<PostsPO> list = postsDao.recents(maxResutls, ignoreUserId);
+		List<Posts> rets = new ArrayList<Posts>();
+		for (PostsPO po : list) {
 			rets.add(toVo(po, 0));
 		}
 		return rets;
@@ -134,8 +134,8 @@ public class MblogServiceImpl implements MblogService {
 	
 	@Override
 	@Transactional
-	public void add(Mblog post) {
-		MblogPO po = mblogDao.get(post.getId());
+	public void add(Posts post) {
+		PostsPO po = postsDao.get(post.getId());
 		if (po != null) {
 			po.setUpdated(new Date());
 			// po.setProject(projectDao.get(art.getProjectId()));
@@ -144,7 +144,7 @@ public class MblogServiceImpl implements MblogService {
 			po.setSummary(trimSummary(post.getContent()));
 			po.setTags(post.getTags());
 		} else {
-			po = new MblogPO();
+			po = new PostsPO();
 			UserProfile up = UserContextHolder.getUserProfile();
 			
 			po.setAuthor(userDao.get(up.getId()));
@@ -158,7 +158,7 @@ public class MblogServiceImpl implements MblogService {
 			po.setSummary(trimSummary(post.getContent())); // summary handle
 			po.setTags(post.getTags());
 			
-			mblogDao.save(po);
+			postsDao.save(po);
 		}
 		
 		// album handle
@@ -176,9 +176,9 @@ public class MblogServiceImpl implements MblogService {
 	
 	@Override
 	@Transactional
-	public Mblog get(long id) {
-		MblogPO po = mblogDao.get(id);
-		Mblog d = null;
+	public Posts get(long id) {
+		PostsPO po = postsDao.get(id);
+		Posts d = null;
 		if (po != null) {
 			d = toVo(po, 1);
 		}
@@ -194,16 +194,16 @@ public class MblogServiceImpl implements MblogService {
 		
 		Assert.notNull(up, "用户认证失败, 请重新登录!");
 		
-		MblogPO po = mblogDao.get(id);
+		PostsPO po = postsDao.get(id);
 		if (po != null) {
 			Assert.isTrue(po.getAuthor().getId() == up.getId(), "认证失败");
 			attachService.deleteByToId(id);
-			mblogDao.delete(po);
+			postsDao.delete(po);
 		}
 	}
 	
-	private Mblog toVo(MblogPO po, int level) {
-		Mblog d = new Mblog();
+	private Posts toVo(PostsPO po, int level) {
+		Posts d = new Posts();
 		if (level > 0) {
 			BeanUtils.copyProperties(po, d, IGNORE);
 		} else {

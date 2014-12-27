@@ -3,8 +3,8 @@
  */
 package mblog.web.controller.browse;
 
-import mblog.core.planet.PostPlanet;
-import mblog.core.pojos.Mblog;
+import mblog.core.planet.PostsPlanet;
+import mblog.core.pojos.Posts;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/browse")
-public class BlogController {
+public class ViewController {
 	@Autowired
-	private PostPlanet postPlanet;
+	private PostsPlanet postsPlanet;
 	
 	@RequestMapping("/detail/{id}")
 	public String view(@PathVariable Long id, ModelMap model) {
-		Mblog ret = postPlanet.getPost(id);
+		Posts ret = postsPlanet.getPost(id);
 		model.put("ret", ret);
 		return "/browse/detail";
 	}

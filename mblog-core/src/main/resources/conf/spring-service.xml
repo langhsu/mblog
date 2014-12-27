@@ -21,15 +21,15 @@
     <bean id="appContext" class="mblog.core.context.AppContext"/>
      
     <bean id="userDao" class="mblog.core.persist.dao.impl.UserDaoImpl" />
-	<bean id="mblogDao" class="mblog.core.persist.dao.impl.MblogDaoImpl" />
+	<bean id="postsDao" class="mblog.core.persist.dao.impl.PostsDaoImpl" />
 	<bean id="attachDao" class="mblog.core.persist.dao.impl.AttachDaoImpl"/>
 	<bean id="commentDao" class="mblog.core.persist.dao.impl.CommentDaoImpl" />
 	
     <bean id="userService" class="mblog.core.service.impl.UserServiceImpl"/>
-    <bean id="mblogService" class="mblog.core.service.impl.MblogServiceImpl"/>
+    <bean id="postsService" class="mblog.core.service.impl.PostsServiceImpl"/>
     <bean id="attachService" class="mblog.core.service.impl.AttachServiceImpl"/>
     <bean id="commentService" class="mblog.core.service.impl.CommentServiceImpl"/>
     
-	<bean id="postPlanet" class="mblog.core.planet.impl.PostPlanetImpl" />
+	<bean id="postsPlanet" class="mblog.core.planet.impl.PostsPlanetImpl" />
     
 </beans>

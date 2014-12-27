@@ -3,7 +3,7 @@
  */
 package mblog.web.controller.browse;
 
-import mblog.core.service.MblogService;
+import mblog.core.service.PostsService;
 import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Paging;
 
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/browse")
 public class SearchController extends BaseController {
 	@Autowired
-	private MblogService mblogService;
+	private PostsService postsService;
 	
 	@RequestMapping("/search")
 	public String search(Integer pageNo, String q, ModelMap model) {
@@ -29,7 +29,7 @@ public class SearchController extends BaseController {
 		paging.setMaxResults(1);
 		try {
 			if (StringUtils.isNotEmpty(q)) {
-				mblogService.search(paging, q);
+				postsService.search(paging, q);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -11,7 +11,7 @@ import java.util.List;
  * @author langhsu
  * 
  */
-public class Mblog implements Serializable {
+public class Posts implements Serializable {
 	private static final long serialVersionUID = -1144627551517707139L;
 
 	private long id;
