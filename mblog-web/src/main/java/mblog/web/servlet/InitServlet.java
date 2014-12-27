@@ -30,7 +30,7 @@ public class InitServlet extends HttpServlet {
     	Properties properties = new Properties();
     	InputStream inStream = null;
     	 // 初始化配置文件
-        inStream = InitServlet.class.getResourceAsStream("/loveJ.properties");
+        inStream = InitServlet.class.getResourceAsStream("/start.properties");
         try {
 			properties.load(inStream);
 		} catch (IOException e) {
