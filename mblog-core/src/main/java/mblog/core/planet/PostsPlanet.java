@@ -12,6 +12,8 @@ import mtons.commons.pojos.Paging;
  */
 public interface PostsPlanet {
 	Paging paging(Paging paging);
+	Paging pagingByUserId(Paging paging, long uid);
 	Posts getPost(long id);
+	void post(Posts post);
 	void delete(long id);
 }

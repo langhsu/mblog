@@ -134,7 +134,7 @@ public class PostsServiceImpl implements PostsService {
 	
 	@Override
 	@Transactional
-	public void add(Posts post) {
+	public void post(Posts post) {
 		PostsPO po = postsDao.get(post.getId());
 		if (po != null) {
 			po.setUpdated(new Date());
@@ -199,6 +199,24 @@ public class PostsServiceImpl implements PostsService {
 			Assert.isTrue(po.getAuthor().getId() == up.getId(), "认证失败");
 			attachService.deleteByToId(id);
 			postsDao.delete(po);
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void updateView(long id) {
+		PostsPO po = postsDao.get(id);
+		if (po != null) {
+			po.setViews(po.getViews() + 1);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void updateHeart(long id) {
+		PostsPO po = postsDao.get(id);
+		if (po != null) {
+			po.setHearts(po.getHearts() + 1);
 		}
 	}
 	

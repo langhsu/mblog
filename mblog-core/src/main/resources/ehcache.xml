@@ -14,7 +14,13 @@
 		memoryStoreEvictionPolicy: 缓存满了之后的淘汰算法 LRU(最近最少使用)(default) FIFO(先进先出) LFU(较少使用)
 	-->
 	 
-	<cache name="postsCaches" eternal="false" maxElementsOnDisk="9999" maxElementsInMemory="1000" 
-		overflowToDisk="true" timeToIdleSeconds="360" timeToLiveSeconds="720"/>
+	<cache name="postsCaches"
+		eternal="false"
+		maxElementsOnDisk="9999"
+		maxElementsInMemory="1000" 
+		overflowToDisk="true"
+		timeToIdleSeconds="360"
+		timeToLiveSeconds="720"
+		memoryStoreEvictionPolicy="LRU"/>
 			
 </ehcache>

@@ -18,25 +18,38 @@ import org.springframework.cache.annotation.Cacheable;
  */
 public class PostsPlanetImpl implements PostsPlanet {
 	@Autowired
-	private PostsService mblogService;
+	private PostsService postsService;
 
 	@Override
-	@Cacheable(value = "postsCaches", key = "'index-' + #paging.getPageNo()")
+	@Cacheable(value = "postsCaches", key = "'list_' + #paging.getPageNo() + '_' + #paging.getMaxResults()")
 	public Paging paging(Paging paging) {
-		mblogService.paging(paging);
+		postsService.paging(paging);
+		return paging;
+	}
+	
+	@Override
+	@Cacheable(value = "postsCaches", key = "'uhome' + #uid + '_' + #paging.getPageNo()")
+	public Paging pagingByUserId(Paging paging, long uid) {
+		postsService.pagingByUserId(paging, uid);
 		return paging;
 	}
 
 	@Override
-	@Cacheable(value = "postsCaches", key = "#id")
+	@Cacheable(value = "postsCaches", key = "'view_' + #id")
 	public Posts getPost(long id) {
-		return mblogService.get(id);
+		return postsService.get(id);
 	}
 
 	@Override
+	@CacheEvict(value = "postsCaches", allEntries = true)
+	public void post(Posts post) {
+		postsService.post(post);
+	}
+	
+	@Override
 	@CacheEvict(value = "postsCaches", key = "#id", allEntries = true)
 	public void delete(long id) {
-		mblogService.delete(id);
+		postsService.delete(id);
 	}
 
 }

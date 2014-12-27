@@ -49,7 +49,7 @@ public class PostsController extends BaseController {
 	public String post(Posts blog) {
 		if (blog != null) {
 			handleAlbums(blog.getAlbums());
-			postsService.add(blog);
+			postsService.post(blog);
 		}
 		return "redirect:/home";
 	}

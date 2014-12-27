@@ -21,8 +21,11 @@ public interface PostsService {
 	List<Posts> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException;
 	List<Posts> recents(int maxResutls, long ignoreUserId);
 	
-	void add(Posts mblog);
+	void post(Posts mblog);
 	Posts get(long id);
 	void delete(long id);
+	
+	void updateView(long id);
+	void updateHeart(long id);
 	
 }
