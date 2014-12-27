@@ -3,9 +3,9 @@
  */
 package mblog.core.planet.impl;
 
-import mblog.core.planet.PostsPlanet;
-import mblog.core.pojos.Posts;
-import mblog.core.service.PostsService;
+import mblog.core.planet.PostPlanet;
+import mblog.core.pojos.Post;
+import mblog.core.service.PostService;
 import mtons.commons.pojos.Paging;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,9 @@ import org.springframework.cache.annotation.Cacheable;
  * @author langhsu
  * 
  */
-public class PostsPlanetImpl implements PostsPlanet {
+public class PostPlanetImpl implements PostPlanet {
 	@Autowired
-	private PostsService postsService;
+	private PostService postsService;
 
 	@Override
 	@Cacheable(value = "postsCaches", key = "'list_' + #paging.getPageNo() + '_' + #paging.getMaxResults()")
@@ -36,13 +36,13 @@ public class PostsPlanetImpl implements PostsPlanet {
 
 	@Override
 	@Cacheable(value = "postsCaches", key = "'view_' + #id")
-	public Posts getPost(long id) {
+	public Post getPost(long id) {
 		return postsService.get(id);
 	}
 
 	@Override
 	@CacheEvict(value = "postsCaches", allEntries = true)
-	public void post(Posts post) {
+	public void post(Post post) {
 		postsService.post(post);
 	}
 	

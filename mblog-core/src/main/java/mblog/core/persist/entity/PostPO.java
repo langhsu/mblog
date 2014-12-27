@@ -27,49 +27,49 @@ import org.hibernate.search.annotations.Store;
 
 /**
  * @author langhsu
- *
+ * 
  */
 @Entity
 @Table(name = "tb_posts")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)  
-@Indexed(index = "posts") 
-public class PostsPO {
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Indexed(index = "posts")
+public class PostPO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@DocumentId
 	private long id;
-	
+
 	private String type;
-	
+
 	@Field(name = "title", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
-	private String title;  // 标题
-	
-	@Field(name = "summary", index = Index.YES, analyze = Analyze.YES, store = Store.YES) 
-	private String summary;  // 摘要
-	
-	@Field(name = "tags", index = Index.YES, analyze = Analyze.YES, store = Store.YES) 
+	private String title; // 标题
+
+	@Field(name = "summary", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+	private String summary; // 摘要
+
+	@Field(name = "tags", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String tags;
 
-	private String content;  // 内容
-	
+	private String content; // 内容
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "snapshot_id")
 	private AttachPO snapshot;
-	
-	@Temporal(value=TemporalType.TIMESTAMP)
+
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date created;
-	
-	@Temporal(value=TemporalType.TIMESTAMP)
+
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date updated;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "author_id")
 	private UserPO author;
-	
+
 	private int featured; // 是否推荐
-	private int hearts;     // 喜欢
+	private int hearts; // 喜欢
 	private int comments;
-	private int views;     // 阅读
+	private int views; // 阅读
 	private int status;
 
 	public long getId() {

@@ -20,7 +20,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "tb_comment")
+@Table(name = "tb_comments")
 public class CommentPO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +36,8 @@ public class CommentPO {
 	private Date created;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "owner_id")
-	private UserPO owner;
+	@JoinColumn(name = "author_id")
+	private UserPO author;
 	
 	private int status;
 
@@ -73,12 +73,12 @@ public class CommentPO {
 		this.created = created;
 	}
 
-	public UserPO getOwner() {
-		return owner;
+	public UserPO getAuthor() {
+		return author;
 	}
 
-	public void setOwner(UserPO owner) {
-		this.owner = owner;
+	public void setAuthor(UserPO author) {
+		this.author = author;
 	}
 
 	public int getStatus() {

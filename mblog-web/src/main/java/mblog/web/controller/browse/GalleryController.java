@@ -3,7 +3,7 @@
  */
 package mblog.web.controller.browse;
 
-import mblog.core.planet.PostsPlanet;
+import mblog.core.planet.PostPlanet;
 import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Paging;
 
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/browse")
 public class GalleryController extends BaseController {
 	@Autowired
-	private PostsPlanet  postsPlanet;
+	private PostPlanet postPlanet;
 	
 	private int jsonMaxResults = 8;
 	
@@ -29,7 +29,7 @@ public class GalleryController extends BaseController {
 	public String view(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
 		paging.setMaxResults(jsonMaxResults);
-		paging = postsPlanet.paging(paging);
+		paging = postPlanet.paging(paging);
 		model.put("paging", paging);
 		return "/browse/gallery";
 	}
@@ -38,7 +38,7 @@ public class GalleryController extends BaseController {
 	public String snippet(@PathVariable Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
 		paging.setMaxResults(jsonMaxResults);
-		paging = postsPlanet.paging(paging);
+		paging = postPlanet.paging(paging);
 		model.put("paging", paging);
 		return "/browse/snippet";
 	}

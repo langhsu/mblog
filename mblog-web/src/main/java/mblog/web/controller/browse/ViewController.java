@@ -3,9 +3,9 @@
  */
 package mblog.web.controller.browse;
 
-import mblog.core.planet.PostsPlanet;
-import mblog.core.pojos.Posts;
-import mblog.core.service.PostsService;
+import mblog.core.planet.PostPlanet;
+import mblog.core.pojos.Post;
+import mblog.core.service.PostService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,14 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/browse")
 public class ViewController {
 	@Autowired
-	private PostsPlanet postsPlanet;
+	private PostPlanet postPlanet;
 	@Autowired
-	private PostsService postsService;
+	private PostService postService;
 	
 	@RequestMapping("/detail/{id}")
 	public String view(@PathVariable Long id, ModelMap model) {
-		Posts ret = postsPlanet.getPost(id);
-		postsService.updateView(id);
+		Post ret = postPlanet.getPost(id);
+		postService.updateView(id);
 		model.put("ret", ret);
 		return "/browse/detail";
 	}

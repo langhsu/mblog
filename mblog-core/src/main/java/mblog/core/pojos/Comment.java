@@ -14,7 +14,7 @@ public class Comment {
 	private long toId;
 	private String content;
 	private Date created;
-	private User owner;
+	private User author;
 	private int status;
 
 	public long getId() {
@@ -49,20 +49,20 @@ public class Comment {
 		this.created = created;
 	}
 
-	public User getOwner() {
-		return owner;
-	}
-
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-
 	public int getStatus() {
 		return status;
 	}
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 }

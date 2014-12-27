@@ -9,5 +9,12 @@ package mblog.core.lang;
  */
 public interface Consts {
 	String avater = "/dist/images/ava/default.png";
-	int FILE_PATH_SEED = 997;
+	int FILE_PATH_SEED = 997;  // 文件目录步进
+	
+	String TYPE_TEXT = "text";
+	String TYPE_IMAGE = "image";
+	
+	String SEPARATOR = ",";
+	
+	String UPLOAD_ROOT = "/store";
 }

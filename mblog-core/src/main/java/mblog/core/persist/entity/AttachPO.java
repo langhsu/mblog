@@ -12,28 +12,28 @@ import javax.persistence.Table;
 
 /**
  * @author langhsu
- *
+ * 
  */
 @Entity
-@Table(name = "tb_attach")
+@Table(name = "tb_attachs")
 public class AttachPO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	@Column(name = "to_id")
 	private long toId;
-	
+
 	private String original;
-	
+
 	private String preview;
-	
+
 	private int width;
-	
+
 	private int height;
-	
+
 	private int status;
-	
+
 	public long getId() {
 		return id;
 	}

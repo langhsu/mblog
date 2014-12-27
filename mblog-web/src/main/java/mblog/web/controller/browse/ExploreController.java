@@ -3,7 +3,7 @@
  */
 package mblog.web.controller.browse;
 
-import mblog.core.service.PostsService;
+import mblog.core.service.PostService;
 import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Paging;
 
@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/browse")
 public class ExploreController extends BaseController {
 	@Autowired
-	private PostsService postsService;
+	private PostService postService;
 	
 	@RequestMapping("/explore")
 	public String view(Integer pageNo, ModelMap model) {
 		Paging paging = wrapPaging(pageNo);
-		postsService.paging(paging);
+		postService.paging(paging);
 		model.put("paging", paging);
 		return "/browse/explore";
 	}

@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private UserDao userDao;
 	
-	private static String[] IGNORE = new String[]{"owner"};
+	private static String[] IGNORE = new String[]{"author"};
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -53,7 +53,7 @@ public class CommentServiceImpl implements CommentService {
 		UserProfile up = UserContextHolder.getUserProfile();
 		Assert.notNull(up, "not login");
 		
-		po.setOwner(userDao.get(up.getId()));
+		po.setAuthor(userDao.get(up.getId()));
 		po.setToId(comment.getToId());
 		po.setContent(comment.getContent());
 		po.setCreated(new Date());
@@ -66,12 +66,12 @@ public class CommentServiceImpl implements CommentService {
 		Comment d = new Comment();
 		BeanUtils.copyProperties(po, d, IGNORE);
 		
-		if (po.getOwner() != null) {
+		if (po.getAuthor() != null) {
 			User u = new User();
-			u.setId(po.getOwner().getId());
-			u.setUsername(po.getOwner().getUsername());
-			u.setName(po.getOwner().getName());
-			d.setOwner(u);
+			u.setId(po.getAuthor().getId());
+			u.setUsername(po.getAuthor().getUsername());
+			u.setName(po.getAuthor().getName());
+			d.setAuthor(u);
 		}
 		return d;
 	}

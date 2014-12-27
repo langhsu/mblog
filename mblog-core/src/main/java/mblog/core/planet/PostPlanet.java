@@ -3,17 +3,17 @@
  */
 package mblog.core.planet;
 
-import mblog.core.pojos.Posts;
+import mblog.core.pojos.Post;
 import mtons.commons.pojos.Paging;
 
 /**
  * @author langhsu
  *
  */
-public interface PostsPlanet {
+public interface PostPlanet {
 	Paging paging(Paging paging);
 	Paging pagingByUserId(Paging paging, long uid);
-	Posts getPost(long id);
-	void post(Posts post);
+	Post getPost(long id);
+	void post(Post post);
 	void delete(long id);
 }

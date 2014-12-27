@@ -8,15 +8,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import mblog.core.lang.Consts;
 import mblog.core.persist.dao.AttachDao;
-import mblog.core.persist.dao.PostsDao;
+import mblog.core.persist.dao.PostDao;
 import mblog.core.persist.dao.UserDao;
-import mblog.core.persist.entity.PostsPO;
+import mblog.core.persist.entity.PostPO;
 import mblog.core.pojos.Attach;
-import mblog.core.pojos.Posts;
+import mblog.core.pojos.Post;
+import mblog.core.pojos.Tag;
 import mblog.core.pojos.User;
 import mblog.core.service.AttachService;
-import mblog.core.service.PostsService;
+import mblog.core.service.PostService;
+import mblog.core.service.TagService;
 import mtons.commons.lang.EntityStatus;
 import mtons.commons.pojos.Paging;
 import mtons.commons.pojos.UserContextHolder;
@@ -43,15 +46,17 @@ import org.springframework.util.Assert;
  * @author langhsu
  *
  */
-public class PostsServiceImpl implements PostsService {
+public class PostServiceImpl implements PostService {
 	@Autowired
-	private PostsDao postsDao;
+	private PostDao postDao;
 	@Autowired
 	private AttachDao attachDao;
 	@Autowired
+	private UserDao userDao;
+	@Autowired
 	private AttachService attachService;
 	@Autowired
-	private UserDao userDao;
+	private TagService tagService;
 	
 	private static String[] IGNORE = new String[]{"author", "snapshot"};
 	private static String[] IGNORE_LIST = new String[]{"author", "snapshot", "content"};
@@ -59,9 +64,9 @@ public class PostsServiceImpl implements PostsService {
 	@Override
 	@Transactional(readOnly = true)
 	public void paging(Paging paging) {
-		List<PostsPO> list = postsDao.paging(paging);
-		List<Posts> rets = new ArrayList<Posts>();
-		for (PostsPO po : list) {
+		List<PostPO> list = postDao.paging(paging);
+		List<Post> rets = new ArrayList<Post>();
+		for (PostPO po : list) {
 			rets.add(toVo(po, 0));
 		}
 		paging.setResults(rets);
@@ -70,9 +75,9 @@ public class PostsServiceImpl implements PostsService {
 	@Override
 	@Transactional(readOnly = true)
 	public void pagingByUserId(Paging paging, long userId) {
-		List<PostsPO> list = postsDao.pagingByUserId(paging, userId);
-		List<Posts> rets = new ArrayList<Posts>();
-		for (PostsPO po : list) {
+		List<PostPO> list = postDao.pagingByUserId(paging, userId);
+		List<Post> rets = new ArrayList<Post>();
+		for (PostPO po : list) {
 			rets.add(toVo(po ,0));
 		}
 		paging.setResults(rets);
@@ -81,11 +86,11 @@ public class PostsServiceImpl implements PostsService {
 	@Override
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
-	public List<Posts> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException {
-		FullTextSession fullTextSession = Search.getFullTextSession(postsDao.getSession());
+	public List<Post> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException {
+		FullTextSession fullTextSession = Search.getFullTextSession(postDao.getSession());
 //	    fullTextSession.createIndexer().startAndWait();
 	    SearchFactory sf = fullTextSession.getSearchFactory();
-	    QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostsPO.class).get();
+	    QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
 	    org.apache.lucene.search.Query luceneQuery  = qb.keyword().onFields("title","summary","tags").matching(q).createQuery();
 	    FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
 	    query.setFirstResult(paging.getFirstResult());
@@ -96,12 +101,12 @@ public class PostsServiceImpl implements PostsService {
         QueryScorer queryScorer = new QueryScorer(luceneQuery);
         Highlighter highlighter = new Highlighter(formatter, queryScorer);
         
-	    List<PostsPO> list = query.list();
+	    List<PostPO> list = query.list();
 	    int resultSize = query.getResultSize();
 	    
-	    List<Posts> rets = new ArrayList<Posts>();
-		for (PostsPO po : list) {
-			Posts m = toVo(po ,0);
+	    List<Post> rets = new ArrayList<Post>();
+		for (PostPO po : list) {
+			Post m = toVo(po ,0);
 			String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
 			String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
 			String tags = highlighter.getBestFragment(standardAnalyzer, "tags", m.getTags());
@@ -123,10 +128,10 @@ public class PostsServiceImpl implements PostsService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Posts> recents(int maxResutls, long ignoreUserId) {
-		List<PostsPO> list = postsDao.recents(maxResutls, ignoreUserId);
-		List<Posts> rets = new ArrayList<Posts>();
-		for (PostsPO po : list) {
+	public List<Post> recents(int maxResutls, long ignoreUserId) {
+		List<PostPO> list = postDao.recents(maxResutls, ignoreUserId);
+		List<Post> rets = new ArrayList<Post>();
+		for (PostPO po : list) {
 			rets.add(toVo(po, 0));
 		}
 		return rets;
@@ -134,17 +139,16 @@ public class PostsServiceImpl implements PostsService {
 	
 	@Override
 	@Transactional
-	public void post(Posts post) {
-		PostsPO po = postsDao.get(post.getId());
+	public void post(Post post) {
+		PostPO po = postDao.get(post.getId());
 		if (po != null) {
 			po.setUpdated(new Date());
-			// po.setProject(projectDao.get(art.getProjectId()));
 			po.setTitle(post.getTitle());
 			po.setContent(post.getContent());
 			po.setSummary(trimSummary(post.getContent()));
 			po.setTags(post.getTags());
 		} else {
-			po = new PostsPO();
+			po = new PostPO();
 			UserProfile up = UserContextHolder.getUserProfile();
 			
 			po.setAuthor(userDao.get(up.getId()));
@@ -158,10 +162,10 @@ public class PostsServiceImpl implements PostsService {
 			po.setSummary(trimSummary(post.getContent())); // summary handle
 			po.setTags(post.getTags());
 			
-			postsDao.save(po);
+			postDao.save(po);
 		}
 		
-		// album handle
+		// attach handle
 		if (post.getAlbums() != null) {
 			for (int i = 0; i < post.getAlbums().size(); i++) {
 				Attach a = post.getAlbums().get(i);
@@ -172,13 +176,29 @@ public class PostsServiceImpl implements PostsService {
 				}
 			}
 		}
+		
+		// tag handle
+		if (StringUtils.isNotBlank(post.getTags())) {
+			List<Tag> tags = new ArrayList<Tag>();
+			String[] ts = StringUtils.split(post.getTags(), Consts.SEPARATOR);
+			
+			for (String t : ts) {
+				Tag tag = new Tag();
+				tag.setName(t);
+				tag.setLastPostId(po.getId());
+				tag.setPosts(1);
+				tags.add(tag);
+			}
+			
+			tagService.batchPost(tags);
+		}
 	}
 	
 	@Override
 	@Transactional
-	public Posts get(long id) {
-		PostsPO po = postsDao.get(id);
-		Posts d = null;
+	public Post get(long id) {
+		PostPO po = postDao.get(id);
+		Post d = null;
 		if (po != null) {
 			d = toVo(po, 1);
 		}
@@ -194,18 +214,18 @@ public class PostsServiceImpl implements PostsService {
 		
 		Assert.notNull(up, "用户认证失败, 请重新登录!");
 		
-		PostsPO po = postsDao.get(id);
+		PostPO po = postDao.get(id);
 		if (po != null) {
 			Assert.isTrue(po.getAuthor().getId() == up.getId(), "认证失败");
 			attachService.deleteByToId(id);
-			postsDao.delete(po);
+			postDao.delete(po);
 		}
 	}
 	
 	@Override
 	@Transactional
 	public void updateView(long id) {
-		PostsPO po = postsDao.get(id);
+		PostPO po = postDao.get(id);
 		if (po != null) {
 			po.setViews(po.getViews() + 1);
 		}
@@ -214,14 +234,14 @@ public class PostsServiceImpl implements PostsService {
 	@Override
 	@Transactional
 	public void updateHeart(long id) {
-		PostsPO po = postsDao.get(id);
+		PostPO po = postDao.get(id);
 		if (po != null) {
 			po.setHearts(po.getHearts() + 1);
 		}
 	}
 	
-	private Posts toVo(PostsPO po, int level) {
-		Posts d = new Posts();
+	private Post toVo(PostPO po, int level) {
+		Post d = new Post();
 		if (level > 0) {
 			BeanUtils.copyProperties(po, d, IGNORE);
 		} else {

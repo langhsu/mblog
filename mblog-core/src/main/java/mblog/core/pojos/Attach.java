@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * @author langhsu
- *
+ * 
  */
 public class Attach implements Serializable {
 	private static final long serialVersionUID = -5858530547049180410L;
@@ -19,7 +19,7 @@ public class Attach implements Serializable {
 	private int width;
 	private int height;
 	private int status;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -75,5 +75,5 @@ public class Attach implements Serializable {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
+
 }

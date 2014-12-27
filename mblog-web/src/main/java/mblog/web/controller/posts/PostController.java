@@ -8,10 +8,10 @@ import java.util.Date;
 import java.util.List;
 
 import mblog.core.context.AppContext;
-import mblog.core.planet.PostsPlanet;
+import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.Attach;
-import mblog.core.pojos.Posts;
-import mblog.core.service.PostsService;
+import mblog.core.pojos.Post;
+import mblog.core.service.PostService;
 import mblog.web.controller.BaseController;
 import mtons.commons.pojos.Data;
 import mtons.commons.utils.GMagickUtils;
@@ -31,11 +31,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/blog")
-public class PostsController extends BaseController {
+public class PostController extends BaseController {
 	@Autowired
-	private PostsService postsService;
+	private PostService postService;
 	@Autowired
-	private PostsPlanet postsPlanet;
+	private PostPlanet postPlanet;
 	@Autowired
 	private AppContext appContext;
 	
@@ -46,10 +46,10 @@ public class PostsController extends BaseController {
 	}
 
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
-	public String post(Posts blog) {
+	public String post(Post blog) {
 		if (blog != null) {
 			handleAlbums(blog.getAlbums());
-			postsService.post(blog);
+			postService.post(blog);
 		}
 		return "redirect:/home";
 	}
@@ -59,7 +59,7 @@ public class PostsController extends BaseController {
 		Data data = Data.failure("操作失败");
 		if (id != null) {
 			try {
-				postsPlanet.delete(id);
+				postPlanet.delete(id);
 				data = Data.success("操作成功");
 			} catch (Exception e) {
 				data = Data.failure(e.getMessage());

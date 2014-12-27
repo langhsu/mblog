@@ -19,10 +19,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * 用户信息
  * 
  * @author langhsu
- *
+ * 
  */
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_users")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class UserPO {
 	@Id
@@ -36,7 +36,7 @@ public class UserPO {
 	private String mobile;
 	private Date created;
 	private Date updated;
-	@Column(name="last_login")
+	@Column(name = "last_login")
 	private Date lastLogin;
 	private int status;
 
@@ -127,5 +127,5 @@ public class UserPO {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	
+
 }

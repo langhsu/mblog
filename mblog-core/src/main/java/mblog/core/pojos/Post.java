@@ -11,7 +11,7 @@ import java.util.List;
  * @author langhsu
  * 
  */
-public class Posts implements Serializable {
+public class Post implements Serializable {
 	private static final long serialVersionUID = -1144627551517707139L;
 
 	private long id;
@@ -25,9 +25,9 @@ public class Posts implements Serializable {
 	private Date updated;
 	private User author;
 	private int featured; // 是否推荐
-	private int hearts;     // 喜欢
+	private int hearts; // 喜欢
 	private int comments;
-	private int views;     // 阅读
+	private int views; // 阅读
 	private int status;
 
 	// extends
