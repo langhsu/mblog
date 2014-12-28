@@ -33,5 +33,5 @@
     <bean id="tagService" class="mblog.core.service.impl.TagServiceImpl" />
     
 	<bean id="postPlanet" class="mblog.core.planet.impl.PostPlanetImpl" />
-    
+    <bean id="tagPlanet" class="mblog.core.planet.impl.TagPlanetImpl" />
 </beans>

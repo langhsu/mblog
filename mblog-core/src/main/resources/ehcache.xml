@@ -22,5 +22,14 @@
 		timeToIdleSeconds="360"
 		timeToLiveSeconds="720"
 		memoryStoreEvictionPolicy="LRU"/>
+	
+	<cache name="tagsCaches"
+		eternal="false"
+		maxElementsOnDisk="9999"
+		maxElementsInMemory="1000" 
+		overflowToDisk="true"
+		timeToIdleSeconds="360"
+		timeToLiveSeconds="720"
+		memoryStoreEvictionPolicy="LRU"/>
 			
 </ehcache>

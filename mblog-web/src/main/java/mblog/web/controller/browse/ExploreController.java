@@ -5,6 +5,7 @@ package mblog.web.controller.browse;
 
 import java.util.List;
 
+import mblog.core.planet.TagPlanet;
 import mblog.core.pojos.Tag;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
@@ -28,13 +29,15 @@ public class ExploreController extends BaseController {
 	@Autowired
 	private PostService postService;
 	@Autowired
+	private TagPlanet tagPlanet;
+	@Autowired
 	private TagService tagService;
 	
 	private int maxResults = 12;
 	
 	@RequestMapping("/explore")
 	public String view(ModelMap model) {
-		List<Tag> tags = tagService.topTags(maxResults, true);
+		List<Tag> tags = tagPlanet.topTags(maxResults, true);
 		model.put("tags", tags);
 		return "/browse/explore";
 	}
