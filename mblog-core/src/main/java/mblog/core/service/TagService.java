@@ -12,7 +12,7 @@ import mblog.core.pojos.Tag;
  *
  */
 public interface TagService {
-	List<Tag> topTags(int maxResutls);
+	List<Tag> topTags(int maxResutls, boolean loadPost);
 	
 	void batchPost(List<Tag> tags);
 	void updateHot(String name);

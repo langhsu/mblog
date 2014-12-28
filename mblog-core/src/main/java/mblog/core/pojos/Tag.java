@@ -18,7 +18,9 @@ public class Tag implements Serializable {
 	private int featured; // 是否推荐
 	private int posts;
 	private int hots;
-
+	
+	private Post post;
+	
 	public long getId() {
 		return id;
 	}
@@ -65,6 +67,14 @@ public class Tag implements Serializable {
 
 	public void setFeatured(int featured) {
 		this.featured = featured;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 }

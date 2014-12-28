@@ -3,6 +3,7 @@
  */
 package mblog.core.persist.dao.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import mblog.core.persist.dao.PostDao;
@@ -10,6 +11,7 @@ import mblog.core.persist.entity.PostPO;
 import mtons.commons.persist.hibernate.DaoImpl;
 import mtons.commons.pojos.Paging;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -55,6 +57,14 @@ public class PostDaoImpl extends DaoImpl<PostPO> implements PostDao {
 		}
 		q.desc("created");
 		return q.list();
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<PostPO> findByIds(Collection<Long> ids) {
+		Criteria c = createCriteria();
+		c.add(Restrictions.in("id", ids));
+		return c.list();
 	}
 
 }

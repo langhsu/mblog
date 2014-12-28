@@ -30,6 +30,14 @@
 
 .site-content { width: 75%; max-width: 710px; margin-left: auto; margin-right: auto; margin-bottom: 40px;}
 
+/* footer */
+#footer { top: 100%; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e5e5; padding: 50px 0 10px 0; overflow: hidden; }
+#footer a { color: #777; font-size: 13px; }
+#footer h4 { color: #e67862; font-weight: bold; }
+.footer-bottom {font-size: 13px;}
+.footer-bottom ul>li {padding:0;}
+.footer-bottom ul>li+li:before { padding: 0 10px; color: #ccc; content: "|"; }
+
 /* Tablet (Portrait)
 ================================================== */
 @media only screen and (min-width: 768px) and (max-width: 959px) { 

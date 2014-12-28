@@ -6,7 +6,10 @@ package mblog.core.service.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import mblog.core.lang.Consts;
 import mblog.core.persist.dao.AttachDao;
@@ -16,10 +19,10 @@ import mblog.core.persist.entity.PostPO;
 import mblog.core.pojos.Attach;
 import mblog.core.pojos.Post;
 import mblog.core.pojos.Tag;
-import mblog.core.pojos.User;
 import mblog.core.service.AttachService;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
+import mblog.core.utils.BeanMapUtils;
 import mtons.commons.lang.EntityStatus;
 import mtons.commons.pojos.Paging;
 import mtons.commons.pojos.UserContextHolder;
@@ -37,7 +40,6 @@ import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.SearchFactory;
 import org.hibernate.search.query.dsl.QueryBuilder;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -58,16 +60,13 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private TagService tagService;
 	
-	private static String[] IGNORE = new String[]{"author", "snapshot"};
-	private static String[] IGNORE_LIST = new String[]{"author", "snapshot", "content"};
-	
 	@Override
 	@Transactional(readOnly = true)
 	public void paging(Paging paging) {
 		List<PostPO> list = postDao.paging(paging);
 		List<Post> rets = new ArrayList<Post>();
 		for (PostPO po : list) {
-			rets.add(toVo(po, 0));
+			rets.add(BeanMapUtils.copy(po, 0));
 		}
 		paging.setResults(rets);
 	}
@@ -78,7 +77,7 @@ public class PostServiceImpl implements PostService {
 		List<PostPO> list = postDao.pagingByUserId(paging, userId);
 		List<Post> rets = new ArrayList<Post>();
 		for (PostPO po : list) {
-			rets.add(toVo(po ,0));
+			rets.add(BeanMapUtils.copy(po ,0));
 		}
 		paging.setResults(rets);
 	}
@@ -106,7 +105,7 @@ public class PostServiceImpl implements PostService {
 	    
 	    List<Post> rets = new ArrayList<Post>();
 		for (PostPO po : list) {
-			Post m = toVo(po ,0);
+			Post m = BeanMapUtils.copy(po ,0);
 			String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
 			String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
 			String tags = highlighter.getBestFragment(standardAnalyzer, "tags", m.getTags());
@@ -128,11 +127,47 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	@Transactional(readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Post> searchByTag(Paging paging, String tag) throws InterruptedException, IOException, InvalidTokenOffsetsException {
+		FullTextSession fullTextSession = Search.getFullTextSession(postDao.getSession());
+	    SearchFactory sf = fullTextSession.getSearchFactory();
+	    QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
+	    org.apache.lucene.search.Query luceneQuery  = qb.keyword().onFields("tags").matching(tag).createQuery();
+	    FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
+	    query.setFirstResult(paging.getFirstResult());
+	    query.setMaxResults(paging.getMaxResults());
+
+	    List<PostPO> list = query.list();
+	    int resultSize = query.getResultSize();
+	    
+	    List<Post> rets = new ArrayList<Post>();
+		for (PostPO po : list) {
+			Post m = BeanMapUtils.copy(po ,0);
+			rets.add(m);
+		}
+		paging.setTotalCount(resultSize);
+		paging.setResults(rets);
+		return rets;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
 	public List<Post> recents(int maxResutls, long ignoreUserId) {
 		List<PostPO> list = postDao.recents(maxResutls, ignoreUserId);
 		List<Post> rets = new ArrayList<Post>();
 		for (PostPO po : list) {
-			rets.add(toVo(po, 0));
+			rets.add(BeanMapUtils.copy(po, 0));
+		}
+		return rets;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Map<Long, Post> findByIds(Set<Long> ids) {
+		List<PostPO> list = postDao.findByIds(ids);
+		Map<Long, Post> rets = new HashMap<Long, Post>();
+		for (PostPO po : list) {
+			rets.put(po.getId(), BeanMapUtils.copy(po, 0));
 		}
 		return rets;
 	}
@@ -200,7 +235,7 @@ public class PostServiceImpl implements PostService {
 		PostPO po = postDao.get(id);
 		Post d = null;
 		if (po != null) {
-			d = toVo(po, 1);
+			d = BeanMapUtils.copy(po, 1);
 		}
 		List<Attach> albs = attachService.list(d.getId());
 		d.setAlbums(albs);
@@ -238,30 +273,6 @@ public class PostServiceImpl implements PostService {
 		if (po != null) {
 			po.setHearts(po.getHearts() + 1);
 		}
-	}
-	
-	private Post toVo(PostPO po, int level) {
-		Post d = new Post();
-		if (level > 0) {
-			BeanUtils.copyProperties(po, d, IGNORE);
-		} else {
-			BeanUtils.copyProperties(po, d, IGNORE_LIST);
-		}
-		
-		if (po.getAuthor() != null) {
-			User u = new User();
-			u.setId(po.getAuthor().getId());
-			u.setUsername(po.getAuthor().getUsername());
-			u.setName(po.getAuthor().getName());
-			u.setAvater(po.getAuthor().getAvater());
-			d.setAuthor(u);
-		}
-		if (po.getSnapshot() != null) {
-			Attach a = new Attach();
-			BeanUtils.copyProperties(po.getSnapshot(), a);
-			d.setSnapshot(a);
-		}
-		return d;
 	}
 	
 	/**

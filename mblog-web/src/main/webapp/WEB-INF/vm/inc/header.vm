@@ -17,11 +17,9 @@
 					<a href="$base/home">我的首页</a>
 				</li>
 				#end
-				<!--
 				<li>
 					<a href="$base/browse/explore">发现</a>
 				</li>
-				-->
 				<li>
 					<a href="$base/browse/gallery">走廊</a>
 				</li>

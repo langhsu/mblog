@@ -4,11 +4,16 @@
 package mblog.core.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import mblog.core.persist.dao.TagDao;
 import mblog.core.persist.entity.TagPO;
+import mblog.core.pojos.Post;
 import mblog.core.pojos.Tag;
+import mblog.core.service.PostService;
 import mblog.core.service.TagService;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,17 +28,30 @@ import org.springframework.transaction.annotation.Transactional;
 public class TagServiceImpl implements TagService {
 	@Autowired
 	private TagDao tagDao;
+	@Autowired
+	private PostService postService;
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Tag> topTags(int maxResutls) {
+	public List<Tag> topTags(int maxResutls, boolean loadPost) {
 		List<TagPO> list = tagDao.tops(maxResutls);
 		List<Tag> rets = new ArrayList<Tag>();
 		
+		Set<Long> postIds = new HashSet<Long>();
 		for (TagPO po : list) {
 			Tag t = new Tag();
 			BeanUtils.copyProperties(po, t);
 			rets.add(t);
+			postIds.add(t.getLastPostId());
+		}
+		
+		if (loadPost) {
+			Map<Long, Post> posts = postService.findByIds(postIds);
+			
+			for (Tag t : rets) {
+				Post p = posts.get(t.getLastPostId());
+				t.setPost(p);
+			}
 		}
 		return rets;
 	}
