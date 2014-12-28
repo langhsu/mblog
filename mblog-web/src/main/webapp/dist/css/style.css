@@ -592,3 +592,20 @@ Tags
 	-moz-transition: -moz-transform .4s, opacity .1s;
 	transition: transform .4s, opacity .1s
 }
+.tags_effecs .itag {
+	position: absolute;
+	padding: 4px 10px;
+    left: 10px;;
+	bottom: 10px;
+    background: #222;
+    opacity: 0.8;
+    font-size: 14px;
+	color: #fff;
+    _filter: alpha(opacity=80);
+	max-width: 90%;
+    position: absolute;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

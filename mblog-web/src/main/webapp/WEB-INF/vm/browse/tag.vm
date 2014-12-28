@@ -1,4 +1,4 @@
-#set($title = "发现")
+#set($title = "$!{tag}")
 
 #set($results = $paging.results)
 

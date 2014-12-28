@@ -11,6 +11,7 @@
 					#else
                     <div class="txt">$!{row.post.summary}</div>
 					#end
+					<span class="itag">${row.name}</span>
 				</a>
 				<figcaption>
 					<h3>#${row.name}</h3>
