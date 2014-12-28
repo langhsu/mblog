@@ -17,4 +17,6 @@ public interface Consts {
 	String SEPARATOR = ",";
 	
 	String UPLOAD_ROOT = "/store";
+	
+	String ERROR_PAGE_404 = "/error/404.html";
 }

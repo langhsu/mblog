@@ -236,9 +236,10 @@ public class PostServiceImpl implements PostService {
 		Post d = null;
 		if (po != null) {
 			d = BeanMapUtils.copy(po, 1);
+			
+			List<Attach> albs = attachService.list(d.getId());
+			d.setAlbums(albs);
 		}
-		List<Attach> albs = attachService.list(d.getId());
-		d.setAlbums(albs);
 		return d;
 	}
 	

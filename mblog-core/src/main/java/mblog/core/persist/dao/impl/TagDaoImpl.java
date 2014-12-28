@@ -33,6 +33,7 @@ public class TagDaoImpl extends DaoImpl<TagPO> implements TagDao {
 	@Override
 	public List<TagPO> tops(int maxResutls) {
 		TopQuery<TagPO> q = topQuery(maxResutls);
+		q.desc("featured");
 		q.desc("hots");
 		return q.list();
 	}
