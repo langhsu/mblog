@@ -1,6 +1,6 @@
 #set($title = "发现")
 
-#set($results = $paging.results)
+#set($results = $page.results)
 
 <div class="sidebar-left">
 	<div class="posts-head">
@@ -42,7 +42,7 @@
     </div>
     		
     <div class="text-center clr">
-    	#page("search?q=$!{q}" $paging 5)
+    	#page("search?q=$!{q}" $page 5)
     </div>
 </div>
 

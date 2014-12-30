@@ -7,7 +7,7 @@ import mblog.core.lang.Consts;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Data;
+import mtons.modules.pojos.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

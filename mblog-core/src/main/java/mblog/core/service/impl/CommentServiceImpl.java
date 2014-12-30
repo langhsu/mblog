@@ -13,9 +13,9 @@ import mblog.core.persist.entity.CommentPO;
 import mblog.core.pojos.Comment;
 import mblog.core.pojos.User;
 import mblog.core.service.CommentService;
-import mtons.commons.pojos.Paging;
-import mtons.commons.pojos.UserContextHolder;
-import mtons.commons.pojos.UserProfile;
+import mtons.modules.pojos.Page;
+import mtons.modules.pojos.UserContextHolder;
+import mtons.modules.pojos.UserProfile;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +36,13 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public void paging(Paging paging, long toId) {
-		List<CommentPO> list = commentDao.paging(paging, toId);
+	public void paging(Page page, long toId) {
+		List<CommentPO> list = commentDao.paging(page, toId);
 		List<Comment> rets = new ArrayList<Comment>();
 		for (CommentPO po : list) {
 			rets.add(toVo(po));
 		}
-		paging.setResults(rets);
+		page.setResults(rets);
 	}
 	
 	@Override

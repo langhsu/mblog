@@ -4,7 +4,7 @@
 package test;
 
 import junit.framework.TestCase;
-import mtons.commons.utils.PreviewHtmlUtils;
+import mtons.modules.utils.PreviewHtmlUtils;
 
 import org.junit.Test;
 

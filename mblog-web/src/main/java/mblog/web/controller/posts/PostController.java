@@ -13,8 +13,8 @@ import mblog.core.pojos.Attach;
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Data;
-import mtons.commons.utils.GMagickUtils;
+import mtons.modules.pojos.Data;
+import mtons.modules.utils.GMagickUtils;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,10 +7,7 @@ import java.util.List;
 
 import mblog.core.persist.dao.TagDao;
 import mblog.core.persist.entity.TagPO;
-import mtons.commons.persist.hibernate.DaoImpl;
-
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
+import mtons.modules.persist.impl.DaoImpl;
 
 /**
  * @author langhsu
@@ -25,9 +22,7 @@ public class TagDaoImpl extends DaoImpl<TagPO> implements TagDao {
 
 	@Override
 	public TagPO getByName(String name) {
-		Criteria c = createCriteria(TagPO.class);
-		c.add(Restrictions.eq("name", name));
-		return (TagPO) c.uniqueResult();
+		return (TagPO) findUniqueBy("name", name);
 	}
 
 	@Override

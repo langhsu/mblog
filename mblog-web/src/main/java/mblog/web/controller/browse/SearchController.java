@@ -6,7 +6,7 @@ package mblog.web.controller.browse;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Paging;
+import mtons.modules.pojos.Page;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +28,16 @@ public class SearchController extends BaseController {
 	
 	@RequestMapping("/search")
 	public String search(Integer pageNo, String q, ModelMap model) {
-		Paging paging = wrapPaging(pageNo);
+		Page page = wrapPaging(pageNo);
 		try {
 			if (StringUtils.isNotEmpty(q)) {
-				postService.search(paging, q);
+				postService.search(page, q);
 				tagService.updateHot(q);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.put("paging", paging);
+		model.put("page", page);
 		model.put("q", q);
 		return "/browse/search";
 	}

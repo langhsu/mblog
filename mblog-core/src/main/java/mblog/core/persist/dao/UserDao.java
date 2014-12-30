@@ -4,7 +4,7 @@
 package mblog.core.persist.dao;
 
 import mblog.core.persist.entity.UserPO;
-import mtons.commons.persist.Dao;
+import mtons.modules.persist.Dao;
 
 /**
  * @author langhsu

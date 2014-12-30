@@ -10,9 +10,9 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import mtons.commons.lang.Const;
-import mtons.commons.pojos.Paging;
-import mtons.commons.pojos.UserProfile;
+import mtons.modules.lang.Const;
+import mtons.modules.pojos.Page;
+import mtons.modules.pojos.UserProfile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,11 +51,11 @@ public class BaseController{
 	 * @param pageNo
 	 * @return
 	 */
-	protected Paging wrapPaging(Integer pageNo) {
-		if (pageNo == null || pageNo == 0) {
-			pageNo = 1;
+	protected Page wrapPaging(Integer pn) {
+		if (pn == null || pn == 0) {
+			pn = 1;
 		}
-		return new Paging(pageNo, 10);
+		return new Page(pn, 10);
 	}
 	
 	/**

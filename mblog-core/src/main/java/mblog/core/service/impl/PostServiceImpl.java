@@ -23,11 +23,11 @@ import mblog.core.service.AttachService;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
 import mblog.core.utils.BeanMapUtils;
-import mtons.commons.lang.EntityStatus;
-import mtons.commons.pojos.Paging;
-import mtons.commons.pojos.UserContextHolder;
-import mtons.commons.pojos.UserProfile;
-import mtons.commons.utils.PreviewHtmlUtils;
+import mtons.modules.lang.EntityStatus;
+import mtons.modules.pojos.Page;
+import mtons.modules.pojos.UserContextHolder;
+import mtons.modules.pojos.UserProfile;
+import mtons.modules.utils.PreviewHtmlUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -62,38 +62,38 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public void paging(Paging paging) {
-		List<PostPO> list = postDao.paging(paging);
+	public void paging(Page page) {
+		List<PostPO> list = postDao.paging(page);
 		List<Post> rets = new ArrayList<Post>();
 		for (PostPO po : list) {
 			rets.add(BeanMapUtils.copy(po, 0));
 		}
-		paging.setResults(rets);
+		page.setResults(rets);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public void pagingByUserId(Paging paging, long userId) {
-		List<PostPO> list = postDao.pagingByUserId(paging, userId);
+	public void pagingByUserId(Page page, long userId) {
+		List<PostPO> list = postDao.pagingByUserId(page, userId);
 		List<Post> rets = new ArrayList<Post>();
 		for (PostPO po : list) {
 			rets.add(BeanMapUtils.copy(po ,0));
 		}
-		paging.setResults(rets);
+		page.setResults(rets);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
-	public List<Post> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException {
+	public List<Post> search(Page page, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException {
 		FullTextSession fullTextSession = Search.getFullTextSession(postDao.getSession());
 //	    fullTextSession.createIndexer().startAndWait();
 	    SearchFactory sf = fullTextSession.getSearchFactory();
 	    QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
 	    org.apache.lucene.search.Query luceneQuery  = qb.keyword().onFields("title","summary","tags").matching(q).createQuery();
 	    FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
-	    query.setFirstResult(paging.getFirstResult());
-	    query.setMaxResults(paging.getMaxResults());
+	    query.setFirstResult(page.getFirstResult());
+	    query.setMaxResults(page.getMaxResults());
 	   
 	    StandardAnalyzer standardAnalyzer = new StandardAnalyzer(); 
 	    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<span style='color:red;'>", "</span>");
@@ -120,22 +120,22 @@ public class PostServiceImpl implements PostService {
 			}
 			rets.add(m);
 		}
-		paging.setTotalCount(resultSize);
-		paging.setResults(rets);
+		page.setTotalCount(resultSize);
+		page.setResults(rets);
 		return rets;
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	@SuppressWarnings("unchecked")
-	public List<Post> searchByTag(Paging paging, String tag) throws InterruptedException, IOException, InvalidTokenOffsetsException {
+	public List<Post> searchByTag(Page page, String tag) throws InterruptedException, IOException, InvalidTokenOffsetsException {
 		FullTextSession fullTextSession = Search.getFullTextSession(postDao.getSession());
 	    SearchFactory sf = fullTextSession.getSearchFactory();
 	    QueryBuilder qb = sf.buildQueryBuilder().forEntity(PostPO.class).get();
 	    org.apache.lucene.search.Query luceneQuery  = qb.keyword().onFields("tags").matching(tag).createQuery();
 	    FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
-	    query.setFirstResult(paging.getFirstResult());
-	    query.setMaxResults(paging.getMaxResults());
+	    query.setFirstResult(page.getFirstResult());
+	    query.setMaxResults(page.getMaxResults());
 
 	    List<PostPO> list = query.list();
 	    int resultSize = query.getResultSize();
@@ -145,8 +145,8 @@ public class PostServiceImpl implements PostService {
 			Post m = BeanMapUtils.copy(po ,0);
 			rets.add(m);
 		}
-		paging.setTotalCount(resultSize);
-		paging.setResults(rets);
+		page.setTotalCount(resultSize);
+		page.setResults(rets);
 		return rets;
 	}
 	

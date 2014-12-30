@@ -6,7 +6,7 @@ package mblog.core.persist.dao;
 import java.util.List;
 
 import mblog.core.persist.entity.AttachPO;
-import mtons.commons.persist.Dao;
+import mtons.modules.persist.Dao;
 
 /**
  * @author langhsu

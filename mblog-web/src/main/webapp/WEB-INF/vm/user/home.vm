@@ -17,7 +17,7 @@
 <section class="site-main container">
 	<div class="site-content">
 	    <div class="posts">
-        	#foreach($row in $paging.results)
+        	#foreach($row in $page.results)
         	<article id="loop-${row.id}" class="loop clearfix">
         		<section class="loop-content">
         			#if($row.title)
@@ -46,7 +46,7 @@
         </div>
         		
         <div class="text-center clr">
-        	#page("$base/user/$!{user.id}" $paging 5)
+        	#page("$base/user/$!{user.id}" $page 5)
         </div>
 	</div>
 </section>

@@ -5,7 +5,7 @@ package mblog.web.controller.browse;
 
 import mblog.core.planet.PostPlanet;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Paging;
+import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,19 +27,19 @@ public class GalleryController extends BaseController {
 	
 	@RequestMapping("/gallery")
 	public String view(Integer pageNo, ModelMap model) {
-		Paging paging = wrapPaging(pageNo);
-		paging.setMaxResults(jsonMaxResults);
-		paging = postPlanet.paging(paging);
-		model.put("paging", paging);
+		Page page = wrapPaging(pageNo);
+		page.setMaxResults(jsonMaxResults);
+		page = postPlanet.paging(page);
+		model.put("page", page);
 		return "/browse/gallery";
 	}
 	
 	@RequestMapping("/gallery_snippet/{pageNo}")
 	public String snippet(@PathVariable Integer pageNo, ModelMap model) {
-		Paging paging = wrapPaging(pageNo);
-		paging.setMaxResults(jsonMaxResults);
-		paging = postPlanet.paging(paging);
-		model.put("paging", paging);
+		Page page = wrapPaging(pageNo);
+		page.setMaxResults(jsonMaxResults);
+		page = postPlanet.paging(page);
+		model.put("page", page);
 		return "/browse/snippet";
 	}
 }

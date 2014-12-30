@@ -1,7 +1,7 @@
 #set($title=$!{ret.title})
 
 <div id="blog-wrap" class="masonry-grid">
-	#foreach($row in $paging.results)
+	#foreach($row in $page.results)
 	<article class="loop masonry-entry span_1_of_3 col ">
 		#if($row.type == 'image' && ${row.snapshot.preview})
 		<div class="loop-entry-thumbnail">

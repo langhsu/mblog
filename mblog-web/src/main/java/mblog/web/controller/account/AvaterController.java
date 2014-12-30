@@ -4,19 +4,16 @@
 package mblog.web.controller.account;
 
 import java.io.File;
-import java.io.IOException;
 
 import mblog.core.context.AppContext;
 import mblog.core.lang.Consts;
 import mblog.core.service.UserService;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Data;
-import mtons.commons.pojos.UserProfile;
-import mtons.commons.utils.GMagickUtils;
-import mtons.commons.utils.Text;
+import mtons.modules.pojos.Data;
+import mtons.modules.pojos.UserProfile;
+import mtons.modules.utils.GMagickUtils;
+import mtons.modules.utils.Text;
 
-import org.apache.commons.io.FileUtils;
-import org.im4java.core.IM4JavaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

@@ -8,10 +8,9 @@ import java.util.List;
 
 import mblog.core.persist.dao.PostDao;
 import mblog.core.persist.entity.PostPO;
-import mtons.commons.persist.hibernate.DaoImpl;
-import mtons.commons.pojos.Paging;
+import mtons.modules.persist.impl.DaoImpl;
+import mtons.modules.pojos.Page;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -32,15 +31,15 @@ public class PostDaoImpl extends DaoImpl<PostPO> implements PostDao {
 	}
 
 	@Override
-	public List<PostPO> paging(Paging paging) {
-		PagingQuery<PostPO> q = pagingQuery(paging);
+	public List<PostPO> paging(Page page) {
+		PagingQuery<PostPO> q = pagingQuery(page);
 		q.desc("created");
 		return q.list();
 	}
 
 	@Override
-	public List<PostPO> pagingByUserId(Paging paging, long userId) {
-		PagingQuery<PostPO> q = pagingQuery(paging);
+	public List<PostPO> pagingByUserId(Page page, long userId) {
+		PagingQuery<PostPO> q = pagingQuery(page);
 		if (userId > 0) {
 			q.add(Restrictions.eq("author.id", userId));
 		}
@@ -60,11 +59,8 @@ public class PostDaoImpl extends DaoImpl<PostPO> implements PostDao {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<PostPO> findByIds(Collection<Long> ids) {
-		Criteria c = createCriteria();
-		c.add(Restrictions.in("id", ids));
-		return c.list();
+		return find(Restrictions.in("id", ids));
 	}
 
 }

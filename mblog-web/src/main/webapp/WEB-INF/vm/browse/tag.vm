@@ -1,6 +1,6 @@
 #set($title = "$!{tag}")
 
-#set($results = $paging.results)
+#set($results = $page.results)
 
 <div class="sidebar-left">
 	<div class="posts-head">
@@ -36,7 +36,7 @@
     </div>
     		
     <div class="text-center clr">
-    	#page("tag/$!{tag}" $paging 5)
+    	#page("tag/$!{tag}" $page 5)
     </div>
 </div>
 

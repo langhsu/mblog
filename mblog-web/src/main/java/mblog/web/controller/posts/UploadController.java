@@ -8,8 +8,8 @@ import java.io.IOException;
 
 import mblog.core.context.AppContext;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Data;
-import mtons.commons.utils.GMagickUtils;
+import mtons.modules.pojos.Data;
+import mtons.modules.utils.GMagickUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -6,8 +6,8 @@ package mblog.web.controller.comment;
 import mblog.core.pojos.Comment;
 import mblog.core.service.CommentService;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Data;
-import mtons.commons.pojos.Paging;
+import mtons.modules.pojos.Data;
+import mtons.modules.pojos.Page;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +26,10 @@ public class CommentController extends BaseController {
 	private CommentService commentService;
 	
 	@RequestMapping("/list")
-	public @ResponseBody Paging view(Integer pageNo, long contentId) {
-		Paging paging = wrapPaging(pageNo);
-		commentService.paging(paging, contentId);
-		return paging;
+	public @ResponseBody Page view(Integer pageNo, long contentId) {
+		Page page = wrapPaging(pageNo);
+		commentService.paging(page, contentId);
+		return page;
 	}
 	
 	@RequestMapping("/j_post")

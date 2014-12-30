@@ -7,9 +7,9 @@ import mblog.core.persist.dao.UserDao;
 import mblog.core.persist.entity.UserPO;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
-import mtons.commons.lang.EntityStatus;
-import mtons.commons.pojos.UserProfile;
-import mtons.commons.utils.MD5Helper;
+import mtons.modules.lang.EntityStatus;
+import mtons.modules.pojos.UserProfile;
+import mtons.modules.utils.MD5Helper;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;

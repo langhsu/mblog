@@ -7,9 +7,9 @@ import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.log4j.Logger;
+import mtons.modules.utils.Exceptions;
 
-import mtons.commons.utils.Exceptions;
+import org.apache.log4j.Logger;
 
 /**
  * 系统初始化

@@ -4,7 +4,7 @@
 package mblog.core.service;
 
 import mblog.core.pojos.User;
-import mtons.commons.pojos.UserProfile;
+import mtons.modules.pojos.UserProfile;
 
 /**
  * @author langhsu

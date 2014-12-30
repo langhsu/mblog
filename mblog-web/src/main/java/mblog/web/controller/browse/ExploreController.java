@@ -10,7 +10,7 @@ import mblog.core.pojos.Tag;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Paging;
+import mtons.modules.pojos.Page;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +44,16 @@ public class ExploreController extends BaseController {
 	
 	@RequestMapping("/tag/{tag}")
 	public String tag(@PathVariable String tag, Integer pageNo, ModelMap model) {
-		Paging paging = wrapPaging(pageNo);
+		Page page = wrapPaging(pageNo);
 		try {
 			if (StringUtils.isNotEmpty(tag)) {
-				postService.searchByTag(paging, tag);
+				postService.searchByTag(page, tag);
 				tagService.updateHot(tag);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.put("paging", paging);
+		model.put("page", page);
 		model.put("tag", tag);
 		return "/browse/tag";
 	}

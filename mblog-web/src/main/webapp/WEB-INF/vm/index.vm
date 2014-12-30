@@ -23,7 +23,7 @@
 <div class="overlay" style=""></div>
 <div class="sidebar-left">
     <div class="posts">
-    	#foreach($row in $paging.results)
+    	#foreach($row in $page.results)
     	<article class="loop clearfix">
     		<section class="loop-content">
     			#if($row.title)
@@ -52,7 +52,7 @@
     </div>
     		
     <div class="text-center clr">
-    	#page("index" $paging 5)
+    	#page("index" $page 5)
     </div>
 </div>
 

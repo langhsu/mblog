@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import mblog.core.pojos.Post;
-import mtons.commons.pojos.Paging;
+import mtons.modules.pojos.Page;
 
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
@@ -18,10 +18,10 @@ import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
  *
  */
 public interface PostService {
-	void paging(Paging paging);
-	void pagingByUserId(Paging paging, long userId);
-	List<Post> search(Paging paging, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException;
-	List<Post> searchByTag(Paging paging, String tag) throws InterruptedException, IOException, InvalidTokenOffsetsException;
+	void paging(Page page);
+	void pagingByUserId(Page page, long userId);
+	List<Post> search(Page page, String q) throws InterruptedException, IOException, InvalidTokenOffsetsException;
+	List<Post> searchByTag(Page page, String tag) throws InterruptedException, IOException, InvalidTokenOffsetsException;
 	List<Post> recents(int maxResutls, long ignoreUserId);
 	Map<Long, Post> findByIds(Set<Long> ids);
 	

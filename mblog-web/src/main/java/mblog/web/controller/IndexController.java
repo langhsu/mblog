@@ -4,7 +4,7 @@
 package mblog.web.controller;
 
 import mblog.core.planet.PostPlanet;
-import mtons.commons.pojos.Paging;
+import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,17 +22,17 @@ public class IndexController extends BaseController{
 	
 	@RequestMapping("/")
 	public String root(Integer pageNo, ModelMap model) {
-		Paging paging = wrapPaging(pageNo);
-		paging = postPlanet.paging(paging);
-		model.put("paging", paging);
+		Page page = wrapPaging(pageNo);
+		page = postPlanet.paging(page);
+		model.put("page", page);
 		return "/index";
 	}
 	
 	@RequestMapping("/index")
 	public String index(Integer pageNo, ModelMap model) {
-		Paging paging = wrapPaging(pageNo);
-		paging = postPlanet.paging(paging);
-		model.put("paging", paging);
+		Page page = wrapPaging(pageNo);
+		page = postPlanet.paging(page);
+		model.put("page", page);
 		return "/index";
 	}
 }

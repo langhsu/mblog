@@ -7,7 +7,7 @@ import java.util.List;
 
 import mblog.core.persist.dao.AttachDao;
 import mblog.core.persist.entity.AttachPO;
-import mtons.commons.persist.hibernate.DaoImpl;
+import mtons.modules.persist.impl.DaoImpl;
 
 import org.hibernate.criterion.Restrictions;
 

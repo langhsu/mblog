@@ -4,8 +4,8 @@
 package mblog.web.controller;
 
 import mblog.core.service.PostService;
-import mtons.commons.pojos.Paging;
-import mtons.commons.pojos.UserProfile;
+import mtons.modules.pojos.Page;
+import mtons.modules.pojos.UserProfile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +23,11 @@ public class HomeController extends BaseController {
 	
 	@RequestMapping("/home")
 	public String home(Integer pageNo, ModelMap model) {
-		Paging paging = wrapPaging(pageNo);
+		Page page = wrapPaging(pageNo);
 		UserProfile profile = getProfile();
-		postService.pagingByUserId(paging,  profile.getId());
+		postService.pagingByUserId(page,  profile.getId());
 		
-		model.put("paging", paging);
+		model.put("page", page);
 		
 		return "/home";
 	}

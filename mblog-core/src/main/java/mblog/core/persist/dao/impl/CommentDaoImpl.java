@@ -7,8 +7,8 @@ import java.util.List;
 
 import mblog.core.persist.dao.CommentDao;
 import mblog.core.persist.entity.CommentPO;
-import mtons.commons.persist.hibernate.DaoImpl;
-import mtons.commons.pojos.Paging;
+import mtons.modules.persist.impl.DaoImpl;
+import mtons.modules.pojos.Page;
 
 import org.hibernate.criterion.Restrictions;
 
@@ -24,8 +24,8 @@ public class CommentDaoImpl extends DaoImpl<CommentPO> implements CommentDao {
 	}
 
 	@Override
-	public List<CommentPO> paging(Paging paging, long toId) {
-		PagingQuery<CommentPO> q = pagingQuery(paging);
+	public List<CommentPO> paging(Page page, long toId) {
+		PagingQuery<CommentPO> q = pagingQuery(page);
 		q.add(Restrictions.eq("toId", toId));
 		q.desc("created");
 		return q.list();

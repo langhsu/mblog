@@ -7,7 +7,7 @@ import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
 import mblog.web.controller.BaseController;
-import mtons.commons.pojos.Paging;
+import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,11 +29,11 @@ public class UserHomeController extends BaseController {
 	@RequestMapping("/user/{uid}")
 	public String home(@PathVariable Long uid, Integer pageNo, ModelMap model) {
 		User user = userService.get(uid);
-		Paging paging = wrapPaging(pageNo);
-		paging = postPlanet.pagingByUserId(paging, uid);
+		Page page = wrapPaging(pageNo);
+		page = postPlanet.pagingByUserId(page, uid);
 		
 		model.put("user", user);
-		model.put("paging", paging);
+		model.put("page", page);
 		return "/user/home";
 	}
 }

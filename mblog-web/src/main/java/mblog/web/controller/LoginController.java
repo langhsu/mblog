@@ -1,7 +1,7 @@
 package mblog.web.controller;
 
 import mblog.core.service.UserService;
-import mtons.commons.pojos.UserProfile;
+import mtons.modules.pojos.UserProfile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
