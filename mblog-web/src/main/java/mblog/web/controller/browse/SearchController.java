@@ -27,8 +27,8 @@ public class SearchController extends BaseController {
 	private TagService tagService;
 	
 	@RequestMapping("/search")
-	public String search(Integer pageNo, String q, ModelMap model) {
-		Page page = wrapPaging(pageNo);
+	public String search(Integer pn, String q, ModelMap model) {
+		Page page = wrapPage(pn);
 		try {
 			if (StringUtils.isNotEmpty(q)) {
 				postService.search(page, q);

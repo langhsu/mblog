@@ -26,8 +26,8 @@ public class CommentController extends BaseController {
 	private CommentService commentService;
 	
 	@RequestMapping("/list")
-	public @ResponseBody Page view(Integer pageNo, long contentId) {
-		Page page = wrapPaging(pageNo);
+	public @ResponseBody Page view(Integer pn, long contentId) {
+		Page page = wrapPage(pn);
 		commentService.paging(page, contentId);
 		return page;
 	}

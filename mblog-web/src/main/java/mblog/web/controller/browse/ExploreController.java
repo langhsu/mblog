@@ -43,8 +43,8 @@ public class ExploreController extends BaseController {
 	}
 	
 	@RequestMapping("/tag/{tag}")
-	public String tag(@PathVariable String tag, Integer pageNo, ModelMap model) {
-		Page page = wrapPaging(pageNo);
+	public String tag(@PathVariable String tag, Integer pn, ModelMap model) {
+		Page page = wrapPage(pn);
 		try {
 			if (StringUtils.isNotEmpty(tag)) {
 				postService.searchByTag(page, tag);

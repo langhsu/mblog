@@ -22,8 +22,8 @@ public class HomeController extends BaseController {
 	private PostService postService;
 	
 	@RequestMapping("/home")
-	public String home(Integer pageNo, ModelMap model) {
-		Page page = wrapPaging(pageNo);
+	public String home(Integer pn, ModelMap model) {
+		Page page = wrapPage(pn);
 		UserProfile profile = getProfile();
 		postService.pagingByUserId(page,  profile.getId());
 		

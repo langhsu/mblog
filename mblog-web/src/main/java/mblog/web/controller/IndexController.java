@@ -21,16 +21,16 @@ public class IndexController extends BaseController{
 	private PostPlanet postPlanet;
 	
 	@RequestMapping("/")
-	public String root(Integer pageNo, ModelMap model) {
-		Page page = wrapPaging(pageNo);
+	public String root(Integer pn, ModelMap model) {
+		Page page = wrapPage(pn);
 		page = postPlanet.paging(page);
 		model.put("page", page);
 		return "/index";
 	}
 	
 	@RequestMapping("/index")
-	public String index(Integer pageNo, ModelMap model) {
-		Page page = wrapPaging(pageNo);
+	public String index(Integer pn, ModelMap model) {
+		Page page = wrapPage(pn);
 		page = postPlanet.paging(page);
 		model.put("page", page);
 		return "/index";

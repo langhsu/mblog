@@ -26,17 +26,17 @@ public class GalleryController extends BaseController {
 	private int jsonMaxResults = 8;
 	
 	@RequestMapping("/gallery")
-	public String view(Integer pageNo, ModelMap model) {
-		Page page = wrapPaging(pageNo);
+	public String view(Integer pn, ModelMap model) {
+		Page page = wrapPage(pn);
 		page.setMaxResults(jsonMaxResults);
 		page = postPlanet.paging(page);
 		model.put("page", page);
 		return "/browse/gallery";
 	}
 	
-	@RequestMapping("/gallery_snippet/{pageNo}")
-	public String snippet(@PathVariable Integer pageNo, ModelMap model) {
-		Page page = wrapPaging(pageNo);
+	@RequestMapping("/gallery_snippet/{pn}")
+	public String snippet(@PathVariable Integer pn, ModelMap model) {
+		Page page = wrapPage(pn);
 		page.setMaxResults(jsonMaxResults);
 		page = postPlanet.paging(page);
 		model.put("page", page);

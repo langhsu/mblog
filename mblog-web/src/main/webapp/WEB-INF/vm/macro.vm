@@ -36,9 +36,9 @@ $user.username
 	#set($span = (${maxList} - 3)/2)
 	#set($__pc = $p.pageCount)
     #if($url.indexOf("?") != -1)
-        #set($cURL=($url + "&pageNo="))
+        #set($cURL=($url + "&pn="))
     #else
-        #set($cURL=($url + "?pageNo="))
+        #set($cURL=($url + "?pn="))
     #end
     
 <ul class="pagination">
@@ -82,7 +82,7 @@ $user.username
     #end
     
     #if ($p.pageNo < $p.pageCount)
-		<li><a href="${cURL}${p.next}"pageNo="$p.next">></a></li>
+		<li><a href="${cURL}${p.next}" pageNo="$p.next">></a></li>
 	#end
 </ul>
 #end

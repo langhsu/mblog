@@ -48,10 +48,10 @@ public class BaseController{
 	/**
 	 * 包装分页对象
 	 * 
-	 * @param pageNo
+	 * @param pn 页码
 	 * @return
 	 */
-	protected Page wrapPaging(Integer pn) {
+	protected Page wrapPage(Integer pn) {
 		if (pn == null || pn == 0) {
 			pn = 1;
 		}

@@ -27,9 +27,9 @@ public class UserHomeController extends BaseController {
 	private UserService userService;
 	
 	@RequestMapping("/user/{uid}")
-	public String home(@PathVariable Long uid, Integer pageNo, ModelMap model) {
+	public String home(@PathVariable Long uid, Integer pn, ModelMap model) {
 		User user = userService.get(uid);
-		Page page = wrapPaging(pageNo);
+		Page page = wrapPage(pn);
 		page = postPlanet.pagingByUserId(page, uid);
 		
 		model.put("user", user);
