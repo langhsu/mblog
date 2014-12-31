@@ -41,6 +41,6 @@ public class GalleryController extends BaseController {
 		page.setMaxResults(jsonMaxResults);
 		page = postPlanet.paging(page);
 		model.put("page", page);
-		return "/browse/snippet";
+		return getView(ViewPath.BROWSE_GALLERY_SNIPPET);
 	}
 }

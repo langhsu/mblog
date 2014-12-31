@@ -28,6 +28,7 @@ public interface ViewPath {
 	String BROWSE_EXPLORE = "/browse/explore";
 	String BROWSE_TAG = "/browse/tag";
 	String BROWSE_GALLERY = "/browse/gallery";
+	String BROWSE_GALLERY_SNIPPET = "/browse/snippet";
 	String BROWSE_SEARCH = "/browse/search";
 	String BROWSE_DETAIL = "/browse/detail";
 }
