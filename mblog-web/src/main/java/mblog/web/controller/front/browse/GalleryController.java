@@ -5,6 +5,7 @@ package mblog.web.controller.front.browse;
 
 import mblog.core.planet.PostPlanet;
 import mblog.web.controller.front.BaseController;
+import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class GalleryController extends BaseController {
 		page.setMaxResults(jsonMaxResults);
 		page = postPlanet.paging(page);
 		model.put("page", page);
-		return "/browse/gallery";
+		return getView(ViewPath.BROWSE_GALLERY);
 	}
 	
 	@RequestMapping("/gallery_snippet/{pn}")

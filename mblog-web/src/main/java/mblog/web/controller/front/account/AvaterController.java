@@ -9,6 +9,7 @@ import mblog.core.context.AppContext;
 import mblog.core.lang.Consts;
 import mblog.core.service.UserService;
 import mblog.web.controller.front.BaseController;
+import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.UserProfile;
 import mtons.modules.utils.GMagickUtils;
@@ -35,7 +36,7 @@ public class AvaterController extends BaseController {
 	
 	@RequestMapping(value = "/avater", method = RequestMethod.GET)
 	public String view() {
-		return "/account/avater";
+		return getView(ViewPath.ACCOUNT_AVATER);
 	}
 	
 	@RequestMapping(value = "/avater", method = RequestMethod.POST)
@@ -44,7 +45,7 @@ public class AvaterController extends BaseController {
 		
 		if (StringUtils.isEmpty(path)) {
 			model.put("data", Data.failure("请选择图片"));
-			return "/account/avater";
+			return getView(ViewPath.ACCOUNT_AVATER);
 		}
 		
 		if (width != null && height != null) {

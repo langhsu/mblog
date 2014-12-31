@@ -96,4 +96,7 @@ public class BaseController{
 		return new Gson().toJson(obj);
 	}
 	
+	protected String getView(String view) {
+		return view;
+	}
 }

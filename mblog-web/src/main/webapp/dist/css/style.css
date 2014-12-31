@@ -501,7 +501,7 @@ Tags
 }
 .tags_grid figure {
 	margin: 0;
-	height: 240px;
+	height: 200px;
 	background-color: #fff;
 	position: relative;
 	border-radius: 3px;
@@ -550,7 +550,6 @@ Tags
 	text-overflow: ellipsis;
 }
 .tags_effecs figure {
-	height: 68%;
 	overflow: hidden;
 }
 .tags_effecs figure img {

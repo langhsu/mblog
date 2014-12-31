@@ -13,6 +13,7 @@ import mblog.core.pojos.Attach;
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
 import mblog.web.controller.front.BaseController;
+import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Data;
 import mtons.modules.utils.GMagickUtils;
 
@@ -42,7 +43,7 @@ public class PostController extends BaseController {
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
 	public String view(String type, ModelMap model) {
 		model.put("type", type);
-		return "/blog/post_" + type;
+		return getView(ViewPath.BLOG_POST + type);
 	}
 
 	@RequestMapping(value = "/post", method = RequestMethod.POST)

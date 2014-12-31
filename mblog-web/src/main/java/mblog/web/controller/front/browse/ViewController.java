@@ -7,6 +7,8 @@ import mblog.core.lang.Consts;
 import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
+import mblog.web.controller.front.BaseController;
+import mblog.web.controller.front.ViewPath;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/browse")
-public class ViewController {
+public class ViewController extends BaseController {
 	@Autowired
 	private PostPlanet postPlanet;
 	@Autowired
@@ -36,6 +38,6 @@ public class ViewController {
 		
 		postService.updateView(id);
 		model.put("ret", ret);
-		return "/browse/detail";
+		return getView(ViewPath.BROWSE_DETAIL);
 	}
 }

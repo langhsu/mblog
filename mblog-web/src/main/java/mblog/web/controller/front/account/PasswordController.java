@@ -5,6 +5,7 @@ package mblog.web.controller.front.account;
 
 import mblog.core.service.UserService;
 import mblog.web.controller.front.BaseController;
+import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class PasswordController extends BaseController {
 	
 	@RequestMapping(value = "/password", method = RequestMethod.GET)
 	public String view() {
-		return "/account/password";
+		return getView(ViewPath.ACCOUNT_PASSWORD);
 	}
 	
 	@RequestMapping(value = "/password", method = RequestMethod.POST)
@@ -39,7 +40,7 @@ public class PasswordController extends BaseController {
 			data = Data.failure(e.getMessage());
 		}
 		model.put("data", data);
-		return "/account/password";
+		return getView(ViewPath.ACCOUNT_PASSWORD);
 	}
 
 }

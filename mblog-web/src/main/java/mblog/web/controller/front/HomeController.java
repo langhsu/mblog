@@ -29,7 +29,7 @@ public class HomeController extends BaseController {
 		
 		model.put("page", page);
 		
-		return "/home";
+		return getView(ViewPath.HOME);
 	}
 	
 }

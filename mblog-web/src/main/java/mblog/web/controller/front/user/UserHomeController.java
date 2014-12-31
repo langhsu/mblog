@@ -7,6 +7,7 @@ import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
 import mblog.web.controller.front.BaseController;
+import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,6 @@ public class UserHomeController extends BaseController {
 		
 		model.put("user", user);
 		model.put("page", page);
-		return "/user/home";
+		return getView(ViewPath.USER_HOME);
 	}
 }
