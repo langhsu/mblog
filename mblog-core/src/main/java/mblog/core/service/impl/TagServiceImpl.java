@@ -45,7 +45,7 @@ public class TagServiceImpl implements TagService {
 			postIds.add(t.getLastPostId());
 		}
 		
-		if (loadPost) {
+		if (loadPost && postIds.size() > 0) {
 			Map<Long, Post> posts = postService.findByIds(postIds);
 			
 			for (Tag t : rets) {

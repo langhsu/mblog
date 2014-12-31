@@ -550,6 +550,7 @@ Tags
 	text-overflow: ellipsis;
 }
 .tags_effecs figure {
+	height: 68%;
 	overflow: hidden;
 }
 .tags_effecs figure img {
