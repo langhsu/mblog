@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mtons轻博客 - $!title</title>
-	<meta name="keywords" content="mtons,blog,轻博客,博客,社区,摄影,旅游,美食,时尚,艺术,娱乐 ">
-	<meta name="description" content="Mtons, 轻松分享你的兴趣. 便捷的文字、图片发布,扁平化的响应式设计,美观、大气,是您记录生活的最佳选择">
+    <title>$!title Mtons轻博客</title>
+	<meta name="keywords" content="mtons,blog,轻博客,博客,$!{tags} ">
+	<meta name="description" content="$!{title}">
 	
 	<link rel='stylesheet' media='all' href='$base/dist/css/font-awesome.min.css'/>
 	<link rel="stylesheet" media='all' href="$base/dist/css/bootstrap.min.css">
@@ -36,14 +36,14 @@
 	
 </head>
 <body>
-	#parse("/inc/header.vm")
+	#parse("/default/inc/header.vm")
 	
 	<section class="site-main container">
 		${screen_content}
     </section>
 	<!--.site-main -->
 	
-	#parse("/inc/footer.vm")
+	#parse("/default/inc/footer.vm")
 	
 	<a href="#" class="site-scroll-top"></a>
 	

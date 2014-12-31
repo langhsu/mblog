@@ -1,6 +1,6 @@
 #set($title=$!{ret.title})
 #set($tags=$!{ret.tags})
-#set($layout = "/layout/seo.vm")
+#set($layout = "/default/layout/seo.vm")
 
 <div class="sidebar-left">
 	<div class="posts-head">
@@ -49,7 +49,7 @@
 </div>
 
 <div class="sidebar-right bounceInRight animated">
-	#parse("/inc/right/public.vm")
+	#parse("/default/inc/right/public.vm")
 </div>
 
 <script type="text/javascript">

@@ -1,16 +1,10 @@
-#set($title = "发现")
+#set($title = "$!{tag}")
 
 #set($results = $page.results)
 
 <div class="sidebar-left">
 	<div class="posts-head">
-		#if($results.size() == 0)
-			<i class="fa fa-frown-o fa-lg"></i> 没有相关记录!
-		#else
-			<div class="alert alert-success" style="margin-bottom:0">
-		     	 搜索 <strong>$!{q}</strong>, 共 ${paging.totalCount} 个结果.
-		    </div>
-		#end
+		<i class="fa fa-tag fa-lg"></i> $!{tag}
 	</div>
     <div class="posts">
     	#foreach($row in $results)
@@ -42,16 +36,17 @@
     </div>
     		
     <div class="text-center clr">
-    	#page("search?q=$!{q}" $page 5)
+    	#page("tag/$!{tag}" $page 5)
     </div>
 </div>
 
+</style>
 <div class="sidebar-right bounceInRight animated">
-    <div class="search">
+	<div class="search">
 		<form class="form-inline clearfix" method="get" id="searchform" action="$base/browse/search">
-			<input class="form-control" type="text" name="q" placeholder="搜索..." value="$!{q}"/>
+			<input class="form-control" type="text" name="q" placeholder="搜索..."/>
 			<button type="submit" class="btn btn-primary btn-small"><i class="fa fa-search"></i></button>
 		</form>
 	</div>
-	#parse("/inc/right/public.vm")
+	#parse("/default/inc/right/public.vm")
 </div>

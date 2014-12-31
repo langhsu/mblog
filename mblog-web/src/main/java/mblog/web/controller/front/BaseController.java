@@ -97,6 +97,6 @@ public class BaseController{
 	}
 	
 	protected String getView(String view) {
-		return view;
+		return "/default" + view;
 	}
 }

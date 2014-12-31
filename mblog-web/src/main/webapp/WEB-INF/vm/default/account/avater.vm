@@ -1,11 +1,11 @@
 #set($title = "修改用户信息")
-#set($layout = "/layout/schema.vm")
+#set($layout = "/default/layout/schema.vm")
 
 <link rel='stylesheet' media='all' href='$base/dist/css/jquery.Jcrop.min.css'/>
 
 <script type="text/javascript" charset="utf-8" src="$base/dist/js/jquery.Jcrop.min.js"></script>
 
-#parse("/inc/snippet/profile.vm")
+#parse("/default/inc/snippet/profile.vm")
 
 <nav id="profile-navigation" class="profile-navbar">
 	<div class="container">

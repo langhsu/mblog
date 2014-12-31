@@ -1,13 +1,29 @@
-#set($title = "$!{tag}")
+#set($title = "首页")
 
-#set($results = $page.results)
-
+<style>
+.navbar-inverse {background-color: rgba(0,0,0,.4); border: none;}
+.overlay {
+	margin: 0px; 
+	padding: 0px; 
+	position: fixed; 
+	left: 0px; 
+	top: 0px; 
+	width: 100%; 
+	height: 100%; 
+	background-image: url("./dist/images/first/portrait2.jpg");
+    background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    background-position: center;
+	z-index: -1;
+}
+</style>
+<div class="overlay" style=""></div>
 <div class="sidebar-left">
-	<div class="posts-head">
-		<i class="fa fa-tag fa-lg"></i> $!{tag}
-	</div>
     <div class="posts">
-    	#foreach($row in $results)
+    	#foreach($row in $page.results)
     	<article class="loop clearfix">
     		<section class="loop-content">
     			#if($row.title)
@@ -32,21 +48,20 @@
     		</div>
         </article>
     	<!-- 文章显示结束 -->
-		#end
+    	#end
     </div>
     		
     <div class="text-center clr">
-    	#page("tag/$!{tag}" $page 5)
+    	#page("index" $page 5)
     </div>
 </div>
 
-</style>
 <div class="sidebar-right bounceInRight animated">
 	<div class="search">
 		<form class="form-inline clearfix" method="get" id="searchform" action="$base/browse/search">
-			<input class="form-control" type="text" name="q" placeholder="搜索..."/>
+			<input class="form-control" type="text" name="q" placeholder="搜索..." value=""/>
 			<button type="submit" class="btn btn-primary btn-small"><i class="fa fa-search"></i></button>
 		</form>
 	</div>
-	#parse("/inc/right/public.vm")
+	#parse("/default/inc/right/public.vm")
 </div>

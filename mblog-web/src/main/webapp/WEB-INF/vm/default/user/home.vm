@@ -1,5 +1,5 @@
 #set($title = "$!{user.name}")
-#set($layout = "/layout/schema.vm")
+#set($layout = "/default/layout/schema.vm")
 
 <div class="profile">
 	<div class="container">

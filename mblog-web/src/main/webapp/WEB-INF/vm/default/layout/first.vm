@@ -29,7 +29,7 @@
 </head>
 <body class="default">
 	<nav class="navbar navbar-default navbar-static-top" role="navigation">
-		#parse("/inc/browse_tips.vm")
+		#parse("/default/inc/browse_tips.vm")
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button id="main_nav_btn" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -52,7 +52,7 @@
 	
 	${screen_content}
 		
-	#parse("/inc/footer.vm")
+	#parse("/default/inc/footer.vm")
 	
 	<script type="text/javascript">
 	$(function() {
