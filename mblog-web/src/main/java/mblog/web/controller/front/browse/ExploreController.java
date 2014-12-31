@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mblog.web.controller.browse;
+package mblog.web.controller.front.browse;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import mblog.core.planet.TagPlanet;
 import mblog.core.pojos.Tag;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
-import mblog.web.controller.BaseController;
+import mblog.web.controller.front.BaseController;
 import mtons.modules.pojos.Page;
 
 import org.apache.commons.lang.StringUtils;

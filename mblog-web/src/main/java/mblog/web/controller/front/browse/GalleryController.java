@@ -1,10 +1,10 @@
 /**
  * 
  */
-package mblog.web.controller.browse;
+package mblog.web.controller.front.browse;
 
 import mblog.core.planet.PostPlanet;
-import mblog.web.controller.BaseController;
+import mblog.web.controller.front.BaseController;
 import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;

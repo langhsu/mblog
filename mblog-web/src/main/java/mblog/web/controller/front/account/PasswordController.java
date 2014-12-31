@@ -1,10 +1,10 @@
 /**
  * 
  */
-package mblog.web.controller.account;
+package mblog.web.controller.front.account;
 
 import mblog.core.service.UserService;
-import mblog.web.controller.BaseController;
+import mblog.web.controller.front.BaseController;
 import mtons.modules.pojos.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;

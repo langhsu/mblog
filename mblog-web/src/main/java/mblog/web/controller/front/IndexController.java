@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mblog.web.controller;
+package mblog.web.controller.front;
 
 import mblog.core.planet.PostPlanet;
 import mtons.modules.pojos.Page;

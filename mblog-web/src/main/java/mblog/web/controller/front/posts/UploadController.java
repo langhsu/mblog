@@ -1,13 +1,13 @@
 /**
  * 
  */
-package mblog.web.controller.posts;
+package mblog.web.controller.front.posts;
 
 import java.io.File;
 import java.io.IOException;
 
 import mblog.core.context.AppContext;
-import mblog.web.controller.BaseController;
+import mblog.web.controller.front.BaseController;
 import mtons.modules.pojos.Data;
 import mtons.modules.utils.GMagickUtils;
 

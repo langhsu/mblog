@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mblog.web.controller.browse;
+package mblog.web.controller.front.browse;
 
 import mblog.core.lang.Consts;
 import mblog.core.planet.PostPlanet;

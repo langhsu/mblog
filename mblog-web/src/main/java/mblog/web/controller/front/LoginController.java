@@ -1,4 +1,4 @@
-package mblog.web.controller;
+package mblog.web.controller.front;
 
 import mblog.core.service.UserService;
 import mtons.modules.pojos.UserProfile;

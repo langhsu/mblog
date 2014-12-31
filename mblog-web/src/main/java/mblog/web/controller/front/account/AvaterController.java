@@ -1,14 +1,14 @@
 /**
  * 
  */
-package mblog.web.controller.account;
+package mblog.web.controller.front.account;
 
 import java.io.File;
 
 import mblog.core.context.AppContext;
 import mblog.core.lang.Consts;
 import mblog.core.service.UserService;
-import mblog.web.controller.BaseController;
+import mblog.web.controller.front.BaseController;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.UserProfile;
 import mtons.modules.utils.GMagickUtils;

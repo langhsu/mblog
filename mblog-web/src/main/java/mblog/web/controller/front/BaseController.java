@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mblog.web.controller;
+package mblog.web.controller.front;
 
 import java.io.File;
 import java.io.IOException;

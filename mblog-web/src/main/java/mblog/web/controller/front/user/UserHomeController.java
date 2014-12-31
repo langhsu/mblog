@@ -1,12 +1,12 @@
 /**
  * 
  */
-package mblog.web.controller.user;
+package mblog.web.controller.front.user;
 
 import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
-import mblog.web.controller.BaseController;
+import mblog.web.controller.front.BaseController;
 import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;

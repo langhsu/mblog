@@ -1,13 +1,13 @@
 /**
  * 
  */
-package mblog.web.controller.browse;
+package mblog.web.controller.front.browse;
 
 import java.util.List;
 
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
-import mblog.web.controller.BaseController;
+import mblog.web.controller.front.BaseController;
 import mtons.modules.pojos.UserContextHolder;
 import mtons.modules.pojos.UserProfile;
 

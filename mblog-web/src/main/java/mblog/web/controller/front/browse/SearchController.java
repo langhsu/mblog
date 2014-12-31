@@ -1,11 +1,11 @@
 /**
  * 
  */
-package mblog.web.controller.browse;
+package mblog.web.controller.front.browse;
 
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
-import mblog.web.controller.BaseController;
+import mblog.web.controller.front.BaseController;
 import mtons.modules.pojos.Page;
 
 import org.apache.commons.lang.StringUtils;
