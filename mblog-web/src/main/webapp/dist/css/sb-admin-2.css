@@ -352,3 +352,12 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+div.dataTables_paginate {
+	margin: 0;
+	white-space: nowrap;
+	text-align: right;
+}
+div.dataTables_paginate ul.pagination {
+	margin: 2px 0;
+}

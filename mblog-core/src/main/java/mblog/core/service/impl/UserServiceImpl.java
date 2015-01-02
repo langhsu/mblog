@@ -1,13 +1,17 @@
 package mblog.core.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import mblog.core.persist.dao.UserDao;
 import mblog.core.persist.entity.UserPO;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
+import mblog.core.utils.BeanMapUtils;
 import mtons.modules.lang.EntityStatus;
+import mtons.modules.pojos.Page;
 import mtons.modules.pojos.UserProfile;
 import mtons.modules.utils.MD5Helper;
 
@@ -74,8 +78,7 @@ public class UserServiceImpl implements UserService {
 		UserPO po = userDao.get(id);
 		User ret = null;
 		if (po != null) {
-			ret = new User();
-			BeanUtils.copyProperties(po, ret, new String[] {"password"});
+			ret = BeanMapUtils.copy(po);
 		}
 		return ret;
 	}
@@ -114,6 +117,19 @@ public class UserServiceImpl implements UserService {
 			Assert.isTrue(MD5Helper.md5(oldPassword).equals(po.getPassword()), "当前密码不正确");
 			po.setPassword(MD5Helper.md5(newPassword));
 		}
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public void paging(Page page) {
+		List<UserPO> list = userDao.paging(page);
+		List<User> rets = new ArrayList<User>();
+		
+		for (UserPO po : list) {
+			User u = BeanMapUtils.copy(po);
+			rets.add(u);
+		}
+		page.setResults(rets);
 	}
 	
 	private UserProfile wrapperProfile(UserPO po) {

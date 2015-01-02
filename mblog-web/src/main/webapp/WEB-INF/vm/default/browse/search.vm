@@ -49,8 +49,12 @@
 <div class="sidebar-right bounceInRight animated">
     <div class="search">
 		<form class="form-inline clearfix" method="get" id="searchform" action="$base/browse/search">
-			<input class="form-control" type="text" name="q" placeholder="搜索..." value="$!{q}"/>
-			<button type="submit" class="btn btn-primary btn-small"><i class="fa fa-search"></i></button>
+    		<div class="input-group custom-search-form">
+        		<input type="text" class="form-control" name="q" placeholder="搜索..." value="$!{q}">
+        		<span class="input-group-btn">
+        			<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+        		</span>
+        	</div>
 		</form>
 	</div>
 	#parse("/default/inc/right/public.vm")

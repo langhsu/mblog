@@ -4,6 +4,7 @@
 package mblog.core.service;
 
 import mblog.core.pojos.User;
+import mtons.modules.pojos.Page;
 import mtons.modules.pojos.UserProfile;
 
 /**
@@ -18,4 +19,6 @@ public interface UserService {
 	UserProfile updateAvater(long id, String path);
 	void updatePassword(long id, String newPassword);
 	void updatePassword(long id, String oldPassword, String newPassword);
+	
+	void paging(Page page);
 }
