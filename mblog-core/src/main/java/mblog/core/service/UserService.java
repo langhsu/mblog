@@ -19,6 +19,6 @@ public interface UserService {
 	UserProfile updateAvater(long id, String path);
 	void updatePassword(long id, String newPassword);
 	void updatePassword(long id, String oldPassword, String newPassword);
-	
+	void updateStatus(long id, int status);
 	void paging(Page page);
 }

@@ -83,9 +83,9 @@
 	</error-page>
 	
 	<servlet>
-		<display-name>InitServlet</display-name>
 		<servlet-name>InitServlet</servlet-name>
 		<servlet-class>mblog.web.servlet.InitServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>InitServlet</servlet-name>
