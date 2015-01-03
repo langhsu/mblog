@@ -95,6 +95,7 @@
         </mvc:interceptor>
         
         <mvc:interceptor>
+        	<mvc:mapping path="/admin" />
             <mvc:mapping path="/admin/*" />
             <mvc:mapping path="/admin/*/*" />
             <bean class="mblog.web.interceptor.AdminAccessInterceptor"/>

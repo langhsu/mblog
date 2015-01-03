@@ -27,7 +27,7 @@
 	    	<div class="panel-heading"><span class="fa fa-user"></span> 修改用户信息</div>
 	    	<div class="panel-body">
 	    		<div id="message">
-	    		#parse("/inc/action_message.vm")
+	    		#parse("/default/inc/action_message.vm")
 	    		</div>
     			<div class="tab-pane active" id="profile">
     				<form id="pf" action="profile" method="post" class="form-horizontal">

@@ -31,7 +31,7 @@
 	    	<div class="panel-heading"><span class="fa fa-user"></span> 修改头像</div>
 	    	<div class="panel-body">
 	    		<div id="message">
-	    		#parse("/inc/action_message.vm")
+	    		#parse("/default/inc/action_message.vm")
 	    		</div>
     			<form class="form-horizontal" action="avater" method="post">
 					<input type="hidden" id="x" name="x" value=""/>

@@ -5,7 +5,7 @@
     	<div class="panel-heading"><span class="glyphicon glyphicon-edit"></span> 用户注册</div>
     	<div class="panel-body">
     		<br>
-    		<div id="message">#parse("/inc/action_message.vm")</div>
+    		<div id="message">#parse("/default/inc/action_message.vm")</div>
     		<div class="text-center">
     			<a href="$base/login" class="btn btn-primary">去登陆</a> 
     		</div>

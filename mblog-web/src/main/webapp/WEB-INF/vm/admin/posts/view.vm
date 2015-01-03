@@ -1,0 +1,29 @@
+#set($layout = "/admin/layout/noop.vm")
+
+<article class="loop clearfix">
+	<section class="loop-content">
+		#if($view.title)
+		<header class="post-title ">
+			<h2>${view.title}</h2>
+		</header>
+		#end
+		<div class="entry">
+			#if($view.albums)
+				#foreach($row in $view.albums)
+				<div class="single-post-media">
+					<img src="$base${row.original}" style="display: block;">
+				</div><!-- .post-thumbnail -->	
+				#end
+			#end
+			<div class="zan-outline">
+				${view.content}
+			</div>
+		</div>
+		<div class="post-meta">
+			<span><i class="fa fa-user"></i>&nbsp;#showName(${view.author})</span>
+			<span><i class="fa fa-calendar-o"></i>&nbsp;$date.format('yyyy-MM-dd', $view.created)</span>
+		</div>
+	</section>
+	
+	<!-- 大型设备文章显示结束 -->
+</article>
