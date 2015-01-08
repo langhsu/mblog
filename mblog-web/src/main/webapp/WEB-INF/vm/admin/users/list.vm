@@ -48,7 +48,7 @@
 				</table>
                 <!-- /.table-responsive -->
 				<div class="dataTables_paginate">
-                	#page("home" $page 5)
+                	#page("list" $page 5)
                 </div>
             </div>
             <!-- /.panel-body -->

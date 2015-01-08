@@ -15,6 +15,8 @@ import mblog.core.service.PostService;
 import mblog.web.controller.front.BaseController;
 import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Data;
+import mtons.modules.pojos.UserContextHolder;
+import mtons.modules.pojos.UserProfile;
 import mtons.modules.utils.GMagickUtils;
 
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -59,8 +61,9 @@ public class PostController extends BaseController {
 	public @ResponseBody Data delete(@PathVariable Long id) {
 		Data data = Data.failure("操作失败");
 		if (id != null) {
+			UserProfile up = UserContextHolder.getUserProfile();
 			try {
-				postPlanet.delete(id);
+				postPlanet.delete(id, up.getId());
 				data = Data.success("操作成功");
 			} catch (Exception e) {
 				data = Data.failure(e.getMessage());

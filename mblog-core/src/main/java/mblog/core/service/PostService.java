@@ -28,6 +28,7 @@ public interface PostService {
 	void post(Post post);
 	Post get(long id);
 	void delete(long id);
+	void delete(long id, long authorId);
 	
 	void updateView(long id);
 	void updateHeart(long id);

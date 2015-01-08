@@ -15,5 +15,6 @@ public interface PostPlanet {
 	Page pagingByUserId(Page page, long uid);
 	Post getPost(long id);
 	void post(Post post);
+	void delete(long id, long authorId);
 	void delete(long id);
 }

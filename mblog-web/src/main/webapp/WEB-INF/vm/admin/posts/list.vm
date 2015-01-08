@@ -43,7 +43,7 @@
 				</table>
                 <!-- /.table-responsive -->
 				<div class="text-center">
-                	#page("home" $page 5)
+                	#page("list" $page 5)
                 </div>
             </div>
             <!-- /.panel-body -->
@@ -78,7 +78,7 @@ $(function() {
 	// 删除
     $('#dataGrid a[data-action="delete"]').bind('click', function(){
         if(confirm('删除后将不可撤销, 确定要继续吗？')){
-            J.getJSON('$base/admin/posts/delete', {id: $(this).attr('data-id'), active: false}, ajaxReload);
+            J.getJSON('$base/admin/posts/delete', {id: $(this).attr('data-id')}, ajaxReload);
         }
         return false;
     });

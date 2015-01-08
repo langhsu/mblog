@@ -246,13 +246,19 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	public void delete(long id) {
-		UserProfile up = UserContextHolder.getUserProfile();
-		
-		Assert.notNull(up, "用户认证失败, 请重新登录!");
-		
 		PostPO po = postDao.get(id);
 		if (po != null) {
-			Assert.isTrue(po.getAuthor().getId() == up.getId(), "认证失败");
+			attachService.deleteByToId(id);
+			postDao.delete(po);
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void delete(long id, long authorId) {
+		PostPO po = postDao.get(id);
+		if (po != null) {
+			Assert.isTrue(po.getAuthor().getId() == authorId, "认证失败");
 			attachService.deleteByToId(id);
 			postDao.delete(po);
 		}
