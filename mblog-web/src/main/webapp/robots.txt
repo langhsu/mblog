@@ -6,3 +6,4 @@ Disallow: /dist/
 Disallow: /store/
 Disallow: /account/
 Disallow: /blog/
+Disallow: /admin/

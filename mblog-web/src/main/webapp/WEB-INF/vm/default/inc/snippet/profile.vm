@@ -1,8 +1,8 @@
 <div class="profile">
 	<div class="container">
-		<div class="avatar bounceInDown animated">
+		<a href="$base/account/avater" class="avatar bounceInDown animated">
 			<img class="img-circle" src="$base${profile.avater}">
-		</div>
+		</a>
 		<h1>#showName(${profile})</h1>
 		<!--
 		<a class="btn btn-white" href="#">Back</a>

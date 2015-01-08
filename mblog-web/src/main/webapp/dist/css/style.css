@@ -384,21 +384,34 @@ a.trash {color: #F50A0A!important;}
 	font-size: 16px;
 	margin: 5px 0 15px;
 }
-.avatar img {
-	position: relative;
-	width: 120px;
-	height: 120px;
-	border: 6px solid transparent;
-	border-color: #fff;
-	margin: 0 auto;
+
+.avatar {
+	background: #f2f2f2;
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 200px;
+	-ms-border-radius: 200px;
+	-o-border-radius: 200px;
+	border-radius: 200px;
+	-webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
+	-moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
+	box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.04);
+	padding: 6px;
+	display: inline-block;
 	transition: ease all .6s;
 	-webkit-transition: ease all .6s;
 	-moz-transition: ease all .6s;
 	-o-transition: ease all .6s;
 }
 
-.avatar img:hover {
-	border-color: #FFFF66;	
+.avatar img {
+	position: relative;
+	width: 120px;
+	height: 120px;
+	margin: 0 auto;
+}
+
+.avatar:hover {
+	background: #dcdcdc;
 }
 
 .btn-white {
