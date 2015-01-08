@@ -5,7 +5,7 @@ package mblog.web.controller.admin;
 
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
-import mblog.web.controller.front.BaseController;
+import mblog.web.controller.BaseController;
 import mtons.modules.lang.Const;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.Page;

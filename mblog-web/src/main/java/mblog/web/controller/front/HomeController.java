@@ -4,6 +4,7 @@
 package mblog.web.controller.front;
 
 import mblog.core.service.PostService;
+import mblog.web.controller.BaseController;
 import mtons.modules.pojos.Page;
 import mtons.modules.pojos.UserProfile;
 

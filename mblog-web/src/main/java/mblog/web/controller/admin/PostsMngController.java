@@ -6,7 +6,7 @@ package mblog.web.controller.admin;
 import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
-import mblog.web.controller.front.BaseController;
+import mblog.web.controller.BaseController;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.Page;
 

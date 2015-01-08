@@ -4,7 +4,7 @@
 package mblog.web.controller.front.browse;
 
 import mblog.core.planet.PostPlanet;
-import mblog.web.controller.front.BaseController;
+import mblog.web.controller.BaseController;
 import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Page;
 

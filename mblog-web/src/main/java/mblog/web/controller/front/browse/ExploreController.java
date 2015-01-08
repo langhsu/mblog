@@ -9,7 +9,7 @@ import mblog.core.planet.TagPlanet;
 import mblog.core.pojos.Tag;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
-import mblog.web.controller.front.BaseController;
+import mblog.web.controller.BaseController;
 import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Page;
 

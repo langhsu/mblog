@@ -5,7 +5,7 @@ package mblog.web.controller.front.comment;
 
 import mblog.core.pojos.Comment;
 import mblog.core.service.CommentService;
-import mblog.web.controller.front.BaseController;
+import mblog.web.controller.BaseController;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.Page;
 

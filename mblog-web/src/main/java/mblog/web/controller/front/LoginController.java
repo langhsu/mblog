@@ -1,6 +1,7 @@
 package mblog.web.controller.front;
 
 import mblog.core.service.UserService;
+import mblog.web.controller.BaseController;
 import mtons.modules.pojos.UserProfile;
 
 import org.springframework.beans.factory.annotation.Autowired;

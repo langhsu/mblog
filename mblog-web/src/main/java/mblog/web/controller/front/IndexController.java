@@ -4,6 +4,7 @@
 package mblog.web.controller.front;
 
 import mblog.core.planet.PostPlanet;
+import mblog.web.controller.BaseController;
 import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;

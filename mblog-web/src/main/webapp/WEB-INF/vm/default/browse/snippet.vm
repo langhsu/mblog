@@ -1,4 +1,4 @@
-#set($layout="layout/noop.vm")
+#set($layout="default/layout/noop.vm")
 
 #foreach($row in $page.results)
 <article class="loop masonry-entry span_1_of_3 col ">

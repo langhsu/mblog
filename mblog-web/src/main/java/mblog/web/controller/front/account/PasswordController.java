@@ -4,7 +4,7 @@
 package mblog.web.controller.front.account;
 
 import mblog.core.service.UserService;
-import mblog.web.controller.front.BaseController;
+import mblog.web.controller.BaseController;
 import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Data;
 

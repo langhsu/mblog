@@ -12,7 +12,7 @@ import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.Attach;
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
-import mblog.web.controller.front.BaseController;
+import mblog.web.controller.BaseController;
 import mblog.web.controller.front.ViewPath;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.UserContextHolder;

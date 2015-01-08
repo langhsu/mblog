@@ -3,6 +3,8 @@
  */
 package mblog.web.controller.front;
 
+import mblog.web.controller.BaseController;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
