@@ -26,7 +26,7 @@ jdbc.password=your password
 hibernate.search.indexs=d:/data/indexs
 ```
 
-## 图片处理安装路径配置
+## 图片工具安装路径配置
 > src/main/resources/mtons.properties
 
 ```
