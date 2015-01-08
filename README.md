@@ -22,7 +22,7 @@ jdbc.password=your password
 > src/main/resources/init.properties
 
 ```
-# 缓存路径
+# indexs path
 hibernate.search.indexs=d:/data/indexs
 ```
 

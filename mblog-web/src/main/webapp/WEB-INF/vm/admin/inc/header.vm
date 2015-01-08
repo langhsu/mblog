@@ -34,7 +34,7 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="$base/admin/index"><i class="fa fa-dashboard fa-fw"></i> 首页</a>
+                    <a href="$base/admin"><i class="fa fa-dashboard fa-fw"></i> 首页</a>
                 </li>
                 <li>
                     <a href="$base/admin/users/list"><i class="fa fa-users fa-fw"></i> 用户列表</a>
