@@ -76,11 +76,13 @@
 	</bean>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
-        <property name="defaultEncoding" value="utf-8"></property>
-        <property name="maxUploadSize" value="10485760000"></property>
-        <property name="maxInMemorySize" value="40960"></property>
-   </bean>
-   
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="maxUploadSize" value="10485760000"></property>
+		<property name="maxInMemorySize" value="40960"></property>
+	</bean>
+	
+	<bean id="exceptionResolver" class="mblog.web.exceptions.DefaultExceptionHandler" />
+	
 	<mvc:interceptors>
         <mvc:interceptor>
             <!-- 需拦截的地址 -->

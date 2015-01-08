@@ -1,0 +1,12 @@
+#set($title ="Message")
+
+<div class="panel panel-default" style="min-height: 300px; max-width: 460px; margin: 0 auto;">
+	<div class="panel-heading">提示</div>
+	<div class="panel-body">
+		<fieldset>
+			#if($error)
+				$!{error}
+			#end
+		</fieldset>
+	</div><!-- /panel-content -->
+</div><!-- /panel -->

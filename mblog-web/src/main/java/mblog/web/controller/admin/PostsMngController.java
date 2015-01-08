@@ -50,7 +50,7 @@ public class PostsMngController extends BaseController {
 			try {
 				postPlanet.delete(id);
 				data = Data.success("操作成功");
-			} catch (Throwable e) {
+			} catch (Exception e) {
 				data = Data.failure(e.getMessage());
 			}
 		}
