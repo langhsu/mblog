@@ -7,6 +7,7 @@ package test;
 import junit.framework.TestCase;
 import mtons.modules.utils.PreviewHtmlUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 /**
@@ -21,6 +22,8 @@ public class HtmlCutTest extends TestCase {
 		String cuted = PreviewHtmlUtils.truncateHTML(text, 20);
 		System.out.println(cuted);
 		System.out.println(cuted.length());
+		
+		System.out.println(StringUtils.abbreviate("1234567", 5));
 	}
 
 }

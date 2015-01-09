@@ -127,6 +127,11 @@ body {
     padding-left: 52px;
 }
 
+.page-header {
+	margin: 20px 0 15px;
+	font-size: 30px;
+}
+
 @media(min-width:768px) {
     .sidebar {
         z-index: 1;
@@ -360,4 +365,8 @@ div.dataTables_paginate {
 }
 div.dataTables_paginate ul.pagination {
 	margin: 2px 0;
+}
+
+.pagination {
+	margin: 12px 0;
 }

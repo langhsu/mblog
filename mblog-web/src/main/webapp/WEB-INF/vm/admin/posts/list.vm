@@ -23,19 +23,18 @@
                     <tr>
 						<th>文章标题</th>
 						<th style="width: 100px;">发表日期</th>
-                        <th class="text-center" style="width: 60px;">操作</th>
+                        <th class="text-center" style="width: 95px;">操作</th>
 					</tr>
 					#foreach($row in $page.results)
 					<tr>
                         <td>
-							$!{row.title}
+							$string.abbreviate("$!{row.title}", 22)
 						</td>
 						<td>
 							$date.format('yyyy-MM-dd', $row.created)
 						</td>
                         <td class="text-center">
 							<a href="$base/admin/posts/view?id=${row.id}" target="postView" class="btn btn-primary btn-xs">查看</a>
-                            <hr class="split-line"/>
 							<a href="javascript:void(0);" class="btn btn-danger btn-xs" data-id="${row.id}" data-action="delete">删除</a>
 						</td>
                     </tr>

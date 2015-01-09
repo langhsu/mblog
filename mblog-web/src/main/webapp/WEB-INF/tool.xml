@@ -5,9 +5,16 @@
         @see http://velocity.apache.org/tools/devel/javadoc/org/apache/velocity/tools/generic/DateTool.html  (en)   
         @since VelocityTools 1.0  
     -->   
-    <tool>   
-        <key>date</key>   
-        <scope>application</scope>   
-        <class>org.apache.velocity.tools.generic.DateTool</class>   
-    </tool>   
-</toolbox> 
+    <tool>
+        <key>date</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.DateTool</class>
+    </tool>
+    
+    <tool>
+        <key>string</key>
+        <scope>application</scope>
+        <class>org.apache.commons.lang.StringUtils</class>
+    </tool>
+    
+</toolbox>
