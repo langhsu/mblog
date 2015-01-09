@@ -5,6 +5,7 @@ package mblog.core.persist.entity;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -46,6 +47,8 @@ public class PostPO {
 	@Field(name = "title", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String title; // 标题
 	
+	@Lob
+	@Basic(fetch = FetchType.LAZY) 
 	@Type(type="text")
 	@Field(name = "summary", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String summary; // 摘要
@@ -53,9 +56,13 @@ public class PostPO {
 	@Field(name = "tags", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String tags;
 	
+	@Lob
+	@Basic(fetch = FetchType.LAZY) 
 	@Type(type="text")
 	private String content; // 内容
 	
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	@Type(type="text")
 	private String markdown; // markdown 内容
 	
