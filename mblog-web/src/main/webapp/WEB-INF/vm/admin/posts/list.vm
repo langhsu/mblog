@@ -53,8 +53,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">文章查看</div>
             <!-- /.panel-heading -->
-            <div class="panel-body" style="height: 680px;">
-                <iframe id="postView" name="postView" src=""></iframe>
+            <div class="panel-body" style="height: 500px;">
+                <iframe id="postView" name="postView" src="$base/error/preview.html"></iframe>
 			</div>
 		</div>
 	</div>
