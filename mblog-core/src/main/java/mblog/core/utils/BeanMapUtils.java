@@ -18,7 +18,7 @@ import org.springframework.beans.BeanUtils;
 public class BeanMapUtils {
 	private static String[] USER_IGNORE = new String[]{"password"};
 	private static String[] POST_IGNORE = new String[]{"author", "snapshot"};
-	private static String[] POST_IGNORE_LIST = new String[]{"author", "snapshot", "content"};
+	private static String[] POST_IGNORE_LIST = new String[]{"author", "snapshot", "markdown", "content"};
 	
 	public static User copy(UserPO po) {
 		if (po == null) {

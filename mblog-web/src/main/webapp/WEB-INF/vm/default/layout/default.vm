@@ -13,6 +13,7 @@
 	<link rel='stylesheet' media='all' href='$base/dist/css/style.css'/>
 	<link rel='stylesheet' media='all' href='$base/dist/css/layout.css'/>
 	<link rel='stylesheet' media='all' href='$base/dist/css/animate.css'/>
+	<link rel='stylesheet' media='all' href='$base/markdown/editor.css'/>
 	
 	<!--[if lt IE 9]>
     <script src="$base/dist/js/html5.js"></script>

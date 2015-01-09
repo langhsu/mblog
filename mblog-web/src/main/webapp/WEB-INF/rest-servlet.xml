@@ -39,6 +39,7 @@
 	<mvc:resources mapping="/error/**" location="/error/" />
 	<mvc:resources mapping="/store/**" location="/store/" />
 	<mvc:resources mapping="/ueditor/**" location="/ueditor/" />
+	<mvc:resources mapping="/markdown/**" location="/markdown/" />
 	
 	<!-- Web层基于注解的扫描路径 -->
 	<context:component-scan base-package="mblog.web.controller" />

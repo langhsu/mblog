@@ -51,7 +51,9 @@ public class PostPO {
 	private String tags;
 
 	private String content; // 内容
-
+	
+	private String markdown; // markdown 内容
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "snapshot_id")
 	private AttachPO snapshot;
@@ -190,6 +192,14 @@ public class PostPO {
 
 	public void setViews(int views) {
 		this.views = views;
+	}
+
+	public String getMarkdown() {
+		return markdown;
+	}
+
+	public void setMarkdown(String markdown) {
+		this.markdown = markdown;
 	}
 
 }
