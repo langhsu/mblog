@@ -48,6 +48,8 @@
 	/*grids*/
 	.masonry-grid .masonry-entry.span_1_of_3,
 	.masonry-grid .masonry-entry.span_1_of_4 { width: 47.6% }
+	
+	.site-content {width: 100%; max-width: 100%;}
 }
 /* Mobile (Portrait & Landscape)
 ================================================== */
