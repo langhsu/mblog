@@ -45,7 +45,7 @@
 	<context:component-scan base-package="mblog.web.controller" />
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
-		<property name="toolboxConfigLocation" value="/WEB-INF/tool.xml" />
+		<property name="toolboxConfigLocation" value="/WEB-INF/toolbox.xml" />
 		<property name="layoutUrl" value="default/layout/default.vm" />
 		<property name="layoutKey" value="layout" />
 		<property name="cache" value="true" />
