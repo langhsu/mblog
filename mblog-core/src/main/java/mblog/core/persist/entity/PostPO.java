@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
@@ -43,15 +45,18 @@ public class PostPO {
 
 	@Field(name = "title", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String title; // 标题
-
+	
+	@Type(type="text")
 	@Field(name = "summary", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String summary; // 摘要
 
 	@Field(name = "tags", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
 	private String tags;
-
+	
+	@Type(type="text")
 	private String content; // 内容
 	
+	@Type(type="text")
 	private String markdown; // markdown 内容
 	
 	@ManyToOne(fetch = FetchType.LAZY)
