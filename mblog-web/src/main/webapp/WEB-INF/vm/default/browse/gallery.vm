@@ -24,7 +24,7 @@
 		<!-- .loop-entry-content -->
 		<div class="loop-meta">
 			<span><a href="$base/user/${row.author.id}"><i class="fa fa-user"></i>&nbsp;#showName(${row.author})</a></span>
-			<span><i class="fa fa-heart-o"></i>&nbsp;${row.hearts}</span>
+			<span><a href="javascript:void(0)" onclick="onHeart('${row.id}')"><i class="fa fa-heart-o"></i>&nbsp;${row.hearts}</a></span>
 			<div class="pull-right">
 				<span><a href="$base/browse/detail/${row.id}">阅读(${row.views})</a></span>
 			</div>
@@ -41,3 +41,23 @@
 		<a href="$base/browse/gallery_snippet/2">Older Posts &rarr;</a>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+function onHeart(id) {
+	if (parseInt(id) > 0) {
+		jQuery.getJSON('$base/blog/heart', {'id': id}, function (ret) {
+			alert(ret.message);
+			if (ret.code >=0) {
+			}
+		});
+	}
+}
+
+$(function(){
+	$("img").lazyload({
+		 placeholder : "$base/dist/images/spinner.gif",
+		 effect      : "fadeIn"
+	});
+});
+</script>
