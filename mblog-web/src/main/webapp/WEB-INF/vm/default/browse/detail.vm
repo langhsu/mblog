@@ -36,7 +36,7 @@
 				</div>
 				<div class="post-meta">
 					<div class="post-like">
-						<span><a href="#" class="btn btn-primary">喜欢</a></span>
+						<span><a href="javascript:void(0)" data-evt="heart" data-id="${ret.id}" class="btn btn-primary">喜欢</a></span>
 					</div>
 					<span><i class="fa fa-calendar-o"></i>&nbsp;$date.format('yyyy-MM-dd', $ret.created)</span>
 				</div>
@@ -59,5 +59,16 @@ $(function(){
 		 effect      : "fadeIn"
 	});
 	
+	$('a[data-evt=heart]').click(function () {
+		var id = $(this).attr('data-id');
+		
+		if (parseInt(id) > 0) {
+			jQuery.getJSON('$base/blog/heart', {'id': id}, function (ret) {
+				alert(ret.message);
+				if (ret.code >=0) {
+				}
+			});
+		}
+	});
 });
 </script>

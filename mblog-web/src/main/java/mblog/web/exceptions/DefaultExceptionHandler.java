@@ -44,10 +44,7 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver {
 		ModelAndView view = null;
 		String ret = ex.getMessage();
 		
-		HandlerMethod handlerMethod = (HandlerMethod) handler;
-		
-		ResponseBody responseBodyAnn = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), ResponseBody.class);  
-		if (responseBodyAnn != null) {
+		if (isAjax(handler)) {
 			try {
 				response.setContentType("application/json;charset=UTF-8");
 				Gson gson = new Gson();
@@ -63,6 +60,12 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver {
 			view = new ModelAndView(errorView, map);
 		}
 		return view;
+	}
+	
+	private boolean isAjax(Object handler) {
+		HandlerMethod handlerMethod = (HandlerMethod) handler;
+		ResponseBody responseBodyAnn = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), ResponseBody.class);  
+		return responseBodyAnn != null;
 	}
 	
 }

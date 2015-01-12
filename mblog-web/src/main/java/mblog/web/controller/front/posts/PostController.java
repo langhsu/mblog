@@ -72,6 +72,20 @@ public class PostController extends BaseController {
 		return data;
 	}
 	
+	@RequestMapping("/heart")
+	public @ResponseBody Data heart(Long id) {
+		Data data = Data.failure("操作失败");
+		if (id != null) {
+			try {
+				postService.updateHeart(id);
+				data = Data.success("操作成功,感谢您的支持!");
+			} catch (Exception e) {
+				data = Data.failure(e.getMessage());
+			}
+		}
+		return data;
+	}
+	
 	private void handleAlbums(List<Attach> albums) {
 		if (albums == null) {
 			return;
