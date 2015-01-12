@@ -39,7 +39,7 @@ public class RegController extends BaseController {
 		String ret = getView(ViewPath.REG);
 		
 		try {
-			user.setAvater(Consts.avater);
+			user.setAvatar(Consts.avatar);
 			userService.register(user);
 			data = Data.success("恭喜您! 注册成功");
 			ret = getView(ViewPath.REG_RESULT);

@@ -92,10 +92,10 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
-	public UserProfile updateAvater(long id, String path) {
+	public UserProfile updateAvatar(long id, String path) {
 		UserPO po = userDao.get(id);
 		if (po != null) {
-			po.setAvater(path);
+			po.setAvatar(path);
 			po.setUpdated(new Date());
 		}
 		return wrapperProfile(po);
@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService {
 		UserProfile profile = new UserProfile(po.getId(), po.getUsername());
 		profile.setName(po.getName());
 		profile.setEmail(po.getEmail());
-		profile.setAvater(po.getAvater());
+		profile.setAvatar(po.getAvatar());
 		profile.setLastLogin(po.getLastLogin());
 		profile.setStatus(po.getStatus());
 		return profile;

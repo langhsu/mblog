@@ -8,7 +8,7 @@ package mblog.core.lang;
  *
  */
 public interface Consts {
-	String avater = "/dist/images/ava/default.png";
+	String avatar = "/dist/images/ava/default.png";
 	int FILE_PATH_SEED = 997;  // 文件目录步进
 	
 	String TYPE_TEXT = "text";

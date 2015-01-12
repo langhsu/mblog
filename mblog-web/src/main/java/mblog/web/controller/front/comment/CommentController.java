@@ -12,6 +12,7 @@ import mtons.modules.pojos.Page;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,20 +26,20 @@ public class CommentController extends BaseController {
 	@Autowired
 	private CommentService commentService;
 	
-	@RequestMapping("/list")
-	public @ResponseBody Page view(Integer pn, long contentId) {
+	@RequestMapping("/list/{toId}")
+	public @ResponseBody Page view(Integer pn, @PathVariable Long toId) {
 		Page page = wrapPage(pn);
-		commentService.paging(page, contentId);
+		commentService.paging(page, toId);
 		return page;
 	}
 	
 	@RequestMapping("/j_post")
-	public @ResponseBody Data post(Long contentId, String content) {
+	public @ResponseBody Data post(Long toId, String text) {
 		Data data = Data.failure("failure");
-		if (contentId > 0 && StringUtils.isNotEmpty(content)) {
+		if (toId > 0 && StringUtils.isNotEmpty(text)) {
 			Comment c = new Comment();
-			c.setToId(contentId);
-			c.setContent(content);
+			c.setToId(toId);
+			c.setContent(text);
 			commentService.post(c);
 			data = Data.success("success");
 		}

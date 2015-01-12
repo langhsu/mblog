@@ -28,24 +28,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/account")
-public class AvaterController extends BaseController {
+public class AvatarController extends BaseController {
 	@Autowired
 	private AppContext appContext;
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/avater", method = RequestMethod.GET)
+	@RequestMapping(value = "/avatar", method = RequestMethod.GET)
 	public String view() {
-		return getView(ViewPath.ACCOUNT_AVATER);
+		return getView(ViewPath.ACCOUNT_AVATAR);
 	}
 	
-	@RequestMapping(value = "/avater", method = RequestMethod.POST)
+	@RequestMapping(value = "/avatar", method = RequestMethod.POST)
 	public String post(String path, Float x, Float y, Float width, Float height, ModelMap model) {
 		UserProfile profile = getProfile();
 		
 		if (StringUtils.isEmpty(path)) {
 			model.put("data", Data.failure("请选择图片"));
-			return getView(ViewPath.ACCOUNT_AVATER);
+			return getView(ViewPath.ACCOUNT_AVATAR);
 		}
 		
 		if (width != null && height != null) {
@@ -69,7 +69,7 @@ public class AvaterController extends BaseController {
 				// 对结果图片进行压缩
 				GMagickUtils.scaleImage(scalePath, dest, 100);
 				
-				UserProfile user = userService.updateAvater(profile.getId(), ava100);
+				UserProfile user = userService.updateAvatar(profile.getId(), ava100);
 				putProfile(user);
 				
 				scale = new File(scalePath);

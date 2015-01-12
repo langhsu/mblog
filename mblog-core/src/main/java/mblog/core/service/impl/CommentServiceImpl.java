@@ -71,6 +71,7 @@ public class CommentServiceImpl implements CommentService {
 			u.setId(po.getAuthor().getId());
 			u.setUsername(po.getAuthor().getUsername());
 			u.setName(po.getAuthor().getName());
+			u.setAvatar(po.getAuthor().getAvatar());
 			d.setAuthor(u);
 		}
 		return d;

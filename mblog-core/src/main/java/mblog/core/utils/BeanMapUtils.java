@@ -42,7 +42,7 @@ public class BeanMapUtils {
 			u.setId(po.getAuthor().getId());
 			u.setUsername(po.getAuthor().getUsername());
 			u.setName(po.getAuthor().getName());
-			u.setAvater(po.getAuthor().getAvater());
+			u.setAvatar(po.getAuthor().getAvatar());
 			d.setAuthor(u);
 		}
 		if (po.getSnapshot() != null) {

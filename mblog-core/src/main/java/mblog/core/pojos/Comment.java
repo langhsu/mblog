@@ -5,6 +5,8 @@ package mblog.core.pojos;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * @author langhsu
  * 
@@ -40,7 +42,8 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	public Date getCreated() {
 		return created;
 	}

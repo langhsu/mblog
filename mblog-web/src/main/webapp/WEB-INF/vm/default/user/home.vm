@@ -4,7 +4,7 @@
 <div class="profile">
 	<div class="container">
 		<div class="avatar bounceInDown animated">
-			<img class="img-circle" src="$base${user.avater}">
+			<img class="img-circle" src="$base${user.avatar}">
 		</div>
 		<h1>#showName(${user})</h1>
         <h2>Ta发布的文章</h2>

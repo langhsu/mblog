@@ -10,4 +10,6 @@
 		</property>
 	</bean>
     
+    <bean id="jsonUtils" class="mblog.web.formatter.JsonUtils" />
+    
 </beans>

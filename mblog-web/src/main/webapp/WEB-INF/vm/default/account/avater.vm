@@ -15,7 +15,7 @@
 					<a href="profile">用户信息</a>
 				</li>
 				<li class="active">
-					<a href="avater">修改头像</a>
+					<a href="avatar">修改头像</a>
 				</li>
 				<li class="">
 					<a href="password">登录密码</a>
@@ -33,7 +33,7 @@
 	    		<div id="message">
 	    		#parse("/default/inc/action_message.vm")
 	    		</div>
-    			<form class="form-horizontal" action="avater" method="post">
+    			<form class="form-horizontal" action="avatar" method="post">
 					<input type="hidden" id="x" name="x" value=""/>
 					<input type="hidden" id="y" name="y" value=""/>
 					<input type="hidden" id="width" name="width" value=""/>
@@ -43,7 +43,7 @@
                 		<input id="upload_btn" type="file" name="file" value=""/>
                 	</div>
 					<div class="update_ava">
-						<img src="$base${profile.avater}" id="target" alt="[Jcrop Example]" />
+						<img src="$base${profile.avatar}" id="target" alt="[Jcrop Example]" />
 					</div>
 					
 					<div class="form-group">

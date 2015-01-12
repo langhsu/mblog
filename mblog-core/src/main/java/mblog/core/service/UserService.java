@@ -16,7 +16,7 @@ public interface UserService {
 	void register(User user);
 	UserProfile update(User user);
 	User get(long id);
-	UserProfile updateAvater(long id, String path);
+	UserProfile updateAvatar(long id, String path);
 	void updatePassword(long id, String newPassword);
 	void updatePassword(long id, String oldPassword, String newPassword);
 	void updateStatus(long id, int status);

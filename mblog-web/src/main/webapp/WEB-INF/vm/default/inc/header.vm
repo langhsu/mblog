@@ -27,7 +27,7 @@
 				#if($profile)
 				<li>
     				<a href="$base/account/profile" class="ava" title="settings">
-                		<img class="img-circle" src="$base${profile.avater}">
+                		<img class="img-circle" src="$base${profile.avatar}">
     				</a>
 				</li>
 				<li>

@@ -18,7 +18,7 @@ public interface ViewPath {
 	String INDEX = "/index";
 	String HOME = "/home";
 	String USER_HOME = "/user/home";
-	String ACCOUNT_AVATER = "/account/avater";
+	String ACCOUNT_AVATAR = "/account/avatar";
 	String ACCOUNT_PASSWORD = "/account/password";
 	String ACCOUNT_PROFILE = "/account/profile";
 	

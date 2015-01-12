@@ -617,3 +617,26 @@ Tags
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/*
+ * Chat
+ */
+.chat {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.chat li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #999;
+}
+
+.chat li.left .chat-body {
+    margin-left: 60px;
+}
+
+.chat li .chat-body p {
+    margin: 0;
+}

@@ -5,7 +5,7 @@
 <div class="sidebar-left">
 	<div class="posts-head">
 		<div class="ava">
-			<img src="$base${ret.author.avater}"/>
+			<img src="$base${ret.author.avatar}"/>
 		</div>
 		<div class="author-info">
 			<h1>#showName(${ret.author})</h1>
@@ -46,13 +46,103 @@
 		</article>
 	</div>
 	<!-- post/end -->
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<i class="fa fa-comments fa-fw"></i> 评论  (<i id="chat_count">0</i>)
+		</div>
+		<div class="panel-body">
+			<ul class="chat" id="chat_container"></ul>
+		</div>
+		<div class="panel-footer">
+			<div class="input-group">
+				<input id="chat_text" type="text" class="form-control input-sm" placeholder="在这写点什么吧...">
+				<span class="input-group-btn">
+					<button class="btn btn-warning btn-sm" id="btn-chat">发送</button>
+				</span>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="sidebar-right bounceInRight animated">
 	#parse("/default/inc/right/public.vm")
 </div>
 
+<script type="text/plain" id="chat">
+<li class="left clearfix">
+	<span class="chat-img pull-left">
+		<img src="$base{0}" class="img-circle" style="width: 50px; height: 50px;">
+	</span>
+	<div class="chat-body clearfix">
+		<div class="header">
+			<strong class="primary-font">{1}</strong>
+			<small class="pull-right text-muted">
+				<i class="fa fa-clock-o fa-fw"></i> {2}
+			</small>
+		</div>
+		<p>{3}</p>
+	</div>
+</li>
+</script>
+
 <script type="text/javascript">
+var toId = '${ret.id}';
+
+var container = $("#chat_container");
+var template = $('#chat')[0].text;
+
+function render(template, data) {
+	var item = jQuery.format(template, data.author.avatar, data.author.name, data.created, data.content);
+	container.append(item);
+}
+
+// 加载评论
+function chatLoad(pn) {
+	container.empty();
+	
+	jQuery.getJSON('${base}/comment/list/${ret.id}', {'pn': pn}, function(ret){
+		if(ret){
+			$('#chat_count').text(ret.totalCount);
+      		jQuery.each(ret.results, function(i, n) {
+      			render(template, n);
+      		});
+      	}
+	});
+}
+
+function chatPost() {
+	var text = $('#chat_text').val();
+	if (text.length == 0) {
+		alert('请输入内容再提交!');
+		return false;
+	}
+	if (text.length > 255) {
+		alert('内容过长，请输入140以内个字符');
+		return false;
+	}
+	
+	jQuery.ajax({
+		url: '$base/comment/j_post', 
+		data: {'toId': toId, 'text': text},
+		dataType: "json",
+		type :  "POST",
+		cache : false,
+		error : function(i, g, h) {
+			alert("发生错误");
+		},
+		success: function(ret){
+			if(ret){
+				alert(ret.message);
+				
+				if (ret.code >= 0) {
+					chatLoad(1);
+				}
+			}
+      	}
+	});
+}
+
 $(function(){
 	$("img").lazyload({
 		 placeholder : "$base/dist/images/spinner.gif",
@@ -70,5 +160,10 @@ $(function(){
 			});
 		}
 	});
+	
+	chatLoad(1);
+	
+	$('#btn-chat').click(chatPost);
+
 });
 </script>

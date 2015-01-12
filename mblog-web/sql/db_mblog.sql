@@ -29,7 +29,7 @@ CREATE TABLE `tb_users` (
   `status` int(11) NOT NULL,
   `username` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `avater` varchar(255) DEFAULT '/dist/images/ava/default.png',
+  `avatar` varchar(255) DEFAULT '/dist/images/ava/default.png',
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

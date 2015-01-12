@@ -1,7 +1,7 @@
 <div class="profile">
 	<div class="container">
-		<a href="$base/account/avater" class="avatar bounceInDown animated">
-			<img class="img-circle" src="$base${profile.avater}">
+		<a href="$base/account/avatar" class="avatar bounceInDown animated">
+			<img class="img-circle" src="$base${profile.avatar}">
 		</a>
 		<h1>#showName(${profile})</h1>
 		<!--
