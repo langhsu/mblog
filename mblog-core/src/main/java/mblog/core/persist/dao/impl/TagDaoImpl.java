@@ -22,7 +22,7 @@ public class TagDaoImpl extends DaoImpl<TagPO> implements TagDao {
 
 	@Override
 	public TagPO getByName(String name) {
-		return (TagPO) findUniqueBy("name", name);
+		return findUniqueBy("name", name);
 	}
 
 	@Override
