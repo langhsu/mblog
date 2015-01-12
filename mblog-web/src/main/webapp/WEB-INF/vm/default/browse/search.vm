@@ -1,4 +1,4 @@
-#set($title = "发现")
+#set($title = "搜索")
 
 #set($results = $page.results)
 

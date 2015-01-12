@@ -102,7 +102,7 @@ public class PostController extends BaseController {
 
 		Date current = new Date();
 		String path = DateFormatUtils.format(current, "/yyyy/MMdd/");
-		String fileName = DateFormatUtils.format(current, "yyyyMMddHms") + getSuffix(album.getOriginal());
+		String fileName = current.getTime() + getSuffix(album.getOriginal());
 
 		String rel = path + fileName;
 		String dest = originPath + rel;

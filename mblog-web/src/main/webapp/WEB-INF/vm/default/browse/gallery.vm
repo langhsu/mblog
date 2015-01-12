@@ -1,4 +1,4 @@
-#set($title=$!{ret.title})
+#set($title="走廊")
 
 <div id="blog-wrap" class="masonry-grid">
 	#foreach($row in $page.results)
