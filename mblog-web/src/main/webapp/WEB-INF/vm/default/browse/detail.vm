@@ -52,7 +52,7 @@
 			<i class="fa fa-comments fa-fw"></i> 评论  (<i id="chat_count">0</i>)
 		</div>
 		<div class="panel-body">
-			<ul class="chat" id="chat_container"></ul>
+			<ul class="chat" id="chat_container"><li><p>空空如也, 快来占沙发吧!</p></li></ul>
 		</div>
 		<div class="panel-footer">
 			<div class="input-group">
@@ -100,13 +100,17 @@ function render(template, data) {
 // 加载评论
 function chatLoad(pn) {
 	container.empty();
-	
 	jQuery.getJSON('${base}/comment/list/${ret.id}', {'pn': pn}, function(ret){
 		if(ret){
 			$('#chat_count').text(ret.totalCount);
+			var retSize = 0;
       		jQuery.each(ret.results, function(i, n) {
       			render(template, n);
+				retSize = 1;
       		});
+			if (retSize == 0) {
+				container.append('<li><p>空空如也, 快来占沙发吧!</p></li>');
+			}
       	}
 	});
 }

@@ -40,7 +40,7 @@ a.trash {color: #F50A0A!important;}
 
 .breadcrumb { background-color: #fff; border: 1px solid #ddd;}
 .posts {margin-bottom: 10px;}
-.loop { position: relative; background-color: #fff; margin-bottom: 20px; border-radius: 3px; border: 1px solid #ddd; -moz-border-radius: 3px; -webkit-border-radius: 3px; box-shadow: 0 1px 2px rgba(0,0,0,0.15); -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15); -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15); }
+.loop { position: relative; background-color: #fff; margin-bottom: 20px; border-radius: 3px; border: 1px solid #ddd; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
 
 .loop .loop-content { padding: 20px; }
 .loop .loop-title { font-size: 1.4em; margin: 10px 0 20px 0; }
@@ -105,9 +105,6 @@ a.trash {color: #F50A0A!important;}
 	border: 1px solid #ddd;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15);
 }
 .posts-head .ava {
 	float: left;

@@ -35,13 +35,13 @@ public class CommentController extends BaseController {
 	
 	@RequestMapping("/j_post")
 	public @ResponseBody Data post(Long toId, String text) {
-		Data data = Data.failure("failure");
+		Data data = Data.failure("操作失败");
 		if (toId > 0 && StringUtils.isNotEmpty(text)) {
 			Comment c = new Comment();
 			c.setToId(toId);
 			c.setContent(text);
 			commentService.post(c);
-			data = Data.success("success");
+			data = Data.success("发表成功!");
 		}
 		return data;
 	}
