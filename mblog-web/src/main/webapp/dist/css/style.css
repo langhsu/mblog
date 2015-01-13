@@ -206,46 +206,12 @@ a.trash {color: #F50A0A!important;}
 	list-style: none;
 }
 
-.sidebox ul.sidebar-social {
-	margin:0 auto;
+.sidebox .sidebar-social {
 	width:100%;
 	text-align:-moz-center;
 	text-align:center;
 	padding: 0 0 6px 0;
-}
-.sidebar-social-icon {
-	margin-bottom:25px;
-	position:relative;
-	clear:both;
-}
-.sidebar-social-icons {
-	display:inline-block;
-	padding-right:1%;
-	padding-left:1%;
-}
-.sidebar-social-icon .weixin {
-	height:auto;
-	width:100%;
-}
-.sidebar-social-icons a {
-	display:inline-block;
-	width:38px;
-	height:39px;
-}
-.sidebar-social-icons .weibo,.sidebar-social-icons .qq,.sidebar-social-icons .rss,.sidebar-social-icons .email {
-	background:url(../images/social.png) no-repeat
-}
-.sidebar-social-icons .weibo {
-	background-position:0 0
-}
-.sidebar-social-icons .qq {
-	background-position:-44px 0
-}
-.sidebar-social-icons .rss {
-	background-position:-88px 0
-}
-.sidebar-social-icons .email {
-	background-position:-132px 0
+	margin-left: 46px;
 }
 
 #tab-title {
