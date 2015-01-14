@@ -42,9 +42,7 @@ public class FileRepository extends AbstractFileRepository implements Repository
 		String name = FileNameUtils.genFileName(getExt(file.getOriginalFilename()));
 		String path = basePath + "/" + name;
 		File temp = new File(root + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(temp);
 		file.transferTo(temp);
 		return path;
 	}
@@ -60,9 +58,7 @@ public class FileRepository extends AbstractFileRepository implements Repository
 		
 		// 存储临时文件
 		File temp = new File(root + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(temp);
 		
 		try {
 			file.transferTo(temp);
@@ -92,9 +88,7 @@ public class FileRepository extends AbstractFileRepository implements Repository
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getOriginalFilename()));
 		
 		File temp = new File(root + basePath + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(temp);
 		file.transferTo(temp);
 		return basePath + path;
 	}
@@ -105,11 +99,9 @@ public class FileRepository extends AbstractFileRepository implements Repository
 		
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getName()));
 		
-		File dist = new File(root + basePath + path);
-		if (!dist.getParentFile().exists()) {
-			dist.getParentFile().mkdirs();
-		}
-		FileUtils.copyDirectory(file, dist);
+		File dest = new File(root + basePath + path);
+		checkDirAndCreate(dest);
+		FileUtils.copyDirectory(file, dest);
 		return basePath + path;
 	}
 
@@ -122,9 +114,8 @@ public class FileRepository extends AbstractFileRepository implements Repository
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getOriginalFilename()));
 		
 		File temp = new File(root + appContext.getTempDir() + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(temp);
+		
 		try {
 			file.transferTo(temp);
 			

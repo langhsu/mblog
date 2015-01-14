@@ -32,9 +32,7 @@ public class LinuxFileRepository extends AbstractFileRepository implements Repos
 		String name = FileNameUtils.genFileName(getExt(file.getOriginalFilename()));
 		String path = basePath + "/" + name;
 		File temp = new File(root + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(temp);
 		file.transferTo(temp);
 		return path;
 	}
@@ -50,9 +48,7 @@ public class LinuxFileRepository extends AbstractFileRepository implements Repos
 		
 		// 存储临时文件
 		File temp = new File(root + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(temp);
 		
 		try {
 			file.transferTo(temp);
@@ -82,9 +78,7 @@ public class LinuxFileRepository extends AbstractFileRepository implements Repos
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getOriginalFilename()));
 		
 		File temp = new File(realPath + basePath + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(temp);
 		file.transferTo(temp);
 		return basePath + path;
 	}
@@ -96,9 +90,7 @@ public class LinuxFileRepository extends AbstractFileRepository implements Repos
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getName()));
 		
 		File dest = new File(root + basePath + path);
-		if (!dest.getParentFile().exists()) {
-			dest.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(dest);
 		FileUtils.copyDirectory(file, dest);
 		return basePath + path;
 	}
@@ -112,9 +104,7 @@ public class LinuxFileRepository extends AbstractFileRepository implements Repos
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getOriginalFilename()));
 		
 		File temp = new File(realPath + appContext.getTempDir() + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
-		}
+		checkDirAndCreate(temp);
 		try {
 			file.transferTo(temp);
 			

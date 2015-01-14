@@ -3,6 +3,7 @@
  */
 package mblog.web.upload.impl;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -48,6 +49,12 @@ public abstract class AbstractFileRepository {
 	protected String getExt(String filename) {
 		int pos = filename.lastIndexOf(".");
 		return filename.substring(pos + 1);
+	}
+	
+	protected void checkDirAndCreate(File file) {
+		if (!file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+		}
 	}
 	
 }
