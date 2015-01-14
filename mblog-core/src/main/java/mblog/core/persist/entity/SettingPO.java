@@ -27,8 +27,8 @@ public class SettingPO {
 	
 	private String type;
 	
-	@Column(name = "`key`", unique = true)
-	private String key;
+	@Column(name = "name", unique = true)
+	private String name;
 	
 	private String value;
 
@@ -48,12 +48,12 @@ public class SettingPO {
 		this.type = type;
 	}
 
-	public String getKey() {
-		return key;
+	public String getName() {
+		return name;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getValue() {

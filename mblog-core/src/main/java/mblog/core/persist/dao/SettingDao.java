@@ -11,5 +11,5 @@ import mtons.modules.persist.Dao;
  *
  */
 public interface SettingDao extends Dao<SettingPO> {
-	SettingPO findByKey(String key);
+	SettingPO findByName(String name);
 }

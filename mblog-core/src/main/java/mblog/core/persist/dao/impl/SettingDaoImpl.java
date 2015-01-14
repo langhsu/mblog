@@ -19,8 +19,8 @@ public class SettingDaoImpl extends DaoImpl<SettingPO> implements SettingDao {
 	}
 
 	@Override
-	public SettingPO findByKey(String key) {
-		return findUniqueBy("key", key);
+	public SettingPO findByName(String name) {
+		return findUniqueBy("name", name);
 	}
 	
 }

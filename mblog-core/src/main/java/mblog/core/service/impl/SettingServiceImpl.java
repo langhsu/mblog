@@ -45,7 +45,7 @@ public class SettingServiceImpl implements SettingService{
 		}
 		
 		for (Setting st :  settings) {
-			SettingPO po = settingDao.findByKey(st.getKey());
+			SettingPO po = settingDao.findByName(st.getName());
 			if (po != null) {
 				po.setValue(st.getValue());
 			}

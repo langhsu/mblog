@@ -12,8 +12,7 @@ package mblog.core.pojos;
 public class Setting {
 	private long id;
 	private String type;
-	private String key;
-	
+	private String name;
 	private String value;
 
 	public long getId() {
@@ -32,12 +31,12 @@ public class Setting {
 		this.type = type;
 	}
 
-	public String getKey() {
-		return key;
+	public String getName() {
+		return name;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getValue() {
