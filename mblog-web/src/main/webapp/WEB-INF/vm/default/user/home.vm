@@ -35,6 +35,7 @@
         		<div class="loop-meta">
         			<span><i class="fa fa-calendar-o"></i>&nbsp;$date.format('yyyy-MM-dd', $row.created)</span>
         			<span><i class="fa fa-heart-o"></i>&nbsp;${row.hearts}</span>
+        			<span><i class="fa fa-comment-o"></i>&nbsp;${row.comments}</span>
         			<div class="pull-right">
         				<span><a href="$base/browse/detail/${row.id}">阅读全文<i class="fa fa-send-o"></i></a></span>
     					

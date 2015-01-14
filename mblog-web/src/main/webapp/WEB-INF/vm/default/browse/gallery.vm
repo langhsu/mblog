@@ -25,6 +25,7 @@
 		<div class="loop-meta">
 			<span><a href="$base/user/${row.author.id}"><i class="fa fa-user"></i>&nbsp;#showName(${row.author})</a></span>
 			<span><a href="javascript:void(0)" onclick="onHeart('${row.id}')"><i class="fa fa-heart-o"></i>&nbsp;${row.hearts}</a></span>
+			<span><i class="fa fa-comment-o"></i>&nbsp;${row.comments}</span>
 			<div class="pull-right">
 				<span><a href="$base/browse/detail/${row.id}">阅读(${row.views})</a></span>
 			</div>
