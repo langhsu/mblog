@@ -33,7 +33,7 @@ public class SearchController extends BaseController {
 		try {
 			if (StringUtils.isNotEmpty(q)) {
 				postService.search(page, q);
-				tagService.updateHot(q);
+				tagService.identityHots(q);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

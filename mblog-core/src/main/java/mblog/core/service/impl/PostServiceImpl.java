@@ -269,7 +269,7 @@ public class PostServiceImpl implements PostService {
 	public void identityViews(long id) {
 		PostPO po = postDao.get(id);
 		if (po != null) {
-			po.setViews(po.getViews() + 1);
+			po.setViews(po.getViews() + Consts.IDENTITY_STEP);
 		}
 	}
 
@@ -278,7 +278,16 @@ public class PostServiceImpl implements PostService {
 	public void identityHearts(long id) {
 		PostPO po = postDao.get(id);
 		if (po != null) {
-			po.setHearts(po.getHearts() + 1);
+			po.setHearts(po.getHearts() + Consts.IDENTITY_STEP);
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void identityComments(long id) {
+		PostPO po = postDao.get(id);
+		if (po != null) {
+			po.setComments(po.getComments() + Consts.IDENTITY_STEP);
 		}
 	}
 	

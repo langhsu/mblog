@@ -49,7 +49,7 @@ public class ExploreController extends BaseController {
 		try {
 			if (StringUtils.isNotEmpty(tag)) {
 				postService.searchByTag(page, tag);
-				tagService.updateHot(tag);
+				tagService.identityHots(tag);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

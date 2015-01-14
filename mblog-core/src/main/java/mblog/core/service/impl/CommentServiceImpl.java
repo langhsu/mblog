@@ -13,6 +13,7 @@ import mblog.core.persist.entity.CommentPO;
 import mblog.core.pojos.Comment;
 import mblog.core.pojos.User;
 import mblog.core.service.CommentService;
+import mblog.core.service.PostService;
 import mtons.modules.pojos.Page;
 import mtons.modules.pojos.UserContextHolder;
 import mtons.modules.pojos.UserProfile;
@@ -31,6 +32,8 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDao commentDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private PostService postService;
 	
 	private static String[] IGNORE = new String[]{"author"};
 	
@@ -59,6 +62,9 @@ public class CommentServiceImpl implements CommentService {
 		po.setCreated(new Date());
 		
 		commentDao.save(po);
+		
+		// 自增评论数
+		postService.identityComments(comment.getToId());
 		return po.getId();
 	}
 	

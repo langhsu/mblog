@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import mblog.core.lang.Consts;
 import mblog.core.persist.dao.TagDao;
 import mblog.core.persist.entity.TagPO;
 import mblog.core.pojos.Post;
@@ -81,19 +82,19 @@ public class TagServiceImpl implements TagService {
 
 	@Override
 	@Transactional
-	public void updateHot(String name) {
+	public void identityHots(String name) {
 		TagPO po = tagDao.getByName(name);
 		if (po != null) {
-			po.setHots(po.getHots() + 1);
+			po.setHots(po.getHots() + Consts.IDENTITY_STEP);
 		}
 	}
 
 	@Override
 	@Transactional
-	public void updateHot(long id) {
+	public void identityHots(long id) {
 		TagPO po = tagDao.get(id);
 		if (po != null) {
-			po.setHots(po.getHots() + 1);
+			po.setHots(po.getHots() + Consts.IDENTITY_STEP);
 		}
 	}
 

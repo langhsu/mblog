@@ -19,4 +19,6 @@ public interface Consts {
 	String UPLOAD_ROOT = "/store";
 	
 	String ERROR_PAGE_404 = "/error/404.html";
+	
+	int IDENTITY_STEP = 1;
 }
