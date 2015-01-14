@@ -71,31 +71,34 @@ public class FileRepository extends AbstractFileRepository implements Repository
 		
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getOriginalFilename()));
 		
-		File temp = new File(realPath + appContext.getTempDir() + path);
-		if (!temp.getParentFile().exists()) {
-			temp.getParentFile().mkdirs();
+		File temp = null;
+		try {
+			temp = new File(realPath + appContext.getTempDir() + path);
+			if (!temp.getParentFile().exists()) {
+				temp.getParentFile().mkdirs();
+			}
+			file.transferTo(temp);
+			
+			String dest = realPath + basePath + path;
+			
+			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), dest, maxWidth);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (temp != null) {
+				temp.delete();
+			}
 		}
-		file.transferTo(temp);
-		
-		String dest = realPath + basePath + path;
-		
-		GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), dest, maxWidth);
-		
-		temp.delete();
 		return basePath + path;
 	}
 
 	@Override
 	public String storeScale(File file, String basePath, int maxWidth) throws Exception {
-		String realPath = context.getRealPath("/");
-		
+		String root = context.getRealPath("/");
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getName()));
 		
-		File dist = new File(realPath + basePath + path);
-		if (!dist.getParentFile().exists()) {
-			dist.getParentFile().mkdirs();
-		}
-		GMagickUtils.scaleImageByWidth(file.getAbsolutePath(), dist.getAbsolutePath(), maxWidth);
+		String dest = root + basePath + path;
+		GMagickUtils.scaleImageByWidth(file.getAbsolutePath(), dest, maxWidth);
 		return basePath + path;
 	}
 
