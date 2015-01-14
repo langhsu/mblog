@@ -37,11 +37,11 @@ public class FileRepository extends AbstractFileRepository implements Repository
 	public String store(MultipartFile file, String basePath) throws IOException {
 		validateFile(file);
 		
-		String realPath = context.getRealPath("/");
+		String root = context.getRealPath("/");
 		
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getOriginalFilename()));
 		
-		File temp = new File(realPath + basePath + path);
+		File temp = new File(root + basePath + path);
 		if (!temp.getParentFile().exists()) {
 			temp.getParentFile().mkdirs();
 		}
@@ -51,11 +51,11 @@ public class FileRepository extends AbstractFileRepository implements Repository
 	
 	@Override
 	public String store(File file, String basePath) throws IOException {
-		String realPath = context.getRealPath("/");
+		String root = context.getRealPath("/");
 		
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getName()));
 		
-		File dist = new File(realPath + basePath + path);
+		File dist = new File(root + basePath + path);
 		if (!dist.getParentFile().exists()) {
 			dist.getParentFile().mkdirs();
 		}
@@ -67,19 +67,19 @@ public class FileRepository extends AbstractFileRepository implements Repository
 	public String storeScale(MultipartFile file, String basePath, int maxWidth) throws Exception {
 		validateFile(file);
 		
-		String realPath = context.getRealPath("/");
+		String root = context.getRealPath("/");
 		
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getOriginalFilename()));
 		
 		File temp = null;
 		try {
-			temp = new File(realPath + appContext.getTempDir() + path);
+			temp = new File(root + appContext.getTempDir() + path);
 			if (!temp.getParentFile().exists()) {
 				temp.getParentFile().mkdirs();
 			}
 			file.transferTo(temp);
 			
-			String dest = realPath + basePath + path;
+			String dest = root + basePath + path;
 			
 			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), dest, maxWidth);
 		} catch (Exception e) {
