@@ -4,12 +4,12 @@
 		<div class="text-center widget_social_widget clearfix">
 			<ul class="clr">
 				<li>
-					<a href="$base/blog/post?type=text" class="text">
+					<a href="$base/blog/post?type=text" class="text" title="发布文字">
 						<i class="fa fa-paper-plane-o fa-2x"></i>
 					</a>
 				</li>
 				<li>
-					<a href="$base/blog/post?type=image" class="image">
+					<a href="$base/blog/post?type=image" class="image" title="发布图片">
 						<i class="fa fa-image fa-2x"></i>
 					</a>
 				</li>

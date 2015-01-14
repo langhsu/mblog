@@ -26,7 +26,7 @@ public class IndexController extends BaseController{
 		Page page = wrapPage(pn);
 		page = postPlanet.paging(page);
 		model.put("page", page);
-		return getView(ViewPath.INDEX);
+		return getView(Views.INDEX);
 	}
 	
 	@RequestMapping("/index")
@@ -34,6 +34,6 @@ public class IndexController extends BaseController{
 		Page page = wrapPage(pn);
 		page = postPlanet.paging(page);
 		model.put("page", page);
-		return getView(ViewPath.INDEX);
+		return getView(Views.INDEX);
 	}
 }

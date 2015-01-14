@@ -6,7 +6,7 @@ package mblog.web.controller.front.browse;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
 import mblog.web.controller.BaseController;
-import mblog.web.controller.front.ViewPath;
+import mblog.web.controller.front.Views;
 import mtons.modules.pojos.Page;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,7 +40,7 @@ public class SearchController extends BaseController {
 		}
 		model.put("page", page);
 		model.put("q", q);
-		return getView(ViewPath.BROWSE_SEARCH);
+		return getView(Views.BROWSE_SEARCH);
 	}
 	
 }

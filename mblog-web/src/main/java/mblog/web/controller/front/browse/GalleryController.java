@@ -5,7 +5,7 @@ package mblog.web.controller.front.browse;
 
 import mblog.core.planet.PostPlanet;
 import mblog.web.controller.BaseController;
-import mblog.web.controller.front.ViewPath;
+import mblog.web.controller.front.Views;
 import mtons.modules.pojos.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class GalleryController extends BaseController {
 		page.setMaxResults(jsonMaxResults);
 		page = postPlanet.paging(page);
 		model.put("page", page);
-		return getView(ViewPath.BROWSE_GALLERY);
+		return getView(Views.BROWSE_GALLERY);
 	}
 	
 	@RequestMapping("/gallery_snippet/{pn}")
@@ -41,6 +41,6 @@ public class GalleryController extends BaseController {
 		page.setMaxResults(jsonMaxResults);
 		page = postPlanet.paging(page);
 		model.put("page", page);
-		return getView(ViewPath.BROWSE_GALLERY_SNIPPET);
+		return getView(Views.BROWSE_GALLERY_SNIPPET);
 	}
 }

@@ -10,7 +10,7 @@ package mblog.web.controller.front;
  * @author langhsu
  *
  */
-public interface ViewPath {
+public interface Views {
 	String LOGIN = "/login";
 	String REG = "/reg";
 	String REG_RESULT = "/reg_result";

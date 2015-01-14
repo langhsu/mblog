@@ -266,7 +266,7 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	@Transactional
-	public void updateView(long id) {
+	public void identityViews(long id) {
 		PostPO po = postDao.get(id);
 		if (po != null) {
 			po.setViews(po.getViews() + 1);
@@ -275,7 +275,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	public void updateHeart(long id) {
+	public void identityHearts(long id) {
 		PostPO po = postDao.get(id);
 		if (po != null) {
 			po.setHearts(po.getHearts() + 1);

@@ -6,7 +6,7 @@ package mblog.web.controller.front.account;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
 import mblog.web.controller.BaseController;
-import mblog.web.controller.front.ViewPath;
+import mblog.web.controller.front.Views;
 import mtons.modules.pojos.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ProfileController extends BaseController {
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String view() {
-		return getView(ViewPath.ACCOUNT_PROFILE);
+		return getView(Views.ACCOUNT_PROFILE);
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
@@ -46,7 +46,7 @@ public class ProfileController extends BaseController {
 			data = Data.failure(e.getMessage());
 		}
 		model.put("data", data);
-		return getView(ViewPath.ACCOUNT_PROFILE);
+		return getView(Views.ACCOUNT_PROFILE);
 	}
 
 }

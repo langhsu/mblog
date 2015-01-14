@@ -7,7 +7,7 @@ import mblog.core.lang.Consts;
 import mblog.core.pojos.User;
 import mblog.core.service.UserService;
 import mblog.web.controller.BaseController;
-import mblog.web.controller.front.ViewPath;
+import mblog.web.controller.front.Views;
 import mtons.modules.pojos.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +30,19 @@ public class RegController extends BaseController {
 		if (getProfile() != null) {
 			return "redirect:/home";
 		}
-		return getView(ViewPath.REG);
+		return getView(Views.REG);
 	}
 	
 	@RequestMapping(value = "/reg", method = RequestMethod.POST)
 	public String reg(User user, ModelMap model) {
 		Data data = Data.failure("注册失败");
-		String ret = getView(ViewPath.REG);
+		String ret = getView(Views.REG);
 		
 		try {
 			user.setAvatar(Consts.avatar);
 			userService.register(user);
 			data = Data.success("恭喜您! 注册成功");
-			ret = getView(ViewPath.REG_RESULT);
+			ret = getView(Views.REG_RESULT);
 			
 		} catch (Exception e) {
 			data = Data.failure(e.getMessage());

@@ -30,7 +30,7 @@ public interface PostService {
 	void delete(long id);
 	void delete(long id, long authorId);
 	
-	void updateView(long id);
-	void updateHeart(long id);
+	void identityViews(long id);
+	void identityHearts(long id);
 	
 }

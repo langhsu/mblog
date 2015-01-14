@@ -8,7 +8,7 @@ import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
 import mblog.web.controller.BaseController;
-import mblog.web.controller.front.ViewPath;
+import mblog.web.controller.front.Views;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +36,8 @@ public class ViewController extends BaseController {
 			return "redirect:" + Consts.ERROR_PAGE_404;
 		}
 		
-		postService.updateView(id);
+		postService.identityViews(id);
 		model.put("ret", ret);
-		return getView(ViewPath.BROWSE_DETAIL);
+		return getView(Views.BROWSE_DETAIL);
 	}
 }

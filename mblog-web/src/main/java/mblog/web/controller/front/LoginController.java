@@ -22,7 +22,7 @@ public class LoginController extends BaseController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String view() {
-		return getView(ViewPath.LOGIN);
+		return getView(Views.LOGIN);
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(String username, String password, ModelMap model) {
@@ -30,11 +30,11 @@ public class LoginController extends BaseController {
 		if (profile != null) {
 			// record the login status
 			putProfile(profile);
-			return "redirect:" + ViewPath.HOME;
+			return "redirect:" + Views.HOME;
 		} else {
 			model.put("message", "用户名或密码错误");
 		}
-		return getView(ViewPath.LOGIN);
+		return getView(Views.LOGIN);
 	}
 
 }

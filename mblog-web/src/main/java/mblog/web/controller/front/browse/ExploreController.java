@@ -10,7 +10,7 @@ import mblog.core.pojos.Tag;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
 import mblog.web.controller.BaseController;
-import mblog.web.controller.front.ViewPath;
+import mblog.web.controller.front.Views;
 import mtons.modules.pojos.Page;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,7 +40,7 @@ public class ExploreController extends BaseController {
 	public String view(ModelMap model) {
 		List<Tag> tags = tagPlanet.topTags(maxResults, true);
 		model.put("tags", tags);
-		return getView(ViewPath.BROWSE_EXPLORE);
+		return getView(Views.BROWSE_EXPLORE);
 	}
 	
 	@RequestMapping("/tag/{tag}")
@@ -56,7 +56,7 @@ public class ExploreController extends BaseController {
 		}
 		model.put("page", page);
 		model.put("tag", tag);
-		return getView(ViewPath.BROWSE_TAG);
+		return getView(Views.BROWSE_TAG);
 	}
 	
 }

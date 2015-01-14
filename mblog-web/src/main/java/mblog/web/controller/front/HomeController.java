@@ -30,7 +30,7 @@ public class HomeController extends BaseController {
 		
 		model.put("page", page);
 		
-		return getView(ViewPath.HOME);
+		return getView(Views.HOME);
 	}
 	
 }

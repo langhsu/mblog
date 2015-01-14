@@ -13,7 +13,7 @@ import mblog.core.pojos.Attach;
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
 import mblog.web.controller.BaseController;
-import mblog.web.controller.front.ViewPath;
+import mblog.web.controller.front.Views;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.UserContextHolder;
 import mtons.modules.pojos.UserProfile;
@@ -45,7 +45,7 @@ public class PostController extends BaseController {
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
 	public String view(String type, ModelMap model) {
 		model.put("type", type);
-		return getView(ViewPath.BLOG_POST + type);
+		return getView(Views.BLOG_POST + type);
 	}
 
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
@@ -77,7 +77,7 @@ public class PostController extends BaseController {
 		Data data = Data.failure("操作失败");
 		if (id != null) {
 			try {
-				postService.updateHeart(id);
+				postService.identityHearts(id);
 				data = Data.success("操作成功,感谢您的支持!");
 			} catch (Exception e) {
 				data = Data.failure(e.getMessage());
