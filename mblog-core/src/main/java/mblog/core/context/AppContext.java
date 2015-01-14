@@ -8,8 +8,8 @@ package mblog.core.context;
  * 
  */
 public class AppContext {
-	String root = "/store";
-	String oriDir = "/store/ori";
+	String root = "/data/mblog";
+	String origDir = "/store/orig";
 	String thumbsDir = "/store/thumbs";
 	String avaDir = "/store/ava";
 	String tempDir = "/store/temp";
@@ -22,12 +22,12 @@ public class AppContext {
 		this.root = root;
 	}
 
-	public String getOriDir() {
-		return oriDir;
+	public String getOrigDir() {
+		return origDir;
 	}
 
-	public void setOriDir(String oriDir) {
-		this.oriDir = oriDir;
+	public void setOrigDir(String origDir) {
+		this.origDir = origDir;
 	}
 
 	public String getThumbsDir() {

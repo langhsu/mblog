@@ -4,7 +4,6 @@
 package mblog.web.controller.front.posts;
 
 import java.io.File;
-import java.util.Date;
 import java.util.List;
 
 import mblog.core.context.AppContext;
@@ -14,12 +13,11 @@ import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
 import mblog.web.controller.BaseController;
 import mblog.web.controller.front.Views;
+import mblog.web.upload.impl.FileRepository;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.UserContextHolder;
 import mtons.modules.pojos.UserProfile;
-import mtons.modules.utils.GMagickUtils;
 
-import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -41,6 +39,8 @@ public class PostController extends BaseController {
 	private PostPlanet postPlanet;
 	@Autowired
 	private AppContext appContext;
+	@Autowired
+	private FileRepository fileRepository;
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
 	public String view(String type, ModelMap model) {
@@ -97,36 +97,17 @@ public class PostController extends BaseController {
 
 	private void createPic(Attach album) {
 		String root = getRealPath("/");
-		String originPath = root + appContext.getOriDir();
-		String thumbsPath = root + appContext.getThumbsDir();
-
-		Date current = new Date();
-		String path = DateFormatUtils.format(current, "/yyyy/MMdd/");
-		String fileName = current.getTime() + getSuffix(album.getOriginal());
-
-		String rel = path + fileName;
-		String dest = originPath + rel;
-		String thumbs = thumbsPath + rel;
-
 		File temp = new File(root + album.getOriginal());
+		
 		try {
 			// 保存原图
-//			FileUtils.copyFile(temp, new File(dest));
-			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), dest, 700);
+			String orig = fileRepository.storeScale(temp, appContext.getOrigDir(), 700);
+			album.setOriginal(orig);
 			
-			album.setOriginal(appContext.getOriDir() + rel);
-
 			// 创建缩放图片
-			GMagickUtils.scaleImage(temp.getAbsolutePath(), thumbs, 360);
+			String preview = fileRepository.storeScale(temp, appContext.getThumbsDir(), 360);
+			album.setPreview(preview);
 			
-			album.setPreview(appContext.getThumbsDir() + rel);
-			
-//			int[] wh = GMagickUtils.getSize(thumbs);
-//			
-//			if (wh != null && wh.length == 2) {
-//				album.setWidth(wh[0]);
-//				album.setHeight(wh[1]);
-//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

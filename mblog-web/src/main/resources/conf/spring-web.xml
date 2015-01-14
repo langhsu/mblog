@@ -11,5 +11,6 @@
 	</bean>
     
     <bean id="jsonUtils" class="mblog.web.formatter.JsonUtils" />
+    <bean id="fileRepository" class="mblog.web.upload.impl.FileRepository" />
     
 </beans>

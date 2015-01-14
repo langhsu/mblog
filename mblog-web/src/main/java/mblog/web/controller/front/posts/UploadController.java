@@ -3,8 +3,6 @@
  */
 package mblog.web.controller.front.posts;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,8 +10,8 @@ import java.util.Map;
 
 import mblog.core.context.AppContext;
 import mblog.web.controller.BaseController;
+import mblog.web.upload.impl.FileRepository;
 import mtons.modules.pojos.Data;
-import mtons.modules.utils.GMagickUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadController extends BaseController {
 	@Autowired
 	private AppContext appContext;
-
+	@Autowired
+	private FileRepository fileRepository;
+	
 	private static Map<String, String> errors = new HashMap<String, String>();
 	
 	// 文件允许格式
@@ -61,26 +61,16 @@ public class UploadController extends BaseController {
 			return data;
     	}
     	
-    	String root = "/";
-    	String realpath = getRealPath(root);
     	try {
-			String path = copyFile(root, appContext.getTempDir(), file);
-			
+    		String path;
+    		
 			if (scale != null && scale == true) {
-				File transFile = new File(realpath + path);
-				String fn = "/" + genFileName(file);
-				String t = realpath + appContext.getTempDir() + fn;
-				try {
-					GMagickUtils.scaleImageByWidth(transFile.getAbsolutePath(), t, size);
-					path = appContext.getTempDir() + fn;
-					
-					transFile.delete();
-				} catch (Exception e) {
-					data = Data.failure("文件保存失败");
-				}
+				path = fileRepository.storeScale(file, appContext.getTempDir(), size);
+			} else {
+				path = fileRepository.store(file, appContext.getTempDir());
 			}
 			data = Data.success("", path);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			//FIXME: error handle
 			data = Data.failure(errors.get("UNKNOWN"));
 		}
