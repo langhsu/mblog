@@ -10,7 +10,7 @@ import java.util.Map;
 
 import mblog.core.context.AppContext;
 import mblog.web.controller.BaseController;
-import mblog.web.upload.impl.FileRepository;
+import mblog.web.upload.Repository;
 import mtons.modules.pojos.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class UploadController extends BaseController {
 	@Autowired
 	private AppContext appContext;
 	@Autowired
-	private FileRepository fileRepository;
+	private Repository fileRepository;
 	
 	private static Map<String, String> errors = new HashMap<String, String>();
 	
@@ -65,9 +65,9 @@ public class UploadController extends BaseController {
     		String path;
     		
 			if (scale != null && scale == true) {
-				path = fileRepository.storeScale(file, appContext.getTempDir(), size);
+				path = fileRepository.tempScale(file, appContext.getTempDir(), size);
 			} else {
-				path = fileRepository.store(file, appContext.getTempDir());
+				path = fileRepository.temp(file, appContext.getTempDir());
 			}
 			data = Data.success("", path);
 		} catch (Exception e) {

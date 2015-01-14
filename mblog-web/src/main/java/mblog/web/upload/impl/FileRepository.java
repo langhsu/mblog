@@ -34,6 +34,56 @@ public class FileRepository extends AbstractFileRepository implements Repository
 	}
 	
 	@Override
+	public String temp(MultipartFile file, String basePath) throws IOException {
+		validateFile(file);
+		
+		String root = context.getRealPath("/");
+		
+		String name = FileNameUtils.genFileName(getExt(file.getOriginalFilename()));
+		String path = basePath + "/" + name;
+		File temp = new File(root + path);
+		if (!temp.getParentFile().exists()) {
+			temp.getParentFile().mkdirs();
+		}
+		file.transferTo(temp);
+		return path;
+	}
+	
+	@Override
+	public String tempScale(MultipartFile file, String basePath, int maxWidth) throws Exception {
+		validateFile(file);
+		
+		String root = context.getRealPath("/");
+		
+		String name = FileNameUtils.genFileName(getExt(file.getOriginalFilename()));
+		String path = basePath + "/" + name;
+		
+		// 存储临时文件
+		File temp = new File(root + path);
+		if (!temp.getParentFile().exists()) {
+			temp.getParentFile().mkdirs();
+		}
+		
+		try {
+			file.transferTo(temp);
+			
+			// 根据临时文件生成略缩图
+			String scaleName = FileNameUtils.genFileName(getExt(file.getOriginalFilename()));
+			String dest = root + basePath + "/" + scaleName;
+			
+			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), dest, maxWidth);
+			path = basePath + "/" + scaleName;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (temp != null) {
+				temp.delete();
+			}
+		}
+		return path;
+	}
+	
+	@Override
 	public String store(MultipartFile file, String basePath) throws IOException {
 		validateFile(file);
 		
@@ -71,23 +121,20 @@ public class FileRepository extends AbstractFileRepository implements Repository
 		
 		String path = FileNameUtils.genPathAndFileName(getExt(file.getOriginalFilename()));
 		
-		File temp = null;
+		File temp = new File(root + appContext.getTempDir() + path);
+		if (!temp.getParentFile().exists()) {
+			temp.getParentFile().mkdirs();
+		}
 		try {
-			temp = new File(root + appContext.getTempDir() + path);
-			if (!temp.getParentFile().exists()) {
-				temp.getParentFile().mkdirs();
-			}
 			file.transferTo(temp);
 			
+			// 根据临时文件生成略缩图
 			String dest = root + basePath + path;
-			
 			GMagickUtils.scaleImageByWidth(temp.getAbsolutePath(), dest, maxWidth);
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			if (temp != null) {
-				temp.delete();
-			}
+			temp.delete();
 		}
 		return basePath + path;
 	}

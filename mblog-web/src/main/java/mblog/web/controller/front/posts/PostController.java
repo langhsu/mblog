@@ -13,7 +13,7 @@ import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
 import mblog.web.controller.BaseController;
 import mblog.web.controller.front.Views;
-import mblog.web.upload.impl.FileRepository;
+import mblog.web.upload.Repository;
 import mtons.modules.pojos.Data;
 import mtons.modules.pojos.UserContextHolder;
 import mtons.modules.pojos.UserProfile;
@@ -40,7 +40,7 @@ public class PostController extends BaseController {
 	@Autowired
 	private AppContext appContext;
 	@Autowired
-	private FileRepository fileRepository;
+	private Repository fileRepository;
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
 	public String view(String type, ModelMap model) {
