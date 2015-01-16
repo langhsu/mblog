@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 			}
 			if (StringUtils.equals(po.getPassword(), MD5Helper.md5(password))) {
 				po.setLastLogin(Calendar.getInstance().getTime());
-				u = wrapperProfile(po);
+				u = BeanMapUtils.copyPassport(po);
 			}
 		}
 		return u;
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 			po.setName(user.getName());
 		}
 		
-		return wrapperProfile(po);
+		return BeanMapUtils.copyPassport(po);
 	}
 	
 	@Override
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 			po.setAvatar(path);
 			po.setUpdated(new Date());
 		}
-		return wrapperProfile(po);
+		return BeanMapUtils.copyPassport(po);
 	}
 	
 	@Override
@@ -149,14 +149,4 @@ public class UserServiceImpl implements UserService {
 		page.setResults(rets);
 	}
 	
-	private UserProfile wrapperProfile(UserPO po) {
-		UserProfile profile = new UserProfile(po.getId(), po.getUsername());
-		profile.setName(po.getName());
-		profile.setEmail(po.getEmail());
-		profile.setAvatar(po.getAvatar());
-		profile.setLastLogin(po.getLastLogin());
-		profile.setStatus(po.getStatus());
-		return profile;
-	}
-
 }

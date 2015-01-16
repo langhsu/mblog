@@ -10,6 +10,7 @@ import mblog.core.persist.dao.AttachDao;
 import mblog.core.persist.entity.AttachPO;
 import mblog.core.pojos.Attach;
 import mblog.core.service.AttachService;
+import mblog.core.utils.BeanMapUtils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,13 @@ public class AttachServiceImpl implements AttachService {
 	@Autowired
 	private AttachDao attachDao;
 	
-	private static String[] IGNORE = new String[]{};
-	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Attach> list(long toId) {
 		List<AttachPO> list = attachDao.list(toId);
 		List<Attach> rets = new ArrayList<Attach>();
 		for (AttachPO po : list) {
-			rets.add(toVo(po));
+			rets.add(BeanMapUtils.copy(po));
 		}
 		return rets;
 	}
@@ -40,7 +39,7 @@ public class AttachServiceImpl implements AttachService {
 	@Transactional
 	public long add(Attach album) {
 		AttachPO po = new AttachPO();
-		BeanUtils.copyProperties(album, po, IGNORE);
+		BeanUtils.copyProperties(album, po);
 		attachDao.save(po);
 		return po.getId();
 	}
@@ -54,12 +53,6 @@ public class AttachServiceImpl implements AttachService {
 			//TODO: remove file
 			attachDao.delete(po);
 		}
-	}
-
-	private Attach toVo(AttachPO po) {
-		Attach a = new Attach();
-		BeanUtils.copyProperties(po, a, IGNORE);
-		return a;
 	}
 
 }

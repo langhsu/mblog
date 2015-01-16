@@ -16,6 +16,7 @@ import mblog.core.pojos.Post;
 import mblog.core.pojos.Tag;
 import mblog.core.service.PostService;
 import mblog.core.service.TagService;
+import mblog.core.utils.BeanMapUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -40,10 +41,8 @@ public class TagServiceImpl implements TagService {
 		
 		Set<Long> postIds = new HashSet<Long>();
 		for (TagPO po : list) {
-			Tag t = new Tag();
-			BeanUtils.copyProperties(po, t);
-			rets.add(t);
-			postIds.add(t.getLastPostId());
+			rets.add(BeanMapUtils.copy(po));
+			postIds.add(po.getLastPostId());
 		}
 		
 		if (loadPost && postIds.size() > 0) {
