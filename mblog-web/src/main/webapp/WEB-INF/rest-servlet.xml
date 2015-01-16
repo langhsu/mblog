@@ -39,7 +39,6 @@
 	<mvc:resources mapping="/html/**" location="/html/" />
 	<mvc:resources mapping="/error/**" location="/error/" />
 	<mvc:resources mapping="/store/**" location="/store/" />
-	<mvc:resources mapping="/ueditor/**" location="/ueditor/" />
 	<mvc:resources mapping="/markdown/**" location="/markdown/" />
 	
 	<!-- Web层基于注解的扫描路径 -->
