@@ -13,7 +13,6 @@
 	<link rel='stylesheet' media='all' href='$base/dist/css/style.css'/>
 	<link rel='stylesheet' media='all' href='$base/dist/css/layout.css'/>
 	<link rel='stylesheet' media='all' href='$base/dist/css/animate.css'/>
-	<link rel='stylesheet' media='all' href='$base/markdown/editor.css'/>
 	
 	<!--[if lt IE 9]>
     <script src="$base/dist/js/html5.js"></script>
@@ -24,6 +23,7 @@
 	<script type="text/javascript" src="$base/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="$base/dist/js/plugins.js"></script>
 	<script type='text/javascript' src='$base/dist/js/jquery-validate.js'></script>
+	<script type='text/javascript' src='$base/dist/js/mtons.js'></script>
 	
 	#foreach($j in $js)
 	<script type="text/javascript" src="$j"></script>

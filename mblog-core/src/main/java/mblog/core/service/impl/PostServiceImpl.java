@@ -152,8 +152,19 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Post> recents(int maxResutls, long ignoreUserId) {
-		List<PostPO> list = postDao.recents(maxResutls, ignoreUserId);
+	public List<Post> findRecents(int maxResutls, long ignoreUserId) {
+		List<PostPO> list = postDao.findRecents(maxResutls, ignoreUserId);
+		List<Post> rets = new ArrayList<Post>();
+		for (PostPO po : list) {
+			rets.add(BeanMapUtils.copy(po, 0));
+		}
+		return rets;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<Post> findHots(int maxResutls, long ignoreUserId) {
+		List<PostPO> list = postDao.findHots(maxResutls, ignoreUserId);
 		List<Post> rets = new ArrayList<Post>();
 		for (PostPO po : list) {
 			rets.add(BeanMapUtils.copy(po, 0));

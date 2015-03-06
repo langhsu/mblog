@@ -1,3 +1,5 @@
+<script type="text/javascript" src="$base/dist/js/app/sidebox.js"></script>
+
 <aside id="secondary" class="sidebar-container">
 	<div class="panel panel-default">
 		<div class="panel-heading">快速发布</div>
@@ -19,124 +21,49 @@
 </aside>
 <!-- #secondary -->
 
-<div class="sidebox sidebar-social-icon">
-	<img src="$base/dist/images/erweima.png" class="weixin" width="100%" height="auto">
-	<div class="sidebar-social bdsharebuttonbox" data-tag="share_1">
-		<a class="bds_qzone" data-cmd="qzone" href="#"></a>
-		<a class="bds_tsina" data-cmd="tsina"></a>
-		<a class="bds_baidu" data-cmd="baidu"></a>
-		<a class="bds_tqq" data-cmd="tqq"></a>
-		<a class="bds_more" data-cmd="more">更多</a>
-	</div>
-	<script type="text/javascript">
-	window._bd_share_config = {
-		common : {
-			bdText : 'Mtons 轻博客',	
-			bdDesc : 'Mtons, 轻松分享你的兴趣',	
-			bdUrl : 'http://mtons.com', 	
-			bdPic : 'http://mtons.com/dist/images/logo/m.png'
-		},
-		share : [{
-			"bdSize" : 32
-		}],
-		slide : [{	   
-			bdImg : 0,
-			bdPos : "right",
-			bdTop : 100
-		}],
-		image : [{
-			viewType : 'list',
-			viewPos : 'top',
-			viewColor : 'black',
-			viewSize : '16',
-			viewList : ['qzone','tsina','huaban']
-		}],
-		selectShare : [{
-			"bdselectMiniList" : ['qzone','tqq']
-		}]
-	}
-	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-	</script>
-</div>
-<!--
-<div class="sidebox">
+<div id="sidebox" class="sidebox">
 	<div id="tab-title">
-		<span class="selected"><i class="icon-arrows-cw"></i>随机推荐</span>
+		<span class="selected"><i class="icon-arrows-cw"></i>最热文章</span>
 		<span><i class="icon-clock"></i>最新发布</span>
 	</div>
 	<div id="tab-content">
 		<div>
-			<ul id="recents" class="tab_post_links">
-				<li>
-					<a href="#" class="tab_post_title">
-					<span class="post_i">1</span> 一大波平台来袭，可用性测试怎么破
-					</a>
-					<span class="post_num">0</span>
-					<div class="clear"></div>
-				</li>
-				<li>
-					<a href="#" class="tab_post_title">
-					<span class="post_i">2</span> 一大波平台来袭，可用性测试怎么破
-					</a>
-					<span class="post_num">0</span>
-					<div class="clear"></div>
-				</li>
-				<li>
-					<a href="#" class="tab_post_title">
-					<span class="post_i">3</span> 一大波平台来袭，可用性测试怎么破
-					</a>
-					<span class="post_num">0</span>
-					<div class="clear"></div>
-				</li>
+			<ul id="hots" class="tab_post_links">
 			</ul>
 		</div>
-		<div class="hide" style="display: none;">
-			<ul class="tab_post_links">
-				<li>
-					<a href="#" class="tab_post_title">
-						<span class="post_i">1</span>
-						原创作品：壮族生态色谱——最美的民族颜色！一个壮族人二十年的色彩观
-					</a>
-					<span class="time"><i class="icon-clock"></i>9/22</span>
-					<div class="clear"></div>
-				</li>
-				<li>
-					<a href="#" class="tab_post_title">
-						<span class="post_i">2</span>
-						原创作品：壮族生态色谱——最美的民族颜色！一个壮族人二十年的色彩观
-					</a>
-					<span class="time"><i class="icon-clock"></i>9/22</span>
-					<div class="clear"></div>
-				</li>
-				<li>
-					<a href="http://demo.suxing.me/229.html" class="tab_post_title">
-						<span class="post_i">3</span>
-						原创作品：壮族生态色谱——最美的民族颜色！一个壮族人二十年的色彩观
-					</a>
-					<span class="time"><i class="icon-clock"></i>9/22</span>
-					<div class="clear"></div>
-				</li>
+		<div style="display: none;">
+			<ul id="recents" class="tab_post_links">
 			</ul>
 		</div>
 	</div>
 </div>
--->
+
+<div class="sidebox sidebar-social-icon">
+	<img src="$base/dist/images/erweima.png" class="weixin" width="100%" height="auto">
+</div>
+
 <script type="text/javascript">
-var recent_li_template = '<li class="cat-item cat-item-6"><a href="{0}">{1}</a></li>'
-						
+var recent_li_template = '<li><a href="{0}" class="tab_post_title"><span class="post_i">{1}</span>{2}</a><div class="clear"></div></li>'
+				
 $(function () {
-	jQuery.getJSON('$base/browse/recents_json', function(ret){
-		if(ret && ret.length > 0){
-      		jQuery.each(ret, function(i, n) {
-				if (n.title != undefined && n.title.length > 0) {
-					var url = '$base/browse/detail/' + n.id;
-      				var item = jQuery.format(recent_li_template, url, n.title);
-      				$('#recents').append(item);
-				}
-      		});
-      	} else {
-      		$('#recents').append('<li class="cat-item cat-item-6"><span>沒有相关记录</span></li>');
-      	}
+	var sidebox = new Sidebox($('#sidebox'), {
+		recentUrl : '$base/browse/recents_json',
+    	hotUrl : '$base/browse/hots_json',
+    	maxResults :6,
+        // callback
+        onLoadHot : function (i, data) {
+        	var url = '$base/browse/detail/' + data.id;
+      		var item = jQuery.format(recent_li_template, url, i + 1, data.title);
+      		return item;
+        },
+        onLoadRecent : function (i, data) {
+        	var url = '$base/browse/detail/' + data.id;
+      		var item = jQuery.format(recent_li_template, url, i + 1, data.title);
+      		return item;
+        }
 	});
+	
+	sidebox.onLoad();
+	
 })
 </script>

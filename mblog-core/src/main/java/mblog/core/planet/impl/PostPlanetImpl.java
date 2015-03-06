@@ -3,6 +3,8 @@
  */
 package mblog.core.planet.impl;
 
+import java.util.List;
+
 import mblog.core.planet.PostPlanet;
 import mblog.core.pojos.Post;
 import mblog.core.service.PostService;
@@ -47,13 +49,25 @@ public class PostPlanetImpl implements PostPlanet {
 	}
 	
 	@Override
-	@CacheEvict(value = "postsCaches", key = "#id", allEntries = true)
+	@Cacheable(value = "postsCaches")
+	public List<Post> findRecents(int maxResutls, long ignoreUserId) {
+		return postsService.findRecents(maxResutls, ignoreUserId);
+	}
+
+	@Override
+	@Cacheable(value = "postsCaches")
+	public List<Post> findHots(int maxResutls, long ignoreUserId) {
+		return postsService.findHots(maxResutls, ignoreUserId);
+	}
+	
+	@Override
+	@CacheEvict(value = "postsCaches", allEntries = true)
 	public void delete(long id, long authorId) {
 		postsService.delete(id, authorId);
 	}
 
 	@Override
-	@CacheEvict(value = "postsCaches", key = "#id", allEntries = true)
+	@CacheEvict(value = "postsCaches", allEntries = true)
 	public void delete(long id) {
 		postsService.delete(id);
 	}

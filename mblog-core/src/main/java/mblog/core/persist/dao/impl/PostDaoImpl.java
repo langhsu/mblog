@@ -48,13 +48,24 @@ public class PostDaoImpl extends DaoImpl<PostPO> implements PostDao {
 	}
 
 	@Override
-	public List<PostPO> recents(int maxResutls, long ignoreUserId) {
+	public List<PostPO> findRecents(int maxResutls, long ignoreUserId) {
 		TopQuery<PostPO> q = topQuery(maxResutls);
-		//q.add(Restrictions.eq("type", Const.TYPE_TEXT));
+		q.add(Restrictions.neOrIsNotNull("title", ""));
 		if (ignoreUserId > 0) {
 			q.add(Restrictions.ne("author.id", ignoreUserId));
 		}
 		q.desc("created");
+		return q.list();
+	}
+	
+	@Override
+	public List<PostPO> findHots(int maxResutls, long ignoreUserId) {
+		TopQuery<PostPO> q = topQuery(maxResutls);
+		q.add(Restrictions.neOrIsNotNull("title", ""));
+//		if (ignoreUserId > 0) {
+//			q.add(Restrictions.ne("author.id", ignoreUserId));
+//		}
+		q.desc("views");
 		return q.list();
 	}
 

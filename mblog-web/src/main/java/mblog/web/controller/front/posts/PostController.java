@@ -52,7 +52,7 @@ public class PostController extends BaseController {
 	public String post(Post blog) {
 		if (blog != null) {
 			handleAlbums(blog.getAlbums());
-			postService.post(blog);
+			postPlanet.post(blog);
 		}
 		return "redirect:/home";
 	}

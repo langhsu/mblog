@@ -59,7 +59,9 @@ public interface PostService {
 	 * @param ignoreUserId
 	 * @return
 	 */
-	List<Post> recents(int maxResutls, long ignoreUserId);
+	List<Post> findRecents(int maxResutls, long ignoreUserId);
+	
+	List<Post> findHots(int maxResutls, long ignoreUserId);
 	
 	/**
 	 * 根据Ids查询

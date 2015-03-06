@@ -20,6 +20,7 @@ public interface PostDao extends Dao<PostPO> {
 	Session getSession();
 	List<PostPO> paging(Page page);
 	List<PostPO> pagingByUserId(Page page, long userId);
-	List<PostPO> recents(int maxResutls, long ignoreUserId);
+	List<PostPO> findRecents(int maxResutls, long ignoreUserId);
+	List<PostPO> findHots(int maxResutls, long ignoreUserId);
 	List<PostPO> findByIds(Collection<Long> ids);
 }
