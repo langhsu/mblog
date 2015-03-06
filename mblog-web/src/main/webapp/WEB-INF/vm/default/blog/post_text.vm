@@ -55,7 +55,8 @@ $(function() {
     	UE.getEditor('content',{
     		toolbars: [["bold","italic","underline","justifyleft","justifycenter",
     			"justifyright","blockquote","link","unlink","removeformat","fullscreen"]],
-    		wordCount:false,
+    		wordCount:true,
+    		maximumWords:2000,
     		initialFrameWidth:'100%',
     		initialFrameHeight:300
     	});
