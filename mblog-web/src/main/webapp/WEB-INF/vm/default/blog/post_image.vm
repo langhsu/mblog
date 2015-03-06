@@ -71,7 +71,7 @@ $(function() {
 	} else {
     	UE.getEditor('content',{
     		toolbars: [["bold","italic","underline","justifyleft","justifycenter",
-    			"justifyright","blockquote","link","unlink","removeformat","fullscreen"]],
+    			"justifyright","blockquote","link","unlink","inserttable","removeformat","fullscreen"]],
     		wordCount:true,
     		maximumWords:2000,
     		initialFrameWidth:'100%',
