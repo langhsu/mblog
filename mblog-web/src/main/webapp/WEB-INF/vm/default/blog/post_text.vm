@@ -53,7 +53,8 @@ $(function() {
 		$('#content').addClass('form-control');
 	} else {
     	UE.getEditor('content',{
-    		toolbars: [["bold","italic","underline","justifyleft","justifycenter","justifyright","link","unlink","fullscreen"]],
+    		toolbars: [["bold","italic","underline","justifyleft","justifycenter",
+    			"justifyright","blockquote","link","unlink","removeformat","fullscreen"]],
     		wordCount:false,
     		initialFrameWidth:'100%',
     		initialFrameHeight:300
