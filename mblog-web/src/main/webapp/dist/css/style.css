@@ -61,7 +61,7 @@ a.trash {color: #F50A0A!important;}
 .loop-entry-thumbnail a:before { content: ""; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: #000 url("../images/image-overlay-icon.png") center center no-repeat; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter: alpha(opacity=0); -moz-opacity: 0; -khtml-opacity: 0; opacity: 0; visibility: hidden; transition: all .25s ease-in-out; -webkit-transition: all .25s ease-in-out; -moz-transition: all .25s ease-in-out; }
 .loop-entry-thumbnail a:hover:before { visibility: visible; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; }
 
-.loop .entry { padding: 0 6px 0 6px; }
+.loop .entry { padding: 0 6px 0 6px; overflow: hidden;}
 
 .post-title { padding: 10px 0 20px 6px; }
 .post-title h2 { font-size: 2rem; line-height: 24px; padding:0; margin:0; }
