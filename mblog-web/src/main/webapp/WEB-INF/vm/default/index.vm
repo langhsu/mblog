@@ -58,6 +58,7 @@
 </div>
 
 <div class="sidebar-right bounceInRight animated">
+	<!--
 	<div class="search">
 		<form class="form-inline clearfix" method="get" id="searchform" action="$base/browse/search">
     		<div class="input-group custom-search-form">
@@ -68,6 +69,6 @@
         	</div>
 		</form>
 	</div>
-	
+	-->
 	#parse("/default/inc/right/public.vm")
 </div>

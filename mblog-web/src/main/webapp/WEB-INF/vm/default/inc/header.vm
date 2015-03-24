@@ -40,6 +40,9 @@
                 <li><a href="$base/reg">注册</a></li>
 				#end
 			</ul>
+			<form class="navbar-form navbar-right" method="get" action="$base/browse/search">
+				<input type="text" class="form-control" name="q" placeholder="搜索...">
+          	</form>
 		</div>
 	</div>
 </nav>

@@ -8,20 +8,15 @@
 			<img src="$base${ret.author.avatar}"/>
 		</div>
 		<div class="author-info">
-			<h1>#showName(${ret.author})</h1>
+			<h1>$!{ret.title}</h1>
 			<div class="author_icon">
-				<span><a href="$base/user/${ret.author.id}">查看Ta发布的文章</a></span>
+				<span><a href="$base/user/${ret.author.id}" title="查看TA的主页">#showName(${ret.author})</a></span>
 			</div>
 		</div>
 	</div>
 	<div class="posts">
 		<article class="loop clearfix">
 			<section class="loop-content">
-				#if($ret.title)
-				<header class="post-title ">
-					<h2>${ret.title}</h2>
-				</header>
-				#end
 				<div class="entry">
 					#if($ret.albums)
     					#foreach($row in $ret.albums)
@@ -140,6 +135,8 @@ function chatPost() {
 				alert(ret.message);
 				
 				if (ret.code >= 0) {
+					$('#chat_text').val('');
+					
 					chatLoad(1);
 				}
 			}
