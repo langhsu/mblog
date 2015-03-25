@@ -8,7 +8,7 @@ img {height: auto; max-width: 100%; }
 
 a.trash {color: #F50A0A!important;}
 
-.logo {float: left; padding: 5px 8px 8px 15px; font-size: 18px; line-height: 20px; height: 50px;}
+.logo {float: left; padding: 5px 8px 8px 0; font-size: 18px; line-height: 20px; height: 50px;}
 .logo img {width: 40px; height: 40px;}
 
 .navbar-inverse .navbar-nav>li>a { color: #EFEEEF; }
@@ -74,7 +74,7 @@ a.trash {color: #F50A0A!important;}
 	border-radius: 3px 3px 0 0; -webkit-border-radius: 3px 3px 0 0; -moz-border-radius: 3px 3px 0 0;
 }
 
-.post-meta { overflow: hidden; padding: 20px 0 10px 0; border-top: 1px solid #EEE; margin: 25px 0 0 0; color: #999; }
+.post-meta { overflow: hidden; padding: 10px 0 0 0; border-top: 1px solid #EEE; margin: 15px 0 0 0; color: #999; }
 
 .post-meta .post-like { display: inline-block; float: right; }
 

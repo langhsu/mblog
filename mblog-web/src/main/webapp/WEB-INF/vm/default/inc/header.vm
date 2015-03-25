@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	#parse("/default/inc/browse_tips.vm")
-	<div class="container-fluid">
+	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 				<span class="sr-only">Toggle navigation</span>
@@ -11,7 +11,7 @@
 			<a class="navbar-brand logo" href="http://www.mtons.com"><img src="$base/dist/images/logo/m.png"></a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav">
 				#if($profile)
 				<li>
 					<a href="$base/home">我的首页</a>
@@ -23,26 +23,35 @@
 				<li>
 					<a href="$base/browse/gallery">走廊</a>
 				</li>
-					
+			</ul>
+			<div class="navbar-left">
+				<form class="navbar-form" method="get" action="$base/browse/search">
+					<input type="text" class="form-control" name="q" placeholder="搜索...">
+				</form>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
 				#if($profile)
-				<li>
-    				<a href="$base/account/profile" class="ava" title="settings">
-                		<img class="img-circle" src="$base${profile.avatar}">
-    				</a>
-				</li>
-				<li>
-    				<a href="$base/logout" class="btn btn-link logout" title="Sign out">
-    					<span class="fa fa-power-off"></span>
-    				</a>
+				<li class="dropdown">
+					<a href="#" class="ava dropdown-toggle" data-toggle="dropdown">
+						<img class="img-circle" src="$base${profile.avatar}">
+					</a>
+					<ul class="dropdown-menu" role="menu">
+		                <li>
+		                	<a href="$base/account/profile" class="ava">
+		                		<img class="img-circle" src="$base${profile.avatar}">
+		                		<span>#showName(${profile})</span>
+		                	</a>
+		               	</li>
+		                <li class="divider"></li>
+		                <li><a href="$base/logout">退出</a></li>
+		              </ul>
 				</li>
 				#else
 				<li><a href="$base/login">登录</a></li>
                 <li><a href="$base/reg">注册</a></li>
 				#end
 			</ul>
-			<form class="navbar-form navbar-right" method="get" action="$base/browse/search">
-				<input type="text" class="form-control" name="q" placeholder="搜索...">
-          	</form>
 		</div>
 	</div>
 </nav>

@@ -30,7 +30,7 @@
 <body class="default">
 	<nav class="navbar navbar-default navbar-static-top" role="navigation">
 		#parse("/default/inc/browse_tips.vm")
-		<div class="container-fluid">
+		<div class="container">
 			<div class="navbar-header">
 				<button id="main_nav_btn" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Toggle navigation</span>
