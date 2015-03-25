@@ -15,6 +15,15 @@ font-weight: bold;
 	height: 40px;
 }
 
+.container {
+  margin: 0 auto;
+  width: 960px;
+  max-width: 90%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
 .navbar-default {background-color: rgba(0,0,0,.2); border: none;}
 .navbar-toggle, .navbar-default .navbar-toggle {
 	color: #fff;
