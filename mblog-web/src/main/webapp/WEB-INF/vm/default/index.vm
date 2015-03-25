@@ -1,7 +1,6 @@
 #set($title = "首页")
 
 <style>
-.navbar-inverse {background-color: rgba(0,0,0,.4); border: none;}
 .overlay {
 	margin: 0px; 
 	padding: 0px; 
