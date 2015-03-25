@@ -11,6 +11,7 @@
 			<h1>$!{ret.title}</h1>
 			<div class="author_icon">
 				<span><a href="$base/user/${ret.author.id}" title="查看TA的主页">#showName(${ret.author})</a></span>
+				<span><i class="fa fa-calendar-o"></i>&nbsp;$date.format('yyyy-MM-dd', $ret.created)</span>
 			</div>
 		</div>
 	</div>
@@ -33,7 +34,6 @@
 					<div class="post-like">
 						<span><a href="javascript:void(0)" data-evt="heart" data-id="${ret.id}" class="btn btn-primary">喜欢</a></span>
 					</div>
-					<span><i class="fa fa-calendar-o"></i>&nbsp;$date.format('yyyy-MM-dd', $ret.created)</span>
 				</div>
 			</section>
 			
