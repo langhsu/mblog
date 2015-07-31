@@ -16,13 +16,15 @@
 			</array>
 			<key>metadata</key>
 			<dict>
-				<key>bundle-identifier</key>
-				<string>com.infohold.liufangli</string>
-				<key>kind</key>
-				<string>software</string>
-				<key>title</key>
-				<string>MissQ客户端下载</string>
-			</dict>
+                <key>bundle-identifier</key>
+                <string>com.fnst.smartwork</string>
+                <key>bundle-version</key>
+                <string>1.0</string>
+                <key>kind</key>
+                <string>software</string>
+                <key>title</key>
+                <string>MissQ_0731.ipa</string>
+            </dict>
 		</dict>
 	</array>
 </dict>
