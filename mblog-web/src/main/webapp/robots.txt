@@ -1,9 +1,0 @@
-# Robots.txt file from http://mtons.com
-# All robots will spider the domain
-
-User-agent: *
-Disallow: /assets/
-Disallow: /error/
-Disallow: /account/
-Disallow: /post/
-Disallow: /admin/
