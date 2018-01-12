@@ -1,90 +1,116 @@
-/**
- * 
- */
+/*
++--------------------------------------------------------------------------
+|   Mblog [#RELEASE_VERSION#]
+|   ========================================
+|   Copyright (c) 2014, 2015 mtons. All Rights Reserved
+|   http://www.mtons.com
+|
++---------------------------------------------------------------------------
+*/
 package mblog.core.persist.entity;
 
-import java.util.Date;
-
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.*;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
+ * 内容表
  * @author langhsu
  * 
  */
 @Entity
-@Table(name = "tb_posts")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Table(name = "mto_posts")
 @Indexed(index = "posts")
-public class PostPO {
+@Analyzer(impl = SmartChineseAnalyzer.class)
+public class PostPO implements Serializable {
+	private static final long serialVersionUID = 7144425803920583495L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@DocumentId
+	@SortableField
+	@NumericField
 	private long id;
 
-	private String type;
+	/**
+	 * 分组/模块ID
+	 */
+	@Field
+	@NumericField
+	@Column(name = "channel_id", length = 5)
+	private int channelId;
 
-	@Field(name = "title", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
-	private String title; // 标题
-	
-	@Lob
-	@Basic(fetch = FetchType.LAZY) 
-	@Type(type="text")
-	@Field(name = "summary", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
-	private String summary; // 摘要
+	/**
+	 * 标题
+	 */
+	@Field
+	@Column(name = "title", length = 64)
+	private String title;
 
-	@Field(name = "tags", index = Index.YES, analyze = Analyze.YES, store = Store.YES)
+	/**
+	 * 摘要
+	 */
+	@Field
+	private String summary;
+
+	/**
+	 * 标签, 多个逗号隔开
+	 */
+	@Field
 	private String tags;
-	
-	@Lob
-	@Basic(fetch = FetchType.LAZY) 
-	@Type(type="text")
-	private String content; // 内容
-	
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	@Type(type="text")
-	private String markdown; // markdown 内容
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "snapshot_id")
-	private AttachPO snapshot;
+
+	@Field
+	@NumericField
+	@Column(name = "author_id")
+	private long authorId; // 作者
+
+	/**
+	 * 编辑器 (ueditor/markdown)
+	 */
+	private String editor; // 编辑器
 
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date created;
 
-	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date updated;
+	/**
+	 * 图片统计
+	 */
+	private int images;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "author_id")
-	private UserPO author;
+	/**
+	 * 喜欢数
+	 */
+	private int favors;
 
-	private int featured; // 是否推荐
-	private int hearts; // 喜欢
+	/**
+	 * 评论数
+	 */
 	private int comments;
-	private int views; // 阅读
+
+	/**
+	 * 阅读数
+	 */
+	private int views;
+
+	/**
+	 * 文章状态
+	 */
 	private int status;
+
+	/**
+	 * 推荐状态
+	 */
+	private int featured;
+
+	/**
+	 * 置顶状态
+	 */
+	private int weight;
 
 	public long getId() {
 		return id;
@@ -94,12 +120,12 @@ public class PostPO {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public int getChannelId() {
+		return channelId;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setChannelId(int channelId) {
+		this.channelId = channelId;
 	}
 
 	public String getTitle() {
@@ -118,22 +144,6 @@ public class PostPO {
 		this.summary = summary;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public AttachPO getSnapshot() {
-		return snapshot;
-	}
-
-	public void setSnapshot(AttachPO snapshot) {
-		this.snapshot = snapshot;
-	}
-
 	public String getTags() {
 		return tags;
 	}
@@ -150,20 +160,12 @@ public class PostPO {
 		this.created = created;
 	}
 
-	public Date getUpdated() {
-		return updated;
+	public long getAuthorId() {
+		return authorId;
 	}
 
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
-
-	public UserPO getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(UserPO author) {
-		this.author = author;
+	public void setAuthorId(long authorId) {
+		this.authorId = authorId;
 	}
 
 	public int getStatus() {
@@ -182,12 +184,12 @@ public class PostPO {
 		this.featured = featured;
 	}
 
-	public int getHearts() {
-		return hearts;
+	public int getFavors() {
+		return favors;
 	}
 
-	public void setHearts(int hearts) {
-		this.hearts = hearts;
+	public void setFavors(int favors) {
+		this.favors = favors;
 	}
 
 	public int getComments() {
@@ -206,12 +208,27 @@ public class PostPO {
 		this.views = views;
 	}
 
-	public String getMarkdown() {
-		return markdown;
+	public String getEditor() {
+		return editor;
 	}
 
-	public void setMarkdown(String markdown) {
-		this.markdown = markdown;
+	public void setEditor(String editor) {
+		this.editor = editor;
 	}
 
+	public int getImages() {
+		return images;
+	}
+
+	public void setImages(int images) {
+		this.images = images;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
 }

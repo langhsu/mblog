@@ -1,42 +1,53 @@
-#Mblog
+### Mblog 开源Java多人博客系统
 
-> mblog 是一个用Java实现的多人博客, 使用 mysql 数据库.
+### 技术选型：
 
-##使用的框架：
-* Bootstrap 3
-* Spring mvc
-* Velocity
-* Hibernate
-* Hibernate search
+* JDK8
+* 数据库MySQL
+* 主框架 (Spring-boot、Spring-data-jpa）
+* 安全权限 Shiro
+* 搜索工具 Lucene
+* 缓存 Ehcache
+* 视图模板 Freemarker
+* Bootstrap 前端框架
 
-## 数据库连接配置
-> src/main/resources/init.properties
-
+### 启动：
+ - 项目默认配置是在容器中启动(个人习惯), 如果想要main方法运行, 请自行修改
+ ```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <exclusions>
+        <!-- 容器启动,启用下面代码. main 方法运行注释此处
+        <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+        -->
+    </exclusions>
+</dependency>
 ```
-jdbc.url=jdbc:mysql://localhost:3306/db_mblog?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
-jdbc.username=your username
-jdbc.password=your password
-```
+- 启动成功后访问： http://localhost:8080/
 
-## 索引文件存放目录
-> src/main/resources/init.properties
+### 最新版本(2.5)更新内容：
+    1. 前端页面结构、链接地址、接口目录调整
+    2. Group修改为Channel, 对应的文章表和链接指向做相应的调整
+    3. 全新的前端界面
+    4. 修复上个版本留下的若干bug
+    
+### 版本(2.4)更新内容：
+    1. 框架更新为 spring-boot
+    2. 持久层更新为 spring-data-jpa, 去除原有的一些包依赖
+    3. 前端页面模板语音更新为 freemarker
+    4. 简化系统逻辑, 删除了Tag
+    5. 重新定义了Group概念, 即内容分组, 不再有原来复杂的模板定制等, 去除了原有的视频和问答定制, 可以在Group里面自行扩展
+    6. 全新的后台界面
 
-```
-# indexs path
-hibernate.search.indexs=d:/data/indexs
-```
-
-## 图片工具安装路径配置
-> src/main/resources/mtons.properties
-
-```
-# graphicsmagick for windows
-gmagick.home=C:/Program Files/GraphicsMagick-1.3.20-Q8
-```
-
-[Graphicsmagick 下载](http://www.graphicsmagick.org/download.html)
+### 配置教程
+[配置教程-点击入往通道](http://www.mtons.com/dock/mblog)
+    
+### 图片演示 
 
 
-## 实际应用站点
-http://mtons.com
-
+### QQ交流群
+群号：378433412

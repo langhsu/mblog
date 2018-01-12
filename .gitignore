@@ -3,6 +3,9 @@
 # Package Files #
 *.war
 *.ear
+.idea
+
+indexes/
 
 # project settings
 *.project
@@ -10,3 +13,7 @@
 .settings/
 target
 .externalToolBuilders
+*.iml
+
+# rebel
+rebel.xml

@@ -1,43 +1,51 @@
-/**
- * 
- */
+/*
++--------------------------------------------------------------------------
+|   Mblog [#RELEASE_VERSION#]
+|   ========================================
+|   Copyright (c) 2014, 2015 mtons. All Rights Reserved
+|   http://www.mtons.com
+|
++---------------------------------------------------------------------------
+*/
 package mblog.core.persist.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 /**
+ * 评论
  * @author langhsu
  *
  */
 @Entity
-@Table(name = "tb_comments")
+@Table(name = "mto_comments")
 public class CommentPO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
+	/**
+	 * 所属内容ID
+	 */
 	@Column(name = "to_id")
 	private long toId;
-	
+
+	/**
+	 * 父评论ID
+	 */
+	private long pid;
+
+	/**
+	 * 评论内容
+	 */
 	@Column(name = "content")
 	private String content;
 	
 	@Column(name = "created")
 	private Date created;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "author_id")
-	private UserPO author;
+	@Column(name = "author_id")
+	private long authorId;
 	
 	private int status;
 
@@ -73,12 +81,12 @@ public class CommentPO {
 		this.created = created;
 	}
 
-	public UserPO getAuthor() {
-		return author;
+	public long getAuthorId() {
+		return authorId;
 	}
 
-	public void setAuthor(UserPO author) {
-		this.author = author;
+	public void setAuthorId(long authorId) {
+		this.authorId = authorId;
 	}
 
 	public int getStatus() {
@@ -87,6 +95,14 @@ public class CommentPO {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public long getPid() {
+		return pid;
+	}
+
+	public void setPid(long pid) {
+		this.pid = pid;
 	}
 
 }

@@ -1,6 +1,12 @@
-/**
- * 
- */
+/*
++--------------------------------------------------------------------------
+|   Mblog [#RELEASE_VERSION#]
+|   ========================================
+|   Copyright (c) 2014, 2015 mtons. All Rights Reserved
+|   http://www.mtons.com
+|
++---------------------------------------------------------------------------
+*/
 package mblog.web.exceptions;
 
 import java.io.IOException;
@@ -10,22 +16,23 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mtons.modules.pojos.Data;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
+import mblog.base.data.Data;
 import org.apache.log4j.Logger;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.google.gson.Gson;
 
 /**
  * 异常处理
  * @author langhsu
  *
  */
+@Component
 public class DefaultExceptionHandler implements HandlerExceptionResolver {
 	private Logger log = Logger.getLogger(getClass());
 	
@@ -35,21 +42,17 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
 		
-		if (log.isDebugEnabled()) {
-			log.error("Catch Exception: ", ex);
-		} else {
-			log.error(ex.getMessage());
-		}
-		
+		log.error(ex.getMessage(), ex);
+
 		ModelAndView view = null;
 		String ret = ex.getMessage();
 		
 		if (isAjax(handler)) {
 			try {
 				response.setContentType("application/json;charset=UTF-8");
-				Gson gson = new Gson();
-				response.getWriter().print(gson.toJson(Data.failure(ret)));
+				response.getWriter().print(JSON.toJSONString(Data.failure(ret)));
 			} catch (IOException e) {
+				// do something
 			}
 			
 			view = new ModelAndView();
@@ -62,10 +65,20 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver {
 		return view;
 	}
 	
+	/**
+	 * 判断是否 ajax 调用
+	 * 
+	 * @param handler
+	 * @return
+	 */
 	private boolean isAjax(Object handler) {
-		HandlerMethod handlerMethod = (HandlerMethod) handler;
-		ResponseBody responseBodyAnn = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), ResponseBody.class);  
-		return responseBodyAnn != null;
+		if (handler != null && handler instanceof HandlerMethod) {
+			HandlerMethod handlerMethod = (HandlerMethod) handler;
+			ResponseBody responseBodyAnn = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), ResponseBody.class);  
+			return responseBodyAnn != null;
+		}
+		
+		return false;
 	}
 	
 }
