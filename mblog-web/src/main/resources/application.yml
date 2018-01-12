@@ -1,0 +1,57 @@
+server:
+    port: 8080
+spring:
+    freemarker:
+        template-loader-path:
+        - /templates/
+        - file:./templates/
+        cache: false
+        settings:
+            classic_compatible: true #处理空值
+            template_update_delay: 0
+            datetime_format: yyyy-MM-dd HH:mm
+            number_format: 0.##
+
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost/db_mblog?useSSL=false&characterEncoding=utf8
+        username: root
+        password: root
+
+    jpa:
+        database: mysql
+        show-sql: false
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate.format_sql: true
+            hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+            hibernate.cache.use_second_level_cache: false
+            hibernate.search.default.directory_provider: filesystem
+            hibernate.search.default.indexBase: ./indexes
+        open-in-view: true
+
+    servlet:
+        multipart:
+            max-file-size: 5MB
+
+    mail:
+        host: smtp.mtons.com
+        username: example@mtons.com
+        password: Example2018
+        port: 25
+        properties:
+            mail.smtp.auth: true
+
+site.store.root: /data/mblog
+# 存储模式, 可选值 absolute / relative
+site.store.repo: relative
+
+# 是否开启资源域名
+site.store.domain: false
+
+# ---------------------------------
+# 资源域名, resource.domain : true 是有效
+# 配置域名, 将域名的根目录指向 store.root 配置的地址
+# ---------------------------------
+site.store.host: http://localhost:8080/mblog

@@ -1,0 +1,8 @@
+.*
+!.gitignore
+*.log
+*~
+*#
+node_modules/
+build/
+!.travis.yml

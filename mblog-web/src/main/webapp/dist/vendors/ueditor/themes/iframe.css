@@ -1,0 +1,24 @@
+/*可以在这里添加你自己的css*/
+.player {width:480px; height:400px; margin-left:auto; margin-right:auto;}
+
+/* Tablet (Portrait)
+================================================== */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+}
+/* Mobile (Portrait & Landscape)
+================================================== */
+@media only screen and (max-width: 767px) {
+}
+/* Mobile (Landscape)
+================================================== */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .player {width:400px; height:334px;}
+}
+/* Mobile (Portrait only)
+================================================== */
+@media only screen and (max-width: 479px) {
+    .player {
+        width: 320px;
+        height: 200px;
+    }
+}

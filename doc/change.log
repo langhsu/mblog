@@ -1,0 +1,84 @@
+2015-10-31
+	尝试使用钩子、插件等扩展
+	1、新增部分Event类和拦截器类钩子
+	2、example插件
+2015-10-28
+	修复头像无法修改的问题
+	
+2015-10-27
+2.2.2
+	1. 追加热门用户功能，mto_users里已粉丝（fans）关注度来进行排序，前端显示用户，sql查询为12个
+	2. 修改 mto_user_role 生成唯一索引的问题, 对于已运行的系统请检查mto_user_role是否有 role_id列的唯一索引，如果有需要手动删除该索引
+	
+2015-10-09
+2.2.1 升级
+	1. 更改了头像路径生成规则
+	2. 升级了配置图片存储策略, 通过 mtons.properties 中的 store.repo 属性配置
+	3. 修改了右侧文章列表显示bug(当阅读次数过1k时会换行)
+	4. 升级了图片访问配置, 通过 mtons.properties 中 resource.domain 属性可开启图片单独域名
+	5. 新增友情链接
+
+2015-09-06
+关于2.0.0 beta2 升级
+	1. init.properties 中的 hibernate.search.indexs 配置移动到 mtons.properties
+	2. 升级发送邮件的代码，添加配置自检查
+	3. 升级系统配置功能，添加第三方登录地址管理和备案号管理
+		升级前请备案你的备案号和登录页的第三方回调链接, 这些都将保持到数据库去（mto_config）
+
+	4. 添加图片快照（固定尺寸），解决首页图片不齐带来的美观问题
+		mto_attachs 表添加 screenshot 字段
+		对于以前版本的升级sql: UPDATE mto_attachs SET screenshot = preview
+
+	5. 优化了所有的前端页面布局, 使得维护简单, 代码简洁
+	6. 视频列表页改版
+	7. 优化繁复的配置
+		(1). 删除{hibernate.search.indexs}配置，索引文件自动存放到 {store.root}/indexs, 如果以前你的indexs不在{store.root}
+			目录下, 没关系, copy过去即可。
+		(2). 去除这些配置：{store.origin}, {store.thumbs}, {store.avatar}, {store.temp}，变为不可更改
+	8. 文章列表页带徽章
+	9. 添加‘我的喜欢’页面
+	10. 调整系统配置参数，mto_config 中的参数 settings 开头的全部改为 site 开头
+	11. 后台文章添加置顶功能
+	12. 后台文章编辑添加图片管理功能
+
+2015-08-31
+关于2.0.0 beta1 升级
+	1. 去除了 mto_user_extend 表，将 extend 里面的数据和 mto_user 合并
+	2. mto_user 表添加了 active_email、posts、comments、follows、fans、favors 等字段，请设置这些字段的默认值
+	3. 添加第三方登录，注意修改自己的openId (login.vm、mblog-web/resource/config.pro..  qqconnectconfig.pro...)
+		/themes/default/inc/metas.vm 里需要添加第三方的 meta 数据
+
+	4. 添加邮箱验证（ 在 mtons.properties 里添加发件账号）
+
+	5. 添加用户关注，可收到关注的人最新的动态
+	6. 部分页面调整（用户主页、修改个人资料等）
+	7. umeditor改为ueditor, 对mblog进行了一些定制
+	8. 对个人主页的访问加入了缓存，提高页面访问速度
+	9. 添加通知体系（喜欢文章、评论、回复评论、关注都会收到对应的通知）
+	10. home页版式调整，修复了在手机访问时的一些小瑕疵
+
+2015-07-17
+关于1.2 升级到最新版本
+
+	1. mto_posts 添加 group_ 字段
+		升级sql: update mto_posts set group_ = 1 where type = 'text'
+				 update mto_posts set group_ = 2 where type = 'image'
+				 update mto_posts set group_ = 3 where type = 'video'
+				 
+	2. mto_posts summary 改为普通string, 缩小表空间
+	
+	3. mto_posts 删除 updated
+	4. mto_posts snapshoot_id 改为 last_image_id 
+	
+		升级sql: UPDATE mto_posts SET last_image_id = 0 WHERE last_image_id IS NULL
+
+	5. mto_config 表 key 字段改名为 key_
+
+2017-12-18
+2.4版本更新
+    1. 框架更新为 spring-boot
+    2. 持久层更新为 spring-data-jpa, 去除原有的一些包依赖
+    3. 前端页面模板语音更新为 freemarker
+    4. 简化系统逻辑, 删除了Tag
+    5. 重新定义了Group概念, 即内容分组, 不再有原来复杂的模板定制等, 去除了原有的视频和问答定制, 可以在Group里面自行扩展
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	   default-autowire="byName">
+
+	<context:annotation-config />
+	<context:component-scan base-package="mblog.*"/>
+	
+	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:init.properties</value>
+				<value>classpath:mtons.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean name="propertiesConfiger" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="properties" ref="configProperties"/>
+	</bean>
+
+	<!-- Persistent related config -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="connectionProperties">
+			<props>
+				<prop key="useUnicode">true</prop>
+				<prop key="characterEncoding">${jdbc.characterEncoding}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
+				<prop key="hibernate.jdbc.fetch_size">20</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.order_updates">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.search.default.directory_provider">${hibernate.search.store}</prop>
+    			<prop key="hibernate.search.default.indexBase">${store.root}/indexs</prop>
+			</props>
+		</property>
+		<!-- Entity package -->
+		<property name="packagesToScan">
+			<list>
+				<value>mblog.core.persist.entity</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- Transaction config -->
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" autowire="byName">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="txManager" />
+	
+	<!-- Beans -->
+	<bean id="appContext" class="mblog.base.context.AppContext">
+		<property name="root" value="${store.root}"/>
+	</bean>
+	<bean id="fileRepo" class="mblog.base.upload.impl.FileRepoImpl"  />
+</beans>

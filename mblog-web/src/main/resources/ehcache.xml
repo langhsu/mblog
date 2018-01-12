@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+	
+	<diskStore path="java.io.tmpdir/ehcache"/>
+	
+	<defaultCache maxElementsInMemory="1000" eternal="false" timeToIdleSeconds="1800" timeToLiveSeconds="3600" overflowToDisk="false" />
+	 
+	<cache name="postsCaches"
+		eternal="false"
+		maxElementsOnDisk="9999"
+		maxElementsInMemory="1000" 
+		overflowToDisk="true"
+		timeToIdleSeconds="360"
+		timeToLiveSeconds="720"
+		memoryStoreEvictionPolicy="LRU"/>
+	
+	<cache name="tagsCaches"
+		eternal="false"
+		maxElementsOnDisk="9999"
+		maxElementsInMemory="1000" 
+		overflowToDisk="true"
+		timeToIdleSeconds="360"
+		timeToLiveSeconds="720"
+		memoryStoreEvictionPolicy="LRU"/>
+	
+	<cache name="commentsCaches"
+		eternal="false"
+		maxElementsOnDisk="9999"
+		maxElementsInMemory="1000" 
+		overflowToDisk="true"
+		timeToIdleSeconds="360"
+		timeToLiveSeconds="720"
+		memoryStoreEvictionPolicy="LRU"/>
+		
+	<cache name="groupsCaches"
+		eternal="false"
+		maxElementsOnDisk="9999"
+		maxElementsInMemory="1000"
+		overflowToDisk="true"
+		timeToIdleSeconds="360"
+		timeToLiveSeconds="720"
+		memoryStoreEvictionPolicy="LRU"/>
+
+	<cache name="usersCaches"
+		   eternal="false"
+		   maxElementsOnDisk="9999"
+		   maxElementsInMemory="1000"
+		   overflowToDisk="true"
+		   timeToIdleSeconds="360"
+		   timeToLiveSeconds="720"
+		   memoryStoreEvictionPolicy="LRU"/>
+			
+</ehcache>
