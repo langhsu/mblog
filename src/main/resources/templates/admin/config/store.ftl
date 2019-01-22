@@ -7,6 +7,7 @@
                     <select class="form-control" name="store_scheme" data-select="${configs['store_scheme'].value}">
                         <option value="native">本地存储</option>
                         <option value="upyun">又拍云</option>
+                        <option value="aliyun">阿里云</option>
                     </select>
                 </div>
             </div>
@@ -39,6 +40,38 @@
                     <label class="col-lg-2 control-label">文件目录</label>
                     <div class="col-lg-10">
                         <input type="text" name="upyun_oss_src" class="form-control" value="${configs['upyun_oss_src'].value}" placeholder="示例: /static/">
+                    </div>
+                </div>
+            </div>
+            <div class="scheme" data-scheme="aliyun">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">空间名称</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="aliyun_oss_bucket" class="form-control" value="${configs['aliyun_oss_bucket'].value}" placeholder="阿里oss bucket名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">AccessKey</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="aliyun_oss_key" class="form-control" value="${configs['aliyun_oss_key'].value}" placeholder="AccessKeyId">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">AccessSecret</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="aliyun_oss_secret" class="form-control" value="${configs['aliyun_oss_secret'].value}" placeholder="AccessKeySecret">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">EndPoint</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="aliyun_oss_endpoint" class="form-control" value="${configs['aliyun_oss_endpoint'].value}" placeholder="示例: oss-cn-beijing.aliyuncs.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">文件目录</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="aliyun_oss_src" class="form-control" value="${configs['aliyun_oss_src'].value}" placeholder="示例: static/images/">
                     </div>
                 </div>
             </div>

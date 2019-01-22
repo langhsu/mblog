@@ -16,10 +16,11 @@
 		<commons.httpclient>3.1</commons.httpclient>
 		<shiro>1.4.0</shiro>
 		<coobird.thumbnailator>0.4.8</coobird.thumbnailator>
-		<alibaba.fastjson>[1.2.31,)</alibaba.fastjson>
+		<alibaba.fastjson>1.2.55</alibaba.fastjson>
 		<org.jsoup>1.9.2</org.jsoup>
 		<apache.lucene>5.5.5</apache.lucene>
 		<upyun.sdk.version>4.0.1</upyun.sdk.version>
+		<aliyun.sdk.version>2.8.3</aliyun.sdk.version>
 	</properties>
 
 	<parent>
@@ -163,6 +164,13 @@
 			<version>${upyun.sdk.version}</version>
 		</dependency>
 
+		<!-- 阿里云SDK-->
+		<dependency>
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+			<version>${aliyun.sdk.version}</version>
+		</dependency>
+
 		<!-- config -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -205,15 +213,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<!-- 容器启动,启用下面代码 -->
-				<!--
-				<exclusion>
-					<groupId>org.springframework.config</groupId>
-					<artifactId>spring-config-starter-tomcat</artifactId>
-				</exclusion>
-				-->
-			</exclusions>
 		</dependency>
 	</dependencies>
 
@@ -236,7 +235,6 @@
 				<profileActive>h2</profileActive>
 			</properties>
 		</profile>
-
 	</profiles>
 
 	<build>
@@ -257,9 +255,6 @@
 				</includes>
 			</resource>
 		</resources>
-		<!--<filters>-->
-			<!--<filter>src/main/resources/application.yml</filter>-->
-		<!--</filters>-->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

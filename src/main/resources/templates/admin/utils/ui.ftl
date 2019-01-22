@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${site_name} - 后台管理</title>
 
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo.png"/>
+    <link rel="shortcut icon" href="http://mtons.com/dist/images/logo.png"/>
+
     <!-- Bootstrap -->
     <link href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
