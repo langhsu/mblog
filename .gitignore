@@ -17,3 +17,7 @@ target
 
 # rebel
 rebel.xml
+
+*.log
+*.db
+

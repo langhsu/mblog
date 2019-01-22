@@ -3,19 +3,22 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mtons.mblog</groupId>
 	<artifactId>mblog</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<modules>
-		<module>mblog-base</module>
-		<module>mblog-core</module>
-		<module>mblog-web</module>
-		<module>mblog-plugin-example</module>
-	</modules>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<properties>
-		<project.version>0.0.1-SNAPSHOT</project.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<commons.lang3>3.6</commons.lang3>
+		<commons.lang>2.6</commons.lang>
+		<commons.io>1.3.2</commons.io>
+		<commons.text>1.3</commons.text>
+		<commons.httpclient>3.1</commons.httpclient>
+		<shiro>1.4.0</shiro>
+		<coobird.thumbnailator>0.4.8</coobird.thumbnailator>
+		<alibaba.fastjson>1.2.16</alibaba.fastjson>
+		<org.jsoup>1.9.2</org.jsoup>
+		<apache.lucene>5.5.4</apache.lucene>
 	</properties>
 
 	<parent>
@@ -34,45 +37,71 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
+			<version>${commons.lang}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.6</version>
+			<version>${commons.lang3}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
+			<version>${commons.io}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>${commons.text}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>${commons.httpclient}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
-			<version>0.4.8</version>
+			<version>${coobird.thumbnailator}</version>
 		</dependency>
 
 		<!--json格式化类库 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.16</version>
+			<version>${alibaba.fastjson}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
 		<!--过滤html标签类库 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.9.2</version>
+			<version>${org.jsoup}</version>
 		</dependency>
 
 		<!-- database -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -91,12 +120,12 @@
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-analyzers-smartcn</artifactId>
-			<version>5.5.4</version>
+			<version>${apache.lucene}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-highlighter</artifactId>
-			<version>5.5.4</version>
+			<version>${apache.lucene}</version>
 		</dependency>
 		<!-- /end -->
 
@@ -106,7 +135,30 @@
 			<artifactId>ehcache</artifactId>
 		</dependency>
 
-		<!-- boot -->
+		<!-- shiro -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- config -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -145,98 +197,75 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<exclusions>
 				<!-- 容器启动,启用下面代码 -->
+				<!--
 				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<groupId>org.springframework.config</groupId>
+					<artifactId>spring-config-starter-tomcat</artifactId>
 				</exclusion>
+				-->
 			</exclusions>
 		</dependency>
-
 	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<!-- local -->
-			<dependency>
-				<groupId>com.mtons.mblog</groupId>
-				<artifactId>mblog-base</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.mtons.mblog</groupId>
-				<artifactId>mblog-core</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 
-			<!-- shiro -->
-			<dependency>
-				<groupId>org.apache.shiro</groupId>
-				<artifactId>shiro-web</artifactId>
-				<version>1.4.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.shiro</groupId>
-				<artifactId>shiro-spring</artifactId>
-				<version>1.4.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.shiro</groupId>
-				<artifactId>shiro-ehcache</artifactId>
-				<version>1.4.0</version>
-				<exclusions>
-					<exclusion>
-						<artifactId>slf4j-api</artifactId>
-						<groupId>org.slf4j</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
+	<profiles>
+		<!--开发默认环境-->
+		<profile>
+			<id>mysql</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<profileActive>mysql</profileActive>
+			</properties>
+		</profile>
 
-			<!-- 第三方登录 -->
-			<dependency>
-				<groupId>com.mtons.mblog</groupId>
-				<artifactId>mblog-api</artifactId>
-				<version>1.1.3</version>
-			</dependency>
+		<!--测试环境-->
+		<profile>
+			<id>h2</id>
+			<properties>
+				<profileActive>h2</profileActive>
+			</properties>
+		</profile>
 
-			<dependency>
-				<groupId>commons-httpclient</groupId>
-				<artifactId>commons-httpclient</artifactId>
-				<version>3.1</version>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
+	</profiles>
 
 	<build>
-		<finalName>mblog</finalName>
 		<resources>
 			<resource>
-				<directory>${basedir}/src/main/webapp</directory>
-				<!--注意此次必须要放在此目录下才能被访问到-->
-				<targetPath>META-INF/resources</targetPath>
-				<includes>
-					<include>**/**</include>
-				</includes>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>static/**</exclude>
+					<exclude>templates/**</exclude>
+				</excludes>
 			</resource>
 			<resource>
-				<directory>${basedir}/src/main/resources</directory>
+				<directory>src/main/resources</directory>
 				<includes>
-					<include>**/**</include>
+					<include>static/**</include>
+					<include>templates/**</include>
 				</includes>
 			</resource>
 		</resources>
+		<!--<filters>-->
+			<!--<filter>src/main/resources/application.yml</filter>-->
+		<!--</filters>-->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<executable>true</executable>
-					<mainClass>mblog.BootApplication</mainClass>
-					<includeSystemScope>true</includeSystemScope>
+					<fork>true</fork>
+					<jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+					<mainClass>com.mtons.mblog.BootApplication</mainClass>
 				</configuration>
 				<executions>
 					<execution>
+						<goals>
+							<!-- 用于打包jar -->
+							<goal>repackage</goal>
+						</goals>
 						<configuration>
-							<classifier>exec</classifier>
 						</configuration>
 					</execution>
 				</executions>
@@ -245,6 +274,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
+					<skipTests>true</skipTests>    <!--默认关掉单元测试 -->
 					<useSystemClassLoader>false</useSystemClassLoader>
 				</configuration>
 			</plugin>
@@ -254,9 +284,12 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+					<encoding>UTF-8</encoding>
+					<compilerArgs>
+						<arg>-parameters</arg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
