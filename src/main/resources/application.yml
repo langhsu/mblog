@@ -1,0 +1,44 @@
+server:
+    port: 8080
+spring:
+    profiles:
+        active: @profileActive@
+    devtools:
+        enabled: true
+    http:
+        encoding:
+            charset: UTF-8
+            force: true
+            enabled: true
+            servlet:
+        multipart:
+            max-file-size: 5MB
+    freemarker:
+        template-loader-path:
+        - classpath:/templates
+        - file:./templates
+        cache: false
+        checkTemplateLocation: false
+        settings:
+            classic_compatible: true #处理空值
+            template_exception_handler: rethrow
+            template_update_delay: 0
+            datetime_format: yyyy-MM-dd HH:mm
+            number_format: 0.##
+    mail:
+        host: smtp.mtons.com
+        username: example@mtons.com
+        password: Example2018
+        port: 25
+        properties:
+            mail.smtp.auth: true
+
+# site.theme: [default|classic]
+site:
+    theme: classic
+    store:
+        root: d:/data/mblog/
+        maxWidth: 800
+        size: 2
+system:
+    version: 2.8

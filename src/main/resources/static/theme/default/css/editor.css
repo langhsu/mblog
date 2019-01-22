@@ -1,0 +1,113 @@
+/* Editor style */
+body.markdown-body {
+    padding: 0;
+    margin: 20px 15px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Ubuntu,Helvetica Neue,Helvetica,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei UI,Microsoft YaHei,Source Han Sans CN,sans-serif;
+    line-height: 1.8;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    word-wrap: break-word;
+    color: #444;
+}
+
+/* Detail style */
+.markdown-body {
+    min-height: 202px;
+    line-height: 26px;
+    font-size: 16px;
+    word-wrap: break-word;
+}
+
+.markdown-body p {
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #4f4f4f;
+    font-weight: 400;
+    line-height: 26px;
+    text-align: justify;
+}
+
+.markdown-body a {
+    color: #4EA1DB;
+    text-decoration: none;
+}
+
+.markdown-body a:visited {
+    color: #6795B5;
+}
+
+.markdown-body img {
+    max-width: 100%;
+    cursor: crosshair;
+}
+
+.markdown-body table {
+    border-collapse: collapse;
+    display: table;
+    width: 100%;
+    margin: 10px 0 15px;
+}
+
+.markdown-body table thead {
+    background-color: #f2f2f2;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+    padding: 10px 20px;
+    line-height: 22px;
+    border: 1px solid #DFDFDF;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.markdown-body h1 {
+    font-size: 28px;
+    line-height: 36px;
+}
+
+.markdown-body h2 {
+    padding-bottom: 12px;
+    font-size: 24px;
+    line-height: 32px;
+    border-bottom: 1px solid #ececec;
+}
+.markdown-body h3 {
+    font-size: 18px;
+    padding-bottom: 0;
+}
+.markdown-body ol, .markdown-body ul {
+    padding-left: 28px;
+    list-style: square;
+}
+
+.markdown-body ol li, .markdown-body ul li {
+    margin-bottom: 0;
+}
+
+.markdown-body code {
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 2px;
+    padding: 4px 2px 0;
+}
+
+
+.markdown-body pre, .markdown-body pre code {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    color: #333;
+    background-color: #f6f8fa;
+    border: 1px solid #f5f5f5;
+    border-radius: 3px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.hljs {
+    /*中文和code之间不换行 注释 display:block*/
+}
