@@ -3,8 +3,8 @@ spring:
         #schema: classpath*:config/db/db_mblog.sql
         #initialization-mode: always
         #continue-on-error: false
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost/db_mblog?useSSL=false&characterEncoding=utf8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
         username: root
         password: root
 

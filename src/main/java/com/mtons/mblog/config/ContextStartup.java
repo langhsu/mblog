@@ -1,7 +1,7 @@
 package com.mtons.mblog.config;
 
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.base.print.Printer;
+import com.mtons.mblog.base.utils.Printer;
 import com.mtons.mblog.modules.entity.Config;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.ConfigService;
@@ -12,14 +12,10 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -34,6 +30,8 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
     private ChannelService channelService;
     @Autowired
     private AppContext appContext;
+    @Autowired
+    private SiteConfig siteConfig;
 
     private ServletContext servletContext;
 
@@ -45,7 +43,8 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
             public void run() {
                 Printer.info("initialization ...");
 
-                resetSiteConfig(true);
+                resetSetting(true);
+                resetSiteConfig();
                 resetChannels();
 
                 Printer.info("OK, completed");
@@ -66,7 +65,7 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
     /**
      * 重置站点配置
      */
-    public void resetSiteConfig(boolean exit) {
+    public void resetSetting(boolean exit) {
         List<Config> configs = configService.findAll();
 
         Map<String, String> map = new HashMap<>();
@@ -93,6 +92,8 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
 
             appContext.setConfig(map);
         }
+
+
     }
 
     /**
@@ -100,5 +101,9 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
      */
     public void resetChannels() {
         servletContext.setAttribute("channels", channelService.findAll(Consts.STATUS_NORMAL));
+    }
+
+    public void resetSiteConfig() {
+        servletContext.setAttribute("site", siteConfig);
     }
 }

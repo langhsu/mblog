@@ -9,12 +9,17 @@
 */
 package com.mtons.mblog.web.controller.site.auth;
 
+import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * 登录页
  * @author langhsu
  */
+@Slf4j
 @Controller
 public class LoginController extends BaseController {
     @Autowired
@@ -68,14 +74,15 @@ public class LoginController extends BaseController {
         try {
             SecurityUtils.getSubject().login(token);
             ret = Views.REDIRECT_USER;
+        } catch (UnknownAccountException e) {
+            log.error(e.getMessage());
+            throw new MtonsException("用户不存在");
+        } catch (LockedAccountException e) {
+            log.error(e.getMessage());
+            throw new MtonsException("用户被禁用");
         } catch (AuthenticationException e) {
-            if (e instanceof UnknownAccountException) {
-            	model.put("message", "用户不存在");
-            } else if (e instanceof LockedAccountException) {
-            	model.put("message", "用户被禁用");
-            } else {
-            	model.put("message", "用户认证失败");
-            }
+            log.error(e.getMessage());
+            throw new MtonsException("用户认证失败");
         }
         return ret;
 	}

@@ -3,11 +3,11 @@
  */
 package com.mtons.mblog.web.controller.site.posts;
 
-import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -61,26 +60,13 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@PostMapping("/submit")
-	public String post(PostVO post,  @RequestParam(value = "file", required=false) MultipartFile file) throws IOException {
+	public String post(PostVO post) throws IOException {
 		Assert.notNull(post, "参数不完整");
 		Assert.state(StringUtils.isNotBlank(post.getTitle()), "标题不能为空");
 		Assert.state(StringUtils.isNotBlank(post.getContent()), "内容不能为空");
 
 		AccountProfile profile = getProfile();
 		post.setAuthorId(profile.getId());
-
-		/**
-		 * 保存预览图片
-		 */
-		if (file != null && !file.isEmpty()) {
-			String thumbnail = fileRepo.store(file, appContext.getThumbsDir());
-
-			if (StringUtils.isNotBlank(post.getThumbnail())) {
-				fileRepo.deleteFile(post.getThumbnail());
-			}
-
-			post.setThumbnail(thumbnail);
-		}
 
 		// 修改时, 验证归属
 		if (post.getId() > 0) {

@@ -47,6 +47,7 @@
         </div>
 
         <!-- Comments -->
+        <#if site.controls.comment>
         <div id="chat" class="chats shadow-box">
             <div class="chat_other">
                 <h4>全部评论: <span id="chat_count">0</span> 条</h4>
@@ -81,6 +82,7 @@
                 </div>
             </div>
         </div>
+        </#if>
         <!-- /view show -->
     </div>
     <div class="col-xs-12 col-md-3 side-right hidden-xs hidden-sm">
@@ -119,7 +121,7 @@
 <script type="text/plain" id="chat_template">
     <li id="chat{5}">
         <a class="avt fl" target="_blank" href="${base}/users/{0}">
-            <img src="${base}{1}">
+            <img src="{1}">
         </a>
         <div class="chat_body">
             <h5>
@@ -151,6 +153,7 @@
 
     seajs.use('comment', function (comment) {
         comment.init({
+            load: '${site.controls.comment}',
             load_url: '${base}/comment/list/${view.id}',
             post_url: '${base}/comment/submit',
             toId: '${view.id}',
@@ -164,6 +167,7 @@
                     var pcontent = ContentRender.wrapItem(pat.content);
                     quoto = '<div class="quote"><a href="${base}/users/' + pat.author.id + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
                 }
+
                 var item = jQuery.format(template,
                         data.author.id,
                         data.author.avatar,

@@ -12,8 +12,10 @@
     <!-- Font Awesome -->
     <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="${base}/theme/admin/css/custom-styles.css" rel="stylesheet">
+    <!-- Theme Style -->
+    <link href="${base}/theme/admin/css/site.css" rel="stylesheet">
+    <link href="${base}/theme/admin/css/site.addons.css" rel="stylesheet">
+    <link href="${base}/theme/admin/css/skins/skin-blue.css" rel="stylesheet">
 
     <!-- jQuery -->
     <script src="${base}/dist/js/jquery.min.js"></script>
@@ -21,66 +23,98 @@
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src='${base}/dist/vendors/validate/jquery-validate.js'></script>
     <script src="${base}/dist/vendors/layer/layer.js"></script>
+    <script src="${base}/theme/admin/js/site.js"></script>
+    <script src="${base}/theme/admin/js/site.base.js"></script>
 </head>
-<body>
-    <div id="wrapper">
-        <nav class="navbar navbar-default top-navbar" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="${base}/index" class="navbar-brand">
-                    <img src="${base}/dist/images/logo/logo.png" style="height: 30px;"/>
-                </a>
-            </div>
-
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <img src="${base}${profile.avatar}" style="width: 22px;margin-right: 5px; border-radius: 25px;">${profile.username}
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="${base}/user/profile"><i class="fa fa-user fa-fw"></i> Profile</a></li>
-                        <li><a href="${base}/logout"><i class="fa fa-sign-out fa-fw"></i> Log Out</a></li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-        </nav>
-        <!--/. NAV TOP  -->
-
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-                    <li>
-                        <a href="${base}/admin" nav="${base}/admin"><i class="fa fa-dashboard"></i> 面板</a>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- Main Header -->
+    <header class="main-header">
+        <a href="${base}/index" class="logo">
+            <span class="logo-mini">MBG</span>
+            <span class="logo-lg"><b>M</b>BLOG</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li><a href="/" title="跳转到前台" target="_blank"><i class="fa fa-television"></i></a></li>
+                    <li class="messages-menu">
+                        <a href="${base}/user?method=messages">
+                            <i class="fa fa-envelope-o"></i>
+                            <#if (profile.badgesCount.messages > 0)>
+                            <span class="label label-success">${profile.badgesCount.messages}</span>
+                            </#if>
+                        </a>
                     </li>
-                    <@menus>
-                        <#list results as menu>
-                            <li><a href="${base}/${menu.url}" nav="${base}/${menu.url}"><i class="${menu.icon}"></i>${menu.name}</a></li>
-                        </#list>
-                    </@menus>
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="<@resource src=profile.avatar/>" class="user-image" alt="User Image">
+                            <span class="hidden-xs">${profile.username}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="<@resource src=profile.avatar/>" class="img-circle" alt="User Image">
+                                <p>${profile.username}</p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="${base}/user/profile" class="btn btn-default btn-flat">个人资料</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="${base}/logout" class="btn btn-default btn-flat">退出登录</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
-        <!-- /. NAV SIDE  -->
+    </header>
 
-        <div id="page-wrapper">
-            <div id="page-inner">
-                <#nested/>
+    <!-- Left side column -->
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="${base}${profile.avatar}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>${profile.username}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
             </div>
-        </div>
-        <!-- /. PAGE WRAPPER  -->
+
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">MENUS</li>
+
+                <li>
+                    <a href="${base}/admin" class="active"><i class="fa fa-dashboard"></i><span>仪表盘</span></a>
+                </li>
+                <@menus>
+                    <#list results as menu>
+                        <li><a href="${base}/${menu.url}"><i class="${menu.icon}"></i><span>${menu.name}</span></a></li>
+                    </#list>
+                </@menus>
+            </ul>
+        </section>
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <#nested/>
     </div>
 
-    <!-- Custom Theme Scripts -->
-    <script src="${base}/theme/admin/js/jquery.metisMenu.js"></script>
-    <script src="${base}/theme/admin/js/custom-scripts.js"></script>
-    <script src="${base}/theme/admin/js/app.data.js"></script>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">${site.version}</div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2019 <a href="#">mtons</a>.</strong> All rights reserved.
+    </footer>
 </body>
 </html>
 </#macro>
@@ -94,7 +128,7 @@
         <#local cURL = (url + "?pn=") />
     </#if>
 
-<ul class="pagination">
+<ul class="pagination no-margin pull-right">
     <#if (pageNo > 1)>
         <#local prev = pageNo - 1 />
         <li><a class="prev" href="${cURL}${prev}" pageNo="1">&nbsp;<i class="fa fa-angle-left"></i>&nbsp;</a></li>

@@ -19,7 +19,7 @@
 		</ul>
 	</div>
 </div>
-
+<@controls name="comment">
 <div class="panel panel-default corner-radius panel-hot-topics">
     <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-comment-o"></i> 最新评论</h3>
@@ -30,6 +30,7 @@
         </ul>
     </div>
 </div>
+</@controls>
 
 <script type="text/javascript">
 

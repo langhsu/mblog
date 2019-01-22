@@ -3,75 +3,99 @@
 <link rel='stylesheet' media='all' href='${base}/dist/css/plugins.css'/>
 <script type="text/javascript" src="${base}/dist/js/plugins.js"></script>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span>文章编辑</span>
-            </div>
-            <div class="panel-body">
-                <#include "/admin/message.ftl">
-                <form id="qForm" class="form-horizontal form-label-left" method="post" action="${base}/admin/post/update" enctype="multipart/form-data">
-                    <#if view??>
-                        <input type="hidden" name="type" value="${view.type}"/>
-                        <input type="hidden" name="id" value="${view.id}"/>
-                        <input type="hidden" name="thumbnail" value="${view.thumbnail}">
-                    </#if>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right">标题</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="title" value="${view.title}" maxlength="64" data-required >
-                        </div>
+<section class="content-header">
+    <h1>文章编辑</h1>
+    <ol class="breadcrumb">
+        <li><a href="${base}/admin">首页</a></li>
+        <li><a href="${base}/admin/post/list">文章管理</a></li>
+        <li class="active">文章编辑</li>
+    </ol>
+</section>
+<section class="content container-fluid">
+    <div class="row">
+        <form id="qForm" method="post" action="${base}/admin/post/update">
+            <div class="col-md-9">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">文章编辑</h3>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right">预览图</label>
-                        <div class="col-sm-10">
-                            <input type="file" name="file" thumbnail>
+                    <div class="box-body">
+                        <#include "/admin/message.ftl">
+                        <#if view??>
+                            <input type="hidden" name="type" value="${view.type}"/>
+                            <input type="hidden" name="id" value="${view.id}"/>
+                            <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
+                        </#if>
+                        <div class="form-group">
+                            <label>标题</label>
+                            <input type="text" class="form-control" name="title" value="${view.title}" maxlength="64" placeholder="文章标题" data-required >
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right">发布到</label>
-                        <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>栏目</label>
                             <select class="form-control" name="channelId">
                                 <#list groups as row>
                                     <option value="${row.id}" <#if (view.channelId == row.id)> selected </#if>>${row.name}</option>
                                 </#list>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="desc" class="col-sm-2 control-label no-padding-right">内容:</label>
-                        <div class="col-sm-10">
+                        <div class="form-group">
+                            <label>内容</label>
                             <#include "/admin/editor/ueditor.ftl"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label no-padding-right">标签</label>
-                        <div class="col-sm-10">
-                            <input type="hidden" name="tags" id="fieldTags" value="${view.tags}">
-                            <ul id="tags"></ul>
-                            <p class="help-block" style="font-size: 12px;">添加相关标签，用逗号或空格分隔.</p>
-                        </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">提交</button>
                     </div>
-
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">提交</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="col-md-3">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">预览图</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="thumbnail-box">
+                            <div class="convent_choice" id="thumbnail_image" <#if view.thumbnail?? && view.thumbnail?length gt 0> style="background: url(${base + view.thumbnail});" </#if>>
+                                <div class="upload-btn">
+                                    <label>
+                                        <span>点击选择一张图片</span>
+                                        <input id="upload_btn" type="file" name="file" accept="image/*" title="点击添加图片">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">标签</h3>
+                    </div>
+                    <div class="box-body">
+                        <input type="hidden" name="tags" id="fieldTags" value="${view.tags}">
+                        <ul id="tags"></ul>
+                        <p class="help-block" style="font-size: 12px;">添加相关标签，用逗号或空格分隔.</p>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
-
+</section>
 <script type="text/javascript">
 $(function() {
 	$('#tags').tagit({
 		singleField: true,
 		singleFieldNode: $('#fieldTags')
 	});
+
+    $('#upload_btn').change(function(){
+        $(this).upload(app.base + '/post/upload?crop=1&width=360&height=200', function(data){
+            if (data.status == 200) {
+                var path = app.base + data.path;
+                $("#thumbnail_image").css("background", "url(" + path + ") no-repeat scroll center 0 rgba(0, 0, 0, 0)");
+                $("#thumbnail").val(data.path);
+            }
+        });
+    });
 
 	$('form').validate({
 		onKeyup : true,

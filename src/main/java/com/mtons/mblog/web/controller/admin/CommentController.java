@@ -37,7 +37,7 @@ public class CommentController extends BaseController {
 	private CommentService commentService;
 	
 	@RequestMapping("/list")
-	@RequiresPermissions("comment:list")
+//	@RequiresPermissions("comment:list")
 	public String list(ModelMap model) {
 		Pageable pageable = wrapPageable();
 		Page<CommentVO> page = commentService.paging4Admin(pageable);
@@ -46,7 +46,7 @@ public class CommentController extends BaseController {
 	}
 	
 	@RequestMapping("/delete")
-	@RequiresPermissions("comment:delete")
+//	@RequiresPermissions("comment:delete")
 	@ResponseBody
 	public Data delete(@RequestParam("id") List<Long> id) {
 		Data data = Data.failure("操作失败");

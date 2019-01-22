@@ -1,7 +1,11 @@
 package com.mtons.mblog.base.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
-import org.apache.log4j.Logger;
+import net.coobird.thumbnailator.geometry.Coordinate;
+import net.coobird.thumbnailator.geometry.Position;
+import net.coobird.thumbnailator.geometry.Positions;
+import net.sf.ehcache.hibernate.regions.EhcacheCollectionRegion;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -11,183 +15,110 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * @author langhsu on 2015/9/4.
+ * @author langhsu on 2019/1/20.
+ * @since 3.0
  */
+@Slf4j
 public class ImageUtils {
-    private static Logger log = Logger.getLogger(ImageUtils.class);
 
     public static void validate(String dest) throws IOException {
         File destFile = new File(dest);
-        if (dest == null) {
-            throw new NullPointerException("Destination must not be null");
-        } else if (destFile.getParentFile() != null && !destFile.getParentFile().exists() && !destFile.getParentFile().mkdirs()) {
+        if (destFile.getParentFile() != null && !destFile.getParentFile().exists() && !destFile.getParentFile().mkdirs()) {
             throw new IOException("Destination \'" + dest + "\' directory cannot be created");
         } else if (destFile.exists() && !destFile.canWrite()) {
             throw new IOException("Destination \'" + dest + "\' exists but is read-only");
         }
     }
 
+    public static byte[] download(String urlString) throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        Thumbnails.of(new URL(urlString)).toOutputStream(output);
+        return output.toByteArray();
+    }
+
     /**
-     * 下载远程图片到本地，用于第三方登录下载头像
+     * 图片压缩,各个边按比例压缩
      *
-     * @param urlString 图片链接
-     * @param savePath  保存路径
-     * @throws Exception
-     * @author A蛋壳  2015年9月13日 上午9:40:17
+     * @param builder Thumbnails.of
+     * @param width   压缩后的宽度
+     * @param height  压缩后的高度
+     * @param <T>     T
+     * @throws IOException IOException
      */
-    public static void download(String urlString, String savePath) throws Exception {
-
-        URL url = new URL(urlString);    // 构造URL
-        URLConnection connection = url.openConnection();    // 打开连接
-        connection.setConnectTimeout(5 * 1000);        // 设置请求超时时间
-        InputStream is = connection.getInputStream();    // 输入流
-
-        byte[] bs = new byte[1024];        // 1K的数据缓存
-        int len;
-        File sf = new File(savePath);
-        if (sf.getParentFile() != null && sf.getParentFile().exists() == false) {
-            if (sf.getParentFile().mkdirs() == false) {
-                throw new IOException("Destination '" + savePath + "' directory cannot be created");
-            }
-        }
-
-        OutputStream os = new FileOutputStream(savePath);
-        while ((len = is.read(bs)) != -1) {
-            os.write(bs, 0, len);
-        }
-        os.close();
-        is.close();
+    public static <T> byte[] scale(Thumbnails.Builder<T> builder, int width, int height) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        builder.size(width, height).toOutputStream(output);
+        return output.toByteArray();
     }
 
     /**
      * 根据最大宽度图片压缩
      *
      * @param file    原图位置
-     * @param dest    目标位置
      * @param maxSize 指定压缩后最大边长
-     * @return boolean
-     * @throws IOException
+     * @throws IOException IOException
      */
-    public static boolean scaleImageByWidth(MultipartFile file, String dest, int maxSize) throws IOException {
-        BufferedImage src = ImageIO.read(file.getInputStream()); // 读入文件
-        int w = src.getWidth();
-        int h = src.getHeight();
-
-        log.debug("origin with/height " + w + "/" + h);
-
-        int size = (int) Math.max(w, h);
-        int tow = w;
-        int toh = h;
-
-        if (size > maxSize) {
-            if (w > maxSize) {
-                tow = maxSize;
-                toh = h * maxSize / w;
-            } else {
-                tow = w * maxSize / h;
-                toh = maxSize;
-            }
-        }
-        scale(file, dest, tow, toh);
-        return true;
+    public static byte[] scaleByWidth(MultipartFile file, int maxSize) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        Thumbnails.of(file.getInputStream()).width(maxSize).toOutputStream(output);
+        return output.toByteArray();
     }
 
-    public static void scale(MultipartFile file, String dest, int width, int height) throws IOException {
-        validate(dest);
-        log.debug("scaled with/height : " + width + "/" + height);
-        Thumbnails.of(file.getInputStream()).size(width, height).toFile(dest);
+    public static byte[] scale(File file, int width, int height) throws IOException {
+        return scale(Thumbnails.of(file), width, height);
     }
 
-    public static void scale(File file, String dest, int width, int height) throws IOException {
-        validate(dest);
-        log.debug("scaled with/height : " + width + "/" + height);
-        Thumbnails.of(file).size(width, height).toFile(dest);
+    public static byte[] scale(File file, int maxSize) throws IOException {
+        return scale(file, maxSize, maxSize);
+    }
+
+    public static byte[] scale(MultipartFile file, int width, int height) throws IOException {
+        return scale(Thumbnails.of(file.getInputStream()), width, height);
+    }
+
+    public static byte[] scale(MultipartFile file, int maxSize) throws IOException {
+        return scale(file, maxSize, maxSize);
     }
 
     /**
-     * 图片压缩,各个边按比例压缩
+     * 截图
      *
-     * @param file    原图位置
-     * @param dest    目标位置
-     * @param maxSize 指定压缩后最大边长
-     * @return boolean
-     * @throws IOException
+     * @param builder  Thumbnails.of
+     * @param position the position
+     * @param width    width
+     * @param height   height
+     * @param <T>      T
+     * @throws IOException          IOException
+     * @throws InterruptedException InterruptedException
      */
-    public static boolean scaleImage(MultipartFile file, String dest, int maxSize) throws IOException {
-        BufferedImage src = ImageIO.read(file.getInputStream()); // 读入文件
-        int w = src.getWidth();
-        int h = src.getHeight();
-
-        log.debug("origin with/height " + w + "/" + h);
-
-        int size = Math.max(w, h);
-        int tow = w;
-        int toh = h;
-
-        if (size > maxSize) {
-            if (w > maxSize) {
-                tow = maxSize;
-                toh = h * maxSize / w;
-            } else {
-                tow = w * maxSize / h;
-                toh = maxSize;
-            }
-        }
-
-        log.debug("scaled with/height : " + tow + "/" + toh);
-
-        scale(file, dest, tow, toh);
-        return true;
+    public static <T> byte[] screenshot(Thumbnails.Builder<T> builder, Position position, int width, int height) throws IOException, InterruptedException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        builder.size(width, height).sourceRegion(position, width, height).keepAspectRatio(false).toOutputStream(output);
+        return output.toByteArray();
     }
 
-    public static boolean scaleImage(File file, String dest, int maxSize) throws IOException {
-        BufferedImage src = ImageIO.read(file); // 读入文件
-        int w = src.getWidth();
-        int h = src.getHeight();
-
-        log.debug("origin with/height " + w + "/" + h);
-
-        int size = Math.max(w, h);
-        int tow = w;
-        int toh = h;
-
-        if (size > maxSize) {
-            if (w > maxSize) {
-                tow = maxSize;
-                toh = h * maxSize / w;
-            } else {
-                tow = w * maxSize / h;
-                toh = maxSize;
-            }
-        }
-
-        log.debug("scaled with/height : " + tow + "/" + toh);
-
-        scale(file, dest, tow, toh);
-        return true;
+    public static byte[] screenshot(File file, int x, int y, int width, int height) throws IOException, InterruptedException {
+        return screenshot(Thumbnails.of(file), new Coordinate(x, y), width, height);
     }
 
-    /**
-     * 裁剪图片
-     *
-     * @param file   源图片路径
-     * @param dest   处理后图片路径
-     * @param x      起始X坐标
-     * @param y      起始Y坐标
-     * @param width  裁剪宽度
-     * @param height 裁剪高度
-     * @return boolean
-     * @throws IOException          io异常
-     * @throws InterruptedException 中断异常
-     */
-    public static boolean cutImage(File file, String dest, int x, int y, int width, int height) throws IOException, InterruptedException {
-        validate(dest);
-        Thumbnails.of(file).sourceRegion(x, y, width, height).size(width, height).keepAspectRatio(false).toFile(dest);
-        return true;
+    public static byte[] screenshot(File file, int x, int y, int size) throws IOException, InterruptedException {
+        return screenshot(file, x, y, size, size);
     }
 
-    public static boolean cutImage(File file, String dest, int x, int y, int size) throws IOException, InterruptedException {
-        return cutImage(file, dest, x, y, size, size);
+    public static byte[] screenshot(File file, int width, int height) throws IOException, InterruptedException {
+        return screenshot(Thumbnails.of(file), Positions.CENTER, width, height);
+    }
+
+    public static byte[] screenshot(MultipartFile file, int x, int y, int width, int height) throws IOException, InterruptedException {
+        return screenshot(Thumbnails.of(file.getInputStream()), new Coordinate(x, y), width, height);
+    }
+
+    public static byte[] screenshot(MultipartFile file, int x, int y, int size) throws IOException, InterruptedException {
+        return screenshot(file, x, y, size, size);
+    }
+
+    public static byte[] screenshot(MultipartFile file, int width, int height) throws IOException, InterruptedException {
+        return screenshot(Thumbnails.of(file.getInputStream()), Positions.CENTER, width, height);
     }
 
 }

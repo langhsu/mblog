@@ -7,7 +7,8 @@ import com.mtons.mblog.base.oauth.utils.OathConfig;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OauthGithub extends Oauth {
-    private static final Logger LOGGER = Logger.getLogger(OauthGithub.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OauthGithub.class);
     private static final String AUTH_URL = "https://github.com/login/oauth/authorize";
     private static final String TOKEN_URL = "https://github.com/login/oauth/access_token";
     private static final String USER_INFO_URL = "https://api.github.com/user";
@@ -35,7 +36,7 @@ public class OauthGithub extends Oauth {
 
     public String getAuthorizeUrl(String state)
             throws UnsupportedEncodingException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("response_type", "code");
         params.put("client_id", getClientId());
         params.put("redirect_uri", getRedirectUri());
@@ -47,13 +48,13 @@ public class OauthGithub extends Oauth {
 
     public String getTokenByCode(String code)
             throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("code", code);
         params.put("client_id", getClientId());
         params.put("client_secret", getClientSecret());
 //    params.put("grant_type", "authorization_code");
 //    params.put("redirect_uri", getRedirectUri());
-        Map headers = new HashMap();
+        Map<String, String> headers = new HashMap<>();
         headers.put("Accept", "application/json");
         String token = TokenUtil.getAccessToken(super.doPost("https://github.com/login/oauth/access_token", params, headers));
         LOGGER.debug(token);
@@ -62,7 +63,7 @@ public class OauthGithub extends Oauth {
 
     public JSONObject getUserInfo(String accessToken)
             throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("Authorization", "token " + accessToken);
         String userInfo = super.doGetWithHeaders("https://api.github.com/user", params);
         JSONObject dataMap = JSON.parseObject(userInfo);
@@ -78,7 +79,7 @@ public class OauthGithub extends Oauth {
         }
         JSONObject dataMap = getUserInfo(accessToken);
         dataMap.put("access_token", accessToken);
-        LOGGER.debug(dataMap);
+        LOGGER.debug(JSON.toJSONString(dataMap));
         return dataMap;
     }
 

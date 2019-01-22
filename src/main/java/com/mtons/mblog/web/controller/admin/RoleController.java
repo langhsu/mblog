@@ -9,13 +9,15 @@ import com.mtons.mblog.modules.entity.Role;
 import com.mtons.mblog.modules.service.PermissionService;
 import com.mtons.mblog.modules.service.RoleService;
 import com.mtons.mblog.web.controller.BaseController;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +35,7 @@ public class RoleController extends BaseController {
 	private PermissionService permissionService;
 
 	@GetMapping("/list")
-	@RequiresPermissions("role:list")
+//	@RequiresPermissions("role:list")
 	public String paging(ModelMap model) {
 		Pageable pageable = wrapPageable();
 		Page<Role> page = roleService.paging(pageable, null);
@@ -53,7 +55,7 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping("/update")
-	@RequiresPermissions("role:update")
+//	@RequiresPermissions("role:update")
 	public String update(Role role, @RequestParam(value = "perms", required=false) List<Long> perms, ModelMap model) {
 		Data data;
 
@@ -88,7 +90,7 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping("/delete")
-	@RequiresPermissions("role:delete")
+//	@RequiresPermissions("role:delete")
 	public @ResponseBody Data delete(@RequestParam("id") Long id) {
 		Data ret;
 		if (Role.ADMIN_ID == id) {

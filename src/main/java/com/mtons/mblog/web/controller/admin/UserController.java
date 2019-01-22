@@ -12,12 +12,11 @@ package com.mtons.mblog.web.controller.admin;
 import com.mtons.mblog.base.data.Data;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.modules.service.RoleService;
-import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.modules.entity.Role;
+import com.mtons.mblog.modules.service.RoleService;
 import com.mtons.mblog.modules.service.UserRoleService;
 import com.mtons.mblog.modules.service.UserService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +46,7 @@ public class UserController extends BaseController {
 	private UserRoleService userRoleService;
 
 	@RequestMapping("/list")
-	@RequiresPermissions("user:list")
+//	@RequiresPermissions("user:list")
 	public String list(ModelMap model) {
 		Pageable pageable = wrapPageable();
 		Page<UserVO> page = userService.paging(pageable);
@@ -78,7 +77,7 @@ public class UserController extends BaseController {
 	}
 
 	@PostMapping("/update_role")
-	@RequiresPermissions("user:role")
+//	@RequiresPermissions("user:role")
 	public String postAuthc(Long id, @RequestParam(value = "roleIds", required=false) Set<Long> roleIds, ModelMap model) {
 		userRoleService.updateRole(id, roleIds);
 		model.put("data", Data.success());
@@ -86,7 +85,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/pwd", method = RequestMethod.GET)
-	@RequiresPermissions("user:pwd")
+//	@RequiresPermissions("user:pwd")
 	public String pwsView(Long id, ModelMap model) {
 		UserVO ret = userService.get(id);
 		model.put("view", ret);
@@ -94,7 +93,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/pwd", method = RequestMethod.POST)
-	@RequiresPermissions("user:pwd")
+//	@RequiresPermissions("user:pwd")
 	public String pwd(Long id, String newPassword, ModelMap model) {
 		UserVO ret = userService.get(id);
 		model.put("view", ret);
@@ -109,16 +108,18 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping("/open")
-	@RequiresPermissions("user:open")
-	public @ResponseBody Data open(Long id) {
+//	@RequiresPermissions("user:open")
+	@ResponseBody
+	public Data open(Long id) {
 		userService.updateStatus(id, Consts.STATUS_NORMAL);
 		Data data = Data.success("操作成功", Data.NOOP);
 		return data;
 	}
 
 	@RequestMapping("/close")
-	@RequiresPermissions("user:close")
-	public @ResponseBody Data close(Long id) {
+//	@RequiresPermissions("user:close")
+	@ResponseBody
+	public Data close(Long id) {
 		userService.updateStatus(id, Consts.STATUS_CLOSED);
 		Data data = Data.success("操作成功", Data.NOOP);
 		return data;

@@ -5,7 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.mtons.mblog.base.oauth.utils.OathConfig;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OauthOsc extends Oauth {
-    private static final Logger LOGGER = Logger.getLogger(OauthOsc.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OauthOsc.class);
     private static final String AUTH_URL = "http://www.oschina.net/action/oauth2/authorize";
     private static final String TOKEN_URL = "http://www.oschina.net/action/openapi/token";
     private static final String USER_INFO_URL = "http://www.oschina.net/action/openapi/user";
@@ -33,7 +34,7 @@ public class OauthOsc extends Oauth {
     }
 
     public String getAuthorizeUrl(String state) throws UnsupportedEncodingException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("response_type", "code");
         params.put("client_id", getClientId());
         params.put("redirect_uri", getRedirectUri());
@@ -44,7 +45,7 @@ public class OauthOsc extends Oauth {
     }
 
     public String getTokenByCode(String code) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("code", code);
         params.put("client_id", getClientId());
         params.put("client_secret", getClientSecret());
@@ -56,7 +57,7 @@ public class OauthOsc extends Oauth {
     }
 
     public JSONObject getUserInfo(String accessToken) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("access_token", accessToken);
         String userInfo = super.doGet("http://www.oschina.net/action/openapi/user", params);
         JSONObject dataMap = JSON.parseObject(userInfo);
@@ -65,21 +66,15 @@ public class OauthOsc extends Oauth {
     }
 
     public JSONObject tweetPub(String accessToken, String msg) {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("access_token", accessToken);
         params.put("msg", msg);
         try {
             JSONObject dataMap = JSON.parseObject(super.doPost("http://www.oschina.net/action/openapi/tweet_pub", params));
 
-            LOGGER.debug(dataMap);
-        } catch (KeyManagementException e) {
-            LOGGER.error(e);
-        } catch (NoSuchAlgorithmException e) {
-            LOGGER.error(e);
-        } catch (NoSuchProviderException e) {
-            LOGGER.error(e);
-        } catch (IOException e) {
-            LOGGER.error(e);
+            LOGGER.debug(JSON.toJSONString(dataMap));
+        } catch (KeyManagementException | NoSuchAlgorithmException | NoSuchProviderException | IOException e) {
+            LOGGER.error(e.getMessage(), e);
         }
         return null;
     }
@@ -91,7 +86,7 @@ public class OauthOsc extends Oauth {
         }
         JSONObject dataMap = getUserInfo(accessToken);
         dataMap.put("access_token", accessToken);
-        LOGGER.debug(dataMap);
+        LOGGER.debug(JSON.toJSONString(dataMap));
         return dataMap;
     }
 }

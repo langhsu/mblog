@@ -20,6 +20,7 @@
                         登录 Use it
                     </button>
                     <div id="ajax_login_message" class="text-danger"></div>
+                    <@controls name="register">
                     <hr>
                     <fieldset class="form-group">
                         <div class="alert alert-info">
@@ -32,6 +33,7 @@
                             <i class="fa fa-qq"></i> QQ帐号登录
                         </a>
                     </fieldset>
+                    </@controls>
                 </form>
             </div>
         </div><!-- /.modal-content -->
@@ -89,12 +91,14 @@
                     </li>
 
 				<#if profile??>
-                    <li>
-                        <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
-                    </li>
+                    <@controls name="post">
+                        <li>
+                            <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                        </li>
+                    </@controls>
                     <li class="dropdown">
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
-                            <img class="img-circle" src="${base}${profile.avatar}?t=${.now?time}">
+                            <img class="img-circle" src="<@resource src=profile.avatar + '?t=' + .now?time/>">
                             <span>${profile.name}</span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -112,8 +116,9 @@
                     </li>
 				<#else>
                     <li><a href="${base}/login" class="btn btn-default btn-sm signup">登录</a></li>
-
+                    <@controls name="register">
                     <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
+                    </@controls>
 				</#if>
 
                 </ul>

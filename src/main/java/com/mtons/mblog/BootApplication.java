@@ -1,29 +1,28 @@
 package com.mtons.mblog;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * SprintBootApplication
  */
+@Slf4j
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
-public class BootApplication extends SpringBootServletInitializer {
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(BootApplication.class);
-    }
+@EnableCaching
+@EnableTransactionManagement
+public class BootApplication {
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        SpringApplication.run(BootApplication.class, args);
+        ApplicationContext context = SpringApplication.run(BootApplication.class, args);
+        String serverPort = context.getEnvironment().getProperty("server.port");
+        log.info("mblog started at http://localhost:" + serverPort);
     }
 
 }

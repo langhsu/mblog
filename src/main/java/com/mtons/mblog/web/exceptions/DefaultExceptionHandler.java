@@ -9,17 +9,10 @@
 */
 package com.mtons.mblog.web.exceptions;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.alibaba.fastjson.JSON;
 import com.mtons.mblog.base.data.Data;
 import com.mtons.mblog.base.lang.MtonsException;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,16 +20,21 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 异常处理
  * @author langhsu
  *
  */
+@Slf4j
 @Component
 public class DefaultExceptionHandler implements HandlerExceptionResolver {
-	private Logger log = Logger.getLogger(getClass());
-	
-	private String errorView = "/error";
+	private static final String errorView = "/error";
 	
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,

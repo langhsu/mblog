@@ -35,7 +35,6 @@ public class ConfigServiceImpl implements ConfigService {
 	@Autowired
 	private ConfigRepository configRepository;
 	@Autowired
-//    @PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
@@ -98,7 +97,7 @@ public class ConfigServiceImpl implements ConfigService {
 	@Override
 	@Transactional
 	public void initSettings(Resource resource) {
-		Session session = entityManager.unwrap(org.hibernate.Session.class);
+		Session session = entityManager.unwrap(Session.class);
 		session.doWork(connection -> ScriptUtils.executeSqlScript(connection, resource));
 	}
 

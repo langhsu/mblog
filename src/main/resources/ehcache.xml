@@ -3,15 +3,15 @@
 
 	<diskStore path="java.io.tmpdir/ehcache"/>
 	
-	<defaultCache maxElementsInMemory="1000" eternal="false" timeToIdleSeconds="18000" timeToLiveSeconds="36000" overflowToDisk="false" />
+	<defaultCache maxElementsInMemory="100" eternal="false" timeToIdleSeconds="180" timeToLiveSeconds="360" overflowToDisk="false" />
 	 
 	<cache name="postsCaches"
 		eternal="false"
 		maxElementsOnDisk="999"
 		maxElementsInMemory="50"
 		overflowToDisk="true"
-		timeToIdleSeconds="360"
-		timeToLiveSeconds="720"
+		timeToIdleSeconds="180"
+		timeToLiveSeconds="360"
 		memoryStoreEvictionPolicy="LRU"/>
 	
 	<cache name="usersCaches"
@@ -19,8 +19,8 @@
 		   maxElementsOnDisk="999"
 		   maxElementsInMemory="50"
 		   overflowToDisk="true"
-		   timeToIdleSeconds="360"
-		   timeToLiveSeconds="720"
+		   timeToIdleSeconds="180"
+		   timeToLiveSeconds="360"
 		   memoryStoreEvictionPolicy="LRU"/>
 
 </ehcache>

@@ -18,6 +18,7 @@ import java.io.IOException;
  *
  */
 public interface FileRepo {
+
 	/**
 	 * 存储图片
 	 * @param file
@@ -25,8 +26,8 @@ public interface FileRepo {
 	 * @return
 	 * @throws IOException
 	 */
-	String store(MultipartFile file, String basePath) throws IOException;
-	
+	String store(MultipartFile file, String basePath) throws Exception;
+
 	/**
 	 * 存储压缩图片
 	 * @param file
@@ -46,19 +47,10 @@ public interface FileRepo {
 	String storeScale(MultipartFile file, String basePath, int width, int height) throws Exception;
 
 	/**
-	 * 获取图片大小
-	 *
-	 * @param storePath
-	 * @return
-	 */
-	int[] imageSize(String storePath);
-
-	String getRoot();
-
-	/**
 	 * 存储路径
 	 * @param storePath
 	 */
 	void deleteFile(String storePath);
 
+	String writeToStore(byte[] bytes, String pathAndFileName) throws Exception;
 }

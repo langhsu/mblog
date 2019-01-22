@@ -23,7 +23,7 @@
                             <div class="avatar pull-left">
                                 <a href="${base}/users/${row.from.id}">
                                     <img class="media-object img-thumbnail avatar avatar-middle"
-                                         src="${base + row.from.avatar}">
+                                         src="<@resource src=row.from.avatar />">
                                 </a>
                             </div>
                             <div class="infos">

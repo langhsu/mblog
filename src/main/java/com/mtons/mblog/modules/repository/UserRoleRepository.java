@@ -3,7 +3,6 @@ package com.mtons.mblog.modules.repository;
 import com.mtons.mblog.modules.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +19,5 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long>, JpaSp
      *
      * @param userId 用户ID
      */
-    @Transactional
     int deleteByUserId(long userId);
 }

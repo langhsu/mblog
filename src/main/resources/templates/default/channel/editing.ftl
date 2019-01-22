@@ -28,8 +28,8 @@
         </div>
         <div class="col-xs-12 col-md-4">
             <div class="panel panel-default corner-radius help-box">
-                <div class="convent_choice">
-                    <div class="andArea" id="thumbnail_image">
+                <div class="thumbnail-box">
+                    <div class="convent_choice" id="thumbnail_image" <#if view.thumbnail?? && view.thumbnail?length gt 0> style="background: url(<@resource src=view.thumbnail/>);" </#if>>
                         <div class="upload-btn">
                             <label>
                                 <span>点击选择一张图片</span>
@@ -38,25 +38,6 @@
                         </div>
                     </div>
                 </div>
-                <style>
-                    .convent_choice {
-                        height: 160px;
-                        width: 100%;
-                    }
-                    .andArea {
-                        background: url(${base}/dist/images/btn/add_img.png) no-repeat scroll center 25px rgba(0, 0, 0, 0);
-                        border: 1px dashed #E6E6E6;
-                        color: #CCCCCC;
-                        font-size: 18px;
-                        padding-top: 110px;
-                        position: relative;
-                        text-align: center;
-                        top: 0;
-                    }
-                    .upload-btn {
-                        margin-bottom: 9px;
-                    }
-                </style>
             </div>
             <div class="panel panel-default corner-radius help-box">
                 <div class="panel-heading text-center">

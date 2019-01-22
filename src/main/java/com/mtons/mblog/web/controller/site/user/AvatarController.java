@@ -11,20 +11,26 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.context.AppContext;
 import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import com.mtons.mblog.base.utils.ImageUtils;
+import com.mtons.mblog.web.controller.site.posts.UploadController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author langhsu
@@ -38,57 +44,57 @@ public class AvatarController extends BaseController {
 	@Autowired
 	private UserService userService;
 
+	@Value("${site.store.size:2}")
+	private String storeSize;
+
 	@RequestMapping(value = "/avatar", method = RequestMethod.GET)
 	public String view() {
 		return view(Views.USER_AVATAR);
 	}
 	
-	@RequestMapping(value = "/avatar", method = RequestMethod.POST)
-	public String post(String path, Float x, Float y, Float width, Float height, ModelMap model) {
+	@PostMapping("/avatar")
+	@ResponseBody
+	public UploadController.UploadResult upload(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+		UploadController.UploadResult result = new UploadController.UploadResult();
 		AccountProfile profile = getProfile();
-		
-		if (StringUtils.isEmpty(path)) {
-			model.put("data", Data.failure("请选择图片"));
-			return view(Views.USER_AVATAR);
-		}
-		
-		if (width != null && height != null) {
-			String root = fileRepo.getRoot();
-			File temp = new File(root + path);
-			File scale = null;
-			
-			// 目标目录
-			String ava100 = appContext.getAvaDir() + getAvaPath(profile.getId(), 100);
-			String dest = root + ava100;
-			try {
-				// 判断父目录是否存在
-				File f = new File(dest);
-		        if(!f.getParentFile().exists()){
-		            f.getParentFile().mkdirs();
-		        }
-		        // 在目标目录下生成截图
-		        String scalePath = f.getParent() + "/" + profile.getId() + ".jpg";
-				ImageUtils.cutImage(temp, scalePath, x.intValue(), y.intValue(), width.intValue());
-		        
-				// 对结果图片进行压缩
-				ImageUtils.scaleImage(new File(scalePath), dest, 100);
 
-				AccountProfile user = userService.updateAvatar(profile.getId(), ava100);
-				putProfile(user);
-				
-				scale = new File(scalePath);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				temp.delete();
-				if (scale != null) {
-					scale.delete();
-				}
-			}
+		// 检查空
+		if (null == file || file.isEmpty()) {
+			return result.error(UploadController.errorInfo.get("NOFILE"));
 		}
-		return "redirect:/user/profile";
+
+		String fileName = file.getOriginalFilename();
+
+		// 检查类型
+		if (!FileKit.checkFileType(fileName)) {
+			return result.error(UploadController.errorInfo.get("TYPE"));
+		}
+
+		// 检查大小
+		if (file.getSize() > (Long.parseLong(storeSize) * 1024 * 1024)) {
+			return result.error(UploadController.errorInfo.get("SIZE"));
+		}
+
+		// 保存图片
+		try {
+			String ava100 = appContext.getAvaDir() + getAvaPath(profile.getId(), 240);
+			byte[] bytes = ImageUtils.screenshot(file, 240, 240);
+
+			AccountProfile user = userService.updateAvatar(profile.getId(), ava100);
+			putProfile(user);
+
+			String path = fileRepoFactory.get().writeToStore(bytes, ava100);
+			result.ok(UploadController.errorInfo.get("SUCCESS"));
+			result.setName(fileName);
+			result.setType(getSuffix(fileName));
+			result.setPath(path);
+			result.setSize(file.getSize());
+		} catch (Exception e) {
+			result.error(UploadController.errorInfo.get("UNKNOWN"));
+		}
+		return result;
 	}
-	
+
 	public String getAvaPath(long uid, int size) {
 		String base = FilePathUtils.getAvatar(uid);
 		return String.format("/%s_%d.jpg", base, size);

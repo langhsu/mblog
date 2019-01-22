@@ -28,7 +28,6 @@ public interface MessageRepository extends JpaRepository<Message, Long>, JpaSpec
      * 标记我的消息为已读
      */
     @Modifying
-    @Transactional
     @Query("update Message n set n.status = 1 where n.status = 0 and n.ownId = :id")
     int updateReadedByOwnId(@Param("id") Long id);
 }

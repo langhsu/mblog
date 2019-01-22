@@ -5,6 +5,10 @@ spring:
         active: @profileActive@
     devtools:
         enabled: true
+    cache:
+        type: ehcache
+        ehcache:
+            config: classpath:ehcache.xml
     http:
         encoding:
             charset: UTF-8
@@ -33,12 +37,35 @@ spring:
         properties:
             mail.smtp.auth: true
 
+shiro:
+    web:
+        enabled: true
+    annotations:
+        enabled: false
+    loginUrl: /login
+    successUrl: /index
+    unauthorizedUrl: /error/reject.html
+    sessionManager:
+        cookie:
+            maxAge: 604800
+    rememberMeManager:
+        cookie:
+            maxAge: 604800
+
+
 # site.theme: [default|classic]
 site:
+    version: 3.0
     theme: classic
+    controls:
+        register: true
+        comment: true
     store:
         root: d:/data/mblog/
         maxWidth: 800
         size: 2
-system:
-    version: 2.8
+    upyun:
+        upyun_oss_src:
+        upyun_oss_pwd:
+        upyun_oss_bucket:
+        upyun_oss_operator:

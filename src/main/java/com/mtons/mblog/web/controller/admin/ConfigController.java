@@ -10,13 +10,11 @@
 package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.modules.entity.Config;
 import com.mtons.mblog.modules.service.ConfigService;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.web.controller.BaseController;
-import com.mtons.mblog.config.ContextStartup;
-import com.mtons.mblog.modules.service.PostService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,15 +43,15 @@ public class ConfigController extends BaseController {
 	private ContextStartup contextStartup;
 
 	@RequestMapping("/main")
-	@RequiresPermissions("config:list")
+//	@RequiresPermissions("config:list")
 	public String list(ModelMap model) {
 		model.put("configs", configService.findAll2Map());
 		return "/admin/config/main";
 	}
 	
 	@RequestMapping("/update")
-	@RequiresPermissions("config:update")
-	public String update(HttpServletRequest request) {
+//	@RequiresPermissions("config:update")
+	public String update(HttpServletRequest request, ModelMap model) {
 		Map<String, String[]> params = request.getParameterMap();
 
 		List<Config> configs = new ArrayList<>();
@@ -68,9 +66,11 @@ public class ConfigController extends BaseController {
 
 		configService.update(configs);
 
-		contextStartup.resetSiteConfig(false);
+		contextStartup.resetSetting(false);
 
-		return "redirect:/admin/config/main";
+		model.put("configs", configService.findAll2Map());
+		model.put("data", Data.success("操作成功", Data.NOOP));
+		return "/admin/config/main";
 	}
 
 	/**
@@ -78,15 +78,16 @@ public class ConfigController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/flush_conf")
-	public @ResponseBody
-    Data flushFiledia() {
-		contextStartup.resetSiteConfig(false);
+	@ResponseBody
+	public Data flushFiledia() {
+		contextStartup.resetSetting(false);
 		contextStartup.resetChannels();
 		return Data.success("操作成功", Data.NOOP);
 	}
 
 	@RequestMapping("/flush_indexs")
-	public @ResponseBody Data flushIndexs() {
+	@ResponseBody
+	public Data flushIndexs() {
 		postSearchService.resetIndexs();
 		return Data.success("操作成功", Data.NOOP);
 	}

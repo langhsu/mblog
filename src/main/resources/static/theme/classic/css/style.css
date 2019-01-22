@@ -1260,6 +1260,83 @@ abbr[data-original-title], abbr[title] {
     border-color: #15cfc7;
 }
 
+.replies-index.replies {
+    position: relative;
+}
+
+.replies-index.replies .order-links {
+    position: absolute;
+    top: 11px;
+    right: 11px;
+}
+
+.replies-index.replies .order-links .btn-sm {
+    margin-left: 2px;
+}
+
+.replies-index.replies .order-links .btn-default {
+    color: #b7b7b7;
+    background-color: #fff;
+    border-color: #dcdada;
+}
+
+.replies-index.replies .order-links .btn-default.active {
+    color: #b7b7b7;
+    background-color: #fbfbfb;
+    border-color: #e4e4e4;
+}
+
+.replies-index .operate a {
+    color: #d0d0d0;
+    display: inline-block;
+}
+
+.replies-index .markdown-reply {
+    display: block;
+    width: 100%;
+}
+
+.replies-index .list-group-item.media {
+    padding-bottom: 6px;
+}
+
+.replies-index .list-group-item.media {
+    padding-bottom: 10px;
+}
+
+.replies-index .list-group-item.media .infos, div.replies-index .list-group-item.media .avatar img {
+    margin-top: 6px;
+}
+
+.replies .list-group-item.media .infos {
+    margin-left: 90px;
+}
+
+.replies .avatar-container {
+    text-align: center;
+    width: 80px;
+}
+
+.replies .label.role {
+    padding: .1em .2em .1em;
+    position: inherit;
+    color: #949090;
+    border: 1px solid #e0e0e0;
+    font-weight: normal;
+    display: inline-block;
+    margin: 8px 0;
+    background: transparent;
+}
+
+.replies .media-object.avatar {
+    display: inline-block;
+}
+
+.reply-post-submit .help-inline {
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
 .users-show .list-group .list-group-item {
     padding: 10px 15px;
 }
@@ -1527,6 +1604,63 @@ abbr[data-original-title], abbr[title] {
 .account-tab > li > a {
     border-radius: 2px;
     padding: 6px 10px;
+}
+
+.thumbnail-box {
+    height: 160px;
+    width: 100%;
+}
+
+.thumbnail-box .convent_choice  {
+    background: url(../images/btn-add-image.png) no-repeat scroll center 25px rgba(0, 0, 0, 0);
+    border: 1px dashed #E6E6E6;
+    color: #CCCCCC;
+    font-size: 18px;
+    padding-top: 110px;
+    position: relative;
+    text-align: center;
+    top: 0;
+}
+
+/* 上传头像按钮 */
+.thumbnail-box .upload-btn {
+    text-align: center;
+    margin-bottom: 9px;
+}
+
+.thumbnail-box .upload-btn label {
+    background-color: #62c162;
+    color: white;
+    padding: 6px 0px;
+    font-size: 40%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    width: 240px;
+    margin: 10px auto 0px auto;
+}
+
+.thumbnail-box .upload-btn label:hover {
+    background-color: #5cb85c;
+}
+
+.thumbnail-box .upload-btn span {
+    cursor: pointer;
+}
+
+.thumbnail-box .upload-btn input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: solid transparent;
+    opacity: .0;
+    filter: alpha(opacity=0);
+    direction: ltr;
+    cursor: pointer;
 }
 
 /*

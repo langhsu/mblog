@@ -47,6 +47,6 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     @Override
     @Transactional
     public void add(Set<RolePermission> rolePermissions) {
-        rolePermissionRepository.save(rolePermissions);
+        rolePermissionRepository.saveAll(rolePermissions);
     }
 }

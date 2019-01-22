@@ -79,9 +79,14 @@ define(function(require, exports, module) {
 		contentRender: ContentRender,
         init : function (options) {
         	this.options = $.extend({}, this.defaults, options);
+
+        	if (!this.options.load) {
+        		return false;
+			}
         	this.bindEvents();
         },
         defaults: {
+        	load: true,
         	load_url : null,
         	post_url : null,
         	toId : 0,

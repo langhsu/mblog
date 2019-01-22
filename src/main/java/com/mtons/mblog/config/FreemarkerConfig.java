@@ -1,7 +1,7 @@
 package com.mtons.mblog.config;
 
-import com.mtons.mblog.core.template.directive.*;
-import com.mtons.mblog.core.template.method.TimeAgoMethod;
+import com.mtons.mblog.modules.template.directive.*;
+import com.mtons.mblog.modules.template.method.TimeAgoMethod;
 import com.mtons.mblog.shiro.tags.ShiroTags;
 import com.mtons.mblog.web.menu.MenusDirective;
 import freemarker.template.Configuration;
@@ -31,6 +31,7 @@ public class FreemarkerConfig {
         configuration.setSharedVariable("resource", applicationContext.getBean(ResourceDirective.class));
         configuration.setSharedVariable("menus", applicationContext.getBean(MenusDirective.class));
         configuration.setSharedVariable("banner", applicationContext.getBean(BannerDirective.class));
+        configuration.setSharedVariable("controls", applicationContext.getBean(ControlsDirective.class));
 
         configuration.setSharedVariable("timeAgo", new TimeAgoMethod());
         configuration.setSharedVariable("shiro", new ShiroTags());

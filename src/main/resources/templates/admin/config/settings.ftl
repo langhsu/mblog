@@ -1,77 +1,54 @@
-<form id="qForm" class="form-horizontal" method="post" action="update">
-    <#include "/admin/message.ftl">
-    <div class="channel-left-border">
-        <div class="channel-title">QQ登录</div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">回调地址</label>
-            <div class="col-lg-6">
-                <input type="text" name="qq_callback" class="form-control" value="${configs['qq_callback'].value}">
-                <p class="help-block">示例: http://{domain}/oauth/callback/qq</p>
+<form id="qForm" method="post" action="update">
+    <div class="box-body">
+        <div class="col-md-4">
+            <p class="lead">QQ登录</p>
+            <div class="form-group">
+                <label>回调地址</label>
+                <input type="text" name="qq_callback" class="form-control" value="${configs['qq_callback'].value}" placeholder="示例: http://{domain}/oauth/callback/qq">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">app_ID</label>
-            <div class="col-lg-6">
+            <div class="form-group">
+                <label>APP_ID</label>
                 <input type="text" name="qq_app_id" class="form-control" value="${configs['qq_app_id'].value}">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">app_KEY</label>
-            <div class="col-lg-6">
+            <div class="form-group">
+                <label>APP_KEY</label>
                 <input type="text" name="qq_app_key" class="form-control" value="${configs['qq_app_key'].value}">
             </div>
         </div>
-    </div>
 
-    <div class="channel-left-border">
-        <div class="channel-title">微博登录</div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">回调地址</label>
-            <div class="col-lg-6">
-                <input type="text" name="weibo_callback" class="form-control" value="${configs['weibo_callback'].value}">
-                <p class="help-block">示例: http://{domain}/oauth/callback/weibo</p>
+        <div class="col-md-4">
+            <p class="lead">微博登录</p>
+            <div class="form-group">
+                <label>回调地址</label>
+                <input type="text" name="weibo_callback" class="form-control" value="${configs['weibo_callback'].value}" placeholder="示例: http://{domain}/oauth/callback/weibo">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">client_ID</label>
-            <div class="col-lg-6">
+            <div class="form-group">
+                <label>CLIENT_ID</label>
                 <input type="text" name="weibo_client_id" class="form-control" value="${configs['weibo_client_id'].value}">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">client_SERCRET</label>
-            <div class="col-lg-6">
+            <div class="form-group">
+                <label>CLIENT_SERCRET</label>
                 <input type="text" name="weibo_client_sercret" class="form-control" value="${configs['weibo_client_sercret'].value}">
             </div>
         </div>
-    </div>
 
-    <div class="channel-left-border">
-        <div class="channel-title">Github登录</div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">回调地址</label>
-            <div class="col-lg-6">
-                <input type="text" name="github_callback" class="form-control" value="${configs['github_callback'].value}">
-                <p class="help-block">示例: http://{domain}/oauth/callback/github</p>
+        <div class="col-md-4">
+            <p class="lead">Github登录</p>
+            <div class="form-group">
+                <label>回调地址</label>
+                <input type="text" name="github_callback" class="form-control" value="${configs['github_callback'].value}" placeholder="示例: http://{domain}/oauth/callback/github">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">client_ID</label>
-            <div class="col-lg-6">
+            <div class="form-group">
+                <label>CLIENT_ID</label>
                 <input type="text" name="github_client_id" class="form-control" value="${configs['github_client_id'].value}">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-2 control-label">client_SERCRET</label>
-            <div class="col-lg-6">
+            <div class="form-group">
+                <label>CLIENT_SERCRET</label>
                 <input type="text" name="github_secret_key" class="form-control" value="${configs['github_secret_key'].value}">
             </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-lg-9 col-lg-offset-3">
-            <button type="submit" class="btn btn-primary btn-small">提交</button>
-        </div>
+    <div class="box-footer">
+        <button type="submit" class="btn btn-primary">提交</button>
     </div>
 </form>

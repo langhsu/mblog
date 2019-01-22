@@ -15,7 +15,7 @@
                         </span>
 
                         <#if row.thumbnail??>
-                            <img src="${base + row.thumbnail}">
+                            <img src="<@resource src=row.thumbnail/>">
                         <#else>
                             <img src="${base}/dist/images/spinner-overlay.png">
                         </#if>
@@ -50,7 +50,7 @@
                         <div class="avatar pull-left">
                             <a href="${base}/users/${row.author.id}">
                                 <img class="media-object img-thumbnail avatar avatar-middle"
-                                     src="${base + row.author.avatar}?t=${.now?time}">
+                                     src="<@resource src=row.author.avatar + '?t=' + .now?time />">
                             </a>
                         </div>
 

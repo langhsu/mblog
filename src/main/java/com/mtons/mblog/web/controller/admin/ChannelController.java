@@ -35,7 +35,7 @@ public class ChannelController extends BaseController {
 	private ContextStartup contextStartup;
 	
 	@RequestMapping("/list")
-	@RequiresPermissions("channel:list")
+//	@RequiresPermissions("channel:list")
 	public String list(ModelMap model) {
 		model.put("list", channelService.findAll(Consts.IGNORE));
 		return "/admin/channel/list";
@@ -51,7 +51,7 @@ public class ChannelController extends BaseController {
 	}
 	
 	@RequestMapping("/update")
-	@RequiresPermissions("channel:update")
+//	@RequiresPermissions("channel:update")
 	public String update(Channel view) {
 		if (view != null) {
 			channelService.update(view);
@@ -62,9 +62,9 @@ public class ChannelController extends BaseController {
 	}
 	
 	@RequestMapping("/delete")
-	@RequiresPermissions("channel:delete")
-	public @ResponseBody
-    Data delete(Integer id) {
+	@ResponseBody
+//	@RequiresPermissions("channel:delete")
+	public Data delete(Integer id) {
 		Data data = Data.failure("操作失败");
 		if (id != null) {
 			try {

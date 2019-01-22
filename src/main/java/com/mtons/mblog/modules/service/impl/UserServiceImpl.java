@@ -40,220 +40,207 @@ import java.util.*;
 @Transactional(readOnly = true)
 @CacheConfig(cacheNames = "usersCaches")
 public class UserServiceImpl implements UserService {
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private MessageService messageService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private MessageService messageService;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Override
-	@Transactional
-	public AccountProfile login(String username, String password) {
-		User po = userRepository.findByUsername(username);
-		AccountProfile u = null;
+    @Override
+    @Transactional
+    public AccountProfile login(String username, String password) {
+        User po = userRepository.findByUsername(username);
+        AccountProfile u = null;
 
-		Assert.notNull(po, "账户不存在");
-
-//		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
-
-		Assert.state(StringUtils.equals(po.getPassword(), password), "密码错误");
-
-		po.setLastLogin(Calendar.getInstance().getTime());
-		userRepository.save(po);
-		u = BeanMapUtils.copyPassport(po);
-
-		BadgesCount badgesCount = new BadgesCount();
-		badgesCount.setMessages(messageService.unread4Me(u.getId()));
-
-		u.setBadgesCount(badgesCount);
-		return u;
-	}
-
-	@Override
-	@Transactional
-	public AccountProfile getProfileByName(String username) {
-		User po = userRepository.findByUsername(username);
-		AccountProfile u = null;
-
-		Assert.notNull(po, "账户不存在");
+        Assert.notNull(po, "账户不存在");
 
 //		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
-		po.setLastLogin(Calendar.getInstance().getTime());
 
-		u = BeanMapUtils.copyPassport(po);
+        Assert.state(StringUtils.equals(po.getPassword(), password), "密码错误");
 
-		BadgesCount badgesCount = new BadgesCount();
-		badgesCount.setMessages(messageService.unread4Me(u.getId()));
+        po.setLastLogin(Calendar.getInstance().getTime());
+        userRepository.save(po);
+        u = BeanMapUtils.copyPassport(po);
 
-		u.setBadgesCount(badgesCount);
+        BadgesCount badgesCount = new BadgesCount();
+        badgesCount.setMessages(messageService.unread4Me(u.getId()));
 
-		return u;
-	}
+        u.setBadgesCount(badgesCount);
+        return u;
+    }
 
-	@Override
-	@Transactional
-	public UserVO register(UserVO user) {
-		Assert.notNull(user, "Parameter user can not be null!");
+    @Override
+    @Transactional
+    public AccountProfile getProfileByName(String username) {
+        User po = userRepository.findByUsername(username);
+        AccountProfile u = null;
 
-		Assert.hasLength(user.getUsername(), "用户名不能为空!");
-		Assert.hasLength(user.getPassword(), "密码不能为空!");
+        Assert.notNull(po, "账户不存在");
 
-		User check = userRepository.findByUsername(user.getUsername());
+//		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
+        po.setLastLogin(Calendar.getInstance().getTime());
 
-		Assert.isNull(check, "用户名已经存在!");
+        u = BeanMapUtils.copyPassport(po);
 
-		User po = new User();
+        BadgesCount badgesCount = new BadgesCount();
+        badgesCount.setMessages(messageService.unread4Me(u.getId()));
 
-		BeanUtils.copyProperties(user, po);
+        u.setBadgesCount(badgesCount);
 
-		if (StringUtils.isBlank(po.getName())) {
-			po.setName(user.getUsername());
-		}
+        return u;
+    }
 
-		Date now = Calendar.getInstance().getTime();
-		po.setPassword(MD5.md5(user.getPassword()));
-		po.setStatus(EntityStatus.ENABLED);
-		po.setCreated(now);
+    @Override
+    @Transactional
+    public UserVO register(UserVO user) {
+        Assert.notNull(user, "Parameter user can not be null!");
 
-		userRepository.save(po);
+        Assert.hasLength(user.getUsername(), "用户名不能为空!");
+        Assert.hasLength(user.getPassword(), "密码不能为空!");
 
-		return BeanMapUtils.copy(po, 0);
-	}
+        User check = userRepository.findByUsername(user.getUsername());
 
-	@Override
-	@Transactional
-	@CacheEvict(key = "#user.getId()")
-	public AccountProfile update(UserVO user) {
-		User po = userRepository.findOne(user.getId());
-		if (null != po) {
-			po.setName(user.getName());
-			po.setSignature(user.getSignature());
-			userRepository.save(po);
-		}
-		return BeanMapUtils.copyPassport(po);
-	}
+        Assert.isNull(check, "用户名已经存在!");
 
-	@Override
-	@Transactional
-	@CacheEvict(key = "#id")
-	public AccountProfile updateEmail(long id, String email) {
-		User po = userRepository.findOne(id);
+        User po = new User();
 
-		if (null != po) {
-			if (email.equals(po.getEmail())) {
-				throw new MtonsException("邮箱地址没做更改");
-			}
+        BeanUtils.copyProperties(user, po);
 
-			User check = userRepository.findByEmail(email);
+        if (StringUtils.isBlank(po.getName())) {
+            po.setName(user.getUsername());
+        }
 
-			if (check != null && check.getId() != po.getId()) {
-				throw new MtonsException("该邮箱地址已经被使用了");
-			}
-			po.setEmail(email);
-			userRepository.save(po);
-		}
+        Date now = Calendar.getInstance().getTime();
+        po.setPassword(MD5.md5(user.getPassword()));
+        po.setStatus(EntityStatus.ENABLED);
+        po.setCreated(now);
 
-		return BeanMapUtils.copyPassport(po);
-	}
+        userRepository.save(po);
 
-	@Override
-	@Cacheable(key = "#userId")
-	public UserVO get(long userId) {
-		User po = userRepository.findOne(userId);
-		UserVO ret = null;
-		if (po != null) {
-			ret = BeanMapUtils.copy(po, 0);
-		}
-		return ret;
-	}
+        return BeanMapUtils.copy(po, 0);
+    }
 
-	@Override
-	public UserVO getByUsername(String username) {
-		return BeanMapUtils.copy(userRepository.findByUsername(username), 0);
-	}
+    @Override
+    @Transactional
+    @CacheEvict(key = "#user.getId()")
+    public AccountProfile update(UserVO user) {
+        User po = userRepository.findById(user.getId()).get();
+        po.setName(user.getName());
+        po.setSignature(user.getSignature());
+        userRepository.save(po);
+        return BeanMapUtils.copyPassport(po);
+    }
 
-	@Override
-	public UserVO getByEmail(String email) {
-		return BeanMapUtils.copy(userRepository.findByEmail(email), 0);
-	}
+    @Override
+    @Transactional
+    @CacheEvict(key = "#id")
+    public AccountProfile updateEmail(long id, String email) {
+        User po = userRepository.findById(id).get();
 
-	@Override
-	@Transactional
-	@CacheEvict(key = "#id")
-	public AccountProfile updateAvatar(long id, String path) {
-		User po = userRepository.findOne(id);
-		if (po != null) {
-			po.setAvatar(path);
-			userRepository.save(po);
-		}
-		return BeanMapUtils.copyPassport(po);
-	}
+        if (email.equals(po.getEmail())) {
+            throw new MtonsException("邮箱地址没做更改");
+        }
 
-	@Override
-	@Transactional
-	public void updatePassword(long id, String newPassword) {
-		User po = userRepository.findOne(id);
+        User check = userRepository.findByEmail(email);
 
-		Assert.hasLength(newPassword, "密码不能为空!");
+        if (check != null && check.getId() != po.getId()) {
+            throw new MtonsException("该邮箱地址已经被使用了");
+        }
+        po.setEmail(email);
+        userRepository.save(po);
 
-		if (null != po) {
-			po.setPassword(MD5.md5(newPassword));
-			userRepository.save(po);
-		}
-	}
+        return BeanMapUtils.copyPassport(po);
+    }
 
-	@Override
-	@Transactional
-	public void updatePassword(long id, String oldPassword, String newPassword) {
-		User po = userRepository.findOne(id);
+    @Override
+    @Cacheable(key = "#userId")
+    public UserVO get(long userId) {
+        Optional<User> optional = userRepository.findById(userId);
+        if (optional.isPresent()) {
+            return BeanMapUtils.copy(optional.get(), 0);
+        }
+        return null;
+    }
 
-		Assert.hasLength(newPassword, "密码不能为空!");
+    @Override
+    public UserVO getByUsername(String username) {
+        return BeanMapUtils.copy(userRepository.findByUsername(username), 0);
+    }
 
-		if (po != null) {
-			Assert.isTrue(MD5.md5(oldPassword).equals(po.getPassword()), "当前密码不正确");
-			po.setPassword(MD5.md5(newPassword));
-			userRepository.save(po);
-		}
-	}
+    @Override
+    public UserVO getByEmail(String email) {
+        return BeanMapUtils.copy(userRepository.findByEmail(email), 0);
+    }
 
-	@Override
-	@Transactional
-	public void updateStatus(long id, int status) {
-		User po = userRepository.findOne(id);
+    @Override
+    @Transactional
+    @CacheEvict(key = "#id")
+    public AccountProfile updateAvatar(long id, String path) {
+        User po = userRepository.findById(id).get();
+        po.setAvatar(path);
+        userRepository.save(po);
+        return BeanMapUtils.copyPassport(po);
+    }
 
-		if (po != null) {
-			po.setStatus(status);
-			userRepository.save(po);
-		}
-	}
+    @Override
+    @Transactional
+    public void updatePassword(long id, String newPassword) {
+        User po = userRepository.findById(id).get();
 
-	@Override
-	public Page<UserVO> paging(Pageable pageable) {
-		Page<User> page = userRepository.findAllByOrderByIdDesc(pageable);
-		List<UserVO> rets = new ArrayList<>();
+        Assert.hasLength(newPassword, "密码不能为空!");
 
-		for (User po : page.getContent()) {
-			UserVO u = BeanMapUtils.copy(po , 1);
-			rets.add(u);
-		}
+        po.setPassword(MD5.md5(newPassword));
+        userRepository.save(po);
+    }
 
-		return new PageImpl<>(rets, pageable, page.getTotalElements());
-	}
+    @Override
+    @Transactional
+    public void updatePassword(long id, String oldPassword, String newPassword) {
+        User po = userRepository.findById(id).get();
 
-	@Override
-	public Map<Long, UserVO> findMapByIds(Set<Long> ids) {
-		if (ids == null || ids.isEmpty()) {
-			return Collections.emptyMap();
-		}
-		List<User> list = userRepository.findAllByIdIn(ids);
-		Map<Long, UserVO> ret = new HashMap<>();
+        Assert.hasLength(newPassword, "密码不能为空!");
 
-		list.forEach(po -> {
-			ret.put(po.getId(), BeanMapUtils.copy(po, 0));
-		});
-		return ret;
-	}
+        Assert.isTrue(MD5.md5(oldPassword).equals(po.getPassword()), "当前密码不正确");
+        po.setPassword(MD5.md5(newPassword));
+        userRepository.save(po);
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(long id, int status) {
+        User po = userRepository.findById(id).get();
+
+        po.setStatus(status);
+        userRepository.save(po);
+    }
+
+    @Override
+    public Page<UserVO> paging(Pageable pageable) {
+        Page<User> page = userRepository.findAllByOrderByIdDesc(pageable);
+        List<UserVO> rets = new ArrayList<>();
+
+        for (User po : page.getContent()) {
+            UserVO u = BeanMapUtils.copy(po, 1);
+            rets.add(u);
+        }
+
+        return new PageImpl<>(rets, pageable, page.getTotalElements());
+    }
+
+    @Override
+    public Map<Long, UserVO> findMapByIds(Set<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        List<User> list = userRepository.findAllByIdIn(ids);
+        Map<Long, UserVO> ret = new HashMap<>();
+
+        list.forEach(po -> {
+            ret.put(po.getId(), BeanMapUtils.copy(po, 0));
+        });
+        return ret;
+    }
 
 }

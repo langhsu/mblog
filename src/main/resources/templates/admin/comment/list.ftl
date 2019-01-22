@@ -1,66 +1,73 @@
 <#include "/admin/utils/ui.ftl"/>
 <@layout>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span>评论管理</span>
-                <ul class="nav nav-pills navbar-right panel-toolbox">
-                    <li><a href="javascrit:void(0);" data-action="batch_del">批量删除</a></li>
-                </ul>
-            </div>
-            <div class="panel-body">
-                <form id="qForm" class="form-inline panel-form">
-                    <input type="hidden" name="pn" value="${page.pageNo}"/>
-                    <div class="form-group">
-                        <input type="text" name="key" class="form-control" value="${key}" placeholder="请输入关键字">
+<section class="content-header">
+    <h1>评论管理</h1>
+    <ol class="breadcrumb">
+        <li><a href="${base}/admin">首页</a></li>
+        <li class="active">评论管理</li>
+    </ol>
+</section>
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">评论列表</h3>
+                    <div class="box-tools">
+                        <a class="btn btn-default btn-sm" href="javascrit:;" data-action="batch_del">批量删除</a>
                     </div>
-                    <button type="submit" class="btn btn-default">查询</button>
-                </form>
-                <div class="table-responsive">
-                    <table id="dataGrid" class="table table-striped table-bordered">
-                        <thead>
-                        <tr>
-                            <th width="50"><input type="checkbox" class="checkall"></th>
-                            <th width="80">#</th>
-                            <th>内容</th>
-                            <th>目标Id</th>
-                            <th>作者</th>
-                            <th>发表日期</th>
-                            <th width="200"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <#list page.content as row>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="id" value="${row.id}">
-                                </td>
-                                <td class="text-center">${row.id}</td>
-                                <td>${row.content}</td>
-                                <td>${row.toId}</td>
-                                <td>${row.author.username}</td>
-                                <td>${row.created?string('yyyy-MM-dd')}</td>
-                                <td class="text-center" align="left">
-                                    <a href="javascript:void(0);" class="btn btn-xs btn-primary" data-id="${row.id}"
-                                       data-action="delete">
-                                        <i class="fa fa-bitbucket"></i> 删除
-                                    </a>
-                                </td>
-                            </tr>
-                            </#list>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-            <div class="panel-footer">
-                <@pager "list" page 5 />
+                <div class="box-body">
+                    <form id="qForm" class="form-inline search-row">
+                        <input type="hidden" name="pn" value="${page.pageNo}"/>
+                        <div class="form-group">
+                            <input type="text" name="key" class="form-control" value="${key}" placeholder="请输入关键字">
+                        </div>
+                        <button type="submit" class="btn btn-default">查询</button>
+                    </form>
+                    <div class="table-responsive">
+                        <table id="dataGrid" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="50"><input type="checkbox" class="checkall"></th>
+                                <th width="80">#</th>
+                                <th>内容</th>
+                                <th>目标Id</th>
+                                <th>作者</th>
+                                <th>发表日期</th>
+                                <th width="50">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <#list page.content as row>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="id" value="${row.id}">
+                                    </td>
+                                    <td>${row.id}</td>
+                                    <td>${row.content}</td>
+                                    <td>${row.toId}</td>
+                                    <td>${row.author.username}</td>
+                                    <td>${row.created?string('yyyy-MM-dd')}</td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn btn-xs btn-primary" data-id="${row.id}"
+                                           data-action="delete">删除
+                                        </a>
+                                    </td>
+                                </tr>
+                                </#list>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <@pager "list" page 5 />
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+</section>
 <script type="text/javascript">
     var J = jQuery;
 

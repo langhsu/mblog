@@ -2,7 +2,7 @@ package com.mtons.mblog.shiro;
 
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.service.UserService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.DefaultSubjectFactory;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.Session;
@@ -19,8 +19,8 @@ import javax.servlet.ServletResponse;
 /**
  * A {@code SubjectFactory} implementation that creates {@link WebDelegatingSubject} instances.
  */
+@Slf4j
 public class AccountSubjectFactory extends DefaultSubjectFactory {
-    private Logger log = Logger.getLogger(getClass());
     @Autowired
     private UserService userService;
 

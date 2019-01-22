@@ -9,12 +9,11 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author langhsu
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
 	@RequestMapping("/admin")
-    @RequiresPermissions("admin")
+//    @RequiresPermissions("admin")
 	public String index(HttpServletRequest request, ModelMap model) {
 		pushSystemStatus(request, model);
 		return "/admin/index";

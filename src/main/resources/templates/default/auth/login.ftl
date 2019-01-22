@@ -26,9 +26,8 @@
                     <button type="submit" class="btn btn-success btn-block">
                         登录 Use it
                     </button>
-
                     <hr>
-
+                    <@controls name="register">
                     <fieldset class="form-group">
                         <div class="alert alert-info">
                             使用以下方法注册或者登录（<a class="forget-password" href="${base}/forgot">忘记密码？</a>）
@@ -43,6 +42,7 @@
                             <i class="fa fa-github"></i> Github帐号登录
                         </a>
                     </fieldset>
+                    </@controls>
                 </form>
             </div>
         </div>

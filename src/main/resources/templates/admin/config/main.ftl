@@ -1,86 +1,42 @@
 <#include "/admin/utils/ui.ftl"/>
 <@layout>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span>系统配置</span>
-            </div>
-            <div class="panel-body">
-                <ul class="nav nav-pills">
-                    <li class="active">
-                        <a href="#sites" data-toggle="tab" aria-expanded="true">站点配置</a>
-                    </li>
-                    <li class="">
-                        <a href="#settings" data-toggle="tab" aria-expanded="false">系统配置</a>
-                    </li>
-                    <li class="">
-                        <a href="#cache" data-toggle="tab" aria-expanded="false">缓存及索引</a>
-                    </li>
+<section class="content-header">
+    <h1>系统配置</h1>
+    <ol class="breadcrumb">
+        <li><a href="${base}/admin">首页</a></li>
+        <li class="active">系统配置</li>
+    </ol>
+</section>
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <#include "/admin/message.ftl">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs pull-right">
+                    <li class=""><a href="#store" data-toggle="tab" aria-expanded="false">图片存储</a></li>
+                    <li class=""><a href="#oauth" data-toggle="tab" aria-expanded="false">第三方登录</a></li>
+                    <li class="active"><a href="#sites" data-toggle="tab" aria-expanded="true">站点信息</a></li>
+                    <li class="pull-left header"><i class="fa fa-cogs"></i></li>
                 </ul>
-                <!-- Tab panes -->
-                <div class="tab-content" style="margin-top: 15px;">
+                <div class="tab-content no-padding">
                     <div class="tab-pane active" id="sites">
                         <#include "/admin/config/sites.ftl">
                     </div>
-                    <div class="tab-pane" id="settings">
+                    <div class="tab-pane" id="oauth">
                         <#include "/admin/config/settings.ftl">
                     </div>
-                    <div class="tab-pane" id="cache">
-                        <div class="btn-channel" role="channel" aria-label="...">
-                            <button type="button" class="btn btn-default" data-action="flush_conf">
-                                刷新系统变量
-                            </button>
-                            <button type="button" class="btn btn-default" data-action="flush_indexs">
-                                重建索引
-                            </button>
-                        </div>
+                    <div class="tab-pane" id="store">
+                        <#include "/admin/config/store.ftl">
                     </div>
                 </div>
+                <!-- /.tab-content -->
             </div>
         </div>
     </div>
-</div>
-
+</section>
 <script type="text/javascript">
-var J = jQuery;
-
-function ajaxReload(json){
-    if(json.code >= 0){
-        if(json.message != null && json.message != ''){
-            alert(json.message);
-        }
-        $('#qForm').submit();
-    }else{
-        alert(json.message);
-    }
-}
-
 $(function() {
-	// 刷新缓存
-    $('button[data-action="flush_cache"]').bind('click', function(){
-        if(confirm('确定要刷新Ehcache的缓存吗？')){
-            J.getJSON('${base}/admin/config/flush_cache', ajaxReload);
-        }
-        return false;
-    });
-
-    // 刷新系统变量
-    $('button[data-action="flush_conf"]').bind('click', function(){
-        if(confirm('确定要刷新系统变量的缓存吗？')){
-            J.getJSON('${base}/admin/config/flush_conf', ajaxReload);
-        }
-        return false;
-    });
-
-    // 重建索引
-    $('button[data-action="flush_indexs"]').bind('click', function(){
-        if(confirm('确定要重建文章索引吗？')){
-            J.getJSON('${base}/admin/config/flush_indexs', ajaxReload);
-        }
-        return false;
-    });
 })
 </script>
 </@layout>

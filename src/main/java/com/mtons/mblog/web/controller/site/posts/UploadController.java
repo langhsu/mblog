@@ -32,7 +32,7 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/post")
 public class UploadController extends BaseController {
-    private static HashMap<String, String> errorInfo = new HashMap<>();
+    public static HashMap<String, String> errorInfo = new HashMap<>();
 
     @Value("${site.store.size:2}")
     private String storeSize;
@@ -80,9 +80,9 @@ public class UploadController extends BaseController {
             if (crop == 1) {
                 int width = ServletRequestUtils.getIntParameter(request, "width", 364);
                 int height = ServletRequestUtils.getIntParameter(request, "height", 200);
-                path = fileRepo.storeScale(file, appContext.getThumbsDir(), width, height);
+                path = fileRepoFactory.get().storeScale(file, appContext.getThumbsDir(), width, height);
             } else {
-                path = fileRepo.storeScale(file, appContext.getThumbsDir(), size);
+                path = fileRepoFactory.get().storeScale(file, appContext.getThumbsDir(), size);
             }
             result.ok(errorInfo.get("SUCCESS"));
             result.setName(fileName);
@@ -98,7 +98,7 @@ public class UploadController extends BaseController {
         return result;
     }
 
-    static class UploadResult {
+    public static class UploadResult {
         public static int OK = 200;
         public static int ERROR = 400;
 

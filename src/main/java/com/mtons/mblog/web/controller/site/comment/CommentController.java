@@ -5,7 +5,7 @@ package com.mtons.mblog.web.controller.site.comment;
 
 import com.mtons.mblog.base.data.Data;
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.core.event.MessageEvent;
+import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.modules.data.CommentVO;
@@ -13,6 +13,7 @@ import com.mtons.mblog.modules.service.CommentService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/comment")
+@ConditionalOnProperty(name = "site.controls.comment", havingValue = "true", matchIfMissing = true)
 public class CommentController extends BaseController {
 	@Autowired
 	private CommentService commentService;

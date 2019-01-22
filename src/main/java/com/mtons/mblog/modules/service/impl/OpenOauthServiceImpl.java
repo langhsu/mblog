@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * 第三方登录授权管理
  * @author langhsu on 2015/8/12.
@@ -38,8 +40,8 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     @Transactional
     public UserVO getUserByOauthToken(String oauth_token) {
         OpenOauth thirdToken = openOauthRepository.findByAccessToken(oauth_token);
-        User userPO = userRepository.findOne(thirdToken.getId());
-        return BeanMapUtils.copy(userPO, 0);
+        Optional<User> po = userRepository.findById(thirdToken.getId());
+        return BeanMapUtils.copy(po.get(), 0);
     }
 
     @Override
@@ -71,11 +73,11 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     public boolean checkIsOriginalPassword(long userId) {
         OpenOauth po = openOauthRepository.findByUserId(userId);
         if (po != null) {
-            User upo = userRepository.findOne(userId);
+            Optional<User> optional = userRepository.findById(userId);
 
             String pwd = MD5.md5(po.getAccessToken());
             // 判断用户密码 和 登录状态
-            if (pwd.equals(upo.getPassword())) {
+            if (optional.isPresent() && pwd.equals(optional.get().getPassword())) {
                 return true;
             }
         }

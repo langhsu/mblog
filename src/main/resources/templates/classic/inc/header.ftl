@@ -20,18 +20,20 @@
                         登录 Use it
                     </button>
                     <div id="ajax_login_message" class="text-danger"></div>
-                    <hr>
-                    <fieldset class="form-group">
-                        <div class="alert alert-info">
-                            使用以下方法注册或者登录（<a class="forget-password" href="${base}/forgot/apply">忘记密码？</a>）
-                        </div>
-                        <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
-                            <i class="fa fa-weibo"></i> 微博帐号登录
-                        </a>
-                        <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
-                            <i class="fa fa-qq"></i> QQ帐号登录
-                        </a>
-                    </fieldset>
+                    <@controls name="register">
+                        <hr>
+                        <fieldset class="form-group">
+                            <div class="alert alert-info">
+                                使用以下方法注册或者登录（<a class="forget-password" href="${base}/forgot/apply">忘记密码？</a>）
+                            </div>
+                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
+                                <i class="fa fa-weibo"></i> 微博帐号登录
+                            </a>
+                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
+                                <i class="fa fa-qq"></i> QQ帐号登录
+                            </a>
+                        </fieldset>
+                    </@controls>
                 </form>
             </div>
         </div><!-- /.modal-content -->
@@ -89,12 +91,14 @@
                     </li>
 
 				<#if profile??>
-                    <li>
-                        <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
-                    </li>
+                    <@controls name="post">
+                        <li>
+                            <a href="${base}/post/editing" class="plus"><i class="icon icon-note"></i> 写文章</a>
+                        </li>
+                    </@controls>
                     <li class="dropdown">
                         <a href="#" class="user dropdown-toggle" data-toggle="dropdown">
-                            <img class="img-circle" src="${base}${profile.avatar}?t=${.now?time}">
+                            <img class="img-circle" src="<@resource src=profile.avatar + '?t=' + .now?time />">
                             <span>${profile.name}</span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -112,8 +116,9 @@
                     </li>
 				<#else>
                     <li><a href="${base}/login" class="btn btn-default btn-sm signup">登录</a></li>
-
-                    <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
+                    <@controls name="register">
+                        <li><a href="${base}/register" class="btn btn-primary btn-sm signup">注册</a></li>
+                    </@controls>
 				</#if>
 
                 </ul>

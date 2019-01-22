@@ -26,21 +26,23 @@
                     <button type="submit" class="btn btn-success btn-block">
                         登录 Use it
                     </button>
-                    <hr>
-                    <fieldset class="form-group">
-                        <div class="alert alert-info">
-                            使用以下方法注册或者登录（<a class="forget-password" href="${base}/forgot">忘记密码？</a>）
-                        </div>
-                        <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
-                            <i class="fa fa-weibo"></i> 微博帐号登录
-                        </a>
-                        <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
-                            <i class="fa fa-qq"></i> QQ帐号登录
-                        </a>
-                        <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_github">
-                            <i class="fa fa-github"></i> Github帐号登录
-                        </a>
-                    </fieldset>
+                    <@controls name="register">
+                        <hr>
+                        <fieldset class="form-group">
+                            <div class="alert alert-info">
+                                使用以下方法注册或者登录（<a class="forget-password" href="${base}/forgot">忘记密码？</a>）
+                            </div>
+                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
+                                <i class="fa fa-weibo"></i> 微博帐号登录
+                            </a>
+                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
+                                <i class="fa fa-qq"></i> QQ帐号登录
+                            </a>
+                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_github">
+                                <i class="fa fa-github"></i> Github帐号登录
+                            </a>
+                        </fieldset>
+                    </@controls>
                 </form>
             </div>
         </div>

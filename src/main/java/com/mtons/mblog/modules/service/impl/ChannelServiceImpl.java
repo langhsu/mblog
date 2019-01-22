@@ -18,10 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author langhsu
@@ -54,26 +51,22 @@ public class ChannelServiceImpl implements ChannelService {
 
 	@Override
 	public Channel getById(int id) {
-		return channelRepository.findOne(id);
+		return channelRepository.findById(id).get();
 	}
 
 	@Override
 	@Transactional
 	public void update(Channel channel) {
-		Channel po = channelRepository.findOne(channel.getId());
-		if (po != null) {
-			BeanUtils.copyProperties(channel, po);
-		} else {
-			po = new Channel();
-			BeanUtils.copyProperties(channel, po);
-		}
+		Optional<Channel> optional = channelRepository.findById(channel.getId());
+		Channel po = optional.orElse(new Channel());
+		BeanUtils.copyProperties(channel, po);
 		channelRepository.save(po);
 	}
 
 	@Override
 	@Transactional
 	public void delete(int id) {
-		channelRepository.delete(id);
+		channelRepository.deleteById(id);
 	}
 
 }

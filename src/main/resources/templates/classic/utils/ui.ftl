@@ -39,11 +39,7 @@
 
 <#-- 用户头像显示 -->
 <#macro showAva avatar clazz>
-    <#if avatar?starts_with("http:")>
-    <img class="${clazz}" src="${avatar}"/>
-    <#else>
     <img class="${clazz}" src="<@resource src=avatar />"/>
-    </#if>
 </#macro>
 
 <#macro classify row>

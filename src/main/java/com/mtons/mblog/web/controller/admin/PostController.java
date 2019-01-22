@@ -17,7 +17,6 @@ import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +45,7 @@ public class PostController extends BaseController {
 	private ChannelService channelService;
 	
 	@RequestMapping("/list")
-	@RequiresPermissions("post:list")
+//	@RequiresPermissions("post:list")
 	public String list(String title, ModelMap model, HttpServletRequest request) {
 		long id = ServletRequestUtils.getLongParameter(request, "id", Consts.ZERO);
 		int group = ServletRequestUtils.getIntParameter(request, "group", Consts.ZERO);
@@ -82,17 +81,17 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	@RequiresPermissions("post:update")
+//	@RequiresPermissions("post:update")
 	public String subUpdate(PostVO post, @RequestParam(value = "file", required=false) MultipartFile file) throws Exception {
 		if (post != null) {
 			/**
 			 * 保存预览图片
 			 */
 			if (file != null && !file.isEmpty()) {
-				String thumbnail = fileRepo.storeScale(file, appContext.getThumbsDir(), 360, 200);
+				String thumbnail = fileRepoFactory.get().storeScale(file, appContext.getThumbsDir(), 360, 200);
 
 				if (StringUtils.isNotBlank(post.getThumbnail())) {
-					fileRepo.deleteFile(post.getThumbnail());
+					fileRepoFactory.get().deleteFile(post.getThumbnail());
 				}
 
 				post.setThumbnail(thumbnail);
@@ -140,8 +139,9 @@ public class PostController extends BaseController {
 	}
 	
 	@RequestMapping("/delete")
-	@RequiresPermissions("post:delete")
-	public @ResponseBody Data delete(@RequestParam("id") List<Long> id) {
+//	@RequiresPermissions("post:delete")
+	@ResponseBody
+	public Data delete(@RequestParam("id") List<Long> id) {
 		Data data = Data.failure("操作失败");
 		if (id != null) {
 			try {

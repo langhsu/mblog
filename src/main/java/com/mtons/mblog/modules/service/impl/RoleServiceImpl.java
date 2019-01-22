@@ -70,18 +70,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role get(long id) {
-        Role po = roleRepository.findOne(id);
-        return toVO(po);
+        return toVO(roleRepository.findById(id).get());
     }
 
     @Override
     public void update(Role r, Set<Permission> permissions) {
-        Role po = roleRepository.findOne(r.getId());
-
-        if (null == po) {
-            po = new Role();
+        Optional<Role> optional = roleRepository.findById(r.getId());
+        Role po = optional.orElse(new Role());
             po.setName(r.getName());
-        }
         po.setDescription(r.getDescription());
         po.setStatus(r.getStatus());
 
@@ -107,17 +103,15 @@ public class RoleServiceImpl implements RoleService {
     public boolean delete(long id) {
         List<UserRole> urs = userRoleRepository.findAllByRoleId(id);
         Assert.state(urs == null || urs.size() == 0, "该角色已经被使用,不能被删除");
-        roleRepository.delete(id);
+        roleRepository.deleteById(id);
         rolePermissionService.deleteByRoleId(id);
         return true;
     }
 
     @Override
     public void activate(long id, boolean active) {
-        Role po = roleRepository.findOne(id);
-        if (po != null) {
-            po.setStatus(active ? Role.STATUS_NORMAL : Role.STATUS_CLOSED);
-        }
+        Role po = roleRepository.findById(id).get();
+        po.setStatus(active ? Role.STATUS_NORMAL : Role.STATUS_CLOSED);
     }
 
     private Role toVO(Role po) {

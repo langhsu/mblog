@@ -1,9 +1,11 @@
 package com.mtons.mblog.base.oauth;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mtons.mblog.base.oauth.utils.OathConfig;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -14,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OauthRenren extends Oauth {
-    private static final Logger LOGGER = Logger.getLogger(OauthRenren.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OauthRenren.class);
     private static final String AUTH_URL = "https://graph.renren.com/oauth/authorize";
     private static final String TOKEN_URL = "https://graph.renren.com/oauth/token";
 
@@ -29,7 +31,7 @@ public class OauthRenren extends Oauth {
     }
 
     public String getAuthorizeUrl(String state, String display) throws UnsupportedEncodingException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("response_type", "code");
         params.put("client_id", getClientId());
         params.put("redirect_uri", getRedirectUri());
@@ -43,7 +45,7 @@ public class OauthRenren extends Oauth {
     }
 
     private String getTokenByCode(String code) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("code", code);
         params.put("client_id", getClientId());
         params.put("client_secret", getClientSecret());
@@ -66,7 +68,7 @@ public class OauthRenren extends Oauth {
         }
         JSONObject userJson = json.getJSONObject("user");
         userJson.put("access_token", access_token);
-        LOGGER.debug(userJson);
+        LOGGER.debug(JSON.toJSONString(userJson));
         return userJson;
     }
 }

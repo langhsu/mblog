@@ -10,18 +10,14 @@
         <!-- view show -->
         <div class="topic panel panel-default">
             <div class="infos panel-heading">
-
                 <h1 class="panel-title topic-title">${view.title}</h1>
-
                 <div class="meta inline-block">
-
                     <a class="author" href="${base}/users/${view.author.id}">
                     ${view.author.name}
                     </a>
                     <abbr class="timeago">${timeAgo(view.created)}</abbr>
                     ⋅
-                ${view.views} 阅读
-
+                    ${view.views} 阅读
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -47,6 +43,7 @@
         </div>
 
         <!-- Comments -->
+        <@controls name="comment">
         <div id="chat" class="chats shadow-box">
             <div class="chat_other">
                 <h4>全部评论: <i id="chat_count">0</i> 条</h4>
@@ -81,6 +78,7 @@
                 </div>
             </div>
         </div>
+        </@controls>
         <!-- /view show -->
     </div>
     <div class="col-xs-12 col-md-3 side-right hidden-xs hidden-sm">
@@ -119,7 +117,7 @@
 <script type="text/plain" id="chat_template">
     <li id="chat{5}">
         <a class="avt fl" target="_blank" href="${base}/users/{0}">
-            <img src="${base}{1}">
+            <img src="{1}">
         </a>
         <div class="chat_body">
             <h5>
@@ -151,6 +149,7 @@
 
     seajs.use('comment', function (comment) {
         comment.init({
+            load: '${site.controls.comment}',
             load_url: '${base}/comment/list/${view.id}',
             post_url: '${base}/comment/submit',
             toId: '${view.id}',

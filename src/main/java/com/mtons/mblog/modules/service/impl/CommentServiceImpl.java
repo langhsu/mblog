@@ -157,11 +157,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional
 	public void delete(long id, long authorId) {
-		Comment po = commentRepository.findOne(id);
-		if (po != null) {
+		Optional<Comment> optional = commentRepository.findById(id);
+		if (optional.isPresent()) {
 			// 判断文章是否属于当前登录用户
-			Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
-			commentRepository.delete(po);
+			Assert.isTrue(optional.get().getAuthorId() == authorId, "认证失败");
+			commentRepository.deleteById(id);
 		}
 	}
 

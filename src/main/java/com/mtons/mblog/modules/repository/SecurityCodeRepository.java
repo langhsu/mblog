@@ -18,6 +18,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface SecurityCodeRepository extends JpaRepository<SecurityCode, Long>, JpaSpecificationExecutor<SecurityCode> {
     SecurityCode findByUserIdAndType(long userId, int type);
-
     SecurityCode findByUserId(long userId);
 }

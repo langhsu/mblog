@@ -18,15 +18,11 @@ import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Channel;
 import com.mtons.mblog.modules.entity.Post;
 import com.mtons.mblog.modules.entity.PostAttribute;
+import com.mtons.mblog.modules.event.PostUpdateEvent;
 import com.mtons.mblog.modules.repository.PostAttributeRepository;
 import com.mtons.mblog.modules.repository.PostRepository;
-import com.mtons.mblog.modules.service.ChannelService;
-import com.mtons.mblog.modules.service.FavorService;
-import com.mtons.mblog.modules.service.UserEventService;
-import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.service.*;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
-import com.mtons.mblog.core.event.PostUpdateEvent;
-import com.mtons.mblog.modules.service.PostService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -228,21 +224,19 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Cacheable(key = "'view_' + #id")
 	public PostVO get(long id) {
-		Post po = postRepository.findOne(id);
-		PostVO d = null;
-		if (po != null) {
-			d = BeanMapUtils.copy(po, 1);
+		Optional<Post> po = postRepository.findById(id);
+		if (po.isPresent()) {
+			PostVO d = BeanMapUtils.copy(po.get(), 1);
 
 			d.setAuthor(userService.get(d.getAuthorId()));
 
 			d.setChannel(channelService.getById(d.getChannelId()));
 
-			PostAttribute attr = postAttributeRepository.findOne(po.getId());
-			if (attr != null) {
-				d.setContent(attr.getContent());
-			}
+			PostAttribute attr = postAttributeRepository.findById(d.getId()).get();
+			d.setContent(attr.getContent());
+			return d;
 		}
-		return d;
+		return null;
 	}
 
 	/**
@@ -253,9 +247,10 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void update(PostVO p){
-		Post po = postRepository.findOne(p.getId());
+		Optional<Post> optional = postRepository.findById(p.getId());
 
-		if (po != null) {
+		if (optional.isPresent()) {
+			Post po = optional.get();
 			po.setTitle(p.getTitle());//标题
 			po.setChannelId(p.getChannelId());
 			po.setThumbnail(p.getThumbnail());
@@ -281,58 +276,48 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void updateFeatured(long id, int featured) {
-		Post po = postRepository.findOne(id);
-
-		if (po != null) {
-			int status = Consts.FEATURED_ACTIVE == featured ? Consts.FEATURED_ACTIVE: Consts.FEATURED_DEFAULT;
-			po.setFeatured(status);
-			postRepository.save(po);
-		}
+		Post po = postRepository.findById(id).get();
+		int status = Consts.FEATURED_ACTIVE == featured ? Consts.FEATURED_ACTIVE: Consts.FEATURED_DEFAULT;
+		po.setFeatured(status);
+		postRepository.save(po);
 	}
 
 	@Override
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void updateWeight(long id, int weight) {
-		Post po = postRepository.findOne(id);
+		Post po = postRepository.findById(id).get();
 
-		if (po != null) {
-			int max = weight;
-			if (Consts.FEATURED_ACTIVE == weight) {
-				max = postRepository.maxWeight() + 1;
-			}
-			po.setWeight(max);
-			postRepository.save(po);
+		int max = weight;
+		if (Consts.FEATURED_ACTIVE == weight) {
+			max = postRepository.maxWeight() + 1;
 		}
+		po.setWeight(max);
+		postRepository.save(po);
 	}
 
 	@Override
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void delete(long id) {
-		Post po = postRepository.findOne(id);
-		if (po != null) {
-			postRepository.delete(id);
-			postAttributeRepository.delete(id);
-
-			onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
-		}
+		Post po = postRepository.findById(id).get();
+		postRepository.deleteById(id);
+		postAttributeRepository.deleteById(id);
+		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 	}
 	
 	@Override
 	@Transactional
 	@CacheEvict(allEntries = true)
 	public void delete(long id, long authorId) {
-		Post po = postRepository.findOne(id);
-		if (po != null) {
-			// 判断文章是否属于当前登录用户
-			Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
+		Post po = postRepository.findById(id).get();
+		// 判断文章是否属于当前登录用户
+		Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
 
-			postRepository.delete(id);
-			postAttributeRepository.delete(id);
+		postRepository.deleteById(id);
+		postAttributeRepository.deleteById(id);
 
-			onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
-		}
+		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 	}
 
 	@Override

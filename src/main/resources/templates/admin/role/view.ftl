@@ -5,68 +5,74 @@
 <link href="${base}/dist/vendors/treetable/css/jquery.treetable.theme.default.css" rel="stylesheet" type="text/css"/>
 <script src="${base}/dist/vendors/treetable/jquery.treetable.js"></script>
 
-    <#macro treeIterator nodes>
-    <#-- 循环节点-->
-        <#list nodes as row>
-        <tr data-tt-id="${row.id}" <#if (row.parentId??) > data-tt-parent-id="${row.parentId}" </#if>>
-            <td>
-                <input type="checkbox" name="perms" id="${row.name}-${row.id}" value="${row.id}"> ${row.description}
-            </td>
-        </tr>
+<#macro treeIterator nodes>
+<#-- 循环节点-->
+    <#list nodes as row>
+    <tr data-tt-id="${row.id}" <#if (row.parentId??) > data-tt-parent-id="${row.parentId}" </#if>>
+        <td>
+            <input type="checkbox" name="perms" id="${row.name}-${row.id}" value="${row.id}"> ${row.description}
+        </td>
+    </tr>
 
-        <#-- 判断是否有子集 -->
-            <#if row.items??>
-                <@treeIterator nodes=row.items />
-            </#if>
-        </#list>
-    </#macro>
+    <#-- 判断是否有子集 -->
+        <#if row.items??>
+            <@treeIterator nodes=row.items />
+        </#if>
+    </#list>
+</#macro>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span>角色管理</span>
-            </div>
-            <div class="panel-body">
-                <#include "/admin/message.ftl">
-                <form id="qForm" class="form-horizontal form-label-left" method="post" action="update">
-                    <#if view?? && (view.id > 0)>
-                        <input type="hidden" name="id" value="${view.id}"/>
-                    </#if>
+<section class="content-header">
+    <h1>编辑角色</h1>
+    <ol class="breadcrumb">
+        <li><a href="${base}/admin">首页</a></li>
+        <li><a href="${base}/admin/role/list">角色管理</a></li>
+        <li class="active">编辑角色</li>
+    </ol>
+</section>
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form id="qForm" class="form-horizontal form-label-left" method="post" action="update">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">编辑角色</h3>
+                    </div>
+                    <div class="box-body">
+                        <#include "/admin/message.ftl">
+                        <#if view?? && (view.id > 0)>
+                            <input type="hidden" name="id" value="${view.id}"/>
+                        </#if>
 
-                    <div class="form-group">
-                        <label for="name" class="col-lg-2 control-label">角色名称：</label>
-                        <div class="col-lg-3">
-                            <input type="text" class="form-control" placeholder="请输入角色名称" name="name"
-                                   value="${view.name}">
+                        <div class="form-group">
+                            <label for="name" class="col-lg-2 control-label">角色名称：</label>
+                            <div class="col-lg-3">
+                                <input type="text" class="form-control" placeholder="请输入角色名称" name="name"
+                                       value="${view.name}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="item" class="col-lg-2 control-label">分配菜单：</label>
+                            <div class="col-lg-6" id="perms">
+                                <table id="dataGrid" class="table table-border table-bordered table-bg">
+                                    <caption>
+                                        <a href="#" onclick="jQuery('#dataGrid').treetable('expandAll'); return false;">展开所有</a>
+                                        <a href="#" onclick="jQuery('#dataGrid').treetable('collapseAll'); return false;">收起所有</a>
+                                    </caption>
+                                    <tbody>
+                                        <@treeIterator nodes=permissions />
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="item" class="col-lg-2 control-label">分配菜单：</label>
-                        <div class="col-lg-6" id="perms">
-                            <table id="dataGrid" class="table table-border table-bordered table-bg">
-                                <caption>
-                                    <a href="#" onclick="jQuery('#dataGrid').treetable('expandAll'); return false;">Expand all</a>
-                                    <a href="#" onclick="jQuery('#dataGrid').treetable('collapseAll'); return false;">Collapse all</a>
-                                </caption>
-                                <tbody>
-                                    <@treeIterator nodes=permissions />
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">提交</button>
                     </div>
-
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success">提交</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
-</div>
+</section>
 <script type="text/javascript">
     var perm = [];
         <#list view.permissions as p>

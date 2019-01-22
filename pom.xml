@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mtons.mblog</groupId>
 	<artifactId>mblog</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>latest</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -18,13 +18,14 @@
 		<coobird.thumbnailator>0.4.8</coobird.thumbnailator>
 		<alibaba.fastjson>1.2.16</alibaba.fastjson>
 		<org.jsoup>1.9.2</org.jsoup>
-		<apache.lucene>5.5.4</apache.lucene>
+		<apache.lucene>5.5.5</apache.lucene>
+		<upyun.sdk.version>4.0.1</upyun.sdk.version>
 	</properties>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.8.RELEASE</version>
+		<version>2.1.2.RELEASE</version>
 		<relativePath/>
 	</parent>
 
@@ -32,6 +33,14 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.4</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -109,7 +118,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-orm</artifactId>
-			<version>5.6.3.Final</version>
+			<version>5.11.0.Final</version>
 		</dependency>
 		<!--hibernate search dependency-->
 		<dependency>
@@ -138,24 +147,20 @@
 		<!-- shiro -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-web</artifactId>
-			<version>${shiro}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-			<version>${shiro}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-ehcache</artifactId>
 			<version>${shiro}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring-boot-web-starter</artifactId>
+			<version>${shiro}</version>
+		</dependency>
+
+		<!-- 又拍云SDK -->
+		<dependency>
+			<groupId>com.upyun</groupId>
+			<artifactId>java-sdk</artifactId>
+			<version>${upyun.sdk.version}</version>
 		</dependency>
 
 		<!-- config -->
@@ -169,6 +174,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
 
 		<dependency>
@@ -259,16 +269,6 @@
 					<jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
 					<mainClass>com.mtons.mblog.BootApplication</mainClass>
 				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<!-- 用于打包jar -->
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -1,8 +1,8 @@
 package com.mtons.mblog.web.menu;
 
-import com.mtons.mblog.core.template.DirectiveHandler;
+import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.entity.Role;
-import com.mtons.mblog.core.template.TemplateDirective;
+import com.mtons.mblog.modules.template.TemplateDirective;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

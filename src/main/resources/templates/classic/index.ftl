@@ -10,7 +10,7 @@
                 <div class="banner-item col-xs-12 col-sm-4 col-md-4">
                     <div class="index-banner-box"
                         <#if row.thumbnail??>
-                         style="background-image:url(${base + row.thumbnail})"
+                         style="background-image:url(<@resource src=row.thumbnail/>)"
                         <#else>
                          style="background-image:url(${base}/dist/images/spinner-overlay.png)"
                         </#if> >
@@ -41,7 +41,7 @@
                         <div class="content-box posts-gallery-box">
                             <div class="posts-gallery-img">
                                 <a href="${base}/view/${row.id}" title="">
-                                    <img class="lazy thumbnail" src="${base + row.thumbnail}" style="display: inline-block;">
+                                    <img class="lazy thumbnail" src="<@resource src=row.thumbnail/>" style="display: inline-block;">
                                 </a>
                             </div>
                             <div class="posts-gallery-content">
@@ -51,7 +51,7 @@
                                     <ul>
                                         <li class="post-author">
                                             <div class="avatar">
-                                                <img src="${base + row.author.avatar}?t=${.now?time}" class="lazy avatar avatar-50 photo" height="50" width="50">
+                                                <img src="<@resource src=row.author.avatar + '?t=' + .now?time/>" class="lazy avatar avatar-50 photo" height="50" width="50">
                                             </div>
                                             <a href="${base}/users/${row.author.id}" target="_blank">${row.author.name}</a>
                                         </li>
@@ -74,7 +74,7 @@
                                     <ul>
                                         <li class="post-author">
                                             <div class="avatar">
-                                                <img src="${base + row.author.avatar}?t=${.now?time}" class="lazy avatar avatar-50 photo" height="50" width="50">
+                                                <img src="<@resource src=row.author.avatar + '?t=' + .now?time/>" class="lazy avatar avatar-50 photo" height="50" width="50">
                                             </div>
                                             <a href="${base}/users/${row.author.id}" target="_blank">${row.author.name}</a>
                                         </li>

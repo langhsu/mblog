@@ -7,18 +7,20 @@ import com.mtons.mblog.base.oauth.utils.OathConfig;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class OauthSina extends Oauth {
-    private static final Logger LOGGER = Logger.getLogger(OauthSina.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OauthSina.class);
     private static final String AUTH_URL = "https://api.weibo.com/oauth2/authorize";
     private static final String TOKEN_URL = "https://api.weibo.com/oauth2/access_token";
     private static final String TOKEN_INFO_URL = "https://api.weibo.com/oauth2/get_token_info";
@@ -35,7 +37,7 @@ public class OauthSina extends Oauth {
     }
 
     public String getAuthorizeUrl(String state) throws UnsupportedEncodingException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("response_type", "code");
         params.put("client_id", getClientId());
         params.put("redirect_uri", getRedirectUri());
@@ -46,7 +48,7 @@ public class OauthSina extends Oauth {
     }
 
     public String getTokenByCode(String code) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("code", code);
         params.put("client_id", getClientId());
         params.put("client_secret", getClientSecret());
@@ -58,7 +60,7 @@ public class OauthSina extends Oauth {
     }
 
     public String getTokenInfo(String accessToken) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("access_token", accessToken);
         String openid = TokenUtil.getUid(super.doPost("https://api.weibo.com/oauth2/get_token_info", params));
         LOGGER.debug(openid);
@@ -66,7 +68,7 @@ public class OauthSina extends Oauth {
     }
 
     public String getUserInfo(String accessToken, String uid) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<>();
         params.put("uid", uid);
         params.put("access_token", accessToken);
         String userInfo = super.doGet("https://api.weibo.com/2/users/show.json", params);
@@ -85,7 +87,7 @@ public class OauthSina extends Oauth {
         }
         JSONObject dataMap = JSON.parseObject(getUserInfo(accessToken, uid));
         dataMap.put("access_token", accessToken);
-        LOGGER.debug(dataMap);
+        LOGGER.debug(JSON.toJSONString(dataMap));
         return dataMap;
     }
 
@@ -106,7 +108,7 @@ public class OauthSina extends Oauth {
         openOauthBean.setExpireIn("");
         openOauthBean.setOauthUserId(openid);
         openOauthBean.setOauthType(EnumOauthTypeBean.TYPE_SINA.getValue());
-        openOauthBean.setUsername("SN" + openid.getBytes().hashCode());
+        openOauthBean.setUsername("SN" + Arrays.hashCode(openid.getBytes()));
         openOauthBean.setNickname(nickname);
         openOauthBean.setAvatar(photoUrl);
 

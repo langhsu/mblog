@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.interceptor;
 
-import com.mtons.mblog.core.hook.interceptor.InterceptorHookManager;
+import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;

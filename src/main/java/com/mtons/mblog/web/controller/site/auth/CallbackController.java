@@ -3,7 +3,7 @@ package com.mtons.mblog.web.controller.site.auth;
 import com.mtons.mblog.base.context.AppContext;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.MtonsException;
-import com.mtons.mblog.base.lang.SiteConfig;
+import com.mtons.mblog.base.lang.SiteConst;
 import com.mtons.mblog.base.oauth.*;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
@@ -15,12 +15,16 @@ import com.mtons.mblog.modules.service.OpenOauthService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +39,11 @@ import java.io.UnsupportedEncodingException;
  *
  * @author langhsu on 2015/8/12.
  */
+@Slf4j
 @Controller
 @RequestMapping("/oauth/callback")
+@ConditionalOnProperty(name = "site.controls.register", havingValue = "true", matchIfMissing = true)
 public class CallbackController extends BaseController {
-    private Logger logger = Logger.getLogger(this.getClass());
-
     private static final String SESSION_STATE = "_SESSION_STATE_";
 
     @Autowired
@@ -61,9 +65,9 @@ public class CallbackController extends BaseController {
     public void callWeibo(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_sina(appContext.getConfig().get(SiteConfig.WEIBO_CLIENT_ID));
-            APIConfig.getInstance().setOpenkey_sina(appContext.getConfig().get(SiteConfig.WEIBO_CLIENT_SERCRET));
-            APIConfig.getInstance().setRedirect_sina(appContext.getConfig().get(SiteConfig.WEIBO_CALLBACK));
+            APIConfig.getInstance().setOpenid_sina(appContext.getConfig().get(SiteConst.WEIBO_CLIENT_ID));
+            APIConfig.getInstance().setOpenkey_sina(appContext.getConfig().get(SiteConst.WEIBO_CLIENT_SERCRET));
+            APIConfig.getInstance().setRedirect_sina(appContext.getConfig().get(SiteConst.WEIBO_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);
@@ -131,9 +135,9 @@ public class CallbackController extends BaseController {
     public void callQQ(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_qq(appContext.getConfig().get(SiteConfig.QQ_APP_ID));
-            APIConfig.getInstance().setOpenkey_qq(appContext.getConfig().get(SiteConfig.QQ_APP_KEY));
-            APIConfig.getInstance().setRedirect_qq(appContext.getConfig().get(SiteConfig.QQ_CALLBACK));
+            APIConfig.getInstance().setOpenid_qq(appContext.getConfig().get(SiteConst.QQ_APP_ID));
+            APIConfig.getInstance().setOpenkey_qq(appContext.getConfig().get(SiteConst.QQ_APP_KEY));
+            APIConfig.getInstance().setRedirect_qq(appContext.getConfig().get(SiteConst.QQ_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);
@@ -198,9 +202,9 @@ public class CallbackController extends BaseController {
     @RequestMapping("/call_github")
     public void callGithub(HttpServletRequest request, HttpServletResponse response) {
         //设置github的相关
-        APIConfig.getInstance().setOpenid_github(appContext.getConfig().get(SiteConfig.GITHUB_CLIENT_ID));
-        APIConfig.getInstance().setOpenkey_github(appContext.getConfig().get(SiteConfig.GITHUB_SECRET_KEY));
-        APIConfig.getInstance().setRedirect_github(appContext.getConfig().get(SiteConfig.GITHUB_CALLBACK));
+        APIConfig.getInstance().setOpenid_github(appContext.getConfig().get(SiteConst.GITHUB_CLIENT_ID));
+        APIConfig.getInstance().setOpenkey_github(appContext.getConfig().get(SiteConst.GITHUB_SECRET_KEY));
+        APIConfig.getInstance().setRedirect_github(appContext.getConfig().get(SiteConst.GITHUB_CALLBACK));
 
         try {
             response.setContentType("text/html;charset=utf-8");
@@ -276,9 +280,9 @@ public class CallbackController extends BaseController {
     public void callDouban(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_douban(appContext.getConfig().get(SiteConfig.DOUBAN_API_KEY));
-            APIConfig.getInstance().setOpenkey_douban(appContext.getConfig().get(SiteConfig.DOUBAN_SECRET_KEY));
-            APIConfig.getInstance().setRedirect_douban(appContext.getConfig().get(SiteConfig.DOUBAN_CALLBACK));
+            APIConfig.getInstance().setOpenid_douban(appContext.getConfig().get(SiteConst.DOUBAN_API_KEY));
+            APIConfig.getInstance().setOpenkey_douban(appContext.getConfig().get(SiteConst.DOUBAN_SECRET_KEY));
+            APIConfig.getInstance().setRedirect_douban(appContext.getConfig().get(SiteConst.DOUBAN_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);
@@ -360,7 +364,8 @@ public class CallbackController extends BaseController {
 
                 // ===将远程图片下载到本地===
                 String ava100 = appContext.getAvaDir() + getAvaPath(u.getId(), 100);
-                ImageUtils.download(openOauth.getAvatar(), fileRepo.getRoot() + ava100);
+                byte[] bytes = ImageUtils.download(openOauth.getAvatar());
+                fileRepoFactory.get().writeToStore(bytes, ava100);
                 userService.updateAvatar(u.getId(), ava100);
 
                 thirdToken = new OpenOauthVO();
@@ -389,15 +394,13 @@ public class CallbackController extends BaseController {
             try {
                 SecurityUtils.getSubject().login(token);
                 ret = Views.REDIRECT_USER;
+            } catch (UnknownAccountException e) {
+                throw new MtonsException("用户不存在");
+            } catch (LockedAccountException e) {
+                throw new MtonsException("用户被禁用");
             } catch (AuthenticationException e) {
-                logger.error(e);
-                if (e instanceof UnknownAccountException) {
-                    throw new MtonsException("用户不存在");
-                } else if (e instanceof LockedAccountException) {
-                    throw new MtonsException("用户被禁用");
-                } else {
-                    throw new MtonsException("用户认证失败");
-                }
+                log.error(e.getMessage());
+                throw new MtonsException("用户认证失败");
             }
             return ret;
         }

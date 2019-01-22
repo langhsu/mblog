@@ -10,22 +10,22 @@
 package com.mtons.mblog.web.controller;
 
 import com.mtons.mblog.base.context.AppContext;
-import com.mtons.mblog.base.print.Printer;
+import com.mtons.mblog.base.upload.FileRepoFactory;
+import com.mtons.mblog.base.utils.Printer;
 import com.mtons.mblog.base.upload.FileRepo;
 import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.base.utils.MailHelper;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -37,12 +37,12 @@ import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
 
 /**
  * Controller 基类
- * 
+ *
  * @author langhsu
+ * @since 3.0
  * 
  */
 public class BaseController {
@@ -51,11 +51,11 @@ public class BaseController {
 	@Autowired
 	protected AppContext appContext;
 	@Autowired
-	protected FileRepo fileRepo;
+	protected FileRepoFactory fileRepoFactory;
 	@Autowired
 	private MailHelper mailHelper;
 	@Autowired
-	private ExecutorService executorService;
+	private TaskExecutor taskExecutor;
 
 	@Value("${site.theme:default}")
 	private String theme;
@@ -128,7 +128,7 @@ public class BaseController {
 	}
 
 	protected void sendEmail(String template, String email, String subject, Map<String, Object> context) {
-		executorService.execute(() -> {
+		taskExecutor.execute(() -> {
 			mailHelper.sendEmail(template, email, subject, context);
 			Printer.debug(email + " send success");
 		});

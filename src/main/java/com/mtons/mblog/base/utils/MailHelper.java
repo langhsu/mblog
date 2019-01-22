@@ -2,7 +2,7 @@ package com.mtons.mblog.base.utils;
 
 import com.mtons.mblog.base.lang.MtonsException;
 import freemarker.template.Template;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,9 +17,9 @@ import java.util.Map;
 /**
  * Created by langhsu on 2017/11/13.
  */
+@Slf4j
 @Component
 public class MailHelper {
-    private Logger log = Logger.getLogger(getClass());
     @Autowired
     private Environment env;
     @Autowired
@@ -31,7 +31,6 @@ public class MailHelper {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
-
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             helper.setFrom(env.getProperty("spring.mail.username"));
             helper.setTo(to);

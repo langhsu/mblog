@@ -1,17 +1,17 @@
 package com.mtons.mblog.web.filter;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StopWatch;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
-import org.springframework.util.StopWatch;
-
 /**
  * @author langhsu on 2015/7/10.
  */
+@Slf4j
 public class RequestCostFilter implements Filter {
-    private Logger log = Logger.getLogger(RequestCostFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

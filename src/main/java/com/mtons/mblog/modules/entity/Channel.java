@@ -13,6 +13,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 模块/内容分组
@@ -22,7 +23,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "mto_channels")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Channel {
+public class Channel implements Serializable {
+	private static final long serialVersionUID = 2436696690653745208L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
