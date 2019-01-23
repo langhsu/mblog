@@ -1,8 +1,13 @@
-version: '3'
+version: '2'
 services:
     mysql:
         container_name: mblog-mysql
         image: mysql/mysql-server:5.7
+        environment:
+            MYSQL_DATABASE: db_mblog
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ROOT_HOST: '%'
+            TZ: Asia/Shanghai
         expose:
         - "3306"
         volumes:
