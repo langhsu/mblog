@@ -28,16 +28,20 @@ public class UpYunFileRepoImpl extends AbstractFileRepo implements FileRepo {
         String domain = appContext.getConfig().get("upyun_oss_domain");
         String src = appContext.getConfig().get("upyun_oss_src");
 
-        if (StringUtils.isAnyBlank(domain, src)) {
+        if (StringUtils.isAnyBlank(domain)) {
             throw new MtonsException("请先在后台设置又拍云配置信息");
         }
 
-        if (!src.startsWith("/")) {
-            src = "/" + src;
-        }
+        if (StringUtils.isBlank(src)) {
+            src = "";
+        } else {
+            if (!src.startsWith("/")) {
+                src = "/" + src;
+            }
 
-        if (!src.endsWith("/")) {
-            src = src + "/";
+            if (!src.endsWith("/")) {
+                src = src + "/";
+            }
         }
 
         String key = UpYunUtils.md5(bytes);
@@ -51,7 +55,7 @@ public class UpYunFileRepoImpl extends AbstractFileRepo implements FileRepo {
     @Override
     public void deleteFile(String storePath) {
         String domain = appContext.getConfig().get("upyun_oss_domain");
-        String path = StringUtils.remove(storePath, domain);
+        String path = StringUtils.remove(storePath, domain.trim());
         UpYun yun = builder();
         try {
             yun.deleteFile(path);

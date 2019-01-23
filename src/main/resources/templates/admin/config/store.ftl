@@ -8,6 +8,7 @@
                         <option value="native">本地存储</option>
                         <option value="upyun">又拍云</option>
                         <option value="aliyun">阿里云</option>
+                        <option value="qiniu">七牛云</option>
                     </select>
                 </div>
             </div>
@@ -72,6 +73,38 @@
                     <label class="col-lg-2 control-label">文件目录</label>
                     <div class="col-lg-10">
                         <input type="text" name="aliyun_oss_src" class="form-control" value="${configs['aliyun_oss_src'].value}" placeholder="示例: static/images/">
+                    </div>
+                </div>
+            </div>
+            <div class="scheme" data-scheme="qiniu">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">空间名称</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="qiniu_oss_bucket" class="form-control" value="${configs['qiniu_oss_bucket'].value}" placeholder="七牛云bucket名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">AccessKey</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="qiniu_oss_key" class="form-control" value="${configs['qiniu_oss_key'].value}" placeholder="AccessKey">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">SecretKey</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="qiniu_oss_secret" class="form-control" value="${configs['qiniu_oss_secret'].value}" placeholder="SecretKey">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">域名绑定</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="qiniu_oss_domain" class="form-control" value="${configs['qiniu_oss_domain'].value}" placeholder="示例: http://qiniu.mtons.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">文件目录</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="qiniu_oss_src" class="form-control" value="${configs['qiniu_oss_src'].value}" placeholder="示例: /static/">
                     </div>
                 </div>
             </div>

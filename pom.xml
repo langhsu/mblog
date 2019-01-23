@@ -21,6 +21,7 @@
 		<apache.lucene>5.5.5</apache.lucene>
 		<upyun.sdk.version>4.0.1</upyun.sdk.version>
 		<aliyun.sdk.version>2.8.3</aliyun.sdk.version>
+		<qiniu.sdk.version>7.2.18</qiniu.sdk.version>
 	</properties>
 
 	<parent>
@@ -171,7 +172,14 @@
 			<version>${aliyun.sdk.version}</version>
 		</dependency>
 
-		<!-- config -->
+		<!-- 七牛云SDK-->
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+			<version>${qiniu.sdk.version}</version>
+		</dependency>
+
+		<!-- Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

@@ -14,10 +14,8 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayInputStream;
 
 /**
- * created by langhsu
- * on 2019/1/20
- *
- * @since 3.0
+ * @author langhsu
+ * @since  3.0
  */
 @Slf4j
 @Component
@@ -35,7 +33,9 @@ public class AliyunFileRepoImpl extends AbstractFileRepo implements FileRepo {
             throw new MtonsException("请先在后台设置阿里云配置信息");
         }
 
-        if (StringUtils.isNoneBlank(src) && src.length() > 1) {
+        if (StringUtils.isBlank(src)) {
+            src = "";
+        } else {
             if (src.startsWith("/")) {
                 src = src.substring(1);
             }
