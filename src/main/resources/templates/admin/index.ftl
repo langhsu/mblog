@@ -102,8 +102,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">缓存</h3>
@@ -121,6 +119,8 @@
                     </button>
                 </div>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">最新评论</h3>

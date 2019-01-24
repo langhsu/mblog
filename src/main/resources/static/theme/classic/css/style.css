@@ -561,6 +561,7 @@ abbr[data-original-title], abbr[title] {
     font-size: 16px;
     max-height: 48px;
     overflow: Hidden;
+    margin: 0;
 }
 
 .banner .banner-item .title span {
@@ -582,15 +583,15 @@ abbr[data-original-title], abbr[title] {
     bottom: 0;
     left: 0;
     right: 0;
-    margin: 0px;
+    margin: 0;
 }
 
 .banner .banner-item .line:before, .banner .banner-item .line:after {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    bottom: 15px;
-    left: 15px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
     content: '';
     -webkit-transition: opacity 0.35s, transform 0.35s;
     transition: opacity 0.35s, transform 0.35s;
@@ -688,11 +689,11 @@ abbr[data-original-title], abbr[title] {
     width: 100%
 }
 
-.posts-default-img .overlay {
+.posts-default-img .overlay, .posts-gallery-img .overlay {
     opacity: 0
 }
 
-.posts-default-img a:hover .overlay {
+.posts-default-img a:hover .overlay, .posts-gallery-img a:hover .overlay {
     opacity: 0.2
 }
 

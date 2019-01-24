@@ -41,6 +41,7 @@
                         <div class="content-box posts-gallery-box">
                             <div class="posts-gallery-img">
                                 <a href="${base}/view/${row.id}" title="">
+                                    <div class="overlay"></div>
                                     <img class="lazy thumbnail" src="<@resource src=row.thumbnail/>" style="display: inline-block;">
                                 </a>
                             </div>
