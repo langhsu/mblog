@@ -45,7 +45,6 @@ public class PostController extends BaseController {
 	private ChannelService channelService;
 	
 	@RequestMapping("/list")
-//	@RequiresPermissions("post:list")
 	public String list(String title, ModelMap model, HttpServletRequest request) {
 		long id = ServletRequestUtils.getLongParameter(request, "id", Consts.ZERO);
 		int group = ServletRequestUtils.getIntParameter(request, "group", Consts.ZERO);
@@ -81,7 +80,6 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-//	@RequiresPermissions("post:update")
 	public String subUpdate(PostVO post, @RequestParam(value = "file", required=false) MultipartFile file) throws Exception {
 		if (post != null) {
 			/**
@@ -109,7 +107,8 @@ public class PostController extends BaseController {
 	}
 
 	@RequestMapping("/featured")
-	public @ResponseBody Data featured(Long id, HttpServletRequest request) {
+	@ResponseBody
+	public Data featured(Long id, HttpServletRequest request) {
 		Data data = Data.failure("操作失败");
 		int featured = ServletRequestUtils.getIntParameter(request, "featured", Consts.FEATURED_ACTIVE);
 		if (id != null) {
@@ -124,7 +123,8 @@ public class PostController extends BaseController {
 	}
 
 	@RequestMapping("/weight")
-	public @ResponseBody Data weight(Long id, HttpServletRequest request) {
+	@ResponseBody
+	public Data weight(Long id, HttpServletRequest request) {
 		Data data = Data.failure("操作失败");
 		int weight = ServletRequestUtils.getIntParameter(request, "weight", Consts.FEATURED_ACTIVE);
 		if (id != null) {
@@ -139,7 +139,6 @@ public class PostController extends BaseController {
 	}
 	
 	@RequestMapping("/delete")
-//	@RequiresPermissions("post:delete")
 	@ResponseBody
 	public Data delete(@RequestParam("id") List<Long> id) {
 		Data data = Data.failure("操作失败");

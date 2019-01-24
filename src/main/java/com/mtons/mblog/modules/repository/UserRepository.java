@@ -29,8 +29,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     User findByEmail(String email);
 
-    Page<User> findAllByOrderByIdDesc(Pageable pageable);
-
     List<User> findAllByIdIn(Set<Long> ids);
 
     @Modifying

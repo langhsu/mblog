@@ -13,6 +13,7 @@ import com.mtons.mblog.base.lang.EntityStatus;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.modules.entity.Role;
 import com.mtons.mblog.modules.entity.User;
 import com.mtons.mblog.modules.repository.RoleRepository;
 import com.mtons.mblog.modules.repository.UserRepository;
@@ -34,6 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.persistence.criteria.Predicate;
 import java.util.*;
 
 @Service
@@ -47,6 +49,37 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Override
+    public Page<UserVO> paging(Pageable pageable, String name) {
+        Page<User> page = userRepository.findAll((root, query, builder) -> {
+            Predicate predicate = builder.conjunction();
+
+            if (StringUtils.isNoneBlank(name)) {
+                predicate.getExpressions().add(
+                        builder.like(root.get("name"), "%" + name + "%"));
+            }
+
+            query.orderBy(builder.desc(root.get("id")));
+            return predicate;
+        }, pageable);
+
+        List<UserVO> rets = new ArrayList<>();
+        page.getContent().forEach(n -> rets.add(BeanMapUtils.copy(n)));
+        return new PageImpl<>(rets, pageable, page.getTotalElements());
+    }
+
+    @Override
+    public Map<Long, UserVO> findMapByIds(Set<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        List<User> list = userRepository.findAllByIdIn(ids);
+        Map<Long, UserVO> ret = new HashMap<>();
+
+        list.forEach(po -> ret.put(po.getId(), BeanMapUtils.copy(po)));
+        return ret;
+    }
 
     @Override
     @Transactional
@@ -73,7 +106,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public AccountProfile getProfileByName(String username) {
+    public AccountProfile findProfile(String username) {
         User po = userRepository.findByUsername(username);
         AccountProfile u = null;
 
@@ -119,7 +152,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(po);
 
-        return BeanMapUtils.copy(po, 0);
+        return BeanMapUtils.copy(po);
     }
 
     @Override
@@ -150,7 +183,6 @@ public class UserServiceImpl implements UserService {
         }
         po.setEmail(email);
         userRepository.save(po);
-
         return BeanMapUtils.copyPassport(po);
     }
 
@@ -159,19 +191,19 @@ public class UserServiceImpl implements UserService {
     public UserVO get(long userId) {
         Optional<User> optional = userRepository.findById(userId);
         if (optional.isPresent()) {
-            return BeanMapUtils.copy(optional.get(), 0);
+            return BeanMapUtils.copy(optional.get());
         }
         return null;
     }
 
     @Override
     public UserVO getByUsername(String username) {
-        return BeanMapUtils.copy(userRepository.findByUsername(username), 0);
+        return BeanMapUtils.copy(userRepository.findByUsername(username));
     }
 
     @Override
     public UserVO getByEmail(String email) {
-        return BeanMapUtils.copy(userRepository.findByEmail(email), 0);
+        return BeanMapUtils.copy(userRepository.findByEmail(email));
     }
 
     @Override
@@ -214,33 +246,6 @@ public class UserServiceImpl implements UserService {
 
         po.setStatus(status);
         userRepository.save(po);
-    }
-
-    @Override
-    public Page<UserVO> paging(Pageable pageable) {
-        Page<User> page = userRepository.findAllByOrderByIdDesc(pageable);
-        List<UserVO> rets = new ArrayList<>();
-
-        for (User po : page.getContent()) {
-            UserVO u = BeanMapUtils.copy(po, 1);
-            rets.add(u);
-        }
-
-        return new PageImpl<>(rets, pageable, page.getTotalElements());
-    }
-
-    @Override
-    public Map<Long, UserVO> findMapByIds(Set<Long> ids) {
-        if (ids == null || ids.isEmpty()) {
-            return Collections.emptyMap();
-        }
-        List<User> list = userRepository.findAllByIdIn(ids);
-        Map<Long, UserVO> ret = new HashMap<>();
-
-        list.forEach(po -> {
-            ret.put(po.getId(), BeanMapUtils.copy(po, 0));
-        });
-        return ret;
     }
 
 }

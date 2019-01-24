@@ -24,7 +24,7 @@ public class BeanMapUtils {
 
 	public static String[] POST_IGNORE_LIST = new String[]{"markdown", "content"};
 
-	public static UserVO copy(User po, int level) {
+	public static UserVO copy(User po) {
 		if (po == null) {
 			return null;
 		}

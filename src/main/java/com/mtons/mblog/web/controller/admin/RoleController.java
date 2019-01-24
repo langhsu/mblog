@@ -24,7 +24,6 @@ import java.util.List;
 
 /**
  * @author - langhsu on 2018/2/11
- *
  */
 @Controller
 @RequestMapping("/admin/role")
@@ -35,10 +34,10 @@ public class RoleController extends BaseController {
 	private PermissionService permissionService;
 
 	@GetMapping("/list")
-//	@RequiresPermissions("role:list")
-	public String paging(ModelMap model) {
+	public String paging(String name, ModelMap model) {
 		Pageable pageable = wrapPageable();
-		Page<Role> page = roleService.paging(pageable, null);
+		Page<Role> page = roleService.paging(pageable, name);
+		model.put("name", name);
 		model.put("page", page);
 		return "/admin/role/list";
 	}
@@ -55,7 +54,6 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping("/update")
-//	@RequiresPermissions("role:update")
 	public String update(Role role, @RequestParam(value = "perms", required=false) List<Long> perms, ModelMap model) {
 		Data data;
 
@@ -69,18 +67,19 @@ public class RoleController extends BaseController {
             }
         }
         
-//        if (Role.ADMIN_ID == role.getId()) {
-//			data = Data.failure("管理员角色不可编辑");
-//        } else {
+        if (Role.ADMIN_ID == role.getId()) {
+			data = Data.failure("管理员角色不可编辑");
+        } else {
             roleService.update(role, permissions);
             data = Data.success();
-//        }
+        }
         model.put("data", data);
         return "redirect:/admin/role/list";
 	}
 	
 	@RequestMapping("/activate")
-	public @ResponseBody Data activate(Long id, Boolean active) {
+	@ResponseBody
+	public Data activate(Long id, Boolean active) {
 		Data ret = Data.failure("操作失败");
 		if (id != null && id != Role.ADMIN_ID) {
 			roleService.activate(id, active);
@@ -90,8 +89,8 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping("/delete")
-//	@RequiresPermissions("role:delete")
-	public @ResponseBody Data delete(@RequestParam("id") Long id) {
+	@ResponseBody
+	public Data delete(@RequestParam("id") Long id) {
 		Data ret;
 		if (Role.ADMIN_ID == id) {
 			ret = Data.failure("管理员不能操作");

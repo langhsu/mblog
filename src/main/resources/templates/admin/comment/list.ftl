@@ -19,12 +19,8 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <form id="qForm" class="form-inline search-row">
+                    <form id="qForm" class="form-inline">
                         <input type="hidden" name="pn" value="${page.pageNo}"/>
-                        <div class="form-group">
-                            <input type="text" name="key" class="form-control" value="${key}" placeholder="请输入关键字">
-                        </div>
-                        <button type="submit" class="btn btn-default">查询</button>
                     </form>
                     <div class="table-responsive">
                         <table id="dataGrid" class="table table-striped table-bordered">

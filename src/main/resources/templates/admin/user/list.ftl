@@ -19,7 +19,7 @@
                     <form id="qForm" class="form-inline search-row">
                         <input type="hidden" name="pn" value="${page.pageNo}" />
                         <div class="form-group">
-                            <input type="text" name="key" class="form-control" value="${key}" placeholder="请输入关键字">
+                            <input type="text" name="name" class="form-control" value="${name}" placeholder="请输入关键字">
                         </div>
                         <button type="submit" class="btn btn-default">查询</button>
                     </form>

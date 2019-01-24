@@ -30,6 +30,7 @@ import java.util.Optional;
  * @author langhsu on 2015/8/12.
  */
 @Service
+@Transactional
 public class OpenOauthServiceImpl implements OpenOauthService {
     @Autowired
     private OpenOauthRepository openOauthRepository;
@@ -37,15 +38,13 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     private UserRepository userRepository;
 
     @Override
-    @Transactional
     public UserVO getUserByOauthToken(String oauth_token) {
         OpenOauth thirdToken = openOauthRepository.findByAccessToken(oauth_token);
         Optional<User> po = userRepository.findById(thirdToken.getId());
-        return BeanMapUtils.copy(po.get(), 0);
+        return BeanMapUtils.copy(po.get());
     }
 
     @Override
-    @Transactional
     public OpenOauthVO getOauthByToken(String oauth_token) {
         OpenOauth po = openOauthRepository.findByAccessToken(oauth_token);
         OpenOauthVO vo = null;
@@ -57,7 +56,6 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     }
 
     @Override
-    @Transactional
     public OpenOauthVO getOauthByUid(long userId) {
         OpenOauth po = openOauthRepository.findByUserId(userId);
         OpenOauthVO vo = null;
@@ -69,7 +67,6 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     }
 
     @Override
-    @Transactional
     public boolean checkIsOriginalPassword(long userId) {
         OpenOauth po = openOauthRepository.findByUserId(userId);
         if (po != null) {
@@ -85,7 +82,6 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     }
 
     @Override
-    @Transactional
     public void saveOauthToken(OpenOauthVO oauth) {
         OpenOauth po = new OpenOauth();
         BeanUtils.copyProperties(oauth, po);
@@ -93,7 +89,6 @@ public class OpenOauthServiceImpl implements OpenOauthService {
     }
 
 	@Override
-	@Transactional
 	public OpenOauthVO getOauthByOauthUserId(String oauthUserId) {
 		OpenOauth po = openOauthRepository.findByOauthUserId(oauthUserId);
         OpenOauthVO vo = null;

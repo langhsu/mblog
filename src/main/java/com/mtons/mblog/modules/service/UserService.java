@@ -23,6 +23,15 @@ import java.util.Set;
  */
 public interface UserService {
 	/**
+	 * 分页查询
+	 * @param pageable
+	 * @param name
+	 */
+	Page<UserVO> paging(Pageable pageable, String name);
+
+	Map<Long, UserVO> findMapByIds(Set<Long> ids);
+
+	/**
 	 * 登录
 	 * @param username
 	 * @param password
@@ -35,7 +44,7 @@ public interface UserService {
 	 * @param username
 	 * @return
 	 */
-	AccountProfile getProfileByName(String username);
+	AccountProfile findProfile(String username);
 
 	/**
 	 * 注册
@@ -98,11 +107,4 @@ public interface UserService {
 	 */
 	void updateStatus(long id, int status);
 
-	/**
-	 * 分页查询
-	 * @param pageable
-	 */
-	Page<UserVO> paging(Pageable pageable);
-
-	Map<Long, UserVO> findMapByIds(Set<Long> ids);
 }

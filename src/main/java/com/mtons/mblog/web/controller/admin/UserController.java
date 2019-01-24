@@ -46,10 +46,9 @@ public class UserController extends BaseController {
 	private UserRoleService userRoleService;
 
 	@RequestMapping("/list")
-//	@RequiresPermissions("user:list")
-	public String list(ModelMap model) {
+	public String list(String name, ModelMap model) {
 		Pageable pageable = wrapPageable();
-		Page<UserVO> page = userService.paging(pageable);
+		Page<UserVO> page = userService.paging(pageable, name);
 
 		List<UserVO> users = page.getContent();
 		List<Long> userIds = new ArrayList<>();
@@ -63,6 +62,7 @@ public class UserController extends BaseController {
 			item.setRoles(map.get(item.getId()));
 		});
 
+		model.put("name", name);
 		model.put("page", page);
 		return "/admin/user/list";
 	}
