@@ -40,14 +40,19 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
-        registry.addInterceptor(baseInterceptor).addPathPatterns("/**").excludePathPatterns("/dist/**", "/store/**", "/static/**");
+        registry.addInterceptor(baseInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/dist/**", "/store/**", "/static/**");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/dist/**").addResourceLocations("classpath:/static/dist/");
-        registry.addResourceHandler("/theme/**").addResourceLocations("classpath:/static/theme/");
-        registry.addResourceHandler("/store/**").addResourceLocations(getStorePath());
+        registry.addResourceHandler("/dist/**")
+                .addResourceLocations("classpath:/static/dist/");
+        registry.addResourceHandler("/theme/*/dist/**")
+                .addResourceLocations("classpath:/templates/");
+        registry.addResourceHandler("/store/**")
+                .addResourceLocations(getStorePath());
         super.addResourceHandlers(registry);
     }
 

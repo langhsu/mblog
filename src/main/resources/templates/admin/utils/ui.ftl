@@ -17,9 +17,9 @@
     <link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Theme Style -->
-    <link href="${base}/theme/admin/css/site.css" rel="stylesheet">
-    <link href="${base}/theme/admin/css/site.addons.css" rel="stylesheet">
-    <link href="${base}/theme/admin/css/skins/skin-blue.css" rel="stylesheet">
+    <link href="${base}/theme/admin/dist/css/site.css" rel="stylesheet">
+    <link href="${base}/theme/admin/dist/css/site.addons.css" rel="stylesheet">
+    <link href="${base}/theme/admin/dist/css/skins/skin-blue.css" rel="stylesheet">
 
     <!-- jQuery -->
     <script src="${base}/dist/js/jquery.min.js"></script>
@@ -27,8 +27,8 @@
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src='${base}/dist/vendors/validate/jquery-validate.js'></script>
     <script src="${base}/dist/vendors/layer/layer.js"></script>
-    <script src="${base}/theme/admin/js/site.js"></script>
-    <script src="${base}/theme/admin/js/site.base.js"></script>
+    <script src="${base}/theme/admin/dist/js/site.js"></script>
+    <script src="${base}/theme/admin/dist/js/site.base.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

@@ -3,16 +3,16 @@ seajs.config({
         'plugins': 'dist/js/plugins',
 
             /* modules */
-        'main': 'default/js/modules/main',
-        'authc': 'default/js/modules/authc',
-        'sidebox': 'default/js/modules/sidebox',
-        'post': 'default/js/modules/post',
-        'comment': 'default/js/modules/comment',
-        'phiz': 'default/js/modules/phiz',
-        'avatar': 'default/js/modules/avatar',
-        'editor': 'default/js/modules/editor',
-        'view': 'default/js/modules/view',
-        'webuploader': 'default/js/modules/webuploader',
+        'main': 'dist/js/modules/main',
+        'authc': 'dist/js/modules/authc',
+        'sidebox': 'dist/js/modules/sidebox',
+        'post': 'dist/js/modules/post',
+        'comment': 'dist/js/modules/comment',
+        'phiz': 'dist/js/modules/phiz',
+        'avatar': 'dist/js/modules/avatar',
+        'editor': 'dist/js/modules/editor',
+        'view': 'dist/js/modules/view',
+        'webuploader': 'dist/js/modules/webuploader',
 
         /* vendors */
         'pace': 'vendors/pace/pace.min',

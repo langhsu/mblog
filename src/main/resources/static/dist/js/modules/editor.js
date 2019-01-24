@@ -35,7 +35,7 @@ define(function(require, exports, module) {
                 entity_encoding: 'raw',
                 content_css: [
                     window.app.base + '/dist/vendors/bootstrap/css/bootstrap.min.css',
-                    window.app.base + '/theme/default/css/editor.css',
+                    window.app.base + '/dist/css/editor.css',
                 ]
                 //参考网站 https://www.tinymce.com/
             };
