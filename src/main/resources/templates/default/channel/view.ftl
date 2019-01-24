@@ -1,8 +1,8 @@
 <#include "/default/utils/ui.ftl"/>
 
-<#assign title = view.title + ' - ' + site_name />
-<#assign keywords = view.keywords?default(site_keywords) />
-<#assign description = view.description?default(site_description) />
+<#assign title = view.title + ' - ' + options['site_name'] />
+<#assign keywords = view.keywords?default(options['site_keywords']) />
+<#assign description = view.description?default(options['site_description']) />
 
 <@layout title>
 <div class="row main">

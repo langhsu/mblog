@@ -9,12 +9,10 @@
 */
 package com.mtons.mblog.web.controller;
 
-import com.mtons.mblog.base.context.AppContext;
-import com.mtons.mblog.base.upload.FileRepoFactory;
-import com.mtons.mblog.base.utils.Printer;
-import com.mtons.mblog.base.upload.FileRepo;
+import com.mtons.mblog.base.storage.StorageFactory;
 import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.base.utils.MailHelper;
+import com.mtons.mblog.base.utils.Printer;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
 import org.apache.shiro.SecurityUtils;
@@ -49,9 +47,7 @@ public class BaseController {
 	@Autowired
 	protected HttpSession session;
 	@Autowired
-	protected AppContext appContext;
-	@Autowired
-	protected FileRepoFactory fileRepoFactory;
+	protected StorageFactory storageFactory;
 	@Autowired
 	private MailHelper mailHelper;
 	@Autowired

@@ -1,14 +1,13 @@
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.base.context.AppContext;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.MtonsException;
-import com.mtons.mblog.base.lang.SiteConst;
 import com.mtons.mblog.base.oauth.*;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.base.utils.ImageUtils;
+import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.data.OpenOauthVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.OpenOauthService;
@@ -52,7 +51,7 @@ public class CallbackController extends BaseController {
     private UserService userService;
 
     @Autowired
-    private AppContext appContext;
+    private SiteOptions siteOptions;
 
     /**
      * 跳转到微博进行授权
@@ -65,9 +64,9 @@ public class CallbackController extends BaseController {
     public void callWeibo(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_sina(appContext.getConfig().get(SiteConst.WEIBO_CLIENT_ID));
-            APIConfig.getInstance().setOpenkey_sina(appContext.getConfig().get(SiteConst.WEIBO_CLIENT_SERCRET));
-            APIConfig.getInstance().setRedirect_sina(appContext.getConfig().get(SiteConst.WEIBO_CALLBACK));
+            APIConfig.getInstance().setOpenid_sina(siteOptions.getOptions().get(Consts.WEIBO_CLIENT_ID));
+            APIConfig.getInstance().setOpenkey_sina(siteOptions.getOptions().get(Consts.WEIBO_CLIENT_SERCRET));
+            APIConfig.getInstance().setRedirect_sina(siteOptions.getOptions().get(Consts.WEIBO_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);
@@ -135,9 +134,9 @@ public class CallbackController extends BaseController {
     public void callQQ(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_qq(appContext.getConfig().get(SiteConst.QQ_APP_ID));
-            APIConfig.getInstance().setOpenkey_qq(appContext.getConfig().get(SiteConst.QQ_APP_KEY));
-            APIConfig.getInstance().setRedirect_qq(appContext.getConfig().get(SiteConst.QQ_CALLBACK));
+            APIConfig.getInstance().setOpenid_qq(siteOptions.getOptions().get(Consts.QQ_APP_ID));
+            APIConfig.getInstance().setOpenkey_qq(siteOptions.getOptions().get(Consts.QQ_APP_KEY));
+            APIConfig.getInstance().setRedirect_qq(siteOptions.getOptions().get(Consts.QQ_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);
@@ -202,9 +201,9 @@ public class CallbackController extends BaseController {
     @RequestMapping("/call_github")
     public void callGithub(HttpServletRequest request, HttpServletResponse response) {
         //设置github的相关
-        APIConfig.getInstance().setOpenid_github(appContext.getConfig().get(SiteConst.GITHUB_CLIENT_ID));
-        APIConfig.getInstance().setOpenkey_github(appContext.getConfig().get(SiteConst.GITHUB_SECRET_KEY));
-        APIConfig.getInstance().setRedirect_github(appContext.getConfig().get(SiteConst.GITHUB_CALLBACK));
+        APIConfig.getInstance().setOpenid_github(siteOptions.getOptions().get(Consts.GITHUB_CLIENT_ID));
+        APIConfig.getInstance().setOpenkey_github(siteOptions.getOptions().get(Consts.GITHUB_SECRET_KEY));
+        APIConfig.getInstance().setRedirect_github(siteOptions.getOptions().get(Consts.GITHUB_CALLBACK));
 
         try {
             response.setContentType("text/html;charset=utf-8");
@@ -280,9 +279,9 @@ public class CallbackController extends BaseController {
     public void callDouban(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         try {
-            APIConfig.getInstance().setOpenid_douban(appContext.getConfig().get(SiteConst.DOUBAN_API_KEY));
-            APIConfig.getInstance().setOpenkey_douban(appContext.getConfig().get(SiteConst.DOUBAN_SECRET_KEY));
-            APIConfig.getInstance().setRedirect_douban(appContext.getConfig().get(SiteConst.DOUBAN_CALLBACK));
+            APIConfig.getInstance().setOpenid_douban(siteOptions.getOptions().get(Consts.DOUBAN_API_KEY));
+            APIConfig.getInstance().setOpenkey_douban(siteOptions.getOptions().get(Consts.DOUBAN_SECRET_KEY));
+            APIConfig.getInstance().setRedirect_douban(siteOptions.getOptions().get(Consts.DOUBAN_CALLBACK));
 
             String state = TokenUtil.randomState();
             request.getSession().setAttribute(SESSION_STATE, state);
@@ -363,9 +362,9 @@ public class CallbackController extends BaseController {
                 UserVO u = userService.register(wrapUser(openOauth));
 
                 // ===将远程图片下载到本地===
-                String ava100 = appContext.getAvaDir() + getAvaPath(u.getId(), 100);
+                String ava100 = Consts.avatarPath + getAvaPath(u.getId(), 100);
                 byte[] bytes = ImageUtils.download(openOauth.getAvatar());
-                fileRepoFactory.get().writeToStore(bytes, ava100);
+                storageFactory.get().writeToStore(bytes, ava100);
                 userService.updateAvatar(u.getId(), ava100);
 
                 thirdToken = new OpenOauthVO();

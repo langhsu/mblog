@@ -7,12 +7,10 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.upload.impl;
+package com.mtons.mblog.base.storage.impl;
 
-import com.mtons.mblog.base.context.AppContext;
 import com.mtons.mblog.base.utils.FileKit;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -23,13 +21,11 @@ import java.io.File;
  */
 @Slf4j
 @Component
-public class NativeFileRepoImpl extends AbstractFileRepo {
-	@Autowired
-	private AppContext appContext;
+public class NativeStorageImpl extends AbstractStorage {
 
 	@Override
 	public void deleteFile(String storePath) {
-		File file = new File(appContext.getRoot() + storePath);
+		File file = new File(getStoragePath() + storePath);
 
 		// 文件存在, 且不是目录
 		if (file.exists() && !file.isDirectory()) {
@@ -40,9 +36,13 @@ public class NativeFileRepoImpl extends AbstractFileRepo {
 
 	@Override
 	public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-		String dest = appContext.getRoot() + pathAndFileName;
+		String dest = getStoragePath() + pathAndFileName;
 		FileKit.writeByteArrayToFile(bytes, dest);
 		return pathAndFileName;
+	}
+
+	private String getStoragePath() {
+		return System.getProperties().getProperty("user.dir");
 	}
 
 }

@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">存储方式</label>
                 <div class="col-lg-10">
-                    <select class="form-control" name="store_scheme" data-select="${configs['store_scheme'].value}">
+                    <select class="form-control" name="storage_scheme" data-select="${configs['storage_scheme'].value}">
                         <option value="native">本地存储</option>
                         <option value="upyun">又拍云</option>
                         <option value="aliyun">阿里云</option>
@@ -116,7 +116,7 @@
 </form>
 <script>
     $(function () {
-        $('select[name=store_scheme]').change(function () {
+        $('select[name=storage_scheme]').change(function () {
             var value = $(this).val();
             $('.scheme').each(function () {
                 if ($(this).data('scheme') === value) {

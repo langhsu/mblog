@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.web.controller.site.posts;
 
+import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Value;
@@ -80,9 +81,9 @@ public class UploadController extends BaseController {
             if (crop == 1) {
                 int width = ServletRequestUtils.getIntParameter(request, "width", 364);
                 int height = ServletRequestUtils.getIntParameter(request, "height", 200);
-                path = fileRepoFactory.get().storeScale(file, appContext.getThumbsDir(), width, height);
+                path = storageFactory.get().storeScale(file, Consts.thumbnailPath, width, height);
             } else {
-                path = fileRepoFactory.get().storeScale(file, appContext.getThumbsDir(), size);
+                path = storageFactory.get().storeScale(file, Consts.thumbnailPath, size);
             }
             result.ok(errorInfo.get("SUCCESS"));
             result.setName(fileName);

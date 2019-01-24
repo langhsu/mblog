@@ -21,7 +21,7 @@
                 </li>
             </ul>
             <div class="copyright">
-				<span>${site_copyright}. ${site_icp}</span>
+				<span>${options['site_copyright']}. ${options['site_icp']}</span>
 			</div>
         </div>
         <div class="footer-col footer-col-sns hidden-xs hidden-sm">

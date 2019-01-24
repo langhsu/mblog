@@ -7,10 +7,10 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.upload.impl;
+package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.lang.MtonsException;
-import com.mtons.mblog.base.upload.FileRepo;
+import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.base.utils.ImageUtils;
@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 3.0
  */
 @Slf4j
-public abstract class AbstractFileRepo implements FileRepo {
+public abstract class AbstractStorage implements Storage {
 
     protected void validateFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {

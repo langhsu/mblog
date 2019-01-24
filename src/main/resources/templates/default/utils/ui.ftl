@@ -10,9 +10,9 @@
     <![endif]-->
     <meta name="baidu-site-verification" content="2nXjznVkpe" />
 
-    <title>${title?default(site_name)}</title>
-    <meta name="keywords" content="mtons, ${keywords?default(site_keywords)}">
-    <meta name="description" content="${description?default(site_description)}">
+    <title>${title?default(options['site_name'])}</title>
+    <meta name="keywords" content="mtons, ${keywords?default(options['site_keywords'])}">
+    <meta name="description" content="${description?default(options['site_description'])}">
 
     <#include "/default/inc/include.ftl"/>
 </head>

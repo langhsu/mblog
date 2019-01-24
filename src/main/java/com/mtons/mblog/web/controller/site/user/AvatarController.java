@@ -9,27 +9,21 @@
 */
 package com.mtons.mblog.web.controller.site.user;
 
-import com.mtons.mblog.base.context.AppContext;
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
+import com.mtons.mblog.base.utils.ImageUtils;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
-import com.mtons.mblog.base.utils.ImageUtils;
 import com.mtons.mblog.web.controller.site.posts.UploadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -39,8 +33,6 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/user")
 public class AvatarController extends BaseController {
-	@Autowired
-	private AppContext appContext;
 	@Autowired
 	private UserService userService;
 
@@ -77,13 +69,13 @@ public class AvatarController extends BaseController {
 
 		// 保存图片
 		try {
-			String ava100 = appContext.getAvaDir() + getAvaPath(profile.getId(), 240);
+			String ava100 = Consts.avatarPath + getAvaPath(profile.getId(), 240);
 			byte[] bytes = ImageUtils.screenshot(file, 240, 240);
 
 			AccountProfile user = userService.updateAvatar(profile.getId(), ava100);
 			putProfile(user);
 
-			String path = fileRepoFactory.get().writeToStore(bytes, ava100);
+			String path = storageFactory.get().writeToStore(bytes, ava100);
 			result.ok(UploadController.errorInfo.get("SUCCESS"));
 			result.setName(fileName);
 			result.setType(getSuffix(fileName));

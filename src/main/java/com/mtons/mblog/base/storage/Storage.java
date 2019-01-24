@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.upload;
+package com.mtons.mblog.base.storage;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author langhsu
  *
  */
-public interface FileRepo {
+public interface Storage {
 
 	/**
 	 * 存储图片

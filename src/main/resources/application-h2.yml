@@ -16,7 +16,7 @@ spring:
             hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
             hibernate.cache.use_second_level_cache: false
             hibernate.search.default.directory_provider: filesystem
-            hibernate.search.default.indexBase: ${site.store.root}/indexes
+            hibernate.search.default.indexBase: ${user.dir}/indexes
     h2:     #h2数据库远程管理
         console:
             enabled: true #开启web显示

@@ -9,7 +9,6 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.base.context.SpringContextHolder;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.EntityStatus;
 import com.mtons.mblog.base.utils.PreviewTextUtils;
@@ -29,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -60,6 +60,8 @@ public class PostServiceImpl implements PostService {
 	private ChannelService channelService;
 	@Autowired
 	private PostAttributeRepository postAttributeRepository;
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	@Override
 	@Cacheable
@@ -412,6 +414,6 @@ public class PostServiceImpl implements PostService {
 		event.setPostId(post.getId());
 		event.setUserId(post.getAuthorId());
 		event.setAction(action);
-		SpringContextHolder.publishEvent(event);
+		applicationContext.publishEvent(event);
 	}
 }

@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.config.SiteConfig;
+import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.apache.commons.beanutils.BeanUtils;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ControlsDirective extends TemplateDirective {
     @Autowired
-    private SiteConfig siteConfig;
+    private SiteOptions siteOptions;
 
     @Override
     public String getName() {
@@ -33,7 +33,7 @@ public class ControlsDirective extends TemplateDirective {
             return;
         }
 
-        String value = BeanUtils.getProperty(siteConfig.getControls(), control);
+        String value = BeanUtils.getProperty(siteOptions.getControls(), control);
         if ("true".equalsIgnoreCase(value)) {
             handler.render();
         } else {

@@ -1,10 +1,10 @@
-package com.mtons.mblog.base.upload.impl;
+package com.mtons.mblog.base.storage.impl;
 
 import com.aliyun.oss.OSSClient;
-import com.mtons.mblog.base.context.AppContext;
 import com.mtons.mblog.base.lang.MtonsException;
-import com.mtons.mblog.base.upload.FileRepo;
+import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
+import com.mtons.mblog.config.SiteOptions;
 import com.upyun.UpYunUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -19,15 +19,15 @@ import java.io.ByteArrayInputStream;
  */
 @Slf4j
 @Component
-public class AliyunFileRepoImpl extends AbstractFileRepo implements FileRepo {
+public class AliyunStorageImpl extends AbstractStorage implements Storage {
     @Autowired
-    private AppContext appContext;
+    private SiteOptions siteOptions;
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String endpoint = appContext.getConfig().get("aliyun_oss_endpoint");
-        String bucket = appContext.getConfig().get("aliyun_oss_bucket");
-        String src = appContext.getConfig().get("aliyun_oss_src");
+        String endpoint = siteOptions.getOptions().get("aliyun_oss_endpoint");
+        String bucket = siteOptions.getOptions().get("aliyun_oss_bucket");
+        String src = siteOptions.getOptions().get("aliyun_oss_src");
 
         if (StringUtils.isAnyBlank(endpoint, bucket)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");
@@ -54,8 +54,8 @@ public class AliyunFileRepoImpl extends AbstractFileRepo implements FileRepo {
 
     @Override
     public void deleteFile(String storePath) {
-        String bucket = appContext.getConfig().get("aliyun_oss_bucket");
-        String endpoint = appContext.getConfig().get("aliyun_oss_endpoint");
+        String bucket = siteOptions.getOptions().get("aliyun_oss_bucket");
+        String endpoint = siteOptions.getOptions().get("aliyun_oss_endpoint");
         String path = StringUtils.remove(storePath, "//" + bucket.trim() + "." + endpoint.trim() + "/");
         OSSClient client = builder();
         try {
@@ -66,9 +66,9 @@ public class AliyunFileRepoImpl extends AbstractFileRepo implements FileRepo {
     }
 
     private OSSClient builder() {
-        String endpoint = appContext.getConfig().get("aliyun_oss_endpoint");
-        String accessKeyId = appContext.getConfig().get("aliyun_oss_key");
-        String accessKeySecret = appContext.getConfig().get("aliyun_oss_secret");
+        String endpoint = siteOptions.getOptions().get("aliyun_oss_endpoint");
+        String accessKeyId = siteOptions.getOptions().get("aliyun_oss_key");
+        String accessKeySecret = siteOptions.getOptions().get("aliyun_oss_secret");
 
         if (StringUtils.isAnyBlank(endpoint, accessKeyId, accessKeySecret)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");

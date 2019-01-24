@@ -5,7 +5,8 @@
 *.ear
 .idea
 
-indexes/
+indexes
+storage
 
 # project settings
 *.project

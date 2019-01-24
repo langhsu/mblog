@@ -5,10 +5,10 @@ import com.mtons.mblog.base.utils.Printer;
 import com.mtons.mblog.modules.entity.Config;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.ConfigService;
-import com.mtons.mblog.base.context.AppContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -16,7 +16,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.servlet.ServletContext;
-import java.util.*;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 加载配置信息到系统
@@ -29,9 +31,7 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
     @Autowired
     private ChannelService channelService;
     @Autowired
-    private AppContext appContext;
-    @Autowired
-    private SiteConfig siteConfig;
+    private SiteOptions siteOptions;
 
     private ServletContext servletContext;
 
@@ -68,8 +68,6 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
     public void resetSetting(boolean exit) {
         List<Config> configs = configService.findAll();
 
-        Map<String, String> map = new HashMap<>();
-
         if (null == configs || configs.isEmpty()) {
             try {
                 Resource resource = new ClassPathResource("/config/db/db_mblog.sql");
@@ -86,14 +84,18 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
             }
         } else {
             configs.forEach(conf -> {
+                siteOptions.getOptions().put(conf.getKey(), conf.getValue());
                 servletContext.setAttribute(conf.getKey(), conf.getValue());
-                map.put(conf.getKey(), conf.getValue());
             });
 
-            appContext.setConfig(map);
+            servletContext.setAttribute("options", siteOptions.getOptions());
         }
 
-
+        ApplicationHome home = new ApplicationHome(getClass());
+        System.out.println(home.getDir().getAbsolutePath());
+        System.out.println(home.getSource().getAbsolutePath());
+        System.out.println(System.getProperty("user.dir"));
+        System.out.println(System.getProperties().getProperty("user.home"));
     }
 
     /**
@@ -104,6 +106,6 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
     }
 
     public void resetSiteConfig() {
-        servletContext.setAttribute("site", siteConfig);
+        servletContext.setAttribute("site", siteOptions);
     }
 }

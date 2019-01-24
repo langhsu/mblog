@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${site_name} - 后台管理</title>
+    <title>后台管理 - ${options['site_name']}</title>
 
     <!-- Favicons -->
     <link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo.png"/>

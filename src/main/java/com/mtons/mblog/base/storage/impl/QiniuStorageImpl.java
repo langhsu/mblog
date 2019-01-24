@@ -1,9 +1,9 @@
-package com.mtons.mblog.base.upload.impl;
+package com.mtons.mblog.base.storage.impl;
 
-import com.mtons.mblog.base.context.AppContext;
 import com.mtons.mblog.base.lang.MtonsException;
-import com.mtons.mblog.base.upload.FileRepo;
+import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
+import com.mtons.mblog.config.SiteOptions;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
@@ -23,17 +23,17 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class QiniuFileRepoImpl extends AbstractFileRepo implements FileRepo {
+public class QiniuStorageImpl extends AbstractStorage implements Storage {
     @Autowired
-    private AppContext appContext;
+    private SiteOptions siteOptions;
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String accessKey = appContext.getConfig().get("qiniu_oss_key");
-        String secretKey = appContext.getConfig().get("qiniu_oss_secret");
-        String domain = appContext.getConfig().get("qiniu_oss_domain");
-        String bucket = appContext.getConfig().get("qiniu_oss_bucket");
-        String src = appContext.getConfig().get("qiniu_oss_src");
+        String accessKey = siteOptions.getOptions().get("qiniu_oss_key");
+        String secretKey = siteOptions.getOptions().get("qiniu_oss_secret");
+        String domain = siteOptions.getOptions().get("qiniu_oss_domain");
+        String bucket = siteOptions.getOptions().get("qiniu_oss_bucket");
+        String src = siteOptions.getOptions().get("qiniu_oss_src");
 
         if (StringUtils.isAnyBlank(accessKey, secretKey, domain, bucket)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");
@@ -70,10 +70,10 @@ public class QiniuFileRepoImpl extends AbstractFileRepo implements FileRepo {
 
     @Override
     public void deleteFile(String storePath) {
-        String accessKey = appContext.getConfig().get("qiniu_oss_key");
-        String secretKey = appContext.getConfig().get("qiniu_oss_secret");
-        String domain = appContext.getConfig().get("qiniu_oss_domain");
-        String bucket = appContext.getConfig().get("qiniu_oss_bucket");
+        String accessKey = siteOptions.getOptions().get("qiniu_oss_key");
+        String secretKey = siteOptions.getOptions().get("qiniu_oss_secret");
+        String domain = siteOptions.getOptions().get("qiniu_oss_domain");
+        String bucket = siteOptions.getOptions().get("qiniu_oss_bucket");
 
         if (StringUtils.isAnyBlank(accessKey, secretKey, domain, bucket)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");

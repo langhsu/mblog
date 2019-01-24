@@ -86,10 +86,10 @@ public class PostController extends BaseController {
 			 * 保存预览图片
 			 */
 			if (file != null && !file.isEmpty()) {
-				String thumbnail = fileRepoFactory.get().storeScale(file, appContext.getThumbsDir(), 360, 200);
+				String thumbnail = storageFactory.get().storeScale(file, Consts.thumbnailPath, 360, 200);
 
 				if (StringUtils.isNotBlank(post.getThumbnail())) {
-					fileRepoFactory.get().deleteFile(post.getThumbnail());
+					storageFactory.get().deleteFile(post.getThumbnail());
 				}
 
 				post.setThumbnail(thumbnail);

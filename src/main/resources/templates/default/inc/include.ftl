@@ -1,5 +1,5 @@
 <meta property="mtons:mblog" content="2.2.1">
-${site_metas}
+${options['site_metas']}
 
 <link rel="stylesheet" media='all' href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css">
 <link rel='stylesheet' media='all' href="${base}/dist/vendors/share.js/css/share.min.css"/>

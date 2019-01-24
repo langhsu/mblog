@@ -3,6 +3,9 @@ package com.mtons.mblog.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author : langhsu
  * @version : 1.0
@@ -10,11 +13,12 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConfigurationProperties(prefix = "site")
-public class SiteConfig {
+public class SiteOptions {
     private String version;
     private String theme;
     private Controls controls;
-    private Store store;
+
+    private Map<String, String> options = new HashMap<>();
 
     public String getVersion() {
         return version;
@@ -40,12 +44,12 @@ public class SiteConfig {
         this.controls = controls;
     }
 
-    public Store getStore() {
-        return store;
+    public Map<String, String> getOptions() {
+        return options;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setOptions(Map<String, String> options) {
+        this.options = options;
     }
 
     public static class Controls {
@@ -78,33 +82,4 @@ public class SiteConfig {
         }
     }
 
-    public static class Store {
-        private String root;
-        private Integer maxWidth;
-        private Integer size;
-
-        public String getRoot() {
-            return root;
-        }
-
-        public void setRoot(String root) {
-            this.root = root;
-        }
-
-        public Integer getMaxWidth() {
-            return maxWidth;
-        }
-
-        public void setMaxWidth(Integer maxWidth) {
-            this.maxWidth = maxWidth;
-        }
-
-        public Integer getSize() {
-            return size;
-        }
-
-        public void setSize(Integer size) {
-            this.size = size;
-        }
-    }
 }

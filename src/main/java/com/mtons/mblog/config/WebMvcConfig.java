@@ -1,7 +1,6 @@
 package com.mtons.mblog.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import com.mtons.mblog.base.context.AppContext;
 import com.mtons.mblog.web.interceptor.BaseInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -23,8 +21,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     private BaseInterceptor baseInterceptor;
     @Autowired
     private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
-    @Autowired
-    private AppContext appContext;
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
@@ -51,8 +47,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 .addResourceLocations("classpath:/static/dist/");
         registry.addResourceHandler("/theme/*/dist/**")
                 .addResourceLocations("classpath:/templates/");
-        registry.addResourceHandler("/store/**")
-                .addResourceLocations(getStorePath());
+        registry.addResourceHandler("/storage/**")
+                .addResourceLocations("file:///" + System.getProperties().getProperty("user.dir") + "/storage/");
         super.addResourceHandlers(registry);
     }
 
@@ -61,17 +57,4 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         converters.add(fastJsonHttpMessageConverter);
     }
 
-    private String getStorePath() {
-        StringBuilder builder = new StringBuilder("file:");
-
-        builder.append(appContext.getRoot());
-
-        if (!appContext.getRoot().endsWith(File.separator)) {
-            builder.append(File.separator);
-        }
-
-        builder.append("store/");
-
-        return builder.toString();
-    }
 }

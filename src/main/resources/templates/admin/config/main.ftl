@@ -16,7 +16,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#sites" data-toggle="tab" aria-expanded="true">站点信息</a></li>
                     <li class=""><a href="#oauth" data-toggle="tab" aria-expanded="false">第三方登录</a></li>
-                    <li class=""><a href="#store" data-toggle="tab" aria-expanded="false">图片存储</a></li>
+                    <li class=""><a href="#storage" data-toggle="tab" aria-expanded="false">图片存储</a></li>
                     <li class="pull-right header"><i class="fa fa-cogs"></i></li>
                 </ul>
                 <div class="tab-content no-padding">
@@ -26,8 +26,8 @@
                     <div class="tab-pane" id="oauth">
                         <#include "/admin/config/settings.ftl">
                     </div>
-                    <div class="tab-pane" id="store">
-                        <#include "/admin/config/store.ftl">
+                    <div class="tab-pane" id="storage">
+                        <#include "/admin/config/storage.ftl">
                     </div>
                 </div>
                 <!-- /.tab-content -->

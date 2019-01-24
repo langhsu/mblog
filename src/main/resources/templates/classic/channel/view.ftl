@@ -1,8 +1,8 @@
 <#include "/classic/utils/ui.ftl"/>
 
-<#assign title = view.title + ' - ' + site_name />
-<#assign keywords = view.keywords?default(site_keywords) />
-<#assign description = view.description?default(site_description) />
+<#assign title = view.title + ' - ' + options['site_name'] />
+<#assign keywords = view.keywords?default(options['site_keywords']) />
+<#assign description = view.description?default(options['site_description']) />
 
 <@layout title>
 <div class="row main">
@@ -47,7 +47,7 @@
         </div>
 
         <!-- Comments -->
-        <#if site.controls.comment>
+        <@controls name="comment">
         <div id="chat" class="chats shadow-box">
             <div class="chat_other">
                 <h4>全部评论: <span id="chat_count">0</span> 条</h4>
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        </#if>
+        </@controls>
         <!-- /view show -->
     </div>
     <div class="col-xs-12 col-md-3 side-right hidden-xs hidden-sm">
