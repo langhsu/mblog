@@ -7,7 +7,6 @@ import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.base.utils.ImageUtils;
-import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.data.OpenOauthVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.OpenOauthService;
@@ -49,9 +48,6 @@ public class CallbackController extends BaseController {
     private OpenOauthService openOauthService;
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private SiteOptions siteOptions;
 
     /**
      * 跳转到微博进行授权

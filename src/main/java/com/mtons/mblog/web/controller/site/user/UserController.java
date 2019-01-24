@@ -34,7 +34,7 @@ public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private FavorService favorService;
+	private FavoriteService favoriteService;
 	@Autowired
 	private MessageService messageService;
 
@@ -80,7 +80,7 @@ public class UserController extends BaseController {
 	public String favors(ModelMap model) {
 		Pageable pageable = wrapPageable();
 		AccountProfile profile = getProfile();
-		Page<FavorVO> page = favorService.pagingByOwnId(pageable, profile.getId());
+		Page<FavoriteVO> page = favoriteService.pagingByOwnId(pageable, profile.getId());
 
 		model.put("page", page);
 		initUser(model);

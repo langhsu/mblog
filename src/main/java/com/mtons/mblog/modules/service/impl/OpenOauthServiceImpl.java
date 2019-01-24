@@ -11,13 +11,13 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.data.OpenOauthVO;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.modules.entity.OpenOauth;
+import com.mtons.mblog.modules.entity.UserOauth;
 import com.mtons.mblog.modules.entity.User;
 import com.mtons.mblog.modules.repository.UserRepository;
 import com.mtons.mblog.modules.service.OpenOauthService;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
 import com.mtons.mblog.base.utils.MD5;
-import com.mtons.mblog.modules.repository.OpenOauthRepository;
+import com.mtons.mblog.modules.repository.UserOauthRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,20 +33,20 @@ import java.util.Optional;
 @Transactional
 public class OpenOauthServiceImpl implements OpenOauthService {
     @Autowired
-    private OpenOauthRepository openOauthRepository;
+    private UserOauthRepository userOauthRepository;
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public UserVO getUserByOauthToken(String oauth_token) {
-        OpenOauth thirdToken = openOauthRepository.findByAccessToken(oauth_token);
+        UserOauth thirdToken = userOauthRepository.findByAccessToken(oauth_token);
         Optional<User> po = userRepository.findById(thirdToken.getId());
         return BeanMapUtils.copy(po.get());
     }
 
     @Override
     public OpenOauthVO getOauthByToken(String oauth_token) {
-        OpenOauth po = openOauthRepository.findByAccessToken(oauth_token);
+        UserOauth po = userOauthRepository.findByAccessToken(oauth_token);
         OpenOauthVO vo = null;
         if (po != null) {
             vo = new OpenOauthVO();
@@ -57,7 +57,7 @@ public class OpenOauthServiceImpl implements OpenOauthService {
 
     @Override
     public OpenOauthVO getOauthByUid(long userId) {
-        OpenOauth po = openOauthRepository.findByUserId(userId);
+        UserOauth po = userOauthRepository.findByUserId(userId);
         OpenOauthVO vo = null;
         if (po != null) {
             vo = new OpenOauthVO();
@@ -68,7 +68,7 @@ public class OpenOauthServiceImpl implements OpenOauthService {
 
     @Override
     public boolean checkIsOriginalPassword(long userId) {
-        OpenOauth po = openOauthRepository.findByUserId(userId);
+        UserOauth po = userOauthRepository.findByUserId(userId);
         if (po != null) {
             Optional<User> optional = userRepository.findById(userId);
 
@@ -83,14 +83,14 @@ public class OpenOauthServiceImpl implements OpenOauthService {
 
     @Override
     public void saveOauthToken(OpenOauthVO oauth) {
-        OpenOauth po = new OpenOauth();
+        UserOauth po = new UserOauth();
         BeanUtils.copyProperties(oauth, po);
-        openOauthRepository.save(po);
+        userOauthRepository.save(po);
     }
 
 	@Override
 	public OpenOauthVO getOauthByOauthUserId(String oauthUserId) {
-		OpenOauth po = openOauthRepository.findByOauthUserId(oauthUserId);
+		UserOauth po = userOauthRepository.findByOauthUserId(oauthUserId);
         OpenOauthVO vo = null;
         if (po != null) {
             vo = new OpenOauthVO();

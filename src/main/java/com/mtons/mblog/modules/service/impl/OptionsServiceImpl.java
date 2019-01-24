@@ -9,9 +9,9 @@
 */
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.modules.entity.Config;
-import com.mtons.mblog.modules.repository.ConfigRepository;
-import com.mtons.mblog.modules.service.ConfigService;
+import com.mtons.mblog.modules.entity.Options;
+import com.mtons.mblog.modules.repository.OptionsRepository;
+import com.mtons.mblog.modules.service.OptionsService;
 import org.hibernate.Session;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,20 +31,20 @@ import java.util.Map;
  *
  */
 @Service
-public class ConfigServiceImpl implements ConfigService {
+public class OptionsServiceImpl implements OptionsService {
 	@Autowired
-	private ConfigRepository configRepository;
+	private OptionsRepository optionsRepository;
 	@Autowired
 	private EntityManager entityManager;
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Config> findAll() {
-		List<Config> list = configRepository.findAll();
-		List<Config> rets = new ArrayList<>();
+	public List<Options> findAll() {
+		List<Options> list = optionsRepository.findAll();
+		List<Options> rets = new ArrayList<>();
 		
-		for (Config po : list) {
-			Config r = new Config();
+		for (Options po : list) {
+			Options r = new Options();
 			BeanUtils.copyProperties(po, r);
 			rets.add(r);
 		}
@@ -53,41 +53,38 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Override
 	@Transactional
-	public void update(List<Config> settings) {
-		if (settings == null) {
+	public void update(List<Options> options) {
+		if (options == null) {
 			return;
 		}
 		
-		for (Config st :  settings) {
-			Config entity = configRepository.findByKey(st.getKey());
+		for (Options opt :  options) {
+			Options entity = optionsRepository.findByKey(opt.getKey());
 
 			// 修改
 			if (entity != null) {
-				entity.setValue(st.getValue());
+				entity.setValue(opt.getValue());
 			}
 			// 添加
 			else {
-				entity = new Config();
-				BeanUtils.copyProperties(st, entity);
+				entity = new Options();
+				BeanUtils.copyProperties(opt, entity);
 			}
-			configRepository.save(entity);
+			optionsRepository.save(entity);
 		}
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Map<String, Config> findAll2Map() {
-		List<Config> list = findAll();
-		Map<String, Config> ret = new LinkedHashMap<String, Config>();
-		
-		for (Config c : list) {
-			ret.put(c.getKey(), c);
-		}
+	public Map<String, Options> findAll2Map() {
+		List<Options> list = findAll();
+		Map<String, Options> ret = new LinkedHashMap<>();
+		list.forEach(opt -> ret.put(opt.getKey(), opt));
 		return ret;
 	}
 
 	public String findConfigValueByName(String key) {
-		Config entity = configRepository.findByKey(key);
+		Options entity = optionsRepository.findByKey(key);
 		if (entity != null) {
 			return entity.getValue();
 		}

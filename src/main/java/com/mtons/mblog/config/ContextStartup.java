@@ -2,9 +2,9 @@ package com.mtons.mblog.config;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.Printer;
-import com.mtons.mblog.modules.entity.Config;
+import com.mtons.mblog.modules.entity.Options;
 import com.mtons.mblog.modules.service.ChannelService;
-import com.mtons.mblog.modules.service.ConfigService;
+import com.mtons.mblog.modules.service.OptionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -27,7 +27,7 @@ import java.util.TimerTask;
 @Component
 public class ContextStartup implements ApplicationRunner, Ordered, ServletContextAware {
     @Autowired
-    private ConfigService configService;
+    private OptionsService optionsService;
     @Autowired
     private ChannelService channelService;
     @Autowired
@@ -66,12 +66,12 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
      * 重置站点配置
      */
     public void resetSetting(boolean exit) {
-        List<Config> configs = configService.findAll();
+        List<Options> options = optionsService.findAll();
 
-        if (null == configs || configs.isEmpty()) {
+        if (null == options || options.isEmpty()) {
             try {
                 Resource resource = new ClassPathResource("/config/db/db_mblog.sql");
-                configService.initSettings(resource);
+                optionsService.initSettings(resource);
             } catch (Exception e) {
                 Printer.error("------------------------------------------------------------");
                 Printer.error("-  ERROR:The SQL file is not imported. (sql/db_mblog.sql)  -");
@@ -83,7 +83,7 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
                 }
             }
         } else {
-            configs.forEach(conf -> {
+            options.forEach(conf -> {
                 siteOptions.getOptions().put(conf.getKey(), conf.getValue());
                 servletContext.setAttribute(conf.getKey(), conf.getValue());
             });

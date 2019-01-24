@@ -11,8 +11,8 @@ package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.data.Data;
 import com.mtons.mblog.config.ContextStartup;
-import com.mtons.mblog.modules.entity.Config;
-import com.mtons.mblog.modules.service.ConfigService;
+import com.mtons.mblog.modules.entity.Options;
+import com.mtons.mblog.modules.service.OptionsService;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,44 +33,42 @@ import java.util.Map;
  *
  */
 @Controller
-@RequestMapping("/admin/config")
-public class ConfigController extends BaseController {
+@RequestMapping("/admin/options")
+public class OptionsController extends BaseController {
 	@Autowired
-	private ConfigService configService;
+	private OptionsService optionsService;
 	@Autowired
 	private PostSearchService postSearchService;
 	@Autowired
 	private ContextStartup contextStartup;
 
-	@RequestMapping("/main")
-//	@RequiresPermissions("config:list")
+	@RequestMapping("/index")
 	public String list(ModelMap model) {
-		model.put("configs", configService.findAll2Map());
-		return "/admin/config/main";
+		model.put("values", optionsService.findAll2Map());
+		return "/admin/options/index";
 	}
 	
 	@RequestMapping("/update")
-//	@RequiresPermissions("config:update")
 	public String update(HttpServletRequest request, ModelMap model) {
 		Map<String, String[]> params = request.getParameterMap();
 
-		List<Config> configs = new ArrayList<>();
+		List<Options> options = new ArrayList<>();
 
 		params.forEach((k, v) -> {
-			Config conf = new Config();
+			Options conf = new Options();
 			conf.setKey(k);
 			conf.setValue(v[0]);
 
-			configs.add(conf);
+			options.add(conf);
 		});
 
-		configService.update(configs);
+		optionsService.update(options);
 
 		contextStartup.resetSetting(false);
 
-		model.put("configs", configService.findAll2Map());
+		model.put("values", optionsService.findAll2Map());
 		model.put("data", Data.success("操作成功", Data.NOOP));
-		return "/admin/config/main";
+		return "/admin/options/index";
 	}
 
 	/**

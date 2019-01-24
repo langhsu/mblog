@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by langhsu on 2015/10/25.
  */
 @Entity
-@Table(name = "mto_posts_attribute")
+@Table(name = "mto_post_attribute")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PostAttribute implements Serializable {
 	private static final long serialVersionUID = 7829351358884064647L;

@@ -1,11 +1,11 @@
 package com.mtons.mblog.modules.data;
 
-import com.mtons.mblog.modules.entity.Favor;
+import com.mtons.mblog.modules.entity.Favorite;
 
 /**
  * @author langhsu on 2015/8/31.
  */
-public class FavorVO extends Favor {
+public class FavoriteVO extends Favorite {
     // extend
     private PostVO post;
 

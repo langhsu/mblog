@@ -13,6 +13,7 @@ import com.mtons.mblog.base.storage.StorageFactory;
 import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.base.utils.MailHelper;
 import com.mtons.mblog.base.utils.Printer;
+import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
 import org.apache.shiro.SecurityUtils;
@@ -49,12 +50,11 @@ public class BaseController {
 	@Autowired
 	protected StorageFactory storageFactory;
 	@Autowired
+	protected SiteOptions siteOptions;
+	@Autowired
 	private MailHelper mailHelper;
 	@Autowired
 	private TaskExecutor taskExecutor;
-
-	@Value("${site.theme:default}")
-	private String theme;
 
 	@InitBinder
 	public void initBinder(ServletRequestDataBinder binder) {
@@ -120,7 +120,7 @@ public class BaseController {
 	}
 
 	protected String view(String view) {
-		return "/" + theme + view;
+		return "/" + siteOptions.getOptions().get("theme") + view;
 	}
 
 	protected void sendEmail(String template, String email, String subject, Map<String, Object> context) {

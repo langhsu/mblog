@@ -55,7 +55,7 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private UserEventService userEventService;
 	@Autowired
-	private FavorService favorService;
+	private FavoriteService favoriteService;
 	@Autowired
 	private ChannelService channelService;
 	@Autowired
@@ -347,7 +347,7 @@ public class PostServiceImpl implements PostService {
 	@CacheEvict(key = "'view_' + #postId")
 	public void favor(long userId, long postId) {
 		postRepository.updateFavors(postId, Consts.IDENTITY_STEP);
-		favorService.add(userId, postId);
+		favoriteService.add(userId, postId);
 	}
 
 	@Override
@@ -355,7 +355,7 @@ public class PostServiceImpl implements PostService {
 	@CacheEvict(key = "'view_' + #postId")
 	public void unfavor(long userId, long postId) {
 		postRepository.updateFavors(postId,  Consts.DECREASE_STEP);
-		favorService.delete(userId, postId);
+		favoriteService.delete(userId, postId);
 	}
 
 	@Override

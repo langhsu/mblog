@@ -19,9 +19,9 @@ import javax.persistence.*;
  * @author langhsu on 2015/8/12.
  */
 @Entity
-@Table(name = "mto_users_open_oauth")
+@Table(name = "mto_user_oauth")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class OpenOauth {
+public class UserOauth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

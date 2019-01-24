@@ -153,8 +153,8 @@ INSERT INTO `shiro_permission` VALUES ('15', '关闭用户', 'user:close', '11',
 INSERT INTO `shiro_permission` VALUES ('16', '角色管理', 'role:list', '0', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('17', '修改角色', 'role:update', '16', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('18', '删除角色', 'role:delete', '16', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('19', '系统配置', 'config:list', '0', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('20', '修改配置', 'config:update', '19', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('19', '系统配置', 'options:list', '0', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('20', '修改配置', 'options:update', '19', '0', '0');
 
 -- ----------------------------
 -- Table structure for shiro_role

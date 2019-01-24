@@ -8,8 +8,8 @@ import java.util.Date;
  * @author langhsu on 2015/8/31.
  */
 @Entity
-@Table(name = "mto_favors")
-public class Favor {
+@Table(name = "mto_favorite")
+public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

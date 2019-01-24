@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.entity.Config;
+import com.mtons.mblog.modules.entity.Options;
 import org.springframework.core.io.Resource;
 
 import java.util.List;
@@ -20,25 +20,25 @@ import java.util.Map;
  * @author langhsu
  *
  */
-public interface ConfigService {
+public interface OptionsService {
 	/**
 	 * 查询所有配置
 	 * @return list
 	 */
-	List<Config> findAll();
+	List<Options> findAll();
 
 	/**
 	 * 查询所有配置
 	 * @return map
 	 */
-	Map<String, Config> findAll2Map();
+	Map<String, Options> findAll2Map();
 
 	/**
 	 * 添加或修改配置
 	 * - 修改时根据key判断唯一性
-	 * @param configs
+	 * @param options
 	 */
-	void update(List<Config> configs);
+	void update(List<Options> options);
 
 	/**
 	 * 根据key查找相应的值

@@ -20,9 +20,9 @@ import javax.persistence.*;
  *
  */
 @Entity
-@Table(name = "mto_config")
+@Table(name = "mto_options")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Config {
+public class Options {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

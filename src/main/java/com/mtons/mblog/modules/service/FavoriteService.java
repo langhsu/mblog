@@ -1,13 +1,13 @@
 package com.mtons.mblog.modules.service;
 
-import com.mtons.mblog.modules.data.FavorVO;
+import com.mtons.mblog.modules.data.FavoriteVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
  * @author langhsu on 2015/8/31.
  */
-public interface FavorService {
+public interface FavoriteService {
     /**
      *
      * @param userId
@@ -22,5 +22,5 @@ public interface FavorService {
      * @param pageable
      * @param ownId
      */
-    Page<FavorVO> pagingByOwnId(Pageable pageable, long ownId);
+    Page<FavoriteVO> pagingByOwnId(Pageable pageable, long ownId);
 }

@@ -22,8 +22,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name = "mto_posts")
-@Indexed(index = "posts")
+@Table(name = "mto_post")
+@Indexed(index = "post")
 @Analyzer(impl = SmartChineseAnalyzer.class)
 public class Post implements Serializable {
 	private static final long serialVersionUID = 7144425803920583495L;
@@ -75,7 +75,7 @@ public class Post implements Serializable {
 	private Date created;
 
 	/**
-	 * 喜欢数
+	 * 收藏数
 	 */
 	private int favors;
 

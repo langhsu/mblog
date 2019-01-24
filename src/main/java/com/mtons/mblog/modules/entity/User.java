@@ -23,7 +23,7 @@ import java.util.Date;
  *
  */
 @Entity
-@Table(name = "mto_users")
+@Table(name = "mto_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User implements Serializable {
 	private static final long serialVersionUID = -3629784071225214858L;

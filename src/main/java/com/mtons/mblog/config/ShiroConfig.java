@@ -98,8 +98,8 @@ public class ShiroConfig {
         hashMap.put("/admin/user/open", "authc,perms[user:open]");
         hashMap.put("/admin/user/close", "authc,perms[user:close]");
 
-        hashMap.put("/admin/config/main", "authc,perms[config:list]");
-        hashMap.put("/admin/config/update", "authc,perms[config:update]");
+        hashMap.put("/admin/options/index", "authc,perms[options:list]");
+        hashMap.put("/admin/options/update", "authc,perms[options:update]");
 
         hashMap.put("/admin/role/list", "authc,perms[role:list]");
         hashMap.put("/admin/role/update", "authc,perms[role:update]");

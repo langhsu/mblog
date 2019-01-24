@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.modules.repository;
 
-import com.mtons.mblog.modules.entity.OpenOauth;
+import com.mtons.mblog.modules.entity.UserOauth;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
@@ -18,8 +18,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  *
  * @author langhsu on 2015/8/12.
  */
-public interface OpenOauthRepository extends JpaRepository<OpenOauth, Long>, JpaSpecificationExecutor<OpenOauth> {
-    OpenOauth findByAccessToken(String accessToken);
-    OpenOauth findByOauthUserId(String oauthUserId);
-    OpenOauth findByUserId(long userId);
+public interface UserOauthRepository extends JpaRepository<UserOauth, Long>, JpaSpecificationExecutor<UserOauth> {
+    UserOauth findByAccessToken(String accessToken);
+    UserOauth findByOauthUserId(String oauthUserId);
+    UserOauth findByUserId(long userId);
 }

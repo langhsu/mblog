@@ -21,7 +21,7 @@ import java.io.Serializable;
  *
  */
 @Entity
-@Table(name = "mto_channels")
+@Table(name = "mto_channel")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Channel implements Serializable {
 	private static final long serialVersionUID = 2436696690653745208L;

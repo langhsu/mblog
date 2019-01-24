@@ -1,11 +1,11 @@
 package com.mtons.mblog.modules.service.impl;
 
-import com.mtons.mblog.modules.data.FavorVO;
+import com.mtons.mblog.modules.data.FavoriteVO;
 import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.repository.FavorRepository;
+import com.mtons.mblog.modules.repository.FavoriteRepository;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
-import com.mtons.mblog.modules.entity.Favor;
-import com.mtons.mblog.modules.service.FavorService;
+import com.mtons.mblog.modules.entity.Favorite;
+import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,44 +21,44 @@ import java.util.*;
  * @author langhsu on 2015/8/31.
  */
 @Service
-public class FavorServiceImpl implements FavorService {
+public class FavoriteServiceImpl implements FavoriteService {
     @Autowired
-    private FavorRepository favorRepository;
+    private FavoriteRepository favoriteRepository;
     @Autowired
     private PostService postService;
 
     @Override
     @Transactional
     public void add(long userId, long postId) {
-        Favor po = favorRepository.findByOwnIdAndPostId(userId, postId);
+        Favorite po = favoriteRepository.findByOwnIdAndPostId(userId, postId);
 
         Assert.isNull(po, "您已经收藏过此文章");
 
         // 如果没有喜欢过, 则添加记录
-        po = new Favor();
+        po = new Favorite();
         po.setOwnId(userId);
         po.setPostId(postId);
         po.setCreated(new Date());
 
-        favorRepository.save(po);
+        favoriteRepository.save(po);
     }
 
     @Override
     @Transactional
     public void delete(long userId, long postId) {
-        Favor po = favorRepository.findByOwnIdAndPostId(userId, postId);
+        Favorite po = favoriteRepository.findByOwnIdAndPostId(userId, postId);
         Assert.notNull(po, "还没有喜欢过此文章");
-        favorRepository.delete(po);
+        favoriteRepository.delete(po);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<FavorVO> pagingByOwnId(Pageable pageable, long ownId) {
-        Page<Favor> page = favorRepository.findAllByOwnIdOrderByCreatedDesc(pageable, ownId);
+    public Page<FavoriteVO> pagingByOwnId(Pageable pageable, long ownId) {
+        Page<Favorite> page = favoriteRepository.findAllByOwnIdOrderByCreatedDesc(pageable, ownId);
 
-        List<FavorVO> rets = new ArrayList<>();
+        List<FavoriteVO> rets = new ArrayList<>();
         Set<Long> postIds = new HashSet<>();
-        for (Favor po : page.getContent()) {
+        for (Favorite po : page.getContent()) {
             rets.add(BeanMapUtils.copy(po));
             postIds.add(po.getPostId());
         }
@@ -66,7 +66,7 @@ public class FavorServiceImpl implements FavorService {
         if (postIds.size() > 0) {
             Map<Long, PostVO> posts = postService.findMapByIds(postIds);
 
-            for (FavorVO t : rets) {
+            for (FavoriteVO t : rets) {
                 PostVO p = posts.get(t.getPostId());
                 t.setPost(p);
             }

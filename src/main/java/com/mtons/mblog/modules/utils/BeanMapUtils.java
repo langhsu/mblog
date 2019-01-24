@@ -65,8 +65,8 @@ public class BeanMapUtils {
 		return ret;
 	}
 
-	public static FavorVO copy(Favor po) {
-		FavorVO ret = new FavorVO();
+	public static FavoriteVO copy(Favorite po) {
+		FavoriteVO ret = new FavoriteVO();
 		BeanUtils.copyProperties(po, ret);
 		return ret;
 	}

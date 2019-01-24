@@ -32,7 +32,7 @@
   {
     "icon": "fa fa-sun-o icon-xlarge",
     "name": "系统配置",
-    "url": "admin/config/main",
-    "permission": "config:list"
+    "url": "admin/options/main",
+    "permission": "options:list"
   }
 ]

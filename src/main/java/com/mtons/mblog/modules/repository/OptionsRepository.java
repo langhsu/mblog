@@ -9,13 +9,13 @@
 */
 package com.mtons.mblog.modules.repository;
 
-import com.mtons.mblog.modules.entity.Config;
+import com.mtons.mblog.modules.entity.Options;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * @author langhsu
  */
-public interface ConfigRepository extends JpaRepository<Config, Long>, JpaSpecificationExecutor<Config> {
-	Config findByKey(String key);
+public interface OptionsRepository extends JpaRepository<Options, Long>, JpaSpecificationExecutor<Options> {
+	Options findByKey(String key);
 }

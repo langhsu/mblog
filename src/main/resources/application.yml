@@ -53,19 +53,15 @@ shiro:
             maxAge: 604800
 
 
-# site.theme: [default|classic]
+# site.options.theme: [default|classic]
 site:
     version: 3.0
     theme: classic
     controls:
         register: true
         comment: true
-    store:
-        root: d:/data/mblog/
-        maxWidth: 800
-        size: 2
-    upyun:
-        upyun_oss_src:
-        upyun_oss_pwd:
-        upyun_oss_bucket:
-        upyun_oss_operator:
+    # 系统默认配置, 启动后 mto_options 的配置将覆盖此属性
+    options:
+        theme: classic
+        storage_max_width: 800
+        storeage_limit_size: 2

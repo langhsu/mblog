@@ -12,7 +12,7 @@ package com.mtons.mblog.web.controller.site.posts;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.web.controller.BaseController;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,9 +34,6 @@ import java.util.HashMap;
 @RequestMapping("/post")
 public class UploadController extends BaseController {
     public static HashMap<String, String> errorInfo = new HashMap<>();
-
-    @Value("${site.store.size:2}")
-    private String storeSize;
 
     static {
         errorInfo.put("SUCCESS", "SUCCESS"); //默认成功
@@ -71,7 +68,11 @@ public class UploadController extends BaseController {
         }
 
         // 检查大小
-        if (file.getSize() > (Long.parseLong(storeSize) * 1024 * 1024)) {
+        String limitSize = siteOptions.getOptions().get("storage_limit_size");
+        if (StringUtils.isBlank(limitSize)) {
+            limitSize = "2";
+        }
+        if (file.getSize() > (Long.parseLong(limitSize) * 1024 * 1024)) {
             return result.error(errorInfo.get("SIZE"));
         }
 
