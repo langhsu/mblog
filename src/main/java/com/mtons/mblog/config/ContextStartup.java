@@ -8,7 +8,6 @@ import com.mtons.mblog.modules.service.OptionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -90,12 +89,6 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
 
             servletContext.setAttribute("options", siteOptions.getOptions());
         }
-
-        ApplicationHome home = new ApplicationHome(getClass());
-        System.out.println(home.getDir().getAbsolutePath());
-        System.out.println(home.getSource().getAbsolutePath());
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println(System.getProperties().getProperty("user.home"));
     }
 
     /**

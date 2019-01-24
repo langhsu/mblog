@@ -19,7 +19,7 @@ ${options['site_metas']}
 <script type="text/javascript" src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${base}/dist/vendors/validate/jquery-validate.js"></script>
 
-<script type="text/javascript" src="${base}/theme/default/dist/js/utils.js"></script>
+<script type="text/javascript" src="${base}/dist/js/utils.js"></script>
 
 <script src="${base}/dist/vendors/pace/pace.min.js"></script>
 
@@ -32,8 +32,8 @@ ${options['site_metas']}
     };
 </script>
 
-<script type="text/javascript" src="${base}/theme/default/dist/js/sea.js"></script>
-<script type="text/javascript" src="${base}/theme/default/dist/js/sea.config.js"></script>
+<script type="text/javascript" src="${base}/dist/js/sea.js"></script>
+<script type="text/javascript" src="${base}/dist/js/sea.config.js"></script>
 
 <!-- Favicons -->
 <link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo.png"/>

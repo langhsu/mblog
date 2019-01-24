@@ -45,6 +45,15 @@
                     <input type="text" name="site_icp" class="form-control" value="${values['site_icp'].value}" placeholder="示例: 京ICP备12345678号">
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">主题</label>
+                <div class="col-lg-10">
+                    <select class="form-control" name="theme" data-select="${values['theme'].value}">
+                        <option value="default">default</option>
+                        <option value="classic">classic</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     <div class="box-footer">

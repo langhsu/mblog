@@ -21,13 +21,13 @@
                 </ul>
                 <div class="tab-content no-padding">
                     <div class="tab-pane active" id="sites">
-                        <#include "/admin/config/sites.ftl">
+                        <#include "/admin/options/sites.ftl">
                     </div>
                     <div class="tab-pane" id="oauth">
-                        <#include "/admin/config/settings.ftl">
+                        <#include "/admin/options/oauths.ftl">
                     </div>
                     <div class="tab-pane" id="storage">
-                        <#include "/admin/config/storage.ftl">
+                        <#include "/admin/options/storages.ftl">
                     </div>
                 </div>
                 <!-- /.tab-content -->

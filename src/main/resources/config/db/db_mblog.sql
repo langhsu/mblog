@@ -16,10 +16,10 @@ Date: 2019-01-18 22:17:57
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for mto_channels
+-- Table structure for mto_channel
 -- ----------------------------
-DROP TABLE IF EXISTS `mto_channels`;
-CREATE TABLE `mto_channels` (
+DROP TABLE IF EXISTS `mto_channel`;
+CREATE TABLE `mto_channel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `key_` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -29,18 +29,18 @@ CREATE TABLE `mto_channels` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of mto_channels
+-- Records of mto_channel
 -- ----------------------------
-INSERT INTO `mto_channels` VALUES ('1', 'banner', 'banner', '1');
-INSERT INTO `mto_channels` VALUES ('2', 'blog', '博客', '0');
-INSERT INTO `mto_channels` VALUES ('3', 'questions', '问答', '0');
-INSERT INTO `mto_channels` VALUES ('4', 'share', '分享', '0');
+INSERT INTO `mto_channel` VALUES ('1', 'banner', 'banner', '1');
+INSERT INTO `mto_channel` VALUES ('2', 'blog', '博客', '0');
+INSERT INTO `mto_channel` VALUES ('3', 'questions', '问答', '0');
+INSERT INTO `mto_channel` VALUES ('4', 'share', '分享', '0');
 
 -- ----------------------------
--- Table structure for mto_config
+-- Table structure for mto_options
 -- ----------------------------
-DROP TABLE IF EXISTS `mto_config`;
-CREATE TABLE `mto_config` (
+DROP TABLE IF EXISTS `mto_options`;
+CREATE TABLE `mto_options` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `key_` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
@@ -50,30 +50,30 @@ CREATE TABLE `mto_config` (
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of mto_config
+-- Records of mto_options
 -- ----------------------------
-INSERT INTO `mto_config` VALUES ('1', 'site_name', '0', 'Mtons');
-INSERT INTO `mto_config` VALUES ('3', 'site_domain', '0', 'http://mtons.com');
-INSERT INTO `mto_config` VALUES ('4', 'site_keywords', '0', 'mtons,博客,社区');
-INSERT INTO `mto_config` VALUES ('5', 'site_description', '0', 'Mtons, 做一个有内涵的技术社区');
-INSERT INTO `mto_config` VALUES ('6', 'site_metas', '0', '');
-INSERT INTO `mto_config` VALUES ('7', 'site_copyright', '0', 'Copyright © Mtons');
-INSERT INTO `mto_config` VALUES ('8', 'site_icp', '0', '');
-INSERT INTO `mto_config` VALUES ('11', 'qq_callback', '0', '');
-INSERT INTO `mto_config` VALUES ('12', 'qq_app_id', '0', '');
-INSERT INTO `mto_config` VALUES ('13', 'qq_app_key', '0', '');
-INSERT INTO `mto_config` VALUES ('14', 'weibo_callback', '0', '');
-INSERT INTO `mto_config` VALUES ('15', 'weibo_client_id', '0', '');
-INSERT INTO `mto_config` VALUES ('16', 'weibo_client_sercret', '0', '');
-INSERT INTO `mto_config` VALUES ('23', 'github_callback', '0', '');
-INSERT INTO `mto_config` VALUES ('24', 'github_client_id', '0', '');
-INSERT INTO `mto_config` VALUES ('25', 'github_secret_key', '0', '');
+INSERT INTO `mto_options` VALUES ('1', 'site_name', '0', 'Mtons');
+INSERT INTO `mto_options` VALUES ('3', 'site_domain', '0', 'http://mtons.com');
+INSERT INTO `mto_options` VALUES ('4', 'site_keywords', '0', 'mtons,博客,社区');
+INSERT INTO `mto_options` VALUES ('5', 'site_description', '0', 'Mtons, 做一个有内涵的技术社区');
+INSERT INTO `mto_options` VALUES ('6', 'site_metas', '0', '');
+INSERT INTO `mto_options` VALUES ('7', 'site_copyright', '0', 'Copyright © Mtons');
+INSERT INTO `mto_options` VALUES ('8', 'site_icp', '0', '');
+INSERT INTO `mto_options` VALUES ('11', 'qq_callback', '0', '');
+INSERT INTO `mto_options` VALUES ('12', 'qq_app_id', '0', '');
+INSERT INTO `mto_options` VALUES ('13', 'qq_app_key', '0', '');
+INSERT INTO `mto_options` VALUES ('14', 'weibo_callback', '0', '');
+INSERT INTO `mto_options` VALUES ('15', 'weibo_client_id', '0', '');
+INSERT INTO `mto_options` VALUES ('16', 'weibo_client_sercret', '0', '');
+INSERT INTO `mto_options` VALUES ('23', 'github_callback', '0', '');
+INSERT INTO `mto_options` VALUES ('24', 'github_client_id', '0', '');
+INSERT INTO `mto_options` VALUES ('25', 'github_secret_key', '0', '');
 
 -- ----------------------------
--- Table structure for mto_users
+-- Table structure for mto_user
 -- ----------------------------
-DROP TABLE IF EXISTS `mto_users`;
-CREATE TABLE `mto_users` (
+DROP TABLE IF EXISTS `mto_user`;
+CREATE TABLE `mto_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(32) DEFAULT NULL,
   `name` varchar(32) DEFAULT NULL,
@@ -94,15 +94,15 @@ CREATE TABLE `mto_users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of mto_users
+-- Records of mto_user
 -- ----------------------------
-INSERT INTO `mto_users` VALUES ('1', 'admin', '小豆丁', '/dist/images/ava/default.png', 'example@mtons.com', '3TGCQF25BLHU9R7IQUITN0FCC5', '0', '2017-08-06 17:52:41', '2017-07-26 11:08:36', '2017-10-17 13:24:13', '0', '1', '0', '0', '');
+INSERT INTO `mto_user` VALUES ('1', 'admin', '小豆丁', '/dist/images/ava/default.png', 'example@mtons.com', '3TGCQF25BLHU9R7IQUITN0FCC5', '0', '2017-08-06 17:52:41', '2017-07-26 11:08:36', '2017-10-17 13:24:13', '0', '1', '0', '0', '');
 
 -- ----------------------------
--- Table structure for mto_users_open_oauth
+-- Table structure for mto_user_oauth
 -- ----------------------------
-DROP TABLE IF EXISTS `mto_users_open_oauth`;
-CREATE TABLE `mto_users_open_oauth` (
+DROP TABLE IF EXISTS `mto_user_oauth`;
+CREATE TABLE `mto_user_oauth` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `access_token` varchar(255) DEFAULT NULL,
   `expire_in` varchar(255) DEFAULT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE `mto_users_open_oauth` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of mto_users_open_oauth
+-- Records of mto_user_oauth
 -- ----------------------------
 
 -- ----------------------------
@@ -153,7 +153,7 @@ INSERT INTO `shiro_permission` VALUES ('15', '关闭用户', 'user:close', '11',
 INSERT INTO `shiro_permission` VALUES ('16', '角色管理', 'role:list', '0', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('17', '修改角色', 'role:update', '16', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('18', '删除角色', 'role:delete', '16', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('19', '系统配置', 'options:list', '0', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('19', '系统配置', 'options:index', '0', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('20', '修改配置', 'options:update', '19', '0', '0');
 
 -- ----------------------------
