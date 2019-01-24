@@ -107,4 +107,6 @@ public interface UserService {
 	 */
 	void updateStatus(long id, int status);
 
+	long count();
+
 }

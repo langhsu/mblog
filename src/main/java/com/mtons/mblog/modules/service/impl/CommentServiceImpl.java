@@ -188,6 +188,11 @@ public class CommentServiceImpl implements CommentService {
 		return rets;
 	}
 
+	@Override
+	public long count() {
+		return commentRepository.count();
+	}
+
 	private void buildUsers(Collection<CommentVO> posts, Set<Long> uids) {
 		Map<Long, UserVO> userMap = userService.findMapByIds(uids);
 

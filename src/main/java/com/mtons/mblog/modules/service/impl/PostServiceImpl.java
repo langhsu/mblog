@@ -355,7 +355,12 @@ public class PostServiceImpl implements PostService {
 		postRepository.updateFavors(postId,  Consts.DECREASE_STEP);
 		favorService.delete(userId, postId);
 	}
-	
+
+	@Override
+	public long count() {
+		return postRepository.count();
+	}
+
 	/**
 	 * 截取文章内容
 	 * @param text

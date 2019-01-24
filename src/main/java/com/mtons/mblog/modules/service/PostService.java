@@ -145,4 +145,6 @@ public interface PostService {
 	 * @param postId
 	 */
 	void unfavor(long userId, long postId);
+
+	long count();
 }

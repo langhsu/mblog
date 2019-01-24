@@ -69,4 +69,9 @@ public class ChannelServiceImpl implements ChannelService {
 		channelRepository.deleteById(id);
 	}
 
+	@Override
+	public long count() {
+		return channelRepository.count();
+	}
+
 }

@@ -55,4 +55,6 @@ public interface CommentService {
 	List<Comment> findAllByAuthorIdAndToId(long authorId, long toId);
 
 	List<CommentVO> latests(int maxResults);
+
+	long count();
 }

@@ -9,6 +9,11 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
+import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.modules.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +26,22 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class AdminController {
+    @Autowired
+    private ChannelService channelService;
+    @Autowired
+    private PostService postService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private UserService userService;
 
 	@RequestMapping("/admin")
-//    @RequiresPermissions("admin")
 	public String index(HttpServletRequest request, ModelMap model) {
 		pushSystemStatus(request, model);
+		model.put("channelCount", channelService.count());
+        model.put("postCount", postService.count());
+        model.put("commentCount", commentService.count());
+        model.put("userCount", userService.count());
 		return "/admin/index";
 	}
 	

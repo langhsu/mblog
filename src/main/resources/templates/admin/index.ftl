@@ -2,10 +2,7 @@
 <@layout>
 
 <section class="content-header">
-    <h1>
-        仪表盘
-        <small>欢迎使用mblog系统</small>
-    </h1>
+    <h1>仪表盘</h1>
     <ol class="breadcrumb">
         <li><a href="${base}/admin"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li class="active">仪表盘</li>
@@ -13,8 +10,66 @@
 </section>
 <section class="content container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <div class="box">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>${channelCount}</h3>
+                    <p>栏目</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <a href="${base}/admin/channel/list" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>${postCount}</h3>
+                    <p>文章</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-clone"></i>
+                </div>
+                <a href="${base}/admin/post/list" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>${commentCount}</h3>
+                    <p>评论</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-comments-o"></i>
+                </div>
+                <a href="${base}/admin/comment/list" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>${userCount}</h3>
+                    <p>用户</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="${base}/admin/user/list" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">系统占用情况</h3>
 
@@ -24,57 +79,82 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <canvas id="canvas"></canvas>
-                        </div>
-                        <div class="col-md-4">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td>内存消耗:</td>
-                                    <td>
-                                    ${usedMemory}M / ${totalMemory}M
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:120px;">操作系统:</td>
-                                    <td>${os}</td>
-                                </tr>
-                                <tr>
-                                    <td style="width:120px;">JDK版本:</td>
-                                    <td>${javaVersion}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default" data-action="flush_conf">
-                                    刷新系统变量
-                                </button>
-                                <button type="button" class="btn btn-default" data-action="flush_indexs">
-                                    重建索引
-                                </button>
-                            </div>
-                        </div>
+                    <canvas id="canvas"></canvas>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>内存消耗:</td>
+                            <td>
+                                ${usedMemory}M / ${totalMemory}M
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:120px;">操作系统:</td>
+                            <td>${os}</td>
+                        </tr>
+                        <tr>
+                            <td style="width:120px;">JDK版本:</td>
+                            <td>${javaVersion}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">缓存</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
                     </div>
+                </div>
+                <div class="box-body">
+                    <button type="button" class="btn btn-primary" data-action="flush_conf">
+                        刷新系统变量
+                    </button>
+                    <button type="button" class="btn btn-info" data-action="flush_indexs">
+                        重建索引
+                    </button>
+                </div>
+            </div>
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">最新评论</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body chat" id="chat-box" style="overflow: hidden; width: auto; height: 250px;">
+                    <!-- chat item -->
+                    <div class="item">
+                        <p class="message">没有最新内容</p>
+                    </div>
+                    <!-- /.item -->
                 </div>
             </div>
         </div>
     </div>
 </section>
 <script type='text/javascript' src='${base}/dist/vendors/Chart.js/dist/Chart.min.js'></script>
+<script type="text/plain" id="chat">
+    <div class="item">
+        <img src="{0}" alt="user image" class="offline">
+
+        <p class="message">
+            <a href="${base}/users/{1}" class="name">
+                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {2}</small>
+                {3}
+            </a>
+            {4}
+        </p>
+    </div>
+</script>
 <script>
     var J = jQuery;
 
     function ajaxReload(json){
-        if(json.code >= 0){
-            if(json.message != null && json.message != ''){
-                alert(json.message);
-            }
-            window.location.reload();
-        }else{
-            alert(json.message);
-        }
+        layer.alert(json.message);
     }
 	$(function () {
         var ctx = document.getElementById("canvas");
@@ -117,6 +197,18 @@
             }
             return false;
         });
+        
+        J.getJSON('${base}/api/latest_comments', function (result) {
+            if (result.length > 0) {
+                var template = $('#chat')[0].text;
+                var html = [];
+                J.each(result, function (i, n) {
+                    var row = J.format(template, n.author.avatar, n.author.id, n.created, n.author.name, n.content);
+                    html.push(row);
+                })
+                $('#chat-box').html(html);
+            }
+        })
     })
 </script>
 </@layout>

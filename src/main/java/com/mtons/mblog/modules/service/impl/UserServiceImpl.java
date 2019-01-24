@@ -248,4 +248,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(po);
     }
 
+    @Override
+    public long count() {
+        return userRepository.count();
+    }
+
 }

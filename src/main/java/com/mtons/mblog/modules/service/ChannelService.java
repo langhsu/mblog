@@ -27,4 +27,6 @@ public interface ChannelService {
 	Channel getById(int id);
 	void update(Channel channel);
 	void delete(int id);
+
+	long count();
 }
