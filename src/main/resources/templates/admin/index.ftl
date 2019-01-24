@@ -79,7 +79,6 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <canvas id="canvas"></canvas>
                     <table class="table table-bordered">
                         <tr>
                             <td>内存消耗:</td>
@@ -96,6 +95,11 @@
                             <td>${javaVersion}</td>
                         </tr>
                     </table>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-green" role="progressbar" style="width: ${memPercent}%">
+                            <span class="sr-only">${memPercent}% 已用</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,7 +140,6 @@
         </div>
     </div>
 </section>
-<script type='text/javascript' src='${base}/dist/vendors/Chart.js/dist/Chart.min.js'></script>
 <script type="text/plain" id="chat">
     <div class="item">
         <img src="{0}" alt="user image" class="offline">
@@ -157,31 +160,6 @@
         layer.alert(json.message);
     }
 	$(function () {
-        var ctx = document.getElementById("canvas");
-        var data = {
-            labels: [
-                "可用",
-                "已用"
-            ],
-            datasets: [{
-                data: [${memPercent}, 100 - ${memPercent}],
-                backgroundColor: [
-                    "#455C73",
-                    "#9B59B6"
-                ],
-                hoverBackgroundColor: [
-                    "#34495E",
-                    "#B370CF"
-                ]
-            }]
-        };
-
-        var canvasDoughnut = new Chart(ctx, {
-            type: 'doughnut',
-            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-            data: data
-        });
-
         // 刷新系统变量
         $('button[data-action="flush_conf"]').bind('click', function(){
             if(confirm('确定要刷新系统变量的缓存吗？')){

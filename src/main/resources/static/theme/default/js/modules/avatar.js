@@ -11,7 +11,6 @@
 define(function(require, exports, module) {
 	J = jQuery;
 	require('plugins');
-	// require('jcrop');
 
 	var upload_url = app.base + '/user/avatar';
 

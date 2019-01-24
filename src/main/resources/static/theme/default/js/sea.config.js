@@ -17,10 +17,6 @@ seajs.config({
         /* vendors */
         'pace': 'vendors/pace/pace.min',
         'pjax': 'vendors/pjax/jquery.pjax',
-        'dmuploader': 'vendors/uploader/dmuploader',
-        'webuploader.min': 'vendors/webuploader/webuploader.min',
-        'webuploader.css': 'vendors/webuploader/webuploader.css',
-        'jcrop': 'vendors/jcrop/jquery.jcrop.min',
         'validate': 'vendors/validate/jquery-validate',
         'lazyload': 'vendors/lazyload/jquery.lazyload',
         'share': 'vendors/share.js/js/social-share.min.js',
