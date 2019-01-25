@@ -88,11 +88,11 @@ $(function() {
 	});
 
     $('#upload_btn').change(function(){
-        $(this).upload(app.base + '/post/upload?crop=1&width=360&height=200', function(data){
+        $(this).upload('${base}/post/upload?crop=1&width=360&height=200', function(data){
             if (data.status == 200) {
-                var path = app.base + data.path;
+                var path = data.path;
                 $("#thumbnail_image").css("background", "url(" + path + ") no-repeat scroll center 0 rgba(0, 0, 0, 0)");
-                $("#thumbnail").val(data.path);
+                $("#thumbnail").val(path);
             }
         });
     });
