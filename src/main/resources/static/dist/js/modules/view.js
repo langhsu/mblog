@@ -29,7 +29,7 @@ define(function(require, exports, module) {
         $('.topic').addClass('fulltext');
     });
 
-    if ($('.topic').outerHeight(true) <= 750) {
+    if ($('.topic').outerHeight(true) <= 700) {
         $('.topic').addClass('fulltext');
     }
 });
