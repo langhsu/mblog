@@ -7,6 +7,7 @@ import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.web.controller.BaseController;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -31,7 +32,7 @@ public class EmailController extends BaseController {
     @GetMapping("/send_code")
     @ResponseBody
     public Data sendCode(String email, Integer type) {
-        Assert.notNull(email, "请输入邮箱地址");
+        Assert.hasLength(email, "请输入邮箱地址");
         Assert.notNull(type, "缺少必要的参数");
 
         long userId;
