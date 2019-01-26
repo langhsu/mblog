@@ -97,7 +97,20 @@ $(function() {
         });
     });
 
-	$('form').validate({
+    jQuery.validateExtend({
+        content: {
+            required : true,
+            conditional : function() {
+                var activeEditor = tinymce.activeEditor;
+                var editBody = activeEditor.getBody();
+                activeEditor.selection.select(editBody);
+                var text = activeEditor.selection.getContent( { 'format': 'text' } );
+                return text.trim().length > 0;
+            }
+        }
+    });
+
+	$('#qForm').validateDestroy().validate({
 		onKeyup : true,
 		onChange : true,
 		eachValidField : function() {
@@ -105,18 +118,9 @@ $(function() {
 		},
 		eachInvalidField : function() {
 			$(this).closest('div').removeClass('has-success').addClass('has-error');
-		},
-		conditional : {
-			content : function() {
-				return $(this).val().trim().length > 0;
-			}
-		},
-		description : {
-			content : {
-				required : '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>写点内容吧</div>'
-			}
 		}
 	});
+
 });
 </script>
 </@layout>
