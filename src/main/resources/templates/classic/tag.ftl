@@ -44,7 +44,7 @@
                         <div class="content-box posts-aside">
                             <div class="posts-default-content">
                                 <div class="posts-default-title">
-                                    <h2><a href="${base}/view/${row.id}" title="">${row.title?html}</a></h2>
+                                    <h2><a href="${base}/view/${row.id}" title="">${row.title}</a></h2>
                                 </div>
                                 <div class="posts-text">${row.summary}</div>
                                 <div class="posts-default-info">
