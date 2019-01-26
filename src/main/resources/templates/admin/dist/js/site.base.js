@@ -31,11 +31,7 @@ $(function() {
 	
 	$('.checkall').on('click', function(event) {
 		var checked = $(this).prop('checked');
-        if (checked) {
-            $(this).closest('table').find('input[type=checkbox]').attr('checked', 'checked');
-        } else {
-            $(this).closest('table').find('input[type=checkbox]').removeAttr('checked');
-        }
+        $(this).closest('table').find('input[type=checkbox]').prop('checked', checked);
     });
 	
 	$('.sidebar-menu a').each(function(){
