@@ -71,11 +71,11 @@ public class AvatarController extends BaseController {
 		try {
 			String ava100 = Consts.avatarPath + getAvaPath(profile.getId(), 240);
 			byte[] bytes = ImageUtils.screenshot(file, 240, 240);
+			String path = storageFactory.get().writeToStore(bytes, ava100);
 
-			AccountProfile user = userService.updateAvatar(profile.getId(), ava100);
+			AccountProfile user = userService.updateAvatar(profile.getId(), path);
 			putProfile(user);
 
-			String path = storageFactory.get().writeToStore(bytes, ava100);
 			result.ok(UploadController.errorInfo.get("SUCCESS"));
 			result.setName(fileName);
 			result.setType(getSuffix(fileName));
