@@ -12,11 +12,11 @@
                 <div id="message">
                     <#include "/default/inc/action_message.ftl"/>
                 </div>
-                <form method="POST" action="${base}/forgot" accept-charset="UTF-8">
+                <form id="submitForm" method="POST" action="${base}/forgot" accept-charset="UTF-8">
                     <div class="form-group">
                         <label class="control-label" for="email">邮箱地址</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="email" maxlength="64" data-required data-conditional="email" data-description="email" data-describedby="message">
+                            <input type="text" class="form-control" name="email" maxlength="64" required>
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="button" id="sendCode">获取验证码</button>
                             </span>
@@ -24,15 +24,15 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">验证码</label>
-                        <input type="text" class="form-control" name="code" maxlength="6" data-required>
+                        <input type="text" class="form-control" name="code" maxlength="6" required>
                     </div>
                     <div class="form-group ">
                         <label class="control-label" for="username">密码</label>
-                        <input class="form-control" name="password" id="password" type="password" maxlength="18" placeholder="新密码" data-required>
+                        <input class="form-control" name="password" id="password" type="password" maxlength="18" placeholder="新密码" required>
                     </div>
                     <div class="form-group ">
                         <label class="control-label" for="username">确认密码</label>
-                        <input class="form-control" name="password2" type="password" maxlength="18" placeholder="请再输入一次密码" data-required data-conditional="confirm" data-describedby="message" data-description="confirm">
+                        <input class="form-control" name="password2" type="password" maxlength="18" placeholder="请再输入一次密码">
                     </div>
                     <button type="submit" class="btn btn-success btn-block">
                         提 交
@@ -46,30 +46,39 @@
 
 <script type="text/javascript">
     $(function(){
-        $('form').validate({
-            onKeyup : true,
-            onChange : true,
-            eachValidField : function() {
-                $(this).closest('div').removeClass('has-error').addClass('has-success');
-            },
-            eachInvalidField : function() {
-                $(this).closest('div').removeClass('has-success').addClass('has-error');
-            },
-            conditional : {
-                email : function() {
-                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($(this).val());
+        $("#submitForm").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
                 },
-                confirm : function() {
-                    return $(this).val() == $('#password').val();
+                password: 'required',
+                code: 'required',
+                password2: {
+                    required: true,
+                    equalTo: "#password"
                 }
             },
-            description : {
-                email : {
-                    conditional : '<div class="alert alert-danger">邮箱格式不合法</div>'
-                },
-                confirm : {
-                    conditional : '<div class="alert alert-danger">两次输入的密码不一致</div>'
+            messages: {
+                password2: {
+                    required: '请输入确认密码',
+                    equalTo: '两次输入的密码不一致'
                 }
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                error.addClass("help-block");
+                if ( element.prop( "name" ) === "email" ) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).closest("div").addClass("has-error").removeClass("has-success");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).closest("div").addClass("has-success").removeClass("has-error");
             }
         });
 

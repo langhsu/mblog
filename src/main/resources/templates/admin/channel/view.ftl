@@ -25,13 +25,13 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">名称：</label>
                             <div class="col-lg-4">
-                                <input type="text" name="name" class="form-control" value="${view.name}">
+                                <input type="text" name="name" class="form-control" value="${view.name}" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">唯一标识：</label>
                             <div class="col-lg-4">
-                                <input type="text" name="key" class="form-control" value="${view.key}">
+                                <input type="text" name="key" class="form-control" value="${view.key}" required>
                             </div>
                         </div>
                         <div class="form-group">

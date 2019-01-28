@@ -11,18 +11,18 @@
                 <#include "/default/inc/action_message.ftl"/>
                 <div id="message">
                 </div>
-                <form method="POST" action="register" accept-charset="UTF-8">
+                <form id="submitForm" method="POST" action="register" accept-charset="UTF-8">
                     <div class="form-group ">
                         <label class="control-label" for="username">用户名</label>
-                        <input class="form-control" name="username" type="text" data-required data-conditional="username" data-description="username" data-describedby="message">
+                        <input class="form-control" id="username" name="username" type="text" placeholder="字母和数字的组合, 不少于5位" required>
                     </div>
                     <div class="form-group ">
                         <label class="control-label" for="username">密码</label>
-                        <input class="form-control" id="password" name="password" type="password" maxlength="18" placeholder="新密码" data-required>
+                        <input class="form-control" id="password" name="password" type="password" maxlength="18" placeholder="请输入密码" required>
                     </div>
                     <div class="form-group ">
                         <label class="control-label" for="username">确认密码</label>
-                        <input class="form-control" name="password2" type="password" maxlength="18" placeholder="请再输入一次密码" data-required data-conditional="confirm" data-describedby="message" data-description="confirm">
+                        <input class="form-control" id="password2" name="password2" type="password" placeholder="请再一次输入密码" maxlength="18">
                     </div>
                     <button type="submit" class="btn btn-success btn-block">
                         提交
@@ -35,30 +35,43 @@
 
 <script type="text/javascript">
     $(function(){
-        $('form').validate({
-            onKeyup : true,
-            onChange : true,
-            eachValidField : function() {
-                $(this).closest('div').removeClass('has-error').addClass('has-success');
-            },
-            eachInvalidField : function() {
-                $(this).closest('div').removeClass('has-success').addClass('has-error');
-            },
-            conditional : {
-                confirm : function() {
-                    return $(this).val() == $('#password').val();
+
+        $("#submitForm").validate({
+            rules: {
+                username: {
+                    required: true,
+                    check_username: true
                 },
-                username : function() {
-                    return /^[a-z][a-z_0-9]{4,18}$/i.test($(this).val());
+                password: {
+                    required: true
+                },
+                password2: {
+                    required: true,
+                    equalTo: "#password"
                 }
             },
-            description : {
-                confirm : {
-                    conditional : '<div class="alert alert-danger">两次输入的密码不一致</div>'
+            messages: {
+                username: {
+                    required: '请输入用户名'
                 },
-                username : {
-                    conditional : '<div class="alert alert-danger">只能是字母/字母+数字的组合,不少于5位</div>'
+                password: {
+                    required: '请输入密码'
+                },
+                password2: {
+                    required: '请输入确认密码',
+                    equalTo: '两次输入的密码不一致'
                 }
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                error.addClass("help-block");
+                error.insertAfter(element);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).closest("div").addClass("has-error").removeClass("has-success");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).closest("div").addClass("has-success").removeClass("has-error");
             }
         });
     })

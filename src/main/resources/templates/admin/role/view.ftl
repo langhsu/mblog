@@ -47,7 +47,7 @@
                             <label for="name" class="col-lg-2 control-label">角色名称：</label>
                             <div class="col-lg-3">
                                 <input type="text" class="form-control" placeholder="请输入角色名称" name="name"
-                                       value="${view.name}">
+                                       value="${view.name}" required>
                             </div>
                         </div>
                         <div class="form-group">

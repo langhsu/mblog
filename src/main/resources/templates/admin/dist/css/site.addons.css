@@ -58,3 +58,8 @@
     direction: ltr;
     cursor: pointer;
 }
+
+
+.error {
+    color: #b94a48;
+}

@@ -12,7 +12,7 @@
                 <div id="message">
                     <#include "/classic/inc/action_message.ftl"/>
                 </div>
-                <form method="POST" action="${base}/forgot" accept-charset="UTF-8">
+                <form id="submitForm" method="POST" action="${base}/forgot" accept-charset="UTF-8">
                     <div class="form-group">
                         <label class="control-label" for="email">邮箱地址</label>
                         <div class="input-group">
@@ -37,7 +37,6 @@
                     <button type="submit" class="btn btn-success btn-block">
                         提 交
                     </button>
-
                 </form>
             </div>
         </div>
@@ -46,30 +45,40 @@
 
 <script type="text/javascript">
     $(function(){
-        $('form').validate({
-            onKeyup : true,
-            onChange : true,
-            eachValidField : function() {
-                $(this).closest('div').removeClass('has-error').addClass('has-success');
-            },
-            eachInvalidField : function() {
-                $(this).closest('div').removeClass('has-success').addClass('has-error');
-            },
-            conditional : {
-                email : function() {
-                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($(this).val());
+
+        $("#submitForm").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
                 },
-                confirm : function() {
-                    return $(this).val() == $('#password').val();
+                password: 'required',
+                code: 'required',
+                password2: {
+                    required: true,
+                    equalTo: "#password"
                 }
             },
-            description : {
-                email : {
-                    conditional : '<div class="alert alert-danger">邮箱格式不合法</div>'
-                },
-                confirm : {
-                    conditional : '<div class="alert alert-danger">两次输入的密码不一致</div>'
+            messages: {
+                password2: {
+                    required: '请输入确认密码',
+                    equalTo: '两次输入的密码不一致'
                 }
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                error.addClass("help-block");
+                if ( element.prop( "name" ) === "email" ) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).closest("div").addClass("has-error").removeClass("has-success");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).closest("div").addClass("has-success").removeClass("has-error");
             }
         });
 

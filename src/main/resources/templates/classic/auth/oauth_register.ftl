@@ -10,7 +10,7 @@
             </div>
             <div class="panel-body">
                 <div id="message"><#include "/classic/inc/action_message.ftl"/></div>
-                <form method="POST" action="${base}/oauth/callback/bind_oauth" accept-charset="UTF-8">
+                <form id="submitForm" method="POST" action="${base}/oauth/callback/bind_oauth" accept-charset="UTF-8">
                     <input type="hidden" name="oauthType" value="${open.oauthType}"/>
 
                     <input type="hidden" name="code" value="${open.oauthCode}"/>
@@ -22,7 +22,7 @@
 
                     <div class="form-group ">
                         <label class="control-label" for="username">用户名</label>
-                        <input class="form-control" name="username" type="text" value="${open.username}" data-required data-conditional="username" data-description="username" data-describedby="message">
+                        <input class="form-control" id="username" name="username" type="text" value="${open.username}" required>
                     </div>
                     <button type="submit" class="btn btn-success btn-block">
                         提  交
@@ -35,33 +35,28 @@
 
 <script type="text/javascript">
     $(function(){
-        $('form').validate({
-            onKeyup : true,
-            onChange : true,
-            eachValidField : function() {
-                $(this).closest('div').removeClass('has-error').addClass('has-success');
-            },
-            eachInvalidField : function() {
-                $(this).closest('div').removeClass('has-success').addClass('has-error');
-            },
-            conditional : {
-                username : function() {
-                    return /^[a-z][a-z_0-9]{4,18}$/i.test($(this).val());
+        $("#submitForm").validate({
+            rules: {
+                username: {
+                    required: true,
+                    check_username: true
                 }
-                /*,
-                email : function() {
-                    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($(this).val());
-                }*/
             },
-            description : {
-                username : {
-                    conditional : '<div class="alert alert-danger">只能是字母/字母+数字的组合</div>'
+            messages: {
+                username: {
+                    required: '请输入用户名'
                 }
-                /*,
-                email : {
-                    conditional : '<div class="alert alert-danger">邮箱格式不合法</div>'
-                }
-                */
+            },
+            errorElement: "em",
+            errorPlacement: function (error, element) {
+                error.addClass("help-block");
+                error.insertAfter(element);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).closest("div").addClass("has-error").removeClass("has-success");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).closest("div").addClass("has-success").removeClass("has-error");
             }
         });
     })

@@ -15,23 +15,23 @@
 		<#include "/classic/inc/action_message.ftl"/>
 		</div>
 		<div class="tab-pane active" id="passwd">
-			<form id="pw" action="password" method="post" class="form-horizontal">
+			<form id="submitForm" action="password" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="password">当前密码</label>
 					<div class="col-lg-4">
-						<input type="password" class="form-control" name="oldPassword" maxlength="18" placeholder="请输入当前密码" data-required>
+						<input type="password" class="form-control" name="oldPassword" maxlength="18" placeholder="请输入当前密码" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="password">新密码</label>
 					<div class="col-lg-4">
-						<input type="password" class="form-control" id="password" name="password" placeholder="请输入新密码" maxlength="18" data-required>
+						<input type="password" class="form-control" id="password" name="password" placeholder="请输入新密码" maxlength="18" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="password2">确认密码</label>
 					<div class="col-lg-4">
-						<input type="password" class="form-control" name="password2" data-required placeholder="请再输入一遍新密码" maxlength="18" data-conditional="confirm" data-describedby="message" data-description="passwd">
+						<input type="password" class="form-control" name="password2" data-required placeholder="请再输入一遍新密码" maxlength="18" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -46,6 +46,34 @@
 
 <script type="text/javascript">
 $(function () {
+    $("#submitForm").validate({
+        rules: {
+            oldPassword: 'required',
+            password: 'required',
+            password2: {
+                required: true,
+                equalTo: "#password"
+            }
+        },
+        messages: {
+            password2: {
+                required: '请输入确认密码',
+                equalTo: '两次输入的密码不一致'
+            }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            error.addClass("help-block");
+            error.insertAfter(element);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).closest("div").addClass("has-error").removeClass("has-success");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest("div").addClass("has-success").removeClass("has-error");
+        }
+    });
+
 	$('#pw').validate({
 		onKeyup : true,
 		onChange : true,

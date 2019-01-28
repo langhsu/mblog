@@ -1,7 +1,7 @@
 <#include "/admin/utils/ui.ftl"/>
 <@layout>
 <link rel='stylesheet' media='all' href='${base}/dist/css/plugins.css'/>
-<script type="text/javascript" src="${base}/dist/js/plugins.js"></script>
+<script type="text/javascript" src="${base}/dist/vendors/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
 <section class="content-header">
     <h1>文章编辑</h1>
@@ -28,7 +28,7 @@
                         </#if>
                         <div class="form-group">
                             <label>标题</label>
-                            <input type="text" class="form-control" name="title" value="${view.title}" maxlength="64" placeholder="文章标题" data-required >
+                            <input type="text" class="form-control" name="title" value="${view.title}" maxlength="64" placeholder="文章标题" required >
                         </div>
                         <div class="form-group">
                             <label>栏目</label>
@@ -71,8 +71,7 @@
                         <h3 class="box-title">标签</h3>
                     </div>
                     <div class="box-body">
-                        <input type="hidden" name="tags" id="fieldTags" value="${view.tags}">
-                        <ul id="tags"></ul>
+                        <input type="text" name="tags" data-role="tagsinput" class="form-control" value="${view.tags}">
                         <p class="help-block" style="font-size: 12px;">添加相关标签，用逗号或空格分隔.</p>
                     </div>
                 </div>
@@ -82,11 +81,6 @@
 </section>
 <script type="text/javascript">
 $(function() {
-	$('#tags').tagit({
-		singleField: true,
-		singleFieldNode: $('#fieldTags')
-	});
-
     $('#upload_btn').change(function(){
         $(this).upload('${base}/post/upload?crop=1&width=360&height=200', function(data){
             if (data.status == 200) {
@@ -97,29 +91,36 @@ $(function() {
         });
     });
 
-    jQuery.validateExtend({
-        content: {
-            required : true,
-            conditional : function() {
-                var activeEditor = tinymce.activeEditor;
-                var editBody = activeEditor.getBody();
-                activeEditor.selection.select(editBody);
-                var text = activeEditor.selection.getContent( { 'format': 'text' } );
-                return text.trim().length > 0;
+    $("form").submit(function () {
+        tinyMCE.triggerSave();
+    }).validate({
+        ignore: "",
+        rules: {
+            title: "required",
+            content: {
+                required: true,
+                check_editor: true
             }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            error.addClass("help-block");
+
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent("label"));
+            } else if (element.is("textarea")) {
+                error.insertAfter(element.next());
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).closest("div").addClass("has-error").removeClass("has-success");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest("div").addClass("has-success").removeClass("has-error");
         }
     });
-
-	$('#qForm').validateDestroy().validate({
-		onKeyup : true,
-		onChange : true,
-		eachValidField : function() {
-			$(this).closest('div').removeClass('has-error').addClass('has-success');
-		},
-		eachInvalidField : function() {
-			$(this).closest('div').removeClass('has-success').addClass('has-error');
-		}
-	});
 
 });
 </script>

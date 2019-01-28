@@ -15,11 +15,11 @@
 		<#include "/default/inc/action_message.ftl"/>
 		</div>
 		<div class="tab-pane active" id="profile">
-			<form id="pf" action="profile" method="post" class="form-horizontal">
+			<form id="submitForm" action="profile" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="nickname">昵称</label>
 					<div class="col-lg-4">
-						<input type="text" class="form-control" name="name" value="${view.name}" maxlength="7" data-required>
+						<input type="text" class="form-control" name="name" value="${view.name}" maxlength="7" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -40,16 +40,19 @@
 
 <script type="text/javascript">
 $(function () {
-	$('#pf').validate({
-		onKeyup : true,
-		onChange : true,
-		eachValidField : function() {
-			$(this).closest('div').removeClass('has-error').addClass('has-success');
-		},
-		eachInvalidField : function() {
-			$(this).closest('div').removeClass('has-success').addClass('has-error');
-		}
-	});
+    $("#submitForm").validate({
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            error.addClass("help-block");
+            error.insertAfter(element);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).closest("div").addClass("has-error").removeClass("has-success");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest("div").addClass("has-success").removeClass("has-error");
+        }
+    });
 });
 </script>
 </@layout>

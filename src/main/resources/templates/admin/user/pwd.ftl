@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">${view.username} 的新密码：</label>
                             <div class="col-lg-4">
-                                <input type="text" class="input-small form-control" data-required="true" name="newPassword" placeholder="新密码">
+                                <input type="text" class="input-small form-control" required name="newPassword" placeholder="新密码">
                             </div>
                         </div>
                     </div>

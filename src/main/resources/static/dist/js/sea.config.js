@@ -2,7 +2,7 @@ seajs.config({
     alias: {
         'plugins': 'dist/js/plugins',
 
-            /* modules */
+        /* modules */
         'main': 'dist/js/modules/main',
         'authc': 'dist/js/modules/authc',
         'sidebox': 'dist/js/modules/sidebox',
@@ -17,9 +17,9 @@ seajs.config({
         /* vendors */
         'pace': 'vendors/pace/pace.min',
         'pjax': 'vendors/pjax/jquery.pjax',
-        'validate': 'vendors/validate/jquery-validate',
         'lazyload': 'vendors/lazyload/jquery.lazyload',
         'share': 'vendors/share.js/js/social-share.min.js',
+        'tagsinput': 'vendors/bootstrap-tagsinput/bootstrap-tagsinput',
 
         'highlight':'vendors/highlight/highlight.pack',
         "tinymce": "vendors/tinymce/tinymce.min",
@@ -29,8 +29,7 @@ seajs.config({
     // 路径配置
     paths: {
         'vendors': _base_path + '/dist/vendors',
-        'dist': _base_path + '/dist',
-        'default': _base_path + '/theme/default'
+        'dist': _base_path + '/dist'
     },
 
     // 变量配置

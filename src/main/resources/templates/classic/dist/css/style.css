@@ -48,6 +48,10 @@ abbr[data-original-title], abbr[title] {
     border-bottom: none;
 }
 
+.error {
+    color: #a94442;
+}
+
 .mt15 {
     margin-top: 15px;
 }

@@ -15,12 +15,12 @@
 			<#include "/default/inc/action_message.ftl"/>
 		</div>
 		<div class="tab-pane active" id="profile">
-			<form id="pf" action="email" method="post" class="form-horizontal">
+			<form id="submitForm" action="email" method="post" class="form-horizontal">
 				<div class="form-group">
 					<label class="control-label col-lg-3" for="email">邮箱地址</label>
 					<div class="col-lg-4">
 						<div class="input-group">
-							<input type="text" class="form-control" name="email" value="${profile.email}" maxlength="64" data-required data-conditional="email" data-description="email" data-describedby="message">
+							<input type="text" class="form-control" name="email" value="${profile.email}" maxlength="64" required>
                             <span class="input-group-btn">
 								<button class="btn btn-primary" type="button" id="sendCode">获取验证码</button>
 						  	</span>
@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label class="control-label col-lg-3">验证码</label>
                     <div class="col-lg-4">
-                        <input type="text" class="form-control" name="code" maxlength="6" data-required>
+                        <input type="text" class="form-control" name="code" maxlength="6" required>
                     </div>
                 </div>
 				<div class="form-group">
@@ -45,26 +45,32 @@
 
 <script type="text/javascript">
 $(function () {
-	$('#pf').validate({
-        onKeyup : true,
-        onChange : true,
-        eachValidField : function() {
-            $(this).closest('div').removeClass('has-error').addClass('has-success');
-        },
-        eachInvalidField : function() {
-            $(this).closest('div').removeClass('has-success').addClass('has-error');
-        },
-        conditional : {
-            email : function() {
-                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($(this).val());
+    $("#submitForm").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            code: {
+                required: true
             }
         },
-        description : {
-            email : {
-                conditional : '<div class="alert alert-danger">邮箱格式不合法</div>'
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            error.addClass("help-block");
+            if ( element.prop( "name" ) === "email" ) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
             }
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).closest("div").addClass("has-error").removeClass("has-success");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).closest("div").addClass("has-success").removeClass("has-error");
         }
-	});
+    });
 
 	$('#sendCode').click(function () {
 		var btn = $(this).button('sending');

@@ -1,12 +1,12 @@
 <script type="text/javascript" charset="utf-8" src="${base}/dist/js/jquery.form.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="${base}/dist/vendors/tinymce/tinymce.min.js"></script>
 
-<textarea id="view_content" name="content" rows="5" data-required data-validate="content">${view.content}</textarea>
+<textarea id="content" name="content" rows="5" required>${view.content}</textarea>
 
 <script type="text/javascript">
 $(function () {
     tinymce.init({
-        selector: "#view_content",
+        selector: "#content",
         theme: 'modern',
         upload_image_url: "${base}/post/upload", //配置的上传图片的路由
         height: 400,
@@ -28,7 +28,13 @@ $(function () {
         content_css: [
             '${base}/dist/vendors/bootstrap/css/bootstrap.min.css',
             '${base}/dist/css/editor.css',
-        ]
+        ],
+        setup: function(editor) {
+            editor.on('change', function(e) {
+                tinymce.triggerSave();
+                $("#" + editor.id).valid();
+            });
+        }
         //参考网站 https://www.tinymce.com/
     });
 })

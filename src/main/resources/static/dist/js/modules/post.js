@@ -10,7 +10,7 @@
 
 define(function(require, exports, module) {
 	J = jQuery;
-	require('plugins');
+	require('tagsinput');
 
 	var PostView = function () {};
 	
@@ -33,10 +33,9 @@ define(function(require, exports, module) {
         },
         
         bindTagit : function () {
-        	$('#tags').tagit({
-                singleField: true,
-                singleFieldNode: $('#fieldTags'),
-                tagLimit: 4
+            $('#tags').tagsinput({
+                maxTags: 4,
+                trimValue: true
             });
         },
         
@@ -53,24 +52,34 @@ define(function(require, exports, module) {
         },
 
         bindValidate: function () {
-        	$('form').validate({
-                onKeyup: true,
-                onChange: true,
-                eachValidField: function () {
-                    $(this).closest('div').removeClass('has-error').addClass('has-success');
-                },
-                eachInvalidField: function () {
-                    $(this).closest('div').removeClass('has-success').addClass('has-error');
-                },
-                conditional: {
-                    content: function () {
-                        return $(this).val().trim().length > 0;
-                    }
-                },
-                description: {
+            $("#submitForm").submit(function () {
+                tinyMCE.triggerSave();
+            }).validate({
+                ignore: "",
+                rules: {
+                    title: 'required',
+                    channelId: 'required',
                     content: {
-                        required: '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>写点内容吧</div>'
+                        required: true,
+                        check_editor: true
                     }
+                },
+                errorElement: "em",
+                errorPlacement: function (error, element) {
+                    error.addClass("help-block");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else if (element.is("textarea")) {
+                        error.insertAfter(element.next());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest("div").addClass("has-error").removeClass("has-success");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest("div").addClass("has-success").removeClass("has-error");
                 }
             });
         }
