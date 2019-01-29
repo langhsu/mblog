@@ -1,7 +1,9 @@
 ### Mblog 开源Java多人博客系统
 
-![JDK](https://img.shields.io/badge/jdk-1.8-green.svg?style=flat-square)
-
+[![Author](https://img.shields.io/badge/author-landy-green.svg?style=flat-square)](http://mtons.com)
+[![JDK](https://img.shields.io/badge/jdk-1.8-green.svg?style=flat-square)](#)
+[![Release](https://img.shields.io/github/release/langhsu/mblog.svg?style=flat-square)](https://github.com/langhsu/mblog)
+[![license](https://img.shields.io/badge/license-GPL--3.0-red.svg)](https://github.com/langhsu/mblog/blob/master/LICENSE)
 ### 技术选型：
 
 * JDK8
