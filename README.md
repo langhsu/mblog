@@ -3,7 +3,9 @@
 [![Author](https://img.shields.io/badge/author-landy-green.svg?style=flat-square)](http://mtons.com)
 [![JDK](https://img.shields.io/badge/jdk-1.8-green.svg?style=flat-square)](#)
 [![Release](https://img.shields.io/github/release/langhsu/mblog.svg?style=flat-square)](https://github.com/langhsu/mblog)
-[![license](https://img.shields.io/badge/license-GPL--3.0-red.svg)](https://github.com/langhsu/mblog/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/license-GPL--3.0-green.svg)](https://github.com/langhsu/mblog/blob/master/LICENSE)
+[![QQ群](https://img.shields.io/badge/chat-Mtons-green.svg)](https://jq.qq.com/?_wv=1027&k=521CRdF)
+
 ### 技术选型：
 
 * JDK8
