@@ -820,6 +820,7 @@ abbr[data-original-title], abbr[title] {
 }
 
 .posts-gallery-info {
+    bottom: 28px;
     position: absolute
 }
 
@@ -1988,7 +1989,7 @@ div.mce-toolbar-grp {
 }
 
 .footer .footer-sns {
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 15px;
 }
 
@@ -2047,6 +2048,163 @@ div.mce-toolbar-grp {
     .topics-show .page-next {
         text-align: left;
     }
+
+    .content {
+        margin-bottom: 5px;
+        border-bottom: 0;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none !important;
+    }
+
+    .content-box,
+    .posts-aside,
+    .posts-default .content-box,
+    .posts-image-box,
+    .posts-gallery-box {
+        padding: 12px 12px;
+    }
+
+    .posts-default-box {
+        padding: 0 0 0;
+    }
+
+    .post-entry-categories a {
+        padding: 3px 5px 2px;
+        font-size: 10px;
+        line-height: 1;
+        margin: 3px 5px 3px 0;
+        font-size: 11px;
+    }
+
+    .posts-aside .post-entry-categories {
+        display: none
+    }
+
+    .posts-default-img {
+        margin-bottom: 10px;
+        max-height: 150px;
+    }
+
+    .posts-default-title {
+        margin: 0 0 12px;
+    }
+
+    .posts-default-title .post-entry-categories {
+        margin-bottom: 8px;
+    }
+
+    .posts-gallery-img {
+        width: 33.3333%;
+        height: auto;
+        max-height: 89px;
+    }
+
+    .posts-gallery-img img {
+        width: 100%;
+        height: auto;
+        min-height: 89px;
+    }
+
+    .posts-gallery-info .i-tgwz {
+        padding: 0 6px;
+        font-size: 10px;
+        line-height: 1.6
+    }
+
+    .posts-gallery-content {
+        margin-left: 36%;
+        margin-top: -1px;
+    }
+
+    .posts-gallery-content h2 {
+        max-height: none;
+        margin-bottom: 0;
+    }
+
+    .posts-default-title h2 {
+        margin: 0 0 10px 0;
+        border-bottom-width: 0;
+        padding: 0;
+        font-weight: 700;
+    }
+
+    .posts-default-title h2,
+    .posts-gallery-content h2 {
+        font-size: 15px;
+        line-height: 1.3;
+        font-weight: 700
+    }
+
+    .posts-default-title h2:after {
+        height: 0
+    }
+
+    .posts-default-content .posts-text {
+        display: none;
+        line-height: 0
+    }
+
+    .posts-aside .posts-text {
+        display: block;
+        line-height: normal;
+        margin-bottom: 10px;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        font-size: 12px;
+    }
+
+    .posts-gallery-content .posts-gallery-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 5px;
+        display: none
+    }
+
+    .post-style-tips {
+        bottom: 18px;
+        right: 15px
+    }
+
+    .post-style-tips a {
+        padding: 4px 6px;
+        font-size: 10px
+    }
+
+    .posts-gallery-info {
+        bottom: 15px;
+        position: absolute
+    }
+
+    .posts-default-info ul li.post-author {
+        padding-left: 30px;
+        letter-spacing: .6px;
+    }
+
+    .posts-default-info ul li .avatar {
+        width: 23px;
+        top: -1px;
+    }
+
+    .posts-default-info ul li .avatar img {
+        width: 23px;
+        height: 23px;
+    }
+
+    .posts-default-info ul li {
+        margin: 0 4px 0 0;
+        font-size: 10px;
+    }
+
+    .posts-default-info ul li a {
+        font-size: 12px;
+    }
+
 }
 
 /* Mobile (Landscape)

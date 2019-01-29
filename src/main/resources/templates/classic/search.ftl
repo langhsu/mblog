@@ -24,9 +24,9 @@
                             <div class="posts-gallery-content">
                                 <h2><a href="${base}/view/${row.id}" title="">${row.title}</a></h2>
                                 <div class="posts-gallery-text">${row.summary}</div>
-                                <div class="posts-default-info">
+                                <div class="posts-default-info posts-gallery-info">
                                     <ul>
-                                        <li class="post-author">
+                                        <li class="post-author hidden-xs">
                                             <div class="avatar">
                                                 <img src="<@resource src=row.author.avatar + '?t=' + .now?time/>" class="lazy avatar avatar-50 photo" height="50" width="50">
                                             </div>
@@ -34,8 +34,8 @@
                                         </li>
                                         <li class="ico-cat"><i class="icon-list-1"></i><@classify row/></li>
                                         <li class="ico-time"><i class="icon-clock"></i>${timeAgo(row.created)}</li>
-                                        <li class="ico-eye"><i class="icon-speech"></i> ${row.views}</li>
-                                        <li class="ico-like"><i class="icon-bubbles"></i> ${row.comments}</li>
+                                        <li class="ico-eye hidden-xs"><i class="icon-speech"></i> ${row.views}</li>
+                                        <li class="ico-like hidden-xs"><i class="icon-bubbles"></i> ${row.comments}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="posts-text">${row.summary}</div>
                                 <div class="posts-default-info">
                                     <ul>
-                                        <li class="post-author">
+                                        <li class="post-author hidden-xs">
                                             <div class="avatar">
                                                 <img src="<@resource src=row.author.avatar/>" class="lazy avatar avatar-50 photo" height="50" width="50">
                                             </div>
@@ -57,8 +57,8 @@
                                         </li>
                                         <li class="ico-cat"><i class="icon-list-1"></i><@classify row/></li>
                                         <li class="ico-time"><i class="icon-clock"></i>${timeAgo(row.created)}</li>
-                                        <li class="ico-eye"><i class="icon-speech"></i> ${row.views}</li>
-                                        <li class="ico-like"><i class="icon-bubbles"></i> ${row.comments}</li>
+                                        <li class="ico-eye hidden-xs"><i class="icon-speech"></i> ${row.views}</li>
+                                        <li class="ico-like hidden-xs"><i class="icon-bubbles"></i> ${row.comments}</li>
                                     </ul>
                                 </div>
                             </div>
