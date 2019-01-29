@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * 加载配置信息到系统
- *
+ * @since 3.0
  */
 @Order(2)
 @Component
@@ -38,11 +38,9 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
         Printer.info("initialization ...");
-
         reloadOptions(true);
         resetSiteConfig();
         resetChannels();
-
         Printer.info("OK, completed");
     }
 
@@ -74,9 +72,6 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
         servletContext.setAttribute("options", map);
     }
 
-    /**
-     * 重置栏目缓存
-     */
     public void resetChannels() {
         servletContext.setAttribute("channels", channelService.findAll(Consts.STATUS_NORMAL));
     }

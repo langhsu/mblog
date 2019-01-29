@@ -111,10 +111,10 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <button type="button" class="btn btn-primary" data-action="flush_conf">
+                    <button type="button" class="btn btn-primary" data-action="reload_options">
                         刷新系统变量
                     </button>
-                    <button type="button" class="btn btn-info" data-action="flush_indexs">
+                    <button type="button" class="btn btn-info" data-action="reset_indexes">
                         重建索引
                     </button>
                 </div>
@@ -161,17 +161,17 @@
     }
 	$(function () {
         // 刷新系统变量
-        $('button[data-action="flush_conf"]').bind('click', function(){
+        $('button[data-action="reload_options"]').bind('click', function(){
             if(confirm('确定要刷新系统变量的缓存吗？')){
-                J.getJSON('${base}/admin/config/flush_conf', ajaxReload);
+                J.getJSON('${base}/admin/options/reload_options', ajaxReload);
             }
             return false;
         });
 
         // 重建索引
-        $('button[data-action="flush_indexs"]').bind('click', function(){
+        $('button[data-action="reset_indexes"]').bind('click', function(){
             if(confirm('确定要重建文章索引吗？')){
-                J.getJSON('${base}/admin/config/flush_indexs', ajaxReload);
+                J.getJSON('${base}/admin/options/reset_indexes', ajaxReload);
             }
             return false;
         });

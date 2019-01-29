@@ -89,5 +89,4 @@ public class OptionsController extends BaseController {
 		postSearchService.resetIndexes();
 		return Data.success("操作成功", Data.NOOP);
 	}
-	
 }

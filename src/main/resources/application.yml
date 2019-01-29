@@ -53,7 +53,6 @@ shiro:
         cookie:
             maxAge: 604800
 
-
 # site.options.theme: [default|classic]
 site:
     version: 3.0
