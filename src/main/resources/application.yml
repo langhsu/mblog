@@ -58,6 +58,7 @@ site:
     version: 3.0
     controls:
         register: true
+        post: true
         comment: true
     options:
         theme: classic
