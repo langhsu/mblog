@@ -62,5 +62,7 @@ site:
         comment: true
     options:
         theme: classic
+        site_logo: /dist/images/logo/logo.png
+        site_favicon: /dist/images/logo/m.png
         storage_max_width: 800
         storeage_limit_size: 2

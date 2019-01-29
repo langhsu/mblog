@@ -36,5 +36,5 @@ ${options['site_metas']}
 <script src="${base}/dist/js/sea.config.js"></script>
 
 <!-- Favicons -->
-<link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo.png"/>
-<link rel="shortcut icon" href="http://mtons.com/dist/images/logo.png"/>
+<link rel="apple-touch-icon-precomposed" href="<@resource src=options['site_favicon']/>"/>
+<link rel="shortcut icon" href="<@resource src=options['site_favicon']/>"/>

@@ -5,6 +5,7 @@ import com.mtons.mblog.base.utils.Printer;
 import com.mtons.mblog.modules.entity.Options;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.OptionsService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -68,7 +69,11 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
         }
 
         Map<String, String> map = siteOptions.getOptions();
-        options.forEach(conf -> map.put(conf.getKey(), conf.getValue()));
+        options.forEach(opt -> {
+            if (StringUtils.isNoneBlank(opt.getKey(), opt.getValue())) {
+                map.put(opt.getKey(), opt.getValue());
+            }
+        });
         servletContext.setAttribute("options", map);
     }
 

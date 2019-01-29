@@ -64,7 +64,7 @@
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="${base}/">
-                    <img src="${base}/dist/images/logo/logo.png"/>
+                    <img src="<@resource src=options['site_logo']/>"/>
                 </a>
             </div>
             <div class="collapse navbar-collapse">
