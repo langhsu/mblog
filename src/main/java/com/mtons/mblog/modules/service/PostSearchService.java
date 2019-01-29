@@ -24,5 +24,5 @@ public interface PostSearchService {
      * @param tag
      */
     Page<PostVO> searchByTag(Pageable pageable, String tag);
-    void resetIndexs();
+    void resetIndexes();
 }

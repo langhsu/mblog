@@ -119,7 +119,7 @@ public class PostSearchServiceImpl implements PostSearchService {
     }
 
     @Override
-    public void resetIndexs() {
+    public void resetIndexes() {
         FullTextEntityManager fullTextSession = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
         //异步
         fullTextSession.createIndexer(Post.class).start();

@@ -64,7 +64,7 @@ public class OptionsController extends BaseController {
 
 		optionsService.update(options);
 
-		contextStartup.resetSetting(false);
+		contextStartup.reloadOptions(false);
 
 		model.put("values", optionsService.findAll2Map());
 		model.put("data", Data.success("操作成功", Data.NOOP));
@@ -75,18 +75,18 @@ public class OptionsController extends BaseController {
 	 * 刷新系统变量
 	 * @return
 	 */
-	@RequestMapping("/flush_conf")
+	@RequestMapping("/reload_options")
 	@ResponseBody
-	public Data flushFiledia() {
-		contextStartup.resetSetting(false);
+	public Data reloadOptions() {
+		contextStartup.reloadOptions(false);
 		contextStartup.resetChannels();
 		return Data.success("操作成功", Data.NOOP);
 	}
 
-	@RequestMapping("/flush_indexs")
+	@RequestMapping("/reset_indexes")
 	@ResponseBody
-	public Data flushIndexs() {
-		postSearchService.resetIndexs();
+	public Data resetIndexes() {
+		postSearchService.resetIndexes();
 		return Data.success("操作成功", Data.NOOP);
 	}
 	

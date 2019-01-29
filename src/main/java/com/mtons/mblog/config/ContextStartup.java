@@ -8,23 +8,24 @@ import com.mtons.mblog.modules.service.OptionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.servlet.ServletContext;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Map;
 
 /**
  * 加载配置信息到系统
  *
  */
+@Order(2)
 @Component
-public class ContextStartup implements ApplicationRunner, Ordered, ServletContextAware {
+public class ContextStartup implements ApplicationRunner, ServletContextAware {
     @Autowired
     private OptionsService optionsService;
     @Autowired
@@ -36,24 +37,13 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
-        Timer timer = new Timer("startup");
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Printer.info("initialization ...");
+        Printer.info("initialization ...");
 
-                resetSetting(true);
-                resetSiteConfig();
-                resetChannels();
+        reloadOptions(true);
+        resetSiteConfig();
+        resetChannels();
 
-                Printer.info("OK, completed");
-            }
-        }, 1 * Consts.TIME_MIN);
-    }
-
-    @Override
-    public int getOrder() {
-        return 2;
+        Printer.info("OK, completed");
     }
 
     @Override
@@ -61,34 +51,27 @@ public class ContextStartup implements ApplicationRunner, Ordered, ServletContex
         this.servletContext = servletContext;
     }
 
-    /**
-     * 重置站点配置
-     */
-    public void resetSetting(boolean exit) {
+    public void reloadOptions(boolean startup) {
         List<Options> options = optionsService.findAll();
 
-        if (null == options || options.isEmpty()) {
+        if (startup && CollectionUtils.isEmpty(options)) {
             try {
+                Printer.info("init options...");
                 Resource resource = new ClassPathResource("/config/db/db_mblog.sql");
                 optionsService.initSettings(resource);
+                options = optionsService.findAll();
             } catch (Exception e) {
                 Printer.error("------------------------------------------------------------");
-                Printer.error("-  ERROR:The SQL file is not imported. (sql/db_mblog.sql)  -");
-                Printer.error("-         Please import the SQL file and try again.        -");
+                Printer.error("-          ERROR: The database is not initialized          -");
                 Printer.error("------------------------------------------------------------");
                 Printer.error(e.getMessage(), e);
-                if (exit) {
-                    System.exit(1);
-                }
+                System.exit(1);
             }
-        } else {
-            options.forEach(conf -> {
-                siteOptions.getOptions().put(conf.getKey(), conf.getValue());
-                servletContext.setAttribute(conf.getKey(), conf.getValue());
-            });
-
-            servletContext.setAttribute("options", siteOptions.getOptions());
         }
+
+        Map<String, String> map = siteOptions.getOptions();
+        options.forEach(conf -> map.put(conf.getKey(), conf.getValue()));
+        servletContext.setAttribute("options", map);
     }
 
     /**
