@@ -32,7 +32,7 @@ public interface Views {
 	String USER_MESSAGES = "/user/method_messages";
 
 	String REDIRECT_USER_HOME = "redirect:/users/";
-	String REDIRECT_USER_POSTS = "redirect:/users/%d/posts";
+	String REDIRECT_USER_POSTS = "redirect:/users/%d";
 
 	String SETTINGS_AVATAR = "/settings/avatar";
 	String SETTINGS_PASSWORD = "/settings/password";
