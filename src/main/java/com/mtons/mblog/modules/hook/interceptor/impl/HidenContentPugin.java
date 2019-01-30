@@ -40,7 +40,8 @@ public class HidenContentPugin extends InterceptorHookSupport {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, ModelAndView modelAndView) throws Exception {
         PostVO ret = (PostVO) modelAndView.getModelMap().get("view");
-        if (ret != null && check(ret.getId(), ret.getAuthor().getId())) {
+        Object editing = modelAndView.getModel().get("editing");
+        if (null == editing && ret != null && check(ret.getId(), ret.getAuthor().getId())) {
             PostVO post = new PostVO();
             BeanUtils.copyProperties(ret, post);
             post.setContent(replace(post.getContent()));

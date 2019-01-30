@@ -40,7 +40,7 @@ public class PostController extends BaseController {
 	@GetMapping("/editing")
 	public String view(Long id, ModelMap model) {
 		model.put("channels", channelService.findAll(Consts.STATUS_NORMAL));
-
+		model.put("editing", true);
 		if (null != id && id > 0) {
 			AccountProfile profile = getProfile();
 			PostVO view = postService.get(id);

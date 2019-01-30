@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.hook.interceptor.impl;
 
-import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.web.controller.site.ChannelController;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -29,8 +29,9 @@ public class ViewCopyrightPugin extends InterceptorHookSupport {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, ModelAndView modelAndView) throws Exception {
-        PostVO ret = (PostVO) modelAndView.getModelMap().get("view");
-        if (ret != null) {
+        PostVO ret = (PostVO) modelAndView.getModel().get("view");
+        Object editing = modelAndView.getModel().get("editing");
+        if (null == editing && ret != null) {
             String content = ret.getContent();
             if (!content.contains("本文归作者所有，未经作者允许，不得转载")) {
                 content += "<br/><p class=\"copyright\">注意：本文归作者所有，未经作者允许，不得转载</p>";
