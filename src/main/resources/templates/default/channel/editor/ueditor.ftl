@@ -1,5 +1,5 @@
 
-<textarea id="content" name="content" class="form-control">${view.content}</textarea>
+<textarea id="content" name="content" class="form-control">${view.content?html}</textarea>
 
 <script type="text/javascript">
 seajs.use('editor', function(editor) {

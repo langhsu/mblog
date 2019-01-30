@@ -1,7 +1,7 @@
 <script type="text/javascript" charset="utf-8" src="${base}/dist/js/jquery.form.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="${base}/dist/vendors/tinymce/tinymce.min.js"></script>
 
-<textarea id="content" name="content" rows="5" required>${view.content}</textarea>
+<textarea id="content" name="content" rows="5" required>${view.content?html}</textarea>
 
 <script type="text/javascript">
 $(function () {
