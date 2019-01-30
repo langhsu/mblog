@@ -57,9 +57,9 @@
     <#if p??>
         <#local span = (spans - 3)/2 />
         <#if (url?index_of("?") != -1)>
-            <#local cURL = (url + "&pn=") />
+            <#local cURL = (url + "&pageNo=") />
         <#else>
-            <#local cURL = (url + "?pn=") />
+            <#local cURL = (url + "?pageNo=") />
         </#if>
 
     <ul class="pagination">

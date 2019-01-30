@@ -3,10 +3,10 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
+import com.mtons.mblog.modules.data.MessageVO;
+import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
-import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,19 +14,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 /**
- * 根据作者取文章列表
+ * 查询用户消息列表
  *
- * @author langhsu
- *
+ * @author landy
+ * @since 3.0
  */
 @Component
-public class AuthorContentsDirective extends TemplateDirective {
+public class AuthorMessagesDirective extends TemplateDirective {
     @Autowired
-	private PostService postService;
+	private MessageService messageService;
 
 	@Override
 	public String getName() {
-		return "author_contents";
+		return "author_messages";
 	}
 
     @Override
@@ -35,8 +35,7 @@ public class AuthorContentsDirective extends TemplateDirective {
         long userId = handler.getInteger("userId", 0);
 
         Pageable pageable = PageRequest.of(pageNo - 1, 10);
-        Page<PostVO> result = postService.pagingByAuthorId(pageable, userId);
-
+        Page<MessageVO> result = messageService.pagingByOwnId(pageable, userId);
         handler.put(RESULTS, result).render();
     }
 

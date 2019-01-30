@@ -10,6 +10,7 @@
 package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
@@ -73,7 +74,8 @@ public class LoginController extends BaseController {
 
         try {
             SecurityUtils.getSubject().login(token);
-            ret = Views.REDIRECT_USER;
+            AccountProfile profile = getProfile();
+            ret = Views.REDIRECT_USER_HOME + profile.getId();
         } catch (UnknownAccountException e) {
             log.error(e.getMessage());
             throw new MtonsException("用户不存在");

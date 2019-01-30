@@ -33,7 +33,7 @@
 <div class="row">
     <div class="col-xs-12 col-md-9 side-left">
         <div class="posts">
-            <@contents pn=pn>
+            <@contents pageNo=pageNo>
             <ul class="ajax-load-box posts-con">
                 <#list results.content as row>
                 <li class="ajax-load-con content">

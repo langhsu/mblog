@@ -74,8 +74,8 @@ public class ShiroConfig {
         hashMap.put("/theme/**", "anon");
         hashMap.put("/store/**", "anon");
         hashMap.put("/login", "anon");
-        hashMap.put("/user*", "authc");
         hashMap.put("/user/**", "authc");
+        hashMap.put("/settings/**", "authc");
         hashMap.put("/post/**", "authc");
 
         hashMap.put("/admin", "authc,perms[admin]");

@@ -1,17 +1,15 @@
 package com.mtons.mblog.web.controller.site.user;
 
-import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.modules.event.MessageEvent;
-import com.mtons.mblog.modules.data.AccountProfile;
-import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author langhsu on 2015/8/31.
@@ -48,13 +46,13 @@ public class FavorController extends BaseController {
     }
 
     /**
-     * 取消喜欢文章
+     * 取消收藏
      * @param id
      * @param request
      * @return
      */
     @RequestMapping("/unfavor")
-    public Data unfavor(Long id, HttpServletRequest request) {
+    public Data unfavor(Long id) {
         Data data = Data.failure("操作失败");
         if (id != null) {
             try {

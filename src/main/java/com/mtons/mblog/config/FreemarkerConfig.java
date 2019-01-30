@@ -25,6 +25,10 @@ public class FreemarkerConfig {
     @PostConstruct
     public void setSharedVariable() throws TemplateModelException {
         configuration.setSharedVariable("author_contents", applicationContext.getBean(AuthorContentsDirective.class));
+        configuration.setSharedVariable("author_comments", applicationContext.getBean(AuthorComenttsDirective.class));
+        configuration.setSharedVariable("author_favorites", applicationContext.getBean(AuthorFavoritesDirective.class));
+        configuration.setSharedVariable("author_messages", applicationContext.getBean(AuthorMessagesDirective.class));
+
         configuration.setSharedVariable("channel", applicationContext.getBean(ChannelDirective.class));
         configuration.setSharedVariable("contents", applicationContext.getBean(ContentsDirective.class));
         configuration.setSharedVariable("num", applicationContext.getBean(NumberDirective.class));

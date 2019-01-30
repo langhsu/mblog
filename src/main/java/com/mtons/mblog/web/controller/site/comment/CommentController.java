@@ -11,7 +11,6 @@ import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.modules.data.CommentVO;
 import com.mtons.mblog.modules.service.CommentService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
@@ -42,8 +41,7 @@ public class CommentController extends BaseController {
 	@RequestMapping("/list/{toId}")
 	public @ResponseBody Page<CommentVO> view(@PathVariable Long toId) {
 		Pageable pageable = wrapPageable();
-		Page<CommentVO> page = commentService.paging(pageable, toId);
-		return page;
+		return commentService.pagingByPostId(pageable, toId);
 	}
 	
 	@RequestMapping("/submit")
@@ -71,7 +69,7 @@ public class CommentController extends BaseController {
 			commentService.post(c);
 
             if(toId != up.getId()) {
-			    sendNotify(up.getId(), toId, pid);
+			    sendMessage(up.getId(), toId, pid);
             }
 			
 			data = Data.success("发表成功!", Data.NOOP);
@@ -99,7 +97,7 @@ public class CommentController extends BaseController {
 	 * @param userId
 	 * @param postId
 	 */
-	private void sendNotify(long userId, long postId, long pid) {
+	private void sendMessage(long userId, long postId, long pid) {
 		MessageEvent event = new MessageEvent("MessageEvent");
 		event.setFromUserId(userId);
 

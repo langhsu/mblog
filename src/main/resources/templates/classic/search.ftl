@@ -11,7 +11,7 @@
                         <div class="posts-default-content">搜索: ${kw} 共 ${page.totalElements} 个结果.</div>
                     </div>
                 </li>
-                <#list page.content as row>
+                <#list results.content as row>
                     <li class="ajax-load-con content">
                     <#if row.thumbnail?? && row.thumbnail?length gt 0>
                         <div class="content-box posts-gallery-box">
@@ -66,7 +66,7 @@
                     </#if>
                     </li>
                 </#list>
-                <#if !page?? || page.content?size == 0>
+                <#if !results?? || results.content?size == 0>
                     <li class="ajax-load-con content">
                         <div class="content-box posts-aside">
                             <div class="posts-default-content">该目录下还没有内容!</div>
@@ -76,7 +76,7 @@
             </ul>
         </div>
         <div class="text-center">
-            <@pager request.requestURI, page, 5/>
+            <@pager request.requestURI, results, 5/>
         </div>
     </div>
     <div class="col-xs-12 col-md-3 side-right">

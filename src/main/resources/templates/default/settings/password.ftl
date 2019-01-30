@@ -73,27 +73,6 @@ $(function () {
             $(element).closest("div").addClass("has-success").removeClass("has-error");
         }
     });
-
-	$('#pw').validate({
-		onKeyup : true,
-		onChange : true,
-		eachValidField : function() {
-			$(this).closest('div').removeClass('has-error').addClass('has-success');
-		},
-		eachInvalidField : function() {
-			$(this).closest('div').removeClass('has-success').addClass('has-error');
-		},
-		conditional : {
-			confirm : function() {
-				return $(this).val() == $('#password').val();
-			}
-		},
-		description : {
-			passwd : {
-				conditional : '<div class="alert alert-danger">两次输入的密码不一致</div>'
-			}
-		}
-	});
 });
 </script>
 </@layout>

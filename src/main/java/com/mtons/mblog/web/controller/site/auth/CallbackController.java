@@ -7,6 +7,7 @@ import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
 import com.mtons.mblog.base.utils.FilePathUtils;
 import com.mtons.mblog.base.utils.ImageUtils;
+import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.OpenOauthVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.OpenOauthService;
@@ -388,7 +389,8 @@ public class CallbackController extends BaseController {
             UsernamePasswordToken token = createToken(username, accessToken);
             try {
                 SecurityUtils.getSubject().login(token);
-                ret = Views.REDIRECT_USER;
+                AccountProfile profile = getProfile();
+                ret = Views.REDIRECT_USER_HOME + profile.getId();
             } catch (UnknownAccountException e) {
                 throw new MtonsException("用户不存在");
             } catch (LockedAccountException e) {

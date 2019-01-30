@@ -17,7 +17,7 @@
             <div class="panel-body remove-padding-horizontal">
 
                 <ul class="list-group row topic-list">
-                    <#list page.content as row>
+                    <#list results.content as row>
                         <li class="list-group-item ">
                             <a class="reply_count_area hidden-xs pull-right" href="#">
                                 <div class="count_set">
@@ -45,7 +45,7 @@
                         </li>
                     </#list>
 
-                    <#if !page?? || page.content?size == 0>
+                    <#if !results?? || results.content?size == 0>
                         <li class="list-group-item ">
                             <div class="infos">
                                 <div class="media-heading">该目录下还没有内容!</div>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                <@pager request.requestURI, page, 5/>
+                <@pager request.requestURI, results, 5/>
             </div>
         </div>
     </div>

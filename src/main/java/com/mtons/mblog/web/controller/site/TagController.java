@@ -32,7 +32,7 @@ public class TagController extends BaseController {
         try {
             if (StringUtils.isNotEmpty(kw)) {
                 Page<PostVO> page = postSearchService.searchByTag(pageable, kw);
-                model.put("page", page);
+                model.put("results", page);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
-                <@contents channelId=channel.id pn=pn order=order>
+                <@contents channelId=channel.id pageNo=pageNo order=order>
 
                     <div class="panel-body remove-padding-horizontal">
 

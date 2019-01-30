@@ -14,15 +14,15 @@
 		<div id="message">
 			<#include "/default/inc/action_message.ftl"/>
 		</div>
-		<div class="upload-btn">
-			<label>
-				<span>点击选择一张图片</span>
-				<input id="upload_btn" type="file" name="file" accept="image/*" title="点击添加图片">
-			</label>
-		</div>
-		<div class="update_ava">
-			<img src="<@resource src=profile.avatar/>" id="target" alt="[Example]" />
-		</div>
+			<div class="upload-btn">
+				<label>
+					<span>点击选择一张图片</span>
+					<input id="upload_btn" type="file" name="file" accept="image/*" title="点击添加图片">
+				</label>
+			</div>
+			<div class="update_ava">
+				<img src="<@resource src=profile.avatar/>" id="target" alt="[Example]" />
+			</div>
 	</div><!-- /panel-content -->
 </div><!-- /panel -->
 

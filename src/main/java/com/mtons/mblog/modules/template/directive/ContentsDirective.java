@@ -44,7 +44,7 @@ public class ContentsDirective extends TemplateDirective {
 
     @Override
     public void execute(DirectiveHandler handler) throws Exception {
-        Integer pn = handler.getInteger("pn", 1);
+        Integer pageNo = handler.getInteger("pageNo", 1);
         Integer channelId = handler.getInteger("channelId", 0);
         String order = handler.getString("order", Consts.order.NEWEST);
         Integer size = handler.getInteger("size", 16);
@@ -58,7 +58,7 @@ public class ContentsDirective extends TemplateDirective {
             }
         }
 
-        Pageable pageable = new PageRequest(pn - 1, size);
+        Pageable pageable = PageRequest.of(pageNo - 1, size);
         Page<PostVO> result = postService.paging(pageable, channelId, excludeChannelIds, order);
 
         handler.put(RESULTS, result).render();

@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Page<CommentVO> paging4Home(Pageable pageable, long authorId) {
+	public Page<CommentVO> pagingByAuthorId(Pageable pageable, long authorId) {
 		Page<Comment> page = commentRepository.findAllByAuthorIdOrderByCreatedDesc(pageable, authorId);
 
 		List<CommentVO> rets = new ArrayList<>();
@@ -91,7 +91,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Page<CommentVO> paging(Pageable pageable, long toId) {
+	public Page<CommentVO> pagingByPostId(Pageable pageable, long toId) {
 		Page<Comment> page = commentRepository.findAllByToIdOrderByCreatedDesc(pageable, toId);
 		
 		List<CommentVO> rets = new ArrayList<>();

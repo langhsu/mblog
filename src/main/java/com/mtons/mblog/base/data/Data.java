@@ -28,7 +28,6 @@ public class Data implements Serializable {
     private Object data; // 返回数据
     private ArrayList<Button> links = new ArrayList<>();
 
-
     private Data(int code, String message, Object data){
         this.code = code;
         this.message = message;

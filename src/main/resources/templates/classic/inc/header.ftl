@@ -71,7 +71,7 @@
                 <ul class="nav navbar-nav">
 					<#if profile??>
 						<li data="user">
-							<a href="${base}/user" nav="user">我的主页</a>
+							<a href="${base}/users/${profile.id}" nav="user">我的主页</a>
 						</li>
 					</#if>
 					<#list channels as row>
@@ -103,10 +103,10 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${base}/user">我的主页</a>
+                                <a href="${base}/users/${profile.id}">我的主页</a>
                             </li>
                             <li>
-                                <a href="${base}/user/profile">编辑资料</a>
+                                <a href="${base}/settings/profile">编辑资料</a>
                             </li>
                             <@shiro.hasPermission name="admin">
                                 <li><a href="${base}/admin">后台管理</a></li>

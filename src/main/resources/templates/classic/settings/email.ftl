@@ -76,13 +76,12 @@ $(function () {
 		var btn = $(this).button('sending');
 		var email = $('input[name=email]').val();
 		$.getJSON('${base}/email/send_code', {'email': email, 'type': 1}, function (data) {
-			if (data.code == 0) {
+			if (data.code === 0) {
 			    btn.text('重新发送');
                 $('#message').html('<div class="alert alert-success">' + data.message + '</div>');
 			} else {
 			    $('#message').html('<div class="alert alert-danger">' + data.message + '</div>');
 			}
-
             btn.button('reset');
         });
     })

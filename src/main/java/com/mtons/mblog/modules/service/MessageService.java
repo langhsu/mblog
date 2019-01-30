@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface MessageService {
 
-    Page<MessageVO> findByOwnId(Pageable pageable, long ownId);
+    Page<MessageVO> pagingByOwnId(Pageable pageable, long ownId);
 
     /**
      * 发送通知

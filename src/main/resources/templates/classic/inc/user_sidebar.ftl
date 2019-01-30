@@ -18,11 +18,13 @@
             </ul>
         </div>
     </li>
-    <li class="list-group-item">
-        <a class="btn btn-primary btn-block btn-sm" href="${base}/user/profile">
-            <i class="icon icon-note"></i> 编辑个人资料
-        </a>
-    </li>
+    <#if owner>
+        <li class="list-group-item">
+            <a class="btn btn-primary btn-block btn-sm" href="${base}/settings/profile">
+                <i class="icon icon-note"></i> 编辑个人资料
+            </a>
+        </li>
+    </#if>
 </ul>
 <nav class="navbar navbar-default shadow-box background-white">
     <div class="container-fluid">
@@ -40,27 +42,29 @@
     <div id="home-navbar" class="collapse navbar-collapse">
         <ul class="list-group user-nav first">
             <li class="list-group-item">
-                <a href="${base}/user"><i class="icon icon-list"></i> 我的文章</a>
+                <a href="${base}/users/${user.id}"><i class="icon icon-list"></i> 发表的文章</a>
             </li>
             <li class="list-group-item">
-                <a href="${base}/user?method=comments"><i class="icon icon-speech"></i> 我的评论</a>
+                <a href="${base}/users/${user.id}/comments"><i class="icon icon-speech"></i> 发表的评论</a>
             </li>
             <li class="list-group-item">
-                <a href="${base}/user?method=favors"><i class="icon icon-heart"></i> 我的收藏</a>
+                <a href="${base}/users/${user.id}/favorites"><i class="icon icon-heart"></i> 收藏的文章</a>
             </li>
         </ul>
 
-        <ul class="list-group user-nav">
-            <li class="list-group-item">
-                <a href="${base}/user?method=messages">
-                    <i class="icon icon-envelope"></i> 通知
-                    <#if (profile.badgesCount.messages > 0)>
-                        <span class="label label-danger">${profile.badgesCount.messages}</span>
-                    <#else>
-                        <span class="label label-default">0</span>
-                    </#if>
-                </a>
-            </li>
-        </ul>
+        <#if owner>
+            <ul class="list-group user-nav">
+                <li class="list-group-item">
+                    <a href="${base}/users/${user.id}/messages">
+                        <i class="icon icon-envelope"></i> 通知
+                        <#if (profile.badgesCount.messages > 0)>
+                            <span class="label label-danger">${profile.badgesCount.messages}</span>
+                        <#else>
+                            <span class="label label-default">0</span>
+                        </#if>
+                    </a>
+                </li>
+            </ul>
+        </#if>
     </div>
 </nav>

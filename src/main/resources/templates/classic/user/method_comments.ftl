@@ -1,53 +1,54 @@
 <#include "/classic/utils/ui.ftl"/>
 
-<@layout "我的评论">
+<@layout user.name + "的评论">
 <div class="row users-show">
     <div class="col-xs-12 col-md-3 side-left">
 		<#include "/classic/inc/user_sidebar.ftl"/>
     </div>
     <div class="col-xs-12 col-md-9 side-right">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                我的评论
-            </div>
+            <div class="panel-heading">发表的评论</div>
+            <@author_comments userId=user.id pageNo=pageNo>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <#list results.content as row>
+                            <li class="list-group-item" el="loop-${row.id}">
+                                <#if row.post??>
+                                    <a href="${base}/view/${row.post.id}" class="remove-padding-left">${row.post.title}</a>
+                                <#else>
+                                    <a href="javascript:;" class="remove-padding-left">文章已删除</a>
+                                </#if>
+                                <span class="meta">
+                                    <span class="timeago">${timeAgo(row.created)}</span>
+                                </span>
 
-            <div class="panel-body">
-                <ul class="list-group">
-					<#list page.content as row>
-                        <li class="list-group-item" el="loop-${row.id}">
-							<#if row.post??>
-                                <a href="${base}/view/${row.post.id}" class="remove-padding-left">${row.post.title}</a>
-							<#else>
-                                <a href="javascript:;" class="remove-padding-left">文章已删除</a>
-							</#if>
-                            <span class="meta">
-								<span class="timeago">${timeAgo(row.created)}</span>
-      						</span>
+                                <div class="pull-right hidden-xs">
+                                    <#if owner>
+                                        <a class="act" href="javascript:void(0);" data-evt="trash" data-id="${row.id}" data-toggle="tooltip" title="删除评论">
+                                            <i class="icon icon-close"></i>
+                                        </a>
+                                    </#if>
+                                </div>
 
-							<div class="pull-right hidden-xs">
-								<a class="act" href="javascript:void(0);" data-evt="trash" data-id="${row.id}" data-toggle="tooltip" title="删除评论">
-                                    <i class="icon icon-close"></i>
-                                </a>
-							</div>
+                                <div class="reply-body markdown-reply content-body">
+                                    <p>${row.content}</p>
+                                </div>
+                            </li>
+                        </#list>
 
-                            <div class="reply-body markdown-reply content-body">
-                                <p>${row.content}</p>
-                            </div>
-						</li>
-					</#list>
-
-					<#if page.content?size == 0>
-                        <li class="list-group-item ">
-                            <div class="infos">
-                                <div class="media-heading">该目录下还没有内容!</div>
-                            </div>
-                        </li>
-					</#if>
-                </ul>
-            </div>
-            <div class="panel-footer">
-				<@pager "user?method=comments", page, 5/>
-            </div>
+                        <#if results.content?size == 0>
+                            <li class="list-group-item ">
+                                <div class="infos">
+                                    <div class="media-heading">该目录下还没有内容!</div>
+                                </div>
+                            </li>
+                        </#if>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <@pager request.requestURI!'', page, 5/>
+                </div>
+            </@author_comments>
         </div>
     </div>
 </div>

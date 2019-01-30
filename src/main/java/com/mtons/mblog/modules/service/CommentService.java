@@ -25,14 +25,14 @@ import java.util.Set;
 public interface CommentService {
 	Page<CommentVO> paging4Admin(Pageable pageable);
 
-	Page<CommentVO> paging4Home(Pageable pageable, long authorId);
+	Page<CommentVO> pagingByAuthorId(Pageable pageable, long authorId);
 
 	/**
 	 * 查询评论列表
 	 * @param pageable
 	 * @param toId
 	 */
-	Page<CommentVO> paging(Pageable pageable, long toId);
+	Page<CommentVO> pagingByPostId(Pageable pageable, long toId);
 
 	Map<Long, CommentVO> findByIds(Set<Long> ids);
 	

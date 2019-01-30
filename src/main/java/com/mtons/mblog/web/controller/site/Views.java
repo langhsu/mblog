@@ -28,16 +28,16 @@ public interface Views {
 
 	String USER_POSTS = "/user/method_posts";
 	String USER_COMMENTS = "/user/method_comments";
-	String USER_FAVORS = "/user/method_favors";
+	String USER_FAVORITES = "/user/method_favorites";
 	String USER_MESSAGES = "/user/method_messages";
 
-	String REDIRECT_USER = "redirect:/user";
-	String REDIRECT_USER_POSTS = "redirect:/user?method=posts";
+	String REDIRECT_USER_HOME = "redirect:/users/";
+	String REDIRECT_USER_POSTS = "redirect:/users/%d/posts";
 
-	String USER_AVATAR = "/user/avatar";
-	String USER_PASSWORD = "/user/password";
-	String USER_PROFILE = "/user/profile";
-	String USER_EMAIL = "/user/email";
+	String SETTINGS_AVATAR = "/settings/avatar";
+	String SETTINGS_PASSWORD = "/settings/password";
+	String SETTINGS_PROFILE = "/settings/profile";
+	String SETTINGS_EMAIL = "/settings/email";
 
 	String USERS_VIEW = "/users/view";
 

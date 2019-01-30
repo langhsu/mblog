@@ -2,7 +2,7 @@
 <@layout channel.name>
     <div class="row">
         <div class="col-xs-12 col-md-9 side-left">
-            <@contents channelId=channel.id pn=pn order=order>
+            <@contents channelId=channel.id pageNo=pageNo order=order>
                 <div class="posts ">
                     <ul class="ajax-load-box posts-con">
                         <#list results.content as row>
