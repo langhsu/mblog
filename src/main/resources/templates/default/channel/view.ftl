@@ -142,7 +142,7 @@
     var container = $("#chat_container");
     var template = $('#chat_template')[0].text;
 
-    seajs.use('comment', function (comment) {
+    seajs.use(['comment', 'view'], function (comment) {
         comment.init({
             load: '${site.controls.comment}',
             load_url: '${base}/comment/list/${view.id}',
@@ -168,15 +168,5 @@
             }
         });
     });
-
-    seajs.use(['phiz', 'view'], function (phiz) {
-        $("#c-btn").jphiz({
-            base: '${base}/dist',
-            textId: 'chat_text',
-            lnkBoxId: 'c-lnk',
-            phizBoxId: 'c-phiz'
-        });
-    });
-
 </script>
 </@layout>

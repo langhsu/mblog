@@ -1360,7 +1360,7 @@ abbr[data-original-title], abbr[title] {
 .cbox-wrap .fa-2 { font-size: 1.7em; }
 .cbox-wrap .cbox-ats {padding: 0; display: block; border-top: 1px solid #ccc;}
 .cbox-wrap .ats-func {float: left;}
-.cbox-wrap .OwO-logo:hover {color: #ff8a00}
+.cbox-wrap .OwO-logo:hover {color: #ff8a00!important;}
 .cbox-wrap .ats-issue {float: right;}
 .cbox-wrap .ats-issue .btn {border-radius: 0!important; padding: 5px 16px;}
 #chat_reply {color: #1f8902;}

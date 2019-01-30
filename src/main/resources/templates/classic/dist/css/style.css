@@ -1812,7 +1812,7 @@ abbr[data-original-title], abbr[title] {
 }
 
 .cbox-wrap .OwO-logo:hover {
-    color: #ff8a00
+    color: #ff8a00!important;
 }
 
 .cbox-wrap .ats-issue {

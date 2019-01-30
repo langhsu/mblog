@@ -146,7 +146,7 @@
     var container = $("#chat_container");
     var template = $('#chat_template')[0].text;
 
-    seajs.use('comment', function (comment) {
+    seajs.use(['comment', 'view'], function (comment) {
         comment.init({
             load: '${site.controls.comment}',
             load_url: '${base}/comment/list/${view.id}',

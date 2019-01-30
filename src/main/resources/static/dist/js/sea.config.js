@@ -9,7 +9,6 @@ seajs.config({
         'sidebox': 'dist/js/modules/sidebox',
         'post': 'dist/js/modules/post',
         'comment': 'dist/js/modules/comment',
-        'phiz': 'dist/js/modules/phiz',
         'avatar': 'dist/js/modules/avatar',
         'editor': 'dist/js/modules/editor',
         'view': 'dist/js/modules/view',
