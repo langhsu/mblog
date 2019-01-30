@@ -17,7 +17,7 @@
                 </div>
                 <div class="box-body">
                     <form id="qForm" class="form-inline search-row">
-                        <input type="hidden" name="pn" value="${page.pageNo}" />
+                        <input type="hidden" name="pageNo" value="${page.number}"/>
                         <div class="form-group">
                             <input type="text" name="name" class="form-control" value="${name}" placeholder="请输入关键字">
                         </div>

@@ -20,7 +20,7 @@
                 </div>
                 <div class="box-body">
                     <form id="qForm" class="form-inline">
-                        <input type="hidden" name="pn" value="${page.pageNo}"/>
+                        <input type="hidden" name="pageNo" value="${page.number}"/>
                     </form>
                     <div class="table-responsive">
                         <table id="dataGrid" class="table table-striped table-bordered">
@@ -57,7 +57,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="panel-footer">
+                <div class="box-footer">
                     <@pager "list" page 5 />
                 </div>
             </div>
