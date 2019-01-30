@@ -83,7 +83,11 @@
                         <tr>
                             <td>内存消耗:</td>
                             <td>
-                                ${usedMemory}M / ${totalMemory}M
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" style="width: ${memPercent}%; min-width: 2em;">
+                                        <span>${usedMemory}M / ${totalMemory}M</span>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -95,11 +99,6 @@
                             <td>${javaVersion}</td>
                         </tr>
                     </table>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-green" role="progressbar" style="width: ${memPercent}%">
-                            <span class="sr-only">${memPercent}% 已用</span>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="box box-success">
