@@ -1,4 +1,4 @@
-### Mblog 开源Java多人博客系统
+### Mblog 开源Java博客系统, 支持多用户, 支持切换主题
 
 [![Author](https://img.shields.io/badge/author-landy-green.svg?style=flat-square)](http://mtons.com)
 [![JDK](https://img.shields.io/badge/jdk-1.8-green.svg?style=flat-square)](#)
