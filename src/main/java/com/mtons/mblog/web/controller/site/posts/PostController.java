@@ -78,7 +78,7 @@ public class PostController extends BaseController {
 		} else {
 			postService.post(post);
 		}
-		return String.format(Views.REDIRECT_USER_POSTS, profile.getId());
+		return String.format(Views.REDIRECT_USER_HOME, profile.getId());
 	}
 
 	/**

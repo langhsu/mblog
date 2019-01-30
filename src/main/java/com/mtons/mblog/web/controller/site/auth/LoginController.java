@@ -75,7 +75,7 @@ public class LoginController extends BaseController {
         try {
             SecurityUtils.getSubject().login(token);
             AccountProfile profile = getProfile();
-            ret = Views.REDIRECT_USER_HOME + profile.getId();
+            ret = String.format(Views.REDIRECT_USER_HOME, profile.getId());
         } catch (UnknownAccountException e) {
             log.error(e.getMessage());
             throw new MtonsException("用户不存在");

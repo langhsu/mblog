@@ -390,7 +390,7 @@ public class CallbackController extends BaseController {
             try {
                 SecurityUtils.getSubject().login(token);
                 AccountProfile profile = getProfile();
-                ret = Views.REDIRECT_USER_HOME + profile.getId();
+                ret = String.format(Views.REDIRECT_USER_HOME, profile.getId());
             } catch (UnknownAccountException e) {
                 throw new MtonsException("用户不存在");
             } catch (LockedAccountException e) {
