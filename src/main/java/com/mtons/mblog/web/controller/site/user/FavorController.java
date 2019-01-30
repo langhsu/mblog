@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.controller.site.user;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.event.MessageEvent;
@@ -28,8 +28,8 @@ public class FavorController extends BaseController {
      * @return
      */
     @RequestMapping("/favor")
-    public Data favor(Long id) {
-        Data data = Data.failure("操作失败");
+    public Result favor(Long id) {
+        Result data = Result.failure("操作失败");
         if (id != null) {
             try {
                 AccountProfile up = getProfile();
@@ -37,9 +37,9 @@ public class FavorController extends BaseController {
 
                 sendNotify(up.getId(), id);
 
-                data = Data.success("操作成功!", Data.NOOP);
+                data = Result.success();
             } catch (Exception e) {
-                data = Data.failure(e.getMessage());
+                data = Result.failure(e.getMessage());
             }
         }
         return data;
@@ -52,15 +52,15 @@ public class FavorController extends BaseController {
      * @return
      */
     @RequestMapping("/unfavor")
-    public Data unfavor(Long id) {
-        Data data = Data.failure("操作失败");
+    public Result unfavor(Long id) {
+        Result data = Result.failure("操作失败");
         if (id != null) {
             try {
                 AccountProfile up = getProfile();
                 postService.unfavor(up.getId(), id);
-                data = Data.success("操作成功!", Data.NOOP);
+                data = Result.success();
             } catch (Exception e) {
-                data = Data.failure(e.getMessage());
+                data = Result.failure(e.getMessage());
             }
         }
         return data;

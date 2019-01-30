@@ -1,5 +1,5 @@
 /*
-Navicat MySQL Data Transfer
+Navicat MySQL Result Transfer
 
 Source Server         : localhost
 Source Server Version : 50719

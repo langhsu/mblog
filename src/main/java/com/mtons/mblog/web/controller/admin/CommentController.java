@@ -11,10 +11,9 @@ package com.mtons.mblog.web.controller.admin;
 
 import java.util.List;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.modules.data.CommentVO;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,14 +45,14 @@ public class CommentController extends BaseController {
 	
 	@RequestMapping("/delete")
 	@ResponseBody
-	public Data delete(@RequestParam("id") List<Long> id) {
-		Data data = Data.failure("操作失败");
+	public Result delete(@RequestParam("id") List<Long> id) {
+		Result data = Result.failure("操作失败");
 		if (id != null) {
 			try {
 				commentService.delete(id);
-				data = Data.success("操作成功", Data.NOOP);
+				data = Result.success();
 			} catch (Exception e) {
-				data = Data.failure(e.getMessage());
+				data = Result.failure(e.getMessage());
 			}
 		}
 		return data;

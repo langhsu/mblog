@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.web.controller.site.comment;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.data.AccountProfile;
@@ -46,13 +46,13 @@ public class CommentController extends BaseController {
 	
 	@RequestMapping("/submit")
 	public @ResponseBody
-    Data post(Long toId, String text, HttpServletRequest request) {
-		Data data = Data.failure("操作失败");
+	Result post(Long toId, String text, HttpServletRequest request) {
+		Result data = Result.failure("操作失败");
 		
 		long pid = ServletRequestUtils.getLongParameter(request, "pid", 0);
 		
 		if (!isAuthenticated()) {
-			data = Data.failure("请先登录在进行操作");
+			data = Result.failure("请先登录在进行操作");
 			
 			return data;
 		}
@@ -72,21 +72,22 @@ public class CommentController extends BaseController {
 			    sendMessage(up.getId(), toId, pid);
             }
 			
-			data = Data.success("发表成功!", Data.NOOP);
+			data = Result.successMessage("发表成功!");
 		}
 		return data;
 	}
 
 	@RequestMapping("/delete")
-	public @ResponseBody Data delete(Long id) {
-		Data data = Data.failure("操作失败");
+	public @ResponseBody
+	Result delete(Long id) {
+		Result data = Result.failure("操作失败");
 		if (id != null) {
 			AccountProfile up = getProfile();
 			try {
 				commentService.delete(id, up.getId());
-				data = Data.success("操作成功", Data.NOOP);
+				data = Result.success();
 			} catch (Exception e) {
-				data = Data.failure(e.getMessage());
+				data = Result.failure(e.getMessage());
 			}
 		}
 		return data;

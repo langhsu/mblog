@@ -9,13 +9,11 @@
 */
 package com.mtons.mblog.web.controller.api;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.CommentVO;
 import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.CommentService;
-import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.modules.service.PostService;
 import org.apache.commons.lang3.StringUtils;
@@ -48,8 +46,8 @@ public class SidebarController extends BaseController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody
-    Data login(String username, String password, ModelMap model) {
-		Data data = Data.failure("操作失败");
+	Result login(String username, String password, ModelMap model) {
+		Result data = Result.failure("操作失败");
 
 		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 			return data;
@@ -63,7 +61,7 @@ public class SidebarController extends BaseController {
 
 		try {
 			SecurityUtils.getSubject().login(token);
-			data = Data.success("登录成功", getProfile());
+			data = Result.success("登录成功", getProfile());
 
 		} catch (Exception e) {
 			if (e instanceof UnknownAccountException) {

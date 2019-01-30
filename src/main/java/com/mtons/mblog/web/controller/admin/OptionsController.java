@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.modules.entity.Options;
 import com.mtons.mblog.modules.service.OptionsService;
@@ -67,7 +67,7 @@ public class OptionsController extends BaseController {
 		contextStartup.reloadOptions(false);
 
 		model.put("values", optionsService.findAll2Map());
-		model.put("data", Data.success("操作成功", Data.NOOP));
+		model.put("data", Result.success());
 		return "/admin/options/index";
 	}
 
@@ -77,16 +77,16 @@ public class OptionsController extends BaseController {
 	 */
 	@RequestMapping("/reload_options")
 	@ResponseBody
-	public Data reloadOptions() {
+	public Result reloadOptions() {
 		contextStartup.reloadOptions(false);
 		contextStartup.resetChannels();
-		return Data.success("操作成功", Data.NOOP);
+		return Result.success();
 	}
 
 	@RequestMapping("/reset_indexes")
 	@ResponseBody
-	public Data resetIndexes() {
+	public Result resetIndexes() {
 		postSearchService.resetIndexes();
-		return Data.success("操作成功", Data.NOOP);
+		return Result.success();
 	}
 }

@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Role;
@@ -80,7 +80,7 @@ public class UserController extends BaseController {
 //	@RequiresPermissions("user:role")
 	public String postAuthc(Long id, @RequestParam(value = "roleIds", required=false) Set<Long> roleIds, ModelMap model) {
 		userRoleService.updateRole(id, roleIds);
-		model.put("data", Data.success());
+		model.put("data", Result.success());
 		return "redirect:/admin/user/list";
 	}
 
@@ -110,18 +110,16 @@ public class UserController extends BaseController {
 	@RequestMapping("/open")
 //	@RequiresPermissions("user:open")
 	@ResponseBody
-	public Data open(Long id) {
+	public Result open(Long id) {
 		userService.updateStatus(id, Consts.STATUS_NORMAL);
-		Data data = Data.success("操作成功", Data.NOOP);
-		return data;
+		return Result.success();
 	}
 
 	@RequestMapping("/close")
 //	@RequiresPermissions("user:close")
 	@ResponseBody
-	public Data close(Long id) {
+	public Result close(Long id) {
 		userService.updateStatus(id, Consts.STATUS_CLOSED);
-		Data data = Data.success("操作成功", Data.NOOP);
-		return data;
+		return Result.success();
 	}
 }

@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.web.controller.admin;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.entity.Permission;
 import com.mtons.mblog.modules.entity.Role;
 import com.mtons.mblog.modules.service.PermissionService;
@@ -55,7 +55,7 @@ public class RoleController extends BaseController {
 	
 	@RequestMapping("/update")
 	public String update(Role role, @RequestParam(value = "perms", required=false) List<Long> perms, ModelMap model) {
-		Data data;
+		Result data;
 
 		HashSet<Permission> permissions = new HashSet<>();
 		if(perms != null && perms.size() > 0){
@@ -68,10 +68,10 @@ public class RoleController extends BaseController {
         }
         
         if (Role.ADMIN_ID == role.getId()) {
-			data = Data.failure("管理员角色不可编辑");
+			data = Result.failure("管理员角色不可编辑");
         } else {
             roleService.update(role, permissions);
-            data = Data.success();
+            data = Result.success();
         }
         model.put("data", data);
         return "redirect:/admin/role/list";
@@ -79,25 +79,25 @@ public class RoleController extends BaseController {
 	
 	@RequestMapping("/activate")
 	@ResponseBody
-	public Data activate(Long id, Boolean active) {
-		Data ret = Data.failure("操作失败");
+	public Result activate(Long id, Boolean active) {
+		Result ret = Result.failure("操作失败");
 		if (id != null && id != Role.ADMIN_ID) {
 			roleService.activate(id, active);
-			ret = Data.success();
+			ret = Result.success();
 		}
 		return ret;
 	}
 	
 	@RequestMapping("/delete")
 	@ResponseBody
-	public Data delete(@RequestParam("id") Long id) {
-		Data ret;
+	public Result delete(@RequestParam("id") Long id) {
+		Result ret;
 		if (Role.ADMIN_ID == id) {
-			ret = Data.failure("管理员不能操作");
+			ret = Result.failure("管理员不能操作");
         }else if(roleService.delete(id)){
-        	ret = Data.success();
+        	ret = Result.success();
         }else{
-        	ret = Data.failure("该角色不能被操作");
+        	ret = Result.failure("该角色不能被操作");
         }
 		return ret;
 	}

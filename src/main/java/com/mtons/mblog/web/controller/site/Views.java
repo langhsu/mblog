@@ -19,7 +19,7 @@ package com.mtons.mblog.web.controller.site;
 public interface Views {
 	String LOGIN = "/auth/login";
 	String REGISTER = "/auth/register";
-	String REGISTER_RESULT = "/auth/register_result";
+	String REGISTER_RESULT = "/auth/result";
 	String OAUTH_REGISTER = "/auth/oauth_register";
 
 	String FORGOT = "/auth/forgot";

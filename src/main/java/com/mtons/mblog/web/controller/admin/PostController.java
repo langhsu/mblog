@@ -9,7 +9,7 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.PostVO;
@@ -108,15 +108,15 @@ public class PostController extends BaseController {
 
 	@RequestMapping("/featured")
 	@ResponseBody
-	public Data featured(Long id, HttpServletRequest request) {
-		Data data = Data.failure("操作失败");
+	public Result featured(Long id, HttpServletRequest request) {
+		Result data = Result.failure("操作失败");
 		int featured = ServletRequestUtils.getIntParameter(request, "featured", Consts.FEATURED_ACTIVE);
 		if (id != null) {
 			try {
 				postService.updateFeatured(id, featured);
-				data = Data.success("操作成功", Data.NOOP);
+				data = Result.success();
 			} catch (Exception e) {
-				data = Data.failure(e.getMessage());
+				data = Result.failure(e.getMessage());
 			}
 		}
 		return data;
@@ -124,15 +124,15 @@ public class PostController extends BaseController {
 
 	@RequestMapping("/weight")
 	@ResponseBody
-	public Data weight(Long id, HttpServletRequest request) {
-		Data data = Data.failure("操作失败");
+	public Result weight(Long id, HttpServletRequest request) {
+		Result data = Result.failure("操作失败");
 		int weight = ServletRequestUtils.getIntParameter(request, "weight", Consts.FEATURED_ACTIVE);
 		if (id != null) {
 			try {
 				postService.updateWeight(id, weight);
-				data = Data.success("操作成功", Data.NOOP);
+				data = Result.success();
 			} catch (Exception e) {
-				data = Data.failure(e.getMessage());
+				data = Result.failure(e.getMessage());
 			}
 		}
 		return data;
@@ -140,14 +140,14 @@ public class PostController extends BaseController {
 	
 	@RequestMapping("/delete")
 	@ResponseBody
-	public Data delete(@RequestParam("id") List<Long> id) {
-		Data data = Data.failure("操作失败");
+	public Result delete(@RequestParam("id") List<Long> id) {
+		Result data = Result.failure("操作失败");
 		if (id != null) {
 			try {
 				postService.delete(id);
-				data = Data.success("操作成功", Data.NOOP);
+				data = Result.success();
 			} catch (Exception e) {
-				data = Data.failure(e.getMessage());
+				data = Result.failure(e.getMessage());
 			}
 		}
 		return data;

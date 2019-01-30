@@ -10,7 +10,7 @@
 package com.mtons.mblog.web.exceptions;
 
 import com.alibaba.fastjson.JSON;
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.MtonsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -52,7 +52,7 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver {
 		if (isAjax(handler)) {
 			try {
 				response.setContentType("application/json;charset=UTF-8");
-				response.getWriter().print(JSON.toJSONString(Data.failure(ret)));
+				response.getWriter().print(JSON.toJSONString(Result.failure(ret)));
 			} catch (IOException e) {
 				// do something
 			}

@@ -9,13 +9,12 @@
 */
 package com.mtons.mblog.web.controller.admin;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.modules.entity.Channel;
 import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.web.controller.BaseController;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -64,16 +63,16 @@ public class ChannelController extends BaseController {
 	@RequestMapping("/delete")
 	@ResponseBody
 //	@RequiresPermissions("channel:delete")
-	public Data delete(Integer id) {
-		Data data = Data.failure("操作失败");
+	public Result delete(Integer id) {
+		Result data = Result.failure("操作失败");
 		if (id != null) {
 			try {
 				channelService.delete(id);
-				data = Data.success("操作成功", Data.NOOP);
+				data = Result.success();
 
 				contextStartup.resetChannels();
 			} catch (Exception e) {
-				data = Data.failure(e.getMessage());
+				data = Result.failure(e.getMessage());
 			}
 		}
 		return data;

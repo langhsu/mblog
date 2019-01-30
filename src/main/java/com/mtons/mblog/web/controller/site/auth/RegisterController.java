@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
@@ -41,18 +41,18 @@ public class RegisterController extends BaseController {
 	
 	@PostMapping("/register")
 	public String register(UserVO post, ModelMap model) {
-		Data data;
+		Result data;
 		String ret = view(Views.REGISTER);
 
 		try {
 			post.setAvatar(Consts.AVATAR);
 			userService.register(post);
-			data = Data.success("恭喜您! 注册成功", Data.NOOP);
+			data = Result.successMessage("恭喜您! 注册成功");
 			data.addLink("login", "前往登录");
 			ret = view(Views.REGISTER_RESULT);
 		} catch (Exception e) {
             model.addAttribute("post", post);
-			data = Data.failure(e.getMessage());
+			data = Result.failure(e.getMessage());
 		}
 		model.put("data", data);
 		return ret;

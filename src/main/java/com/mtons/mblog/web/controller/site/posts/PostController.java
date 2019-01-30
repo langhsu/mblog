@@ -3,7 +3,7 @@
  */
 package com.mtons.mblog.web.controller.site.posts;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.PostVO;
@@ -88,15 +88,15 @@ public class PostController extends BaseController {
 	 */
 	@RequestMapping("/delete/{id}")
 	public @ResponseBody
-	Data delete(@PathVariable Long id) {
-		Data data = Data.failure("操作失败");
+	Result delete(@PathVariable Long id) {
+		Result data = Result.failure("操作失败");
 		if (id != null) {
 			AccountProfile up = getProfile();
 			try {
 				postService.delete(id, up.getId());
-				data = Data.success("操作成功", Data.NOOP);
+				data = Result.success();
 			} catch (Exception e) {
-				data = Data.failure(e.getMessage());
+				data = Result.failure(e.getMessage());
 			}
 		}
 		return data;

@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
@@ -30,7 +30,7 @@ public class EmailController extends BaseController {
 
     @GetMapping("/send_code")
     @ResponseBody
-    public Data sendCode(String email, Integer type) {
+    public Result sendCode(String email, Integer type) {
         Assert.hasLength(email, "请输入邮箱地址");
         Assert.notNull(type, "缺少必要的参数");
 
@@ -51,7 +51,7 @@ public class EmailController extends BaseController {
         context.put("code", code);
 
         sendEmail(Consts.EMAIL_TEMPLATE_CODE, email, "邮箱验证码", context);
-        return Data.success("邮件发送成功", Data.NOOP);
+        return Result.successMessage("邮件发送成功");
     }
 
 }

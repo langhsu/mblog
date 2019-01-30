@@ -1,6 +1,6 @@
 package com.mtons.mblog.web.controller.site.user;
 
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.FileKit;
 import com.mtons.mblog.base.utils.FilePathUtils;
@@ -58,7 +58,7 @@ public class SettingsController extends BaseController {
 
     @PostMapping(value = "/profile")
     public String updateProfile(String name, String signature, ModelMap model) {
-        Data data;
+        Result data;
         AccountProfile profile = getProfile();
 
         try {
@@ -73,9 +73,9 @@ public class SettingsController extends BaseController {
             UserVO view = userService.get(profile.getId());
             model.put("view", view);
 
-            data = Data.success("操作成功", Data.NOOP);
+            data = Result.success();
         } catch (Exception e) {
-            data = Data.failure(e.getMessage());
+            data = Result.failure(e.getMessage());
         }
         model.put("data", data);
         return view(Views.SETTINGS_PROFILE);
@@ -83,7 +83,7 @@ public class SettingsController extends BaseController {
 
     @PostMapping(value = "/email")
     public String updateEmail(String email, String code, ModelMap model) {
-        Data data;
+        Result data;
         AccountProfile profile = getProfile();
         try {
             Assert.hasLength(email, "请输入邮箱地址");
@@ -94,9 +94,9 @@ public class SettingsController extends BaseController {
             AccountProfile p = userService.updateEmail(profile.getId(), email);
             putProfile(p);
 
-            data = Data.success("操作成功", Data.NOOP);
+            data = Result.success();
         } catch (Exception e) {
-            data = Data.failure(e.getMessage());
+            data = Result.failure(e.getMessage());
         }
         model.put("data", data);
         return view(Views.SETTINGS_EMAIL);
@@ -104,14 +104,14 @@ public class SettingsController extends BaseController {
 
     @PostMapping(value = "/password")
     public String updatePassword(String oldPassword, String password, ModelMap model) {
-        Data data;
+        Result data;
         try {
             AccountProfile profile = getProfile();
             userService.updatePassword(profile.getId(), oldPassword, password);
 
-            data = Data.success("操作成功", Data.NOOP);
+            data = Result.success();
         } catch (Exception e) {
-            data = Data.failure(e.getMessage());
+            data = Result.failure(e.getMessage());
         }
         model.put("data", data);
         return view(Views.SETTINGS_PASSWORD);

@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.base.data;
+package com.mtons.mblog.base.lang;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,26 +15,28 @@ import java.util.ArrayList;
 /**
  * @author langhsu on 2015/8/15.
  */
-public class Data implements Serializable {
+public class Result implements Serializable {
     private static final long serialVersionUID = -1491499610244557029L;
 
-    public static int CODE_SUCCESS = 0;
-    public static int CODE_FAILURED = -1;
-
-    public static String NOOP = "";
+    public static int SUCCESS = 0;
+    public static int FAILURED = -1;
 
     private int code; // 处理状态：0: 成功
     private String message;
     private Object data; // 返回数据
     private ArrayList<Button> links = new ArrayList<>();
 
-    private Data(int code, String message, Object data){
+    private Result(int code, String message){
+        this(code, message, null);
+    }
+
+    private Result(int code, String message, Object data){
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public static final Data success(){
+    public static Result success(){
         return success(null);
     }
 
@@ -43,16 +45,20 @@ public class Data implements Serializable {
      * @param data
      * @return
      */
-    public static final Data success(Object data){
+    public static Result success(Object data){
         return success("操作成功", data);
     }
 
-    public static final Data success(String message, Object data){
-        return new Data(Data.CODE_SUCCESS, message, data);
+    public static Result successMessage(String message){
+        return success(message, null);
     }
 
-    public static final Data failure(String message){
-        return failure(Data.CODE_FAILURED, message);
+    public static Result success(String message, Object data){
+        return new Result(Result.SUCCESS, message, data);
+    }
+
+    public static Result failure(String message){
+        return failure(Result.FAILURED, message);
     }
 
     /**
@@ -60,8 +66,8 @@ public class Data implements Serializable {
      * @param code
      * @return
      */
-    public static final Data failure(int code, String message){
-        return new Data(code, message, null);
+    public static Result failure(int code, String message){
+        return new Result(code, message, null);
     }
 
     public int getCode() {
@@ -87,7 +93,7 @@ public class Data implements Serializable {
         this.data = data;
     }
 
-    public Data addLink(String link, String text) {
+    public Result addLink(String link, String text) {
         links.add(new Button(link, text));
         return this;
     }

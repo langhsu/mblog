@@ -19,7 +19,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -50,7 +50,7 @@ public class AuthenticatedFilter extends OncePerRequestFilter {
 
             if (isAjaxRequest((HttpServletRequest) request)) {
                 response.setContentType("application/json;charset=UTF-8");
-                response.getWriter().print(JSON.toJSONString(Data.failure("您还没有登录!")));
+                response.getWriter().print(JSON.toJSONString(Result.failure("您还没有登录!")));
             } else {
                 response.getWriter().write(new Formatter().format(JS, url).toString());
             }

@@ -2,7 +2,7 @@ package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.base.data.Data;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.utils.MailHelper;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.service.SecurityCodeService;
@@ -34,7 +34,7 @@ public class ForgotController extends BaseController {
 
     @PostMapping("/forgot")
     public String reset(String email, String code, String password, ModelMap model) {
-        Data data;
+        Result data;
 
         try {
             Assert.hasLength(email, "请输入邮箱地址");
@@ -45,11 +45,11 @@ public class ForgotController extends BaseController {
             securityCodeService.verify(user.getId(), Consts.CODE_FORGOT, code);
             userService.updatePassword(user.getId(), password);
 
-            data = Data.success("恭喜您! 密码重置成功。");
+            data = Result.successMessage("恭喜您! 密码重置成功");
             data.addLink("login", "前往登录");
 
         } catch (Exception e) {
-            data = Data.failure(e.getMessage());
+            data = Result.failure(e.getMessage());
         }
 
         model.put("data", data);
