@@ -42,6 +42,9 @@
     7. 重写了config(改为options), 可在applicaiton.yaml设置默认配置, 启动后将以options中配置为准
     8. 支持后台设置主题
     9. 去除了本地文件上传目录配置, 改为自动取项目运行目录(会在jar同级目录生成storeage和indexes目录)
+    10. 替换表单验证插件, 评论表情改为颜文字
+    11. 我的主页和Ta人主页合并
+    12. 优化了图片裁剪功能
     
 [官网地址](http://www.mtons.com)
     
