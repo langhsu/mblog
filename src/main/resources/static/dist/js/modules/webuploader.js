@@ -13,7 +13,7 @@ define(function(require, exports, module) {
     require('webuploader.css');
     require('webuploader.min');
 
-    var BASE_URL = window.app.base;
+    var BASE_URL = _MTONS.BASE_PATH;
     var $wrap = $('#uploader'),
 
         // 图片容器

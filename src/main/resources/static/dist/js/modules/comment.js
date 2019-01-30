@@ -17,7 +17,7 @@ define(function(require, exports, module) {
 		id : 0,
 		type: 1,
 		url: function(p){
-			return app.base + p;
+			return _MTONS.BASE_PATH + p;
 		}
 	};
 

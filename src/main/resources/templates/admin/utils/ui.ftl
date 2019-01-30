@@ -23,6 +23,7 @@
 
     <!-- jQuery -->
     <script src="${base}/dist/js/jquery.min.js"></script>
+    <script src="${base}/dist/js/plugins.js"></script>
     <!-- Bootstrap -->
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src='${base}/dist/vendors/jquery-validation/jquery.validate.min.js'></script>

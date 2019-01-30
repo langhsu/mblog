@@ -1,18 +1,17 @@
-<meta property="mtons:mblog" content="2.2.1">
+<meta property="mtons:mblog" content="${site.version}">
 ${options['site_metas']}
 
-<link rel="stylesheet" media='all' href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css">
-<link rel='stylesheet' media='all' href="${base}/dist/vendors/share.js/css/share.min.css"/>
+<link href="${base}/dist/vendors/pace/themes/pace-theme-minimal.css" rel="stylesheet" />
+<link href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${base}/dist/vendors/share.js/css/share.min.css" rel="stylesheet" />
 
-<link rel='stylesheet' media='all' href="${base}/theme/default/dist/css/style.css"/>
-<link rel='stylesheet' media='all' href="${base}/dist/css/editor.css"/>
-<link rel='stylesheet' media='all' href="${base}/dist/css/plugins.css"/>
+<link href="${base}/theme/default/dist/css/style.css" rel="stylesheet" />
+<link href="${base}/dist/css/editor.css" rel="stylesheet" />
+<link href="${base}/dist/css/plugins.css" rel="stylesheet" />
 
-<link rel='stylesheet' media='all' href="${base}/dist/vendors/simple-line-icons/css/simple-line-icons.css"/>
-<link rel='stylesheet' media='all' href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css"/>
-<link rel='stylesheet' media='all' href="${base}/dist/vendors/pace/themes/pace-theme-minimal.css"/>
-
-<link rel="stylesheet" media="all" href="${base}/dist/vendors/highlight/styles/github.css"/>
+<link href="${base}/dist/vendors/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
+<link href="${base}/dist/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="${base}/dist/vendors/highlight/styles/github.css" rel="stylesheet" />
 
 <script src="${base}/dist/vendors/pace/pace.min.js"></script>
 
@@ -30,6 +29,10 @@ ${options['site_metas']}
         base: '${base}',
         LOGIN_TOKEN: '${profile.id}'
     };
+
+    var _MTONS = _MTONS || {};
+    _MTONS.BASE_PATH = '${base}';
+    _MTONS.LOGIN_TOKEN = '${profile.id}';
 </script>
 
 <script src="${base}/dist/js/sea.js"></script>

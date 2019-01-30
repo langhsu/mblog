@@ -28,8 +28,8 @@ seajs.config({
 
     // 路径配置
     paths: {
-        'vendors': _base_path + '/dist/vendors',
-        'dist': _base_path + '/dist'
+        'vendors': _MTONS.BASE_PATH + '/dist/vendors',
+        'dist': _MTONS.BASE_PATH + '/dist'
     },
 
     // 变量配置

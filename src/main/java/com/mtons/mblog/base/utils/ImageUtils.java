@@ -92,9 +92,9 @@ public class ImageUtils {
      * @throws InterruptedException InterruptedException
      */
     public static <T> byte[] screenshot(Thumbnails.Builder<T> builder, Position position, int width, int height) throws IOException, InterruptedException {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        builder.size(width, height).sourceRegion(position, width, height).keepAspectRatio(false).toOutputStream(output);
-        return output.toByteArray();
+        BufferedImage image = builder.size(width, height).asBufferedImage();
+        image = Thumbnails.of(image).size(width, height).crop(position).asBufferedImage();
+        return toByte(image);
     }
 
     public static byte[] screenshot(File file, int x, int y, int width, int height) throws IOException, InterruptedException {
@@ -121,4 +121,12 @@ public class ImageUtils {
         return screenshot(Thumbnails.of(file.getInputStream()), Positions.CENTER, width, height);
     }
 
+    private static byte[] toByte(BufferedImage image) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", output);
+        output.flush();
+        byte[] bytes = output.toByteArray();
+        output.close();
+        return bytes;
+    }
 }

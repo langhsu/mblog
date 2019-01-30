@@ -13,12 +13,11 @@ define(function(require, exports, module) {
 
     var Authc = {
         isAuthced: function () {
-            return (typeof(window.app.LOGIN_TOKEN) != 'undefined' && window.app.LOGIN_TOKEN.length > 0);
+            return (typeof(_MTONS.LOGIN_TOKEN) !== 'undefined' && _MTONS.LOGIN_TOKEN.length > 0);
         },
         showLogin : function () {
             var that = this;
             $('#login_alert').modal();
-
             $('#ajax_login_submit').unbind().click(function () {
                 that.doPostLogin();
             });
@@ -26,7 +25,7 @@ define(function(require, exports, module) {
         doPostLogin: function () {
             var un = $('#ajax_login_username').val();
             var pw = $('#ajax_login_password').val();
-            jQuery.post(app.base + '/api/login', {'username': un, 'password': pw}, function (ret) {
+            jQuery.post(_MTONS.BASE_PATH + '/api/login', {'username': un, 'password': pw}, function (ret) {
                 if (ret && ret.code == 0) {
                     window.location.reload();
                 } else {
