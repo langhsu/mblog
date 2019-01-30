@@ -42,13 +42,13 @@ public class ChannelController extends BaseController {
 			HttpServletRequest request) {
 		// init params
 		String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
-		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
+		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
 
 		Channel channel = channelService.getById(id);
 		// callback params
 		model.put("channel", channel);
 		model.put("order", order);
-		model.put("page", page);
+		model.put("pageNo", pageNo);
 		return view(Views.ROUTE_POST_INDEX);
 	}
 

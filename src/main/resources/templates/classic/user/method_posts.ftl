@@ -45,7 +45,7 @@
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <@pager "user?method=posts", page, 5/>
+                    <@pager request.requestURI!'', results, 5/>
                 </div>
             </@author_contents>
         </div>

@@ -47,7 +47,7 @@ public class ContentsDirective extends TemplateDirective {
         Integer pageNo = handler.getInteger("pageNo", 1);
         Integer channelId = handler.getInteger("channelId", 0);
         String order = handler.getString("order", Consts.order.NEWEST);
-        Integer size = handler.getInteger("size", 16);
+        Integer size = handler.getInteger("size", Consts.PAGE_DEFAULT_SIZE);
 
         Set<Integer> excludeChannelIds = new HashSet<>();
 

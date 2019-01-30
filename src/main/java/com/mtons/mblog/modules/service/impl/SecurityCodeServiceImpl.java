@@ -86,10 +86,10 @@ public class SecurityCodeServiceImpl implements SecurityCodeService {
 
         Assert.state(now.getTime() <= po.getExpired().getTime(), "验证码已过期");
         Assert.isTrue(po.getType() == type, "验证码类型错误");
-        Assert.isTrue(po.getStatus() == Consts.VERIFY_STATUS_INIT, "验证码已经使用过");
+        Assert.isTrue(po.getStatus() == Consts.CODE_STATUS_INIT, "验证码已经使用过");
         Assert.state(code.equals(po.getCode()), "验证码不对");
 
-        po.setStatus(Consts.VERIFY_STATUS_CERTIFIED);
+        po.setStatus(Consts.CODE_STATUS_CERTIFIED);
         securityCodeRepository.save(po);
         return true;
     }

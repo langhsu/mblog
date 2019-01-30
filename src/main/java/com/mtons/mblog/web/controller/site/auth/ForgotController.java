@@ -42,7 +42,7 @@ public class ForgotController extends BaseController {
             UserVO user = userService.getByEmail(email);
             Assert.notNull(user, "账户不存在");
 
-            securityCodeService.verify(user.getId(), Consts.VERIFY_FORGOT, code);
+            securityCodeService.verify(user.getId(), Consts.CODE_FORGOT, code);
             userService.updatePassword(user.getId(), password);
 
             data = Data.success("恭喜您! 密码重置成功。");

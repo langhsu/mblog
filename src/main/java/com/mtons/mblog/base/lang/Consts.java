@@ -31,6 +31,8 @@ public interface Consts {
 
 	String ROLE_ADMIN = "admin";
 
+	int PAGE_DEFAULT_SIZE = 16;
+
 	int IDENTITY_STEP = 1; // 自增步进
 
 	int DECREASE_STEP = -1; // 递减
@@ -67,11 +69,11 @@ public interface Consts {
 		String FAVOR = "favors";
 	}
 
-	int VERIFY_BIND = 1;   // bind email
-	int VERIFY_FORGOT = 2; // forgot password
+	int CODE_BIND = 1;   // bind email
+	int CODE_FORGOT = 2; // forgot password
 
-	int VERIFY_STATUS_INIT = 0;      // 验证码-初始
-	int VERIFY_STATUS_CERTIFIED = 1; // 验证码-已使用
+	int CODE_STATUS_INIT = 0;      // 验证码-初始
+	int CODE_STATUS_CERTIFIED = 1; // 验证码-已使用
 
 	int FEATURED_DEFAULT = 0; // 推荐状态-默认
 	int FEATURED_ACTIVE = 1;  // 推荐状态-推荐

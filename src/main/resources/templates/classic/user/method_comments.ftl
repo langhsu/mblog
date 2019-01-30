@@ -46,7 +46,7 @@
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <@pager request.requestURI!'', page, 5/>
+                    <@pager request.requestURI!'', results, 5/>
                 </div>
             </@author_comments>
         </div>

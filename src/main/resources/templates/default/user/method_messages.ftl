@@ -1,9 +1,9 @@
-<#include "/classic/utils/ui.ftl"/>
+<#include "/default/utils/ui.ftl"/>
 
 <@layout "通知">
 <div class="row users-show streams">
     <div class="col-xs-12 col-md-3 side-left">
-        <#include "/classic/inc/user_sidebar.ftl"/>
+        <#include "/default/inc/user_sidebar.ftl"/>
     </div>
     <div class="col-xs-12 col-md-9 side-right">
         <div class="panel panel-default">
@@ -52,7 +52,7 @@
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <@pager "user?method=notifies", page, 5/>
+                    <@pager request.requestURI!'', results, 5/>
                 </div>
             </@author_messages>
         </div>

@@ -3,6 +3,7 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
+import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.FavoriteVO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
@@ -32,9 +33,10 @@ public class AuthorFavoritesDirective extends TemplateDirective {
     @Override
     public void execute(DirectiveHandler handler) throws Exception {
         int pageNo = handler.getInteger("pageNo", 1);
+        int size = handler.getInteger("size", Consts.PAGE_DEFAULT_SIZE);
         long userId = handler.getInteger("userId", 0);
 
-        Pageable pageable = PageRequest.of(pageNo - 1, 10);
+        Pageable pageable = PageRequest.of(pageNo - 1, size);
         Page<FavoriteVO> result = favoriteService.pagingByOwnId(pageable, userId);
         handler.put(RESULTS, result).render();
     }

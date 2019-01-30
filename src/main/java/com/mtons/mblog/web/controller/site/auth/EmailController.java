@@ -36,7 +36,7 @@ public class EmailController extends BaseController {
 
         long userId;
 
-        if (Consts.VERIFY_FORGOT == type) {
+        if (Consts.CODE_FORGOT == type) {
             UserVO user = userService.getByEmail(email);
             Assert.notNull(user, "账户不存在");
             userId = user.getId();

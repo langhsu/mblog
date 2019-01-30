@@ -115,7 +115,7 @@ define(function(require, exports, module) {
         	var $list = $("#chat_container");
         	var html = '';
 
-        	J.getJSON(opts.load_url, {pageSize : opts.pageSize, pn: pn}, function (ret) {
+        	J.getJSON(opts.load_url, {pageSize : opts.pageSize, pageNo: pn}, function (ret) {
         		
         		$('#chat_count').html(ret.totalElements);
         		

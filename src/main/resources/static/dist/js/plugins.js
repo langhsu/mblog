@@ -2,10 +2,10 @@
 	var uuid = 0;
 
 	function pageLink(curNo, pageNo){
-		if(curNo == -1){
-			return '<li class="pass"><span>......</span></li>';
+		if(curNo === -1){
+			return '<li class="pass"><span>...</span></li>';
 		}
-		if(pageNo == curNo){
+		if(pageNo === curNo){
 			return $.format('<li class="active"><a href="javascript:void(0)" pn="{0}">{0}</a></li>', pageNo);
 		}
 		return $.format('<li><a href="javascript:void(0);" pn="{0}">{0}</a></li>', pageNo);
@@ -52,14 +52,14 @@
 		 */
 		page: function(p, callback, mini){
 			var pc = parseInt(p.totalPages); 	// 总页数
-			if(pc == 0){
+			if(pc === 0){
 				this.html('');
 				return this;
 			}
 
 			var	c = 3,				// 左右各需要显示的分页数量
 				tc = c * 2 + 3, 	// 显示的分页总数
-				cp = parseInt(p.number),		//当前页号
+				cp = parseInt(p.number) + 1,		//当前页号
 				h = [];
 			h.push('<ul class="pagination pagination-sm">');
 			// 上一页

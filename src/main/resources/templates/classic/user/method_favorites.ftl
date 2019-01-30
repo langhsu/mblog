@@ -46,7 +46,7 @@
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <@pager "user?method=favors", page, 5/>
+                    <@pager request.requestURI!'', results, 5/>
                 </div>
             </@author_favorites>
         </div>
