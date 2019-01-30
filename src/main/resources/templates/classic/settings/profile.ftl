@@ -39,20 +39,8 @@
 </div><!-- /panel -->
 
 <script type="text/javascript">
-$(function () {
-    $("#submitForm").validate({
-        errorElement: "em",
-        errorPlacement: function (error, element) {
-            error.addClass("help-block");
-            error.insertAfter(element);
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).closest("div").addClass("has-error").removeClass("has-success");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).closest("div").addClass("has-success").removeClass("has-error");
-        }
+    seajs.use('validate', function (validate) {
+        validate.updateProfile('#submitForm');
     });
-});
 </script>
 </@layout>

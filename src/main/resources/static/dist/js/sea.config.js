@@ -1,4 +1,5 @@
 seajs.config({
+    base: _MTONS.BASE_PATH,
     alias: {
         'plugins': 'dist/js/plugins',
 
@@ -12,18 +13,27 @@ seajs.config({
         'avatar': 'dist/js/modules/avatar',
         'editor': 'dist/js/modules/editor',
         'view': 'dist/js/modules/view',
-        'webuploader': 'dist/js/modules/webuploader',
+        'validate': 'dist/js/modules/validate',
 
         /* vendors */
         'pace': 'vendors/pace/pace.min',
         'pjax': 'vendors/pjax/jquery.pjax',
         'lazyload': 'vendors/lazyload/jquery.lazyload',
+
         'share': 'vendors/share.js/js/social-share.min.js',
+        'share-css': 'vendors/share.js/css/share.min.css',
+
         'tagsinput': 'vendors/bootstrap-tagsinput/bootstrap-tagsinput',
 
-        'highlight':'vendors/highlight/highlight.pack',
-        "tinymce": "vendors/tinymce/tinymce.min",
-        "form": "dist/js/jquery.form.min"
+        'highlight':'vendors/highlight/highlight.pack.js',
+        'highlight-css': 'vendors/highlight/styles/github.css',
+
+        'validation': 'vendors/jquery-validation/jquery.validate.min.js',
+        'validation-additional': 'vendors/jquery-validation/additional-methods.js',
+        'validation-localization': 'vendors/jquery-validation/localization/messages_zh.min.js',
+
+        'tinymce': 'vendors/tinymce/tinymce.min',
+        'form': 'dist/js/jquery.form.min'
     },
 
     // 路径配置

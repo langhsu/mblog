@@ -34,31 +34,8 @@
 </div>
 
 <script type="text/javascript">
-    $(function(){
-        $("#submitForm").validate({
-            rules: {
-                username: {
-                    required: true,
-                    check_username: true
-                }
-            },
-            messages: {
-                username: {
-                    required: '请输入用户名'
-                }
-            },
-            errorElement: "em",
-            errorPlacement: function (error, element) {
-                error.addClass("help-block");
-                error.insertAfter(element);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).closest("div").addClass("has-error").removeClass("has-success");
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).closest("div").addClass("has-success").removeClass("has-error");
-            }
-        });
-    })
+    seajs.use('validate', function (validate) {
+        validate.oauthRegister('#submitForm');
+    });
 </script>
 </@layout>

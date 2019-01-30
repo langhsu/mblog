@@ -45,34 +45,8 @@
 </div><!-- /panel -->
 
 <script type="text/javascript">
-$(function () {
-    $("#submitForm").validate({
-        rules: {
-            oldPassword: 'required',
-            password: 'required',
-            password2: {
-                required: true,
-                equalTo: "#password"
-            }
-        },
-        messages: {
-            password2: {
-                required: '请输入确认密码',
-                equalTo: '两次输入的密码不一致'
-            }
-        },
-        errorElement: "em",
-        errorPlacement: function (error, element) {
-            error.addClass("help-block");
-            error.insertAfter(element);
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).closest("div").addClass("has-error").removeClass("has-success");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).closest("div").addClass("has-success").removeClass("has-error");
-        }
+    seajs.use('validate', function (validate) {
+        validate.updatePassword('#submitForm');
     });
-});
 </script>
 </@layout>

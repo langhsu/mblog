@@ -44,58 +44,8 @@
 </div>
 
 <script type="text/javascript">
-    $(function(){
-
-        $("#submitForm").validate({
-            rules: {
-                email: {
-                    required: true,
-                    email: true
-                },
-                password: 'required',
-                code: 'required',
-                password2: {
-                    required: true,
-                    equalTo: "#password"
-                }
-            },
-            messages: {
-                password2: {
-                    required: '请输入确认密码',
-                    equalTo: '两次输入的密码不一致'
-                }
-            },
-            errorElement: "em",
-            errorPlacement: function (error, element) {
-                error.addClass("help-block");
-                if ( element.prop( "name" ) === "email" ) {
-                    error.insertAfter(element.parent());
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).closest("div").addClass("has-error").removeClass("has-success");
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).closest("div").addClass("has-success").removeClass("has-error");
-            }
-        });
-
-        $('#sendCode').click(function () {
-            var btn = $(this).button('sending');
-            var email = $('input[name=email]').val();
-            $.getJSON('${base}/email/send_code', {'email': email, 'type': 2}, function (data) {
-                if (data.code == 0) {
-                    btn.text('重新发送');
-                    $('#message').html('<div class="alert alert-success">' + data.message + '</div>');
-                } else {
-                    $('#message').html('<div class="alert alert-danger">' + data.message + '</div>');
-                }
-
-                btn.button('reset');
-            });
-        })
-    })
+    seajs.use('validate', function (validate) {
+        validate.forgot('#submitForm', '#sendCode');
+    });
 </script>
 </@layout>

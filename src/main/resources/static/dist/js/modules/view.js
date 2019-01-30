@@ -9,14 +9,14 @@
 */
 
 define(function(require, exports, module) {
-    require.async('highlight', function () {
+    require('share-css');
+    require('share');
+
+    require.async(['highlight-css', 'highlight'], function () {
         hljs.initHighlightingOnLoad();
         $('pre').each(function(i, block) {
             hljs.highlightBlock(block);
         });
-    });
-
-    require.async('share', function () {
     });
 
     $('a[data-toggle="fulltext"]').click(function () {
