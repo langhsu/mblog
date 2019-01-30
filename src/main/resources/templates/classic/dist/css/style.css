@@ -1803,7 +1803,7 @@ abbr[data-original-title], abbr[title] {
 
 .cbox-wrap .cbox-ats {
     padding: 0;
-    margin-top: 15px;
+    margin-top: 10px;
     display: block;
 }
 
@@ -1811,25 +1811,7 @@ abbr[data-original-title], abbr[title] {
     float: left;
 }
 
-.cbox-wrap .func-list {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-}
-
-.cbox-wrap .func-list .list-b {
-    float: left;
-    padding: 0;
-    height: auto;
-    border: none;
-}
-
-.cbox-wrap .join {
-    display: block;
-    padding: 3px 8px 2px;
-}
-
-.cbox-wrap .join:hover {
+.cbox-wrap .OwO-logo:hover {
     color: #ff8a00
 }
 
@@ -1846,45 +1828,8 @@ abbr[data-original-title], abbr[title] {
     color: #1f8902;
 }
 
-/*	Phiz	表情	*/
-.phiz-box {
-    padding-top: 10px;
-    text-align: center;
-}
-
-.phiz-box:before, .phiz-box:after {
-    content: "";
-    display: table;
-}
-
-.phiz-box:after {
-    clear: both;
-}
-
-.phiz-list {
-    display: inline-block;
-    padding-right: 1px;
-    padding-bottom: 1px;
-}
-
-.phiz-list:before, .phiz-list:after {
-    content: "";
-    display: table;
-}
-
-.phiz-list:after {
-    clear: both;
-}
-
-.phiz-box span {
-    float: left;
-    height: 34px;
-    width: 34px;
-    padding: 4px;
-    margin-right: -1px;
-    margin-bottom: -1px;
-    background-color: #fff;
-    border: 1px solid #d8d8d8;
+.OwO .OwO-logo {
+    border: none!important;
 }
 
 .channel_featured {

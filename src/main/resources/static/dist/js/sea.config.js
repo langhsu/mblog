@@ -33,7 +33,10 @@ seajs.config({
         'validation-localization': 'vendors/jquery-validation/localization/messages_zh.min.js',
 
         'tinymce': 'vendors/tinymce/tinymce.min',
-        'form': 'dist/js/jquery.form.min'
+        'form': 'dist/js/jquery.form.min',
+
+        'owo': 'vendors/owo/OwO.min.js',
+        'owo-css': 'vendors/owo/OwO.min.css'
     },
 
     // 路径配置

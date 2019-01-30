@@ -61,12 +61,7 @@
                     </div>
                     <div class="cbox-ats clearfix">
                         <div class="ats-func">
-                            <ul class="func-list">
-                                <li class="list-b">
-                                    <a href="javascript:void(0);" class="join" id="c-btn"><i
-                                            class="fa fa-smile-o fa-2"></i></a>
-                                </li>
-                            </ul>
+                            <div class="OwO" id="face-btn"></div>
                         </div>
                         <div class="ats-issue">
                             <button id="btn-chat" class="btn btn-success btn-sm bt">发送</button>
@@ -154,13 +149,12 @@
             post_url: '${base}/comment/submit',
             toId: '${view.id}',
             onLoad: function (i, data) {
-
-                var content = ContentRender.wrapItem(data.content);
+                var content = data.content;
 
                 var quoto = '';
                 if (data.pid > 0 && !(data.parent === null)) {
                     var pat = data.parent;
-                    var pcontent = ContentRender.wrapItem(pat.content);
+                    var pcontent = pat.content;
                     quoto = '<div class="quote"><a href="${base}/users/' + pat.author.id + '">@' + pat.author.name + '</a>: ' + pcontent + '</div>';
                 }
                 var item = jQuery.format(template,

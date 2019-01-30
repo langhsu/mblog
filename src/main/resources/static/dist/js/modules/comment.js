@@ -11,72 +11,13 @@
 define(function(require, exports, module) {
 	J = jQuery;
 	require('plugins');
+    require('owo-css');
+    require('owo');
+
 	var Authc = require('authc');
-	
-	ContentConstants = {
-		id : 0,
-		type: 1,
-		url: function(p){
-			return _MTONS.BASE_PATH + p;
-		}
-	};
-
-	ContentPost= {
-		// 定义表情
-		phizs : {"微笑":"smile","撇嘴":"curl","色":"color","发呆":"trance","得意":"proud","流泪":"tears","害羞":"shy","闭嘴":"shut","睡":"sleep","大哭":"crying","尴尬":"embarrass","发怒":"torment","调皮":"naughty","龇牙":"growl","惊讶":"surprise",
-			"难过":"sad","酷":"cool","冷汗":"cold","抓狂":"crazy","吐":"spit","偷笑":"titter","可爱":"lovely","白眼":"whiteeye","傲慢":"arrogant","饥饿":"hunger","困":"sleepy","惊恐":"panic","流汗":"sweating","憨笑":"mirth","大兵":"soldier",
-			"奋斗":"fight","咒骂":"curse","疑问":"doubt","嘘…":"hiss","晕":"Halo","折磨":"torture","衰":"wane","骷髅":"skeleton","敲打":"beating","再见":"goodbye","擦汗":"wipe","抠鼻":"pullnose","鼓掌":"applause","糗大了":"humiliating","坏笑":"grin",
-			"左哼哼":"lefthum","右哼哼":"righthum","哈欠":"yawn","鄙视":"despise","委屈":"aggrieved","快哭了":"gonnacry","阴险":"sinister","亲亲":"kiss","吓":"scared","可怜":"poor","菜刀":"cookknife","西瓜":"watermelon","啤酒":"beer","篮球":"basketball","兵乓":"pingpang",
-			"咖啡":"coffee","饭":"rice","猪头":"pig","玫瑰":"rose","凋谢":"withered","示爱":"affection","爱心":"heart","心碎":"brokenheart","蛋糕":"cake","闪电":"lighting","炸弹":"bomb","刀":"knife","足球":"soccer","瓢虫":"ladybug","便便":"shit",
-			"月亮":"moon","太阳":"sun","礼物":"gift","拥抱":"hug","强":"strong","弱":"weak","握手":"hands","胜利":"victory","抱拳":"holdfist","勾引":"seduce","拳头":"fist","差劲":"bad","爱你":"loveu","NO":"NO","OK":"OK"
-		}
-	};
-
-	ContentRender = {
-		// 分解内容的正则(表情)
-		CONT_EXP: /(\[[…\u00FF-\uFFFF]{1,3}\]|.+?)/g,
-		CONT_BR: /\r\n/g,
-		CONT_NBSP: /[ ]/g,
-		// 替换内容中的特殊内容
-		_wrap: function(){
-			// 匹配串
-			var ms = arguments[0];
-			if(ms.length == 1){
-				switch(ms.charAt(0)){
-					case '<':
-						return "&lt;";
-					case '>':
-						return "&gt;";
-					default:
-						return ms;
-				}
-			}else{
-				switch(ms.charAt(0)){
-					case '#':
-						return "<a href='/t/" + ms.slice(1, -1) + "'>" + ms + "</a>";
-					case '/':
-						var k = ms.slice(3, -1);
-						return "//<a href='/k/u/name/" + k + "'>@" + k + "</a>:";
-					case '[':
-						var k = ms.slice(1, -1);
-						return "<img src='"+ContentConstants.url("/dist/images/phiz/" + ContentPost.phizs[k] + ".gif")+"' alt='" + k + "' title='" + k + "'/>";
-					default:
-						return ms;
-				}
-			}
-		},
-		// 包装消息内容
-		wrapItem: function(content){
-			return content.replace(ContentRender.CONT_EXP, ContentRender._wrap);
-		},
-		template: function(template){
-			return jQuery.format(template);
-		}
-	};
 	
 	var Comment = {
         name : 'Comment',
-		contentRender: ContentRender,
         init : function (options) {
         	this.options = $.extend({}, this.defaults, options);
 
@@ -102,6 +43,16 @@ define(function(require, exports, module) {
         		var pid = $('#chat_pid').val();
         		that.post(that.options.toId, pid, text);
         	});
+
+            new OwO({
+                logo: '<i class="fa fa-smile-o fa-2"></i>',
+                container: document.getElementById('face-btn'),
+                target: document.getElementById('chat_text'),
+                api: _MTONS.BASE_PATH + '/dist/vendors/owo/OwO.json',
+                position: 'down',
+                width: '600px',
+                maxHeight: '250px'
+            });
         },
         
         onLoad : function () {
