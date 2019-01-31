@@ -11,6 +11,9 @@
 define(function(require, exports, module) {
 	J = jQuery;
 	require('tagsinput');
+    require('validation');
+    require('validation-additional');
+    require('validation-localization');
 
 	var PostView = function () {};
 	
