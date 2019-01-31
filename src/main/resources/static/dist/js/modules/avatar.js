@@ -12,7 +12,7 @@ define(function(require, exports, module) {
 	J = jQuery;
 	require('plugins');
 
-	var upload_url = _MTONS.BASE_PATH + '/user/avatar';
+	var upload_url = _MTONS.BASE_PATH + '/settings/avatar';
 
 	$('#upload_btn').change(function(){
 		$(this).upload(upload_url, function(data){
