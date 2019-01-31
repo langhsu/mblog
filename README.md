@@ -13,6 +13,7 @@
 * Spring-boot
 * Spring-data-jpa
 * Shiro
+* Lombok
 * Freemarker
 * Bootstrap
 * SeaJs
@@ -26,7 +27,9 @@
  后台：http://localhost:8080/admin
  账号：默认管理员账号为 admin/12345
  
- TIPS: 如遇到启动失败/切换环境变量后启动失败的,请先maven clean后再尝试启动
+ TIPS: 
+ 如遇到启动失败/切换环境变量后启动失败的,请先maven clean后再尝试启动
+ IDE得装lombok插件
 ```
 
 - 更多文档及教程见 [http://mtons.com/dock/mblog](http://mtons.com/dock/mblog)
