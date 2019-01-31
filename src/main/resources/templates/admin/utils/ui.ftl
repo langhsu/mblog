@@ -48,7 +48,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/" title="跳转到前台" target="_blank"><i class="fa fa-television"></i></a></li>
                     <li class="messages-menu">
-                        <a href="${base}/user?method=messages">
+                        <a href="${base}/users/${profile.id}/messages">
                             <i class="fa fa-envelope-o"></i>
                             <#if (profile.badgesCount.messages > 0)>
                             <span class="label label-success">${profile.badgesCount.messages}</span>
@@ -67,7 +67,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="${base}/user/profile" class="btn btn-default btn-flat">个人资料</a>
+                                    <a href="${base}/settings/profile" class="btn btn-default btn-flat">个人资料</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="${base}/logout" class="btn btn-default btn-flat">退出登录</a>
