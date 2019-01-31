@@ -9,7 +9,7 @@
             <#list results.content as row>
                 <div class="banner-item col-xs-12 col-sm-4 col-md-4">
                     <div class="index-banner-box"
-                        <#if row.thumbnail??>
+                        <#if row.thumbnail?? && row.thumbnail?length gt 0>
                          style="background-image:url(<@resource src=row.thumbnail/>)"
                         <#else>
                          style="background-image:url(${base}/dist/images/spinner-overlay.png)"

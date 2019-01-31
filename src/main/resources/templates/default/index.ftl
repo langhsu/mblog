@@ -14,7 +14,7 @@
                             <img src="${base}/dist/images/image-overlay-view-icon.png">
                         </span>
 
-                        <#if row.thumbnail??>
+                        <#if row.thumbnail?? && row.thumbnail?length gt 0>
                             <img src="<@resource src=row.thumbnail/>">
                         <#else>
                             <img src="${base}/dist/images/spinner-overlay.png">
