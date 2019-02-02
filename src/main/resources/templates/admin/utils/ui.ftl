@@ -27,6 +27,7 @@
     <!-- Bootstrap -->
     <script src="${base}/dist/vendors/bootstrap/js/bootstrap.min.js"></script>
     <script src='${base}/dist/vendors/jquery-validation/jquery.validate.min.js'></script>
+    <script src='${base}/dist/vendors/jquery-validation/additional-methods.js'></script>
     <script src='${base}/dist/vendors/jquery-validation/localization/messages_zh.min.js'></script>
     <script src="${base}/dist/vendors/layer/layer.js"></script>
     <script src="${base}/theme/admin/dist/js/site.js"></script>
