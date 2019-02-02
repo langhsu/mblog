@@ -59,6 +59,8 @@ public interface Consts {
 	/* 状态-锁定 */
 	int STATUS_LOCKED = 1;
 
+	int STATUS_HIDDEN = 1;
+
 	/**
 	 * 排序
 	 */

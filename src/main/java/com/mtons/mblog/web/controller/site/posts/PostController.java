@@ -47,6 +47,8 @@ public class PostController extends BaseController {
 
 			Assert.notNull(view, "该文章已被删除");
 			Assert.isTrue(view.getAuthorId() == profile.getId(), "该文章不属于你");
+
+			Assert.isTrue(view.getChannel().getStatus() == Consts.STATUS_NORMAL, "请在后台编辑此文章");
 			model.put("view", view);
 		}
 
