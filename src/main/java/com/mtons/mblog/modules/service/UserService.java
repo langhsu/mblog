@@ -11,6 +11,9 @@ package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,6 +24,7 @@ import java.util.Set;
  * @author langhsu
  *
  */
+@CacheConfig(cacheNames = "usersCaches")
 public interface UserService {
 	/**
 	 * 分页查询
@@ -57,6 +61,7 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
+	@CacheEvict(key = "#user.getId()")
 	AccountProfile update(UserVO user);
 
 	/**
@@ -64,14 +69,16 @@ public interface UserService {
 	 * @param email
 	 * @return
 	 */
+	@CacheEvict(key = "#id")
 	AccountProfile updateEmail(long id, String email);
 
 	/**
 	 * 查询单个用户
-	 * @param id
+	 * @param userId
 	 * @return
 	 */
-	UserVO get(long id);
+	@Cacheable(key = "#userId")
+	UserVO get(long userId);
 
 	UserVO getByUsername(String username);
 
@@ -83,6 +90,7 @@ public interface UserService {
 	 * @param path
 	 * @return
 	 */
+	@CacheEvict(key = "#id")
 	AccountProfile updateAvatar(long id, String path);
 
 	/**

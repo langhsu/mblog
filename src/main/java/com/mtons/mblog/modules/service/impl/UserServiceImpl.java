@@ -11,23 +11,19 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.EntityStatus;
 import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.BadgesCount;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.modules.entity.Role;
 import com.mtons.mblog.modules.entity.User;
 import com.mtons.mblog.modules.repository.RoleRepository;
 import com.mtons.mblog.modules.repository.UserRepository;
-import com.mtons.mblog.modules.utils.BeanMapUtils;
-import com.mtons.mblog.base.utils.MD5;
-import com.mtons.mblog.modules.data.BadgesCount;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.utils.BeanMapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +36,6 @@ import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
-@CacheConfig(cacheNames = "usersCaches")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -157,7 +152,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    @CacheEvict(key = "#user.getId()")
     public AccountProfile update(UserVO user) {
         User po = userRepository.findById(user.getId()).get();
         po.setName(user.getName());
@@ -168,7 +162,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    @CacheEvict(key = "#id")
     public AccountProfile updateEmail(long id, String email) {
         User po = userRepository.findById(id).get();
 
@@ -187,7 +180,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable(key = "#userId")
     public UserVO get(long userId) {
         Optional<User> optional = userRepository.findById(userId);
         if (optional.isPresent()) {
@@ -208,7 +200,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    @CacheEvict(key = "#id")
     public AccountProfile updateAvatar(long id, String path) {
         User po = userRepository.findById(id).get();
         po.setAvatar(path);

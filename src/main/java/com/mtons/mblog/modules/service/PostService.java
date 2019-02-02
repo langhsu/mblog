@@ -10,6 +10,9 @@
 package com.mtons.mblog.modules.service;
 
 import com.mtons.mblog.modules.data.PostVO;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,6 +26,7 @@ import java.util.Set;
  * @author langhsu
  *
  */
+@CacheConfig(cacheNames = "postsCaches")
 public interface PostService {
 	/**
 	 * 分页查询所有文章
@@ -31,6 +35,7 @@ public interface PostService {
 	 * @param channelId 分组Id
 	 * @param ord   排序
 	 */
+	@Cacheable
 	Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds, String ord);
 
 	Page<PostVO> paging4Admin(Pageable pageable, long id, String title, int channelId);
@@ -40,8 +45,10 @@ public interface PostService {
 	 * @param pageable
 	 * @param userId
 	 */
+	@Cacheable
 	Page<PostVO> pagingByAuthorId(Pageable pageable, long userId);
 
+	@Cacheable
 	List<PostVO> findAllFeatured();
 
 	/**
@@ -50,6 +57,7 @@ public interface PostService {
 	 * @param ignoreUserId
 	 * @return
 	 */
+	@Cacheable
 	List<PostVO> findLatests(int maxResults, long ignoreUserId);
 
 	/**
@@ -58,6 +66,7 @@ public interface PostService {
 	 * @param ignoreUserId
 	 * @return
 	 */
+	@Cacheable
 	List<PostVO> findHots(int maxResults, long ignoreUserId);
 	
 	/**
@@ -71,6 +80,7 @@ public interface PostService {
 	 * 发布文章
 	 * @param post
 	 */
+	@CacheEvict(allEntries = true)
 	long post(PostVO post);
 	
 	/**
@@ -78,12 +88,14 @@ public interface PostService {
 	 * @param id
 	 * @return
 	 */
+	@Cacheable(key = "'view_' + #id")
 	PostVO get(long id);
 
 	/**
 	 * 更新文章方法
 	 * @param p
 	 */
+	@CacheEvict(allEntries = true)
 	void update(PostVO p);
 
 	/**
@@ -91,6 +103,7 @@ public interface PostService {
 	 * @param id
 	 * @param featured 0: 取消, 1: 加精
 	 */
+	@CacheEvict(allEntries = true)
 	void updateFeatured(long id, int featured);
 
 	/**
@@ -98,12 +111,14 @@ public interface PostService {
 	 * @param id
 	 * @param weight 0: 取消, 1: 置顶
 	 */
+	@CacheEvict(allEntries = true)
 	void updateWeight(long id, int weight);
 	
 	/**
 	 * 删除
 	 * @param id
 	 */
+	@CacheEvict(allEntries = true)
 	void delete(long id);
 	
 	/**
@@ -111,6 +126,7 @@ public interface PostService {
 	 * @param id
 	 * @param authorId
 	 */
+	@CacheEvict(allEntries = true)
 	void delete(long id, long authorId);
 
 	/**
@@ -118,6 +134,7 @@ public interface PostService {
 	 *
 	 * @param ids
 	 */
+	@CacheEvict(allEntries = true)
 	void delete(Collection<Long> ids);
 	
 	/**
@@ -137,6 +154,7 @@ public interface PostService {
 	 * @param userId
 	 * @param postId
 	 */
+	@CacheEvict(key = "'view_' + #postId")
 	void favor(long userId, long postId);
 
 	/**
@@ -144,6 +162,7 @@ public interface PostService {
 	 * @param userId
 	 * @param postId
 	 */
+	@CacheEvict(key = "'view_' + #postId")
 	void unfavor(long userId, long postId);
 
 	long count();

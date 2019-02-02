@@ -20,14 +20,14 @@ import com.mtons.mblog.modules.entity.PostAttribute;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
 import com.mtons.mblog.modules.repository.PostAttributeRepository;
 import com.mtons.mblog.modules.repository.PostRepository;
-import com.mtons.mblog.modules.service.*;
+import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.modules.service.FavoriteService;
+import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -46,14 +46,11 @@ import java.util.*;
  */
 @Service
 @Transactional
-@CacheConfig(cacheNames = "postsCaches")
 public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostRepository postRepository;
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private UserEventService userEventService;
 	@Autowired
 	private FavoriteService favoriteService;
 	@Autowired
@@ -64,7 +61,6 @@ public class PostServiceImpl implements PostService {
 	private ApplicationContext applicationContext;
 
 	@Override
-	@Cacheable
 	public Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds, String ord) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
 
@@ -138,21 +134,18 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Cacheable
 	public Page<PostVO> pagingByAuthorId(Pageable pageable, long userId) {
 		Page<Post> page = postRepository.findAllByAuthorIdOrderByCreatedDesc(pageable, userId);
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
 
 	@Override
-	@Cacheable
 	public List<PostVO> findAllFeatured() {
 		List<Post> list = postRepository.findTop5ByFeaturedGreaterThanOrderByCreatedDesc(Consts.FEATURED_DEFAULT);
 		return toPosts(list);
 	}
 
 	@Override
-	@Cacheable
 	public List<PostVO> findLatests(int maxResults, long ignoreUserId) {
 		List<Post> list = postRepository.findTop10ByOrderByCreatedDesc();
 		List<PostVO> rets = new ArrayList<>();
@@ -163,7 +156,6 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
-	@Cacheable
 	public List<PostVO> findHots(int maxResults, long ignoreUserId) {
 		List<Post> list = postRepository.findTop10ByOrderByViewsDesc();
 		List<PostVO> rets = new ArrayList<>();
@@ -196,7 +188,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	@CacheEvict(allEntries = true)
 	public long post(PostVO post) {
 		Post po = new Post();
 
@@ -224,7 +215,6 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
-	@Cacheable(key = "'view_' + #id")
 	public PostVO get(long id) {
 		Optional<Post> po = postRepository.findById(id);
 		if (po.isPresent()) {
@@ -247,7 +237,6 @@ public class PostServiceImpl implements PostService {
 	 */
 	@Override
 	@Transactional
-	@CacheEvict(allEntries = true)
 	public void update(PostVO p){
 		Optional<Post> optional = postRepository.findById(p.getId());
 
@@ -276,7 +265,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	@CacheEvict(allEntries = true)
 	public void updateFeatured(long id, int featured) {
 		Post po = postRepository.findById(id).get();
 		int status = Consts.FEATURED_ACTIVE == featured ? Consts.FEATURED_ACTIVE: Consts.FEATURED_DEFAULT;
@@ -286,7 +274,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	@CacheEvict(allEntries = true)
 	public void updateWeight(long id, int weight) {
 		Post po = postRepository.findById(id).get();
 
@@ -300,7 +287,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	@CacheEvict(allEntries = true)
 	public void delete(long id) {
 		Post po = postRepository.findById(id).get();
 		postRepository.deleteById(id);
@@ -310,7 +296,6 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	@Transactional
-	@CacheEvict(allEntries = true)
 	public void delete(long id, long authorId) {
 		Post po = postRepository.findById(id).get();
 		// 判断文章是否属于当前登录用户
@@ -324,7 +309,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	@CacheEvict(allEntries = true)
 	public void delete(Collection<Long> ids) {
 		ids.forEach(this::delete);
 	}
@@ -344,7 +328,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	@CacheEvict(key = "'view_' + #postId")
 	public void favor(long userId, long postId) {
 		postRepository.updateFavors(postId, Consts.IDENTITY_STEP);
 		favoriteService.add(userId, postId);
@@ -352,7 +335,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	@CacheEvict(key = "'view_' + #postId")
 	public void unfavor(long userId, long postId) {
 		postRepository.updateFavors(postId,  Consts.DECREASE_STEP);
 		favoriteService.delete(userId, postId);
