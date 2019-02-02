@@ -22,10 +22,9 @@
                     <div class="box-body">
                         <#include "/admin/message.ftl">
                         <#if view??>
-                            <input type="hidden" name="type" value="${view.type}"/>
                             <input type="hidden" name="id" value="${view.id}"/>
-                            <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
                         </#if>
+                        <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
                         <div class="form-group">
                             <label>标题</label>
                             <input type="text" class="form-control" name="title" value="${view.title}" maxlength="64" placeholder="文章标题" required >

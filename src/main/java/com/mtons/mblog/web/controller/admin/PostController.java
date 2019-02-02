@@ -80,21 +80,8 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String subUpdate(PostVO post, @RequestParam(value = "file", required=false) MultipartFile file) throws Exception {
+	public String subUpdate(PostVO post) throws Exception {
 		if (post != null) {
-			/**
-			 * 保存预览图片
-			 */
-			if (file != null && !file.isEmpty()) {
-				String thumbnail = storageFactory.get().storeScale(file, Consts.thumbnailPath, 360, 200);
-
-				if (StringUtils.isNotBlank(post.getThumbnail())) {
-					storageFactory.get().deleteFile(post.getThumbnail());
-				}
-
-				post.setThumbnail(thumbnail);
-			}
-
 			if (post.getId() > 0) {
 				postService.update(post);
 			} else {
