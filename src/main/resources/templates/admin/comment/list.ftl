@@ -20,7 +20,7 @@
                 </div>
                 <div class="box-body">
                     <form id="qForm" class="form-inline">
-                        <input type="hidden" name="pageNo" value="${page.number}"/>
+                        <input type="hidden" name="pageNo" value="${page.number + 1}"/>
                     </form>
                     <div class="table-responsive">
                         <table id="dataGrid" class="table table-striped table-bordered">

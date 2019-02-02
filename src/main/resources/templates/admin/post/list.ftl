@@ -21,7 +21,7 @@
                 </div>
                 <div class="box-body">
                     <form id="qForm" class="form-inline search-row">
-                        <input type="hidden" name="pageNo" value="${page.number}"/>
+                        <input type="hidden" name="pageNo" value="${page.number + 1}"/>
                         <div class="form-group">
                             <input type="text" name="title" class="form-control" value="${title}" placeholder="请输入标题关键字">
                         </div>
