@@ -1390,40 +1390,18 @@ abbr[data-original-title], abbr[title] {
 }
 
 .footer .copyright {
-    font-size: 12px;
-}
-
-.footer .footer-nav, .footer .menu ul {
-    padding: 0;
-    margin: 0 0 8px;
     font-size: 14px;
-    list-style: none
-}
-
-.footer .footer-nav li, .footer .menu ul li {
-    display: inline-block;
-    margin-right: 15px;
-    line-height: 1.4
-}
-
-.footer .footer-nav a, .footer .menu ul a {
-    color: #76818c
-}
-
-.footer .footer-nav a:hover, .footer .menu ul a:hover {
-    color: #000
 }
 
 .footer .footer-col {
     display: inline-block;
-    font-size: 0;
     vertical-align: middle
 }
 
 .footer .footer-col-logo img {
     display: block;
     margin-right: 40px;
-    max-width: 160px;
+    max-height: 42px;
     height: auto;
     border: 0
 }
@@ -1433,8 +1411,8 @@ abbr[data-original-title], abbr[title] {
 }
 
 .footer .footer-sns {
-    font-size: 12px;
-    margin-top: 15px;
+    font-size: 14px;
+    line-height: 42px;
 }
 
 /* Tablet (Portrait)
