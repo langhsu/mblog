@@ -31,7 +31,7 @@
                                 </div>
 
                                 <div class="reply-body markdown-reply content-body">
-                                    <p>${row.content}</p>
+                                    <p><i class="icon-bubble"></i> ${row.content}</p>
                                 </div>
                             </li>
                         </#list>

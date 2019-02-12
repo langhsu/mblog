@@ -29,10 +29,6 @@
                                         </a>
                                     </#if>
                                 </div>
-
-                                <div class="reply-body markdown-reply content-body">
-                                    <p>${row.content}</p>
-                                </div>
                             </li>
                         </#list>
 

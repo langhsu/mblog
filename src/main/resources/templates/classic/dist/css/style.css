@@ -749,7 +749,7 @@ abbr[data-original-title], abbr[title] {
     letter-spacing: -0.2px;
     float: left;
     padding: 0;
-    margin: 0px 10px 0px 0px;
+    margin: 0 10px 0 0;
     color: #748594;
     position: relative;
 }
@@ -775,6 +775,10 @@ abbr[data-original-title], abbr[title] {
     padding: 1px;
     width: 20px;
     height: 20px
+}
+
+.posts-default-info ul li i {
+    margin-right: 5px;
 }
 
 .posts-gallery-img {
@@ -875,77 +879,9 @@ abbr[data-original-title], abbr[title] {
     color: #FFF
 }
 
-.pic-posts {
-    width: 25%;
-    float: left;
-    margin-bottom: 40px;
-    border-radius: 5px;
-    display: inline-block;
-    height: 288px;
-    overflow: hidden;
-    position: relative;
-    text-align: center
-}
-
-.pic-posts-box {
-    margin-left: 35px;
-    position: relative
-}
-
-.pic-posts-src {
-    height: 288px;
-    position: relative;
-    border-radius: 5px
-}
-
-.pic-posts-box .pic-posts-src a {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: block
-}
-
-.pic-posts-box .pic-posts-src .gradient {
-    border-radius: 5px
-}
-
-.pic-posts-box .pic-posts-src:hover .gradient {
-    opacity: .6
-}
-
-.pic-posts-box .title {
-    position: absolute;
-    bottom: 10%;
-    width: 100%;
-    text-shadow: 1px 1px 2px #000
-}
-
-.pic-posts-box .title h2 {
-    padding: 10px;
-    font-size: 17px;
-    color: #FFF;
-    text-shadow: 1px 1px 2px #000
-}
-
-.pic-posts-box .title .post-views {
-}
-
-.pic-posts-box .title .post-views span {
-    border: 1px rgba(0, 0, 0, 0.15) solid;
-    padding: 6px 8px;
-    cursor: pointer;
-    background-color: rgba(25, 181, 254, 0.8);
-    border-color: rgba(0, 0, 0, 0);
-    color: #fff;
-    border-radius: 999em;
-    vertical-align: bottom;
-    height: 32px;
-    line-height: 32px;
-    font-size: 12px
-}
-
 /* POST LIST
 -------------------------------------------------- */
+/* messages */
 .topic-list .label {
     position: inherit;
     font-size: 12px;
@@ -1020,7 +956,7 @@ abbr[data-original-title], abbr[title] {
 .streams .topic-list .media-heading:hover {
     cursor: pointer;
 }
-
+/* messages end */
 .list-group {
     margin-bottom: 0px;
 }
@@ -1164,7 +1100,7 @@ abbr[data-original-title], abbr[title] {
 
 .topic .panel-footer {
     background-color: #fff;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #f0f0f0;
     border-top: none;
 }
 
@@ -1214,7 +1150,6 @@ abbr[data-original-title], abbr[title] {
     font-size: 15px;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-    line-height: 1.3;
     overflow: hidden;
     line-height: 1.6;
     word-wrap: break-word;
@@ -1222,6 +1157,10 @@ abbr[data-original-title], abbr[title] {
 
 .editor-preview-active-side > p, .editor-preview > p, .markdown-body > p, .markdown-reply > p {
     margin-bottom: 8px;
+}
+
+.markdown-reply > p > i {
+    vertical-align: middle;
 }
 
 .markdown-body {
@@ -1347,11 +1286,11 @@ abbr[data-original-title], abbr[title] {
     padding: 10px 15px;
 }
 
-.users-show .notify a {
-    color: #337ab7;
+.users-show .messages a {
+    color: rgb(0, 181, 173);
 }
 
-.users-show .notify a:focus, .users-show .notify a:hover {
+.users-show .messages a:focus, .users-show .messages a:hover {
     color: #03a9f4;
 }
 
@@ -1686,7 +1625,7 @@ abbr[data-original-title], abbr[title] {
 }
 
 .chats .chat_other {
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .chats .chat_other h4 {
@@ -1779,7 +1718,7 @@ abbr[data-original-title], abbr[title] {
 }
 
 .cbox-wrap .cbox-input {
-    border: 1px solid #ccc;
+    border: 1px solid #e5e5e5;
     border-radius: 2px;
 }
 

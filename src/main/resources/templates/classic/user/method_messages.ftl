@@ -10,7 +10,7 @@
             <div class="panel-heading">通知列表</div>
             <@author_messages userId=user.id pageNo=pageNo>
                 <div class="panel-body remove-padding-horizontal">
-                    <ul class="list-group topic-list notify">
+                    <ul class="list-group topic-list messages">
                         <#list results.content as row>
                             <li class="list-group-item " style="padding: 0 15px;">
                                 <a class="reply_count_area hidden-xs pull-right" href="#">
