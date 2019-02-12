@@ -8,22 +8,20 @@
         body {
             font-size:16px;
         }
-        .wrap {
+        .main {
             max-width: 780px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
         }
-        .code {
+        .text {
             color: #8c92a4;
         }
     </style>
 </head>
 <body>
-<div class="wrap">
     <div class="main">
-        <p>您的验证码是: <span class="code">${code}</span></p>
-        <p class="code">请注意: 验证码将于30分钟后过期</p>
+        <p>验证码: <b class="code">${code}</b></p>
+        <p class="text">该验证码将会在30分钟后失效</p>
+        <p class="text">请勿向任何人泄露您收到的验证码</p>
     </div>
-</div>
 </body>
 </html>
