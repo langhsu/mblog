@@ -10,13 +10,13 @@
 package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.MtonsException;
-import com.mtons.mblog.modules.data.*;
+import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.BadgesCount;
+import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.*;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -108,17 +108,13 @@ public class UsersController extends BaseController {
 	}
 
 	private void initUser(long userId, ModelMap model) {
-		UserVO user = userService.get(userId);
-		model.put("user", user);
+		model.put("user", userService.get(userId));
 		boolean owner = false;
 
 		AccountProfile profile = getProfile();
 		if (null != profile && profile.getId() == userId) {
 			owner = true;
-			BadgesCount count = new BadgesCount();
-			count.setMessages(messageService.unread4Me(profile.getId()));
-			profile.setBadgesCount(count);
-			session.setAttribute("profile", profile);
+			putProfile(userService.findProfile(profile.getId()));
 		}
 		model.put("owner", owner);
 	}

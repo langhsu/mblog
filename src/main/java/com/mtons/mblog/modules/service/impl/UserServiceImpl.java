@@ -101,8 +101,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public AccountProfile findProfile(String username) {
-        User po = userRepository.findByUsername(username);
+    public AccountProfile findProfile(Long id) {
+        User po = userRepository.findById(id).get();
         AccountProfile u = null;
 
         Assert.notNull(po, "账户不存在");

@@ -45,10 +45,10 @@ public interface UserService {
 
 	/**
 	 * 登录,用于记住登录时获取用户信息
-	 * @param username
+	 * @param id
 	 * @return
 	 */
-	AccountProfile findProfile(String username);
+	AccountProfile findProfile(Long id);
 
 	/**
 	 * 注册

@@ -50,7 +50,7 @@ public class AccountSubjectFactory extends DefaultSubjectFactory {
         if ((subject.isAuthenticated() || subject.isRemembered()) && session.getAttribute("profile") == null) {
             AccountProfile profile = (AccountProfile) subject.getPrincipal();
             log.debug("reload session - " + profile.getUsername());
-            session.setAttribute("profile", userService.findProfile(profile.getUsername()));
+            session.setAttribute("profile", userService.findProfile(profile.getId()));
         }
     }
 

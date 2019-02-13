@@ -17,9 +17,7 @@ define(function(require, exports, module) {
 	$('#upload_btn').change(function(){
 		$(this).upload(upload_url, function(data){
             if (data.status == 200) {
-				var path = data.path;
-				$("#target").attr("src", path);
-				$("#path").val(data.path);
+				window.location.reload();
 			} else {
                 layer.msg(data.message, {icon: 5});
 			}
