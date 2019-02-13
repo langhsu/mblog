@@ -10,8 +10,8 @@
 		maxElementsOnDisk="999"
 		maxElementsInMemory="50"
 		overflowToDisk="true"
-		timeToIdleSeconds="180"
-		timeToLiveSeconds="360"
+		timeToIdleSeconds="60"
+		timeToLiveSeconds="120"
 		memoryStoreEvictionPolicy="LRU"/>
 	
 	<cache name="userCaches"
@@ -19,8 +19,8 @@
 		   maxElementsOnDisk="999"
 		   maxElementsInMemory="50"
 		   overflowToDisk="true"
-		   timeToIdleSeconds="180"
-		   timeToLiveSeconds="360"
+		   timeToIdleSeconds="60"
+		   timeToLiveSeconds="120"
 		   memoryStoreEvictionPolicy="LRU"/>
 
 </ehcache>
