@@ -5,7 +5,7 @@
 	
 	<defaultCache maxElementsInMemory="100" eternal="false" timeToIdleSeconds="180" timeToLiveSeconds="360" overflowToDisk="false" />
 	 
-	<cache name="postsCaches"
+	<cache name="postCaches"
 		eternal="false"
 		maxElementsOnDisk="999"
 		maxElementsInMemory="50"
@@ -14,7 +14,7 @@
 		timeToLiveSeconds="360"
 		memoryStoreEvictionPolicy="LRU"/>
 	
-	<cache name="usersCaches"
+	<cache name="userCaches"
 		   eternal="false"
 		   maxElementsOnDisk="999"
 		   maxElementsInMemory="50"

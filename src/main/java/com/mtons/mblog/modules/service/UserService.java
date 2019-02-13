@@ -24,7 +24,7 @@ import java.util.Set;
  * @author langhsu
  *
  */
-@CacheConfig(cacheNames = "usersCaches")
+@CacheConfig(cacheNames = "userCaches")
 public interface UserService {
 	/**
 	 * 分页查询

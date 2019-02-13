@@ -26,7 +26,7 @@ import java.util.Set;
  * @author langhsu
  *
  */
-@CacheConfig(cacheNames = "postsCaches")
+@CacheConfig(cacheNames = "postCaches")
 public interface PostService {
 	/**
 	 * 分页查询所有文章
