@@ -8,6 +8,8 @@ services:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_ROOT_HOST: '%'
             TZ: Asia/Shanghai
+        ports:
+        - "3306:3306"
         expose:
         - "3306"
         volumes:
@@ -26,7 +28,7 @@ services:
         - ./logs:/app/logs
         ports:
         - "80:8080"
-        command: mvn clean spring-boot:run -Dspring-boot.run.profiles=mysql -Dmaven.test.skip=true
+        #command: mvn clean spring-boot:run -Dspring-boot.run.profiles=mysql -Dmaven.test.skip=true
         depends_on:
         - mysql
         restart: always
