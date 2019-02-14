@@ -8,7 +8,7 @@ spring:
 
     jpa:
         database: h2
-        show-sql: true
+        show-sql: false
         hibernate:
             ddl-auto: update
         properties:
@@ -19,7 +19,7 @@ spring:
             hibernate.search.default.indexBase: ${user.dir}/indexes
     h2:     #h2数据库远程管理
         console:
-            enabled: true #开启web显示
+            enabled: false #是否开启web显示
             path: /console # 路径
             settings:
                 web-allow-others: true
