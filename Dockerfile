@@ -3,6 +3,7 @@ MAINTAINER mtons
 
 ENV TZ=Asia/Shanghai
 RUN mkdir /app && ln -sf /usr/share/zoneinfo/{TZ} /etc/localtime && echo "{TZ}" > /etc/timezone
+RUN mvn clean package -Dmaven.test.skip=true
 
 WORKDIR /app
 
