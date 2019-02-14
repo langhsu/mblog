@@ -1,11 +1,3 @@
 FROM maven:3.5.4-jdk-8
-MAINTAINER mtons
 
-ENV TZ=Asia/Shanghai
-RUN mkdir /app && ln -sf /usr/share/zoneinfo/{TZ} /etc/localtime && echo "{TZ}" > /etc/timezone
-RUN mvn clean package -Dmaven.test.skip=true
-
-WORKDIR /app
-
-ADD mblog-latest.jar mblog-latest.jar
-ENTRYPOINT ["java",  "-jar", "/app/mblog-latest.jar"]
+ENV LANG C.UTF-8
