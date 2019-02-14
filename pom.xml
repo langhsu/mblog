@@ -224,6 +224,14 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>nexus-aliyun</id>
+			<name>Nexus aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+
 	<profiles>
 		<!--开发默认环境-->
 		<profile>
@@ -246,6 +254,7 @@
 	</profiles>
 
 	<build>
+		<defaultGoal>compile</defaultGoal>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
