@@ -1,7 +1,7 @@
 version: '3'
 services:
     #mysql:
-    #    container_name: mblog-mysql
+    #    container_name: mtons-mysql
     #    image: mysql/mysql-server:5.7
     #    environment:
     #        MYSQL_DATABASE: db_mblog
@@ -17,7 +17,7 @@ services:
     #    restart: always
 
     server:
-        container_name: mblog
+        container_name: mtons-blog
         build: .
         working_dir: /app
         environment:
@@ -27,7 +27,7 @@ services:
         - ~/.m2:/root/.m2
         - ./logs:/app/logs
         ports:
-        - "80:8080"
+        - "8080:8080"
         command: mvn clean spring-boot:run -Dspring-boot.run.profiles=h2 -Dmaven.test.skip=true
     #    depends_on:
     #    - mysql
