@@ -1,3 +1,12 @@
+/*
++--------------------------------------------------------------------------
+|   Mblog [#RELEASE_VERSION#]
+|   ========================================
+|   Copyright (c) 2014, 2015 mtons. All Rights Reserved
+|   http://www.mtons.com
+|
++---------------------------------------------------------------------------
+*/
 package com.mtons.mblog.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,10 +23,25 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "site")
 public class SiteOptions {
+
+    /**
+     * 系统版本号
+     */
     private String version;
+
+    /**
+     * 运行文件存储路径
+     */
     private String location;
+
+    /**
+     * 控制器配置
+     */
     private Controls controls;
 
+    /**
+     * 属性配置
+     */
     private Map<String, String> options = new HashMap<>();
 
     public String getVersion() {

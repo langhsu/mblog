@@ -1,3 +1,12 @@
+/*
++--------------------------------------------------------------------------
+|   Mblog [#RELEASE_VERSION#]
+|   ========================================
+|   Copyright (c) 2014, 2019 mtons. All Rights Reserved
+|   http://www.mtons.com
+|
++---------------------------------------------------------------------------
+*/
 package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.lang.MtonsException;
