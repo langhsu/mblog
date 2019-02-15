@@ -76,6 +76,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>io.github.biezhi</groupId>
+			<artifactId>oh-my-email</artifactId>
+			<version>0.0.4</version>
+		</dependency>
+
+		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
 			<version>${coobird.thumbnailator}</version>
@@ -195,11 +201,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
 		<dependency>

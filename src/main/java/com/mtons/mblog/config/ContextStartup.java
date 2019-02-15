@@ -4,6 +4,7 @@ import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.Printer;
 import com.mtons.mblog.modules.entity.Options;
 import com.mtons.mblog.modules.service.ChannelService;
+import com.mtons.mblog.modules.service.MailService;
 import com.mtons.mblog.modules.service.OptionsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
     private OptionsService optionsService;
     @Autowired
     private ChannelService channelService;
+    @Autowired
+    private MailService mailService;
     @Autowired
     private SiteOptions siteOptions;
 
@@ -77,6 +80,8 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
             }
         });
         servletContext.setAttribute("options", map);
+
+        mailService.config();
     }
 
     public void resetChannels() {

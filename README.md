@@ -49,6 +49,7 @@
     11. 我的主页和Ta人主页合并
     12. 优化了图片裁剪功能
     13. 支持Docker, 详情见 https://hub.docker.com/r/langhsu/mblog
+    14. 邮件服务后台可配
     
 [官网地址](http://www.mtons.com)
     

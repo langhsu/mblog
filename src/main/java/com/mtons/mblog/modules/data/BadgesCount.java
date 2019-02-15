@@ -3,7 +3,7 @@ package com.mtons.mblog.modules.data;
 import java.io.Serializable;
 
 /**
- * @author langhsu on 2015/8/31.
+ * @author langhsu
  */
 public class BadgesCount implements Serializable {
     private static final long serialVersionUID = 8276459939240769498L;

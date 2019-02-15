@@ -17,17 +17,18 @@ import java.util.Date;
 
 /**
  * @author langhsu
- * 
  */
 public class CommentVO extends Comment implements Serializable {
 	private static final long serialVersionUID = 9192186139010913437L;
+
+	@JSONField(format="yyyy-MM-dd")
+	private Date created;
 
 	// extend parameter
 	private UserVO author;
 	private CommentVO parent;
 	private PostVO post;
 
-	@JSONField(format="yyyy-MM-dd")
 	public Date getCreated() {
 		return super.getCreated();
 	}

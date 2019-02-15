@@ -11,8 +11,6 @@ package com.mtons.mblog.web.controller;
 
 import com.mtons.mblog.base.storage.StorageFactory;
 import com.mtons.mblog.base.utils.MD5;
-import com.mtons.mblog.base.utils.MailHelper;
-import com.mtons.mblog.base.utils.Printer;
 import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
@@ -20,9 +18,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -35,7 +31,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Controller 基类
@@ -51,10 +46,6 @@ public class BaseController {
 	protected StorageFactory storageFactory;
 	@Autowired
 	protected SiteOptions siteOptions;
-	@Autowired
-	private MailHelper mailHelper;
-	@Autowired
-	private TaskExecutor taskExecutor;
 
 	@InitBinder
 	public void initBinder(ServletRequestDataBinder binder) {
@@ -123,11 +114,4 @@ public class BaseController {
 		return "/" + siteOptions.getOptions().get("theme") + view;
 	}
 
-	protected void sendEmail(String template, String email, String subject, Map<String, Object> context) {
-		taskExecutor.execute(() -> {
-			mailHelper.sendEmail(template, email, subject, context);
-			Printer.debug(email + " send success");
-		});
-	}
-	
 }

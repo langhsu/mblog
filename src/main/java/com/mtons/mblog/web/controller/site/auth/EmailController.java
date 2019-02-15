@@ -4,6 +4,7 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
+import com.mtons.mblog.modules.service.MailService;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -25,6 +26,8 @@ import java.util.Map;
 public class EmailController extends BaseController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private MailService mailService;
     @Autowired
     private SecurityCodeService securityCodeService;
 
@@ -50,7 +53,7 @@ public class EmailController extends BaseController {
         Map<String, Object> context = new HashMap<>();
         context.put("code", code);
 
-        sendEmail(Consts.EMAIL_TEMPLATE_CODE, email, "邮箱验证码", context);
+        mailService.sendTemplateEmail(email, "邮箱验证码", Consts.EMAIL_TEMPLATE_CODE, context);
         return Result.successMessage("邮件发送成功");
     }
 

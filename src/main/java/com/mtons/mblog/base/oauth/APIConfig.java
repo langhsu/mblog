@@ -42,6 +42,10 @@ public class APIConfig {
     private String dp_key;
     private String dp_secret;
 
+    private APIConfig() {
+
+    }
+
     public static APIConfig getInstance() {
         if (config == null) {
             config = new APIConfig();

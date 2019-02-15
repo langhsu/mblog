@@ -30,13 +30,6 @@ spring:
             template_update_delay: 0
             datetime_format: yyyy-MM-dd HH:mm
             number_format: 0.##
-    mail:
-        host: smtp.mtons.com
-        username: example@mtons.com
-        password: Example2018
-        port: 25
-        properties:
-            mail.smtp.auth: true
 
 shiro:
     web:
@@ -66,3 +59,6 @@ site:
         site_favicon: /dist/images/logo/m.png
         storage_max_width: 800
         storeage_limit_size: 2
+        mail_smtp_host: smtp.mtons.com
+        mail_smtp_username: example@mtons.com
+        mail_smtp_password: Example2018

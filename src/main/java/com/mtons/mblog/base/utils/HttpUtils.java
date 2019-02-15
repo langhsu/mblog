@@ -20,19 +20,17 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * 
  * @author langhsu
- *
  */
 public class HttpUtils {
 
-	public static HttpClient getClient() {
+	private static HttpClient getClient() {
 		HttpClient client = new HttpClient();
 		client.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "utf-8"); 
 		return client;
 	}
 	
-	public static String post(String url, Map<String, String> params) throws HttpException, IOException {
+	public static String post(String url, Map<String, String> params) throws IOException {
 		HttpClient client = getClient();
 		
     	PostMethod post = new PostMethod(url);

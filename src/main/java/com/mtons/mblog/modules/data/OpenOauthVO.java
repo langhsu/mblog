@@ -11,7 +11,7 @@ package com.mtons.mblog.modules.data;
 
 /**
  * 第三方开发授权登录
- * @author langhsu on 2015/8/12.
+ * @author langhsu
  */
 public class OpenOauthVO {
     private long id;
