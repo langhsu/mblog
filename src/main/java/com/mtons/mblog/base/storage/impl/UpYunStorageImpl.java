@@ -4,11 +4,9 @@ import com.UpYun;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
-import com.mtons.mblog.config.SiteOptions;
 import com.upyun.UpYunUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,13 +18,16 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class UpYunStorageImpl extends AbstractStorage implements Storage {
-    @Autowired
-    private SiteOptions siteOptions;
+    private static final String oss_bucket   = "upyun_oss_bucket";
+    private static final String oss_domain   = "upyun_oss_domain";
+    private static final String oss_operator = "upyun_oss_operator";
+    private static final String oss_password = "upyun_oss_password";
+    private static final String oss_src      = "upyun_oss_src";
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String domain = siteOptions.getOptions().get("upyun_oss_domain");
-        String src = siteOptions.getOptions().get("upyun_oss_src");
+        String domain = options.getValue(oss_domain);
+        String src = options.getValue(oss_src);
 
         if (StringUtils.isAnyBlank(domain)) {
             throw new MtonsException("请先在后台设置又拍云配置信息");
@@ -54,7 +55,7 @@ public class UpYunStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public void deleteFile(String storePath) {
-        String domain = siteOptions.getOptions().get("upyun_oss_domain");
+        String domain = options.getValue(oss_domain);
         String path = StringUtils.remove(storePath, domain.trim());
         UpYun yun = builder();
         try {
@@ -65,9 +66,9 @@ public class UpYunStorageImpl extends AbstractStorage implements Storage {
     }
 
     private UpYun builder() {
-        String bucket = siteOptions.getOptions().get("upyun_oss_bucket");
-        String operator = siteOptions.getOptions().get("upyun_oss_operator");
-        String password = siteOptions.getOptions().get("upyun_oss_password");
+        String bucket = options.getValue(oss_bucket);
+        String operator = options.getValue(oss_operator);
+        String password = options.getValue(oss_password);
 
         if (StringUtils.isAnyBlank(bucket, operator, password)) {
             throw new MtonsException("请先在后台设置又拍云配置信息");

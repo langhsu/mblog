@@ -52,6 +52,10 @@ public class SiteOptions {
         this.options = options;
     }
 
+    public String getValue(String key) {
+        return options.get(key);
+    }
+
     public static class Controls {
         private boolean register;
         private boolean post;

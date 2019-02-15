@@ -4,11 +4,9 @@ import com.aliyun.oss.OSSClient;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
-import com.mtons.mblog.config.SiteOptions;
 import com.upyun.UpYunUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
@@ -20,14 +18,17 @@ import java.io.ByteArrayInputStream;
 @Slf4j
 @Component
 public class AliyunStorageImpl extends AbstractStorage implements Storage {
-    @Autowired
-    private SiteOptions siteOptions;
+    private static final String oss_endpoint = "aliyun_oss_endpoint";
+    private static final String oss_bucket   = "aliyun_oss_bucket";
+    private static final String oss_key      = "aliyun_oss_key";
+    private static final String oss_secret   = "aliyun_oss_secret";
+    private static final String oss_src      = "aliyun_oss_src";
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String endpoint = siteOptions.getOptions().get("aliyun_oss_endpoint");
-        String bucket = siteOptions.getOptions().get("aliyun_oss_bucket");
-        String src = siteOptions.getOptions().get("aliyun_oss_src");
+        String endpoint = options.getValue(oss_endpoint);
+        String bucket = options.getValue(oss_bucket);
+        String src = options.getValue(oss_src);
 
         if (StringUtils.isAnyBlank(endpoint, bucket)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");
@@ -54,8 +55,8 @@ public class AliyunStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public void deleteFile(String storePath) {
-        String bucket = siteOptions.getOptions().get("aliyun_oss_bucket");
-        String endpoint = siteOptions.getOptions().get("aliyun_oss_endpoint");
+        String bucket = options.getValue(oss_bucket);
+        String endpoint = options.getValue(oss_endpoint);
         String path = StringUtils.remove(storePath, "//" + bucket.trim() + "." + endpoint.trim() + "/");
         OSSClient client = builder();
         try {
@@ -66,9 +67,9 @@ public class AliyunStorageImpl extends AbstractStorage implements Storage {
     }
 
     private OSSClient builder() {
-        String endpoint = siteOptions.getOptions().get("aliyun_oss_endpoint");
-        String accessKeyId = siteOptions.getOptions().get("aliyun_oss_key");
-        String accessKeySecret = siteOptions.getOptions().get("aliyun_oss_secret");
+        String endpoint = options.getValue(oss_endpoint);
+        String accessKeyId = options.getValue(oss_key);
+        String accessKeySecret = options.getValue(oss_secret);
 
         if (StringUtils.isAnyBlank(endpoint, accessKeyId, accessKeySecret)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");

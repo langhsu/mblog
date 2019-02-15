@@ -68,7 +68,7 @@ public class UploadController extends BaseController {
         }
 
         // 检查大小
-        String limitSize = siteOptions.getOptions().get("storage_limit_size");
+        String limitSize = siteOptions.getValue("storage_limit_size");
         if (StringUtils.isBlank(limitSize)) {
             limitSize = "2";
         }

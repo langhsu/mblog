@@ -33,9 +33,9 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void config() {
-        String mailHost = siteOptions.getOptions().get("mail_smtp_host");
-        String mailUsername = siteOptions.getOptions().get("mail_smtp_username");
-        String mailPassowrd = siteOptions.getOptions().get("mail_smtp_password");
+        String mailHost = siteOptions.getValue("mail_smtp_host");
+        String mailUsername = siteOptions.getValue("mail_smtp_username");
+        String mailPassowrd = siteOptions.getValue("mail_smtp_password");
 
         if (StringUtils.isNoneBlank(mailHost, mailUsername, mailPassowrd)) {
             final Properties properties = OhMyEmail.defaultConfig(false);
@@ -49,7 +49,7 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendTemplateEmail(String to, String title, String template, Map<String, Object> content) {
         String text = render(template, content);
-        String from = siteOptions.getOptions().get("site_name");
+        String from = siteOptions.getValue("site_name");
 
         taskExecutor.execute(() -> {
             try {

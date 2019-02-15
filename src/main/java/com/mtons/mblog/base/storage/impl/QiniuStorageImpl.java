@@ -3,7 +3,6 @@ package com.mtons.mblog.base.storage.impl;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.base.storage.Storage;
 import com.mtons.mblog.base.utils.FileKit;
-import com.mtons.mblog.config.SiteOptions;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
@@ -14,7 +13,6 @@ import com.qiniu.util.Auth;
 import com.upyun.UpYunUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,16 +22,19 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class QiniuStorageImpl extends AbstractStorage implements Storage {
-    @Autowired
-    private SiteOptions siteOptions;
+    private static final String oss_bucket = "qiniu_oss_bucket";
+    private static final String oss_domain = "qiniu_oss_domain";
+    private static final String oss_key    = "qiniu_oss_key";
+    private static final String oss_secret = "qiniu_oss_secret";
+    private static final String oss_src    = "qiniu_oss_src";
 
     @Override
     public String writeToStore(byte[] bytes, String pathAndFileName) throws Exception {
-        String accessKey = siteOptions.getOptions().get("qiniu_oss_key");
-        String secretKey = siteOptions.getOptions().get("qiniu_oss_secret");
-        String domain = siteOptions.getOptions().get("qiniu_oss_domain");
-        String bucket = siteOptions.getOptions().get("qiniu_oss_bucket");
-        String src = siteOptions.getOptions().get("qiniu_oss_src");
+        String accessKey = options.getValue(oss_key);
+        String secretKey = options.getValue(oss_secret);
+        String domain = options.getValue(oss_domain);
+        String bucket = options.getValue(oss_bucket);
+        String src = options.getValue(oss_src);
 
         if (StringUtils.isAnyBlank(accessKey, secretKey, domain, bucket)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");
@@ -70,10 +71,10 @@ public class QiniuStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public void deleteFile(String storePath) {
-        String accessKey = siteOptions.getOptions().get("qiniu_oss_key");
-        String secretKey = siteOptions.getOptions().get("qiniu_oss_secret");
-        String domain = siteOptions.getOptions().get("qiniu_oss_domain");
-        String bucket = siteOptions.getOptions().get("qiniu_oss_bucket");
+        String accessKey = options.getValue(oss_key);
+        String secretKey = options.getValue(oss_secret);
+        String domain = options.getValue(oss_domain);
+        String bucket = options.getValue(oss_bucket);
 
         if (StringUtils.isAnyBlank(accessKey, secretKey, domain, bucket)) {
             throw new MtonsException("请先在后台设置阿里云配置信息");

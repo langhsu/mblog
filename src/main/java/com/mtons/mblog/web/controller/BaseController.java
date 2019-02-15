@@ -111,7 +111,7 @@ public class BaseController {
 	}
 
 	protected String view(String view) {
-		return "/" + siteOptions.getOptions().get("theme") + view;
+		return "/" + siteOptions.getValue("theme") + view;
 	}
 
 }

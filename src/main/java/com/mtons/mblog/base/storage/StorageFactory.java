@@ -36,7 +36,7 @@ public class StorageFactory {
     }
 
     public Storage get() {
-        String scheme = siteOptions.getOptions().get("storage_scheme");
+        String scheme = siteOptions.getValue("storage_scheme");
         if (StringUtils.isBlank(scheme)) {
             scheme = "native";
         }
