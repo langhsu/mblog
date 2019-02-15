@@ -225,6 +225,7 @@
 	</dependencies>
 
 	<repositories>
+		<!--使用阿里云库-->
 		<repository>
 			<id>nexus-aliyun</id>
 			<name>Nexus aliyun</name>
