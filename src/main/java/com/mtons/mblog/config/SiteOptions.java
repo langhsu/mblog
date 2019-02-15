@@ -15,7 +15,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "site")
 public class SiteOptions {
     private String version;
-    private String theme;
+    private String location;
     private Controls controls;
 
     private Map<String, String> options = new HashMap<>();
@@ -28,12 +28,12 @@ public class SiteOptions {
         this.version = version;
     }
 
-    public String getTheme() {
-        return theme;
+    public String getLocation() {
+        return location;
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Controls getControls() {

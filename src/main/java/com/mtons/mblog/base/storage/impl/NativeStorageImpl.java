@@ -10,7 +10,9 @@
 package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.utils.FileKit;
+import com.mtons.mblog.config.SiteOptions;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -22,6 +24,8 @@ import java.io.File;
 @Slf4j
 @Component
 public class NativeStorageImpl extends AbstractStorage {
+	@Autowired
+	private SiteOptions siteOptions;
 
 	@Override
 	public void deleteFile(String storePath) {
@@ -42,7 +46,7 @@ public class NativeStorageImpl extends AbstractStorage {
 	}
 
 	private String getStoragePath() {
-		return System.getProperties().getProperty("user.dir");
+		return siteOptions.getLocation();
 	}
 
 }

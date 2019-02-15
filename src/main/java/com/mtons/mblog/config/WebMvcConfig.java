@@ -5,10 +5,7 @@ import com.mtons.mblog.web.interceptor.BaseInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.List;
 
@@ -16,17 +13,13 @@ import java.util.List;
  * Created by langhsu on 2017/10/13.
  */
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private BaseInterceptor baseInterceptor;
     @Autowired
     private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
-
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        super.configurePathMatch(configurer);
-        configurer.setUseSuffixPatternMatch(false);
-    }
+    @Autowired
+    private SiteOptions siteOptions;
 
     /**
      * Add intercepter
@@ -35,7 +28,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        super.addInterceptors(registry);
         registry.addInterceptor(baseInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/dist/**", "/store/**", "/static/**");
@@ -48,8 +40,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/theme/*/dist/**")
                 .addResourceLocations("classpath:/templates/");
         registry.addResourceHandler("/storage/**")
-                .addResourceLocations("file:///" + System.getProperties().getProperty("user.dir") + "/storage/");
-        super.addResourceHandlers(registry);
+                .addResourceLocations("file:///" + siteOptions.getLocation() + "/storage/");
     }
 
     @Override

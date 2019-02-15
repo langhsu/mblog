@@ -18,4 +18,4 @@ spring:
             hibernate.naming.physical-strategy: org.hibernate.scripts.model.naming.PhysicalNamingStrategyStandardImpl
             hibernate.cache.use_second_level_cache: false
             hibernate.search.default.directory_provider: filesystem
-            hibernate.search.default.indexBase: ${user.dir}/indexes
+            hibernate.search.default.indexBase: ${site.location}/indexes
