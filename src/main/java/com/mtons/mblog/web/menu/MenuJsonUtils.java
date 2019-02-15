@@ -16,7 +16,7 @@ import java.util.List;
  * @create - 2018/5/18
  */
 public class MenuJsonUtils {
-    private static String config = "/config/menu.json";
+    private static String config = "/scripts/menu.json";
     private static List<Menu> menus;
 
     /**

@@ -53,10 +53,12 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
     public void reloadOptions(boolean startup) {
         List<Options> options = optionsService.findAll();
 
+        Printer.info("find options (" + options.size()+ ")...");
+
         if (startup && CollectionUtils.isEmpty(options)) {
             try {
                 Printer.info("init options...");
-                Resource resource = new ClassPathResource("/config/db/db_mblog.sql");
+                Resource resource = new ClassPathResource("/scripts/schema.sql");
                 optionsService.initSettings(resource);
                 options = optionsService.findAll();
             } catch (Exception e) {
