@@ -185,7 +185,6 @@
 			<version>${qiniu.sdk.version}</version>
 		</dependency>
 
-		<!-- Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
