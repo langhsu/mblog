@@ -18,7 +18,7 @@ import java.util.List;
 public class MenusDirective extends TemplateDirective {
     @Override
     public String getName() {
-        return "authc";
+        return "menus";
     }
 
     @Override

@@ -8,7 +8,7 @@
             <div class="panel-heading">
                 <ul class="list-inline topic-filter">
                     <li class="popover-with-html">
-                        搜索: ${kw} 共 ${page.totalElements} 个结果.
+                        搜索: ${kw} 共 ${results.totalElements} 个结果.
                     </li>
                 </ul>
                 <div class="clearfix"></div>
