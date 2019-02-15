@@ -1,13 +1,15 @@
-FROM maven:3.6.0-jdk-8-slim AS build-env
+FROM maven:3.5.4-jdk-8
 MAINTAINER mtons
-WORKDIR /build
-COPY . /build
-RUN mvn package -Dmaven.test.skip -Ph2
 
-FROM openjdk:8u181-jre-slim
+WORKDIR /app
+ADD . /tmp
+
 ENV TZ=Asia/Shanghai
 RUN ln -sf /usr/share/zoneinfo/{TZ} /etc/localtime && echo "{TZ}" > /etc/timezone
-WORKDIR /app
-COPY --from=build-env /build/target/mblog-latest.jar /app
+
+RUN cd /tmp && mvn package -Dmaven.test.skip=true -Ph2 \
+    && cp -f target/mblog-latest.jar /app && rm -rf /tmp/*
+
 EXPOSE 8080
+
 ENTRYPOINT ["java","-jar","/app/mblog-latest.jar"]

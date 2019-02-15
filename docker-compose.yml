@@ -1,10 +1,30 @@
 version: '3'
 services:
+    #mysql:
+    #    container_name: mtons-mysql
+    #    image: mysql/mysql-server:5.7
+    #    environment:
+    #        MYSQL_DATABASE: db_mblog
+    #        MYSQL_ROOT_PASSWORD: root
+    #        MYSQL_ROOT_HOST: '%'
+    #        TZ: Asia/Shanghai
+    #    ports:
+    #    - "3306:3306"
+    #    expose:
+    #    - "3306"
+    #    volumes:
+    #    - ./mysql/mysql_data:/var/lib/mysql
+    #    restart: always
+
     server:
         container_name: mtons-blog
-        image: mtons:latest
+        build: .
+        working_dir: /app
         environment:
             TZ: Asia/Shanghai
         ports:
         - "8080:8080"
+    #    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=h2 -Dmaven.test.skip=true
+    #    depends_on:
+    #    - mysql
         restart: always
