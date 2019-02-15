@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @Configuration
 @ConditionalOnProperty(name = "shiro.web.enabled", matchIfMissing = true)
-public class ShiroConfig {
+public class ShiroConfiguration {
     @Bean
     public SubjectFactory subjectFactory() {
         return new AccountSubjectFactory();

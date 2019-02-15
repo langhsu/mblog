@@ -10,10 +10,10 @@ import org.springframework.web.servlet.config.annotation.*;
 import java.util.List;
 
 /**
- * Created by langhsu on 2017/10/13.
+ * @author langhsu
  */
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfiguration implements WebMvcConfigurer {
     @Autowired
     private BaseInterceptor baseInterceptor;
     @Autowired
