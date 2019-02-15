@@ -11,6 +11,7 @@
 	10. 替换表单验证插件, 评论表情改为颜文字
     11. 我的主页和Ta人主页合并
     12. 优化了图片裁剪功能
+    13. 支持Docker, 详情见 https://hub.docker.com/r/langhsu/mblog
 
     附表名调整:
     	mto_favors           -> mto_favorite
