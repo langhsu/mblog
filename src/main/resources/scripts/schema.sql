@@ -33,7 +33,7 @@ CREATE TABLE `mto_channel` (
 -- ----------------------------
 INSERT INTO `mto_channel` VALUES ('1', 'banner', 'banner', '1');
 INSERT INTO `mto_channel` VALUES ('2', 'blog', '博客', '0');
-INSERT INTO `mto_channel` VALUES ('3', 'questions', '问答', '0');
+INSERT INTO `mto_channel` VALUES ('3', 'jotting', '随笔', '0');
 INSERT INTO `mto_channel` VALUES ('4', 'share', '分享', '0');
 
 -- ----------------------------
