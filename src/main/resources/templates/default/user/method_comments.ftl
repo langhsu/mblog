@@ -67,8 +67,6 @@ $(function() {
 				layer.msg(ret.message, {icon: 1});
 				if (ret.code >=0) {
 					var el = $('li[el=loop-' + id + ']');
-                    el.next().remove();
-                    el.next().remove();
                     el.remove();
 				}
 			});
