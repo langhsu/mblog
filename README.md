@@ -62,6 +62,6 @@
 
 图片来自@weian豆丁
 
-### 博客示例：
+### 这些用户在使用mblog(如需要在此展示您的博客请联系作者)：
 [https://www.lyp82nlf.com/](https://www.lyp82nlf.com/)
 
