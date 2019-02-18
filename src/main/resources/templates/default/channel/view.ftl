@@ -100,7 +100,7 @@
             <li class="list-group-item">
                 <div class="text-center">
                     <a class="btn btn-default btn-sm" href="javascript:void(0);" data-id="${view.id}" rel="favor">
-                        <i class="icon icon-like"></i> 收藏 <strong id="favors">${view.favors}</strong>
+                        <i class="icon icon-star"></i> 收藏 <strong id="favors">${view.favors}</strong>
                     </a>
                 </div>
             </li>
