@@ -52,7 +52,7 @@ public class ChannelController extends BaseController {
 		return view(Views.ROUTE_POST_INDEX);
 	}
 
-	@RequestMapping("/view/{id}")
+	@RequestMapping("/post/{id:\\d*}")
 	public String view(@PathVariable Long id, ModelMap model) {
 		PostVO view = postService.get(id);
 

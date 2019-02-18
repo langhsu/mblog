@@ -3,13 +3,13 @@
     <#if row.thumbnail?? && row.thumbnail?length gt 0>
         <div class="content-box posts-gallery-box">
             <div class="posts-gallery-img">
-                <a href="${base}/view/${row.id}" title="">
+                <a href="${base}/post/${row.id}" title="">
                     <div class="overlay"></div>
                     <img class="lazy thumbnail" src="<@resource src=row.thumbnail/>" style="display: inline-block;">
                 </a>
             </div>
             <div class="posts-gallery-content">
-                <h2><a href="${base}/view/${row.id}"><#if escape>${row.title?html}<#else>${row.title}</#if></a></h2>
+                <h2><a href="${base}/post/${row.id}"><#if escape>${row.title?html}<#else>${row.title}</#if></a></h2>
                 <div class="posts-gallery-text">${row.summary}</div>
                 <div class="posts-default-info posts-gallery-info">
                     <ul>
@@ -31,7 +31,7 @@
         <div class="content-box posts-aside">
             <div class="posts-default-content">
                 <div class="posts-default-title">
-                    <h2><a href="${base}/view/${row.id}"><#if escape>${row.title?html}<#else>${row.title}</#if></a></h2>
+                    <h2><a href="${base}/post/${row.id}"><#if escape>${row.title?html}<#else>${row.title}</#if></a></h2>
                 </div>
                 <div class="posts-text">${row.summary}</div>
                 <div class="posts-default-info">

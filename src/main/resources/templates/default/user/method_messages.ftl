@@ -30,11 +30,11 @@
                                         <a href="${base}/users/${row.from.id}">${row.from.name}</a>
                                         <span>
                                             <#if (row.event == 1)>
-                                                收藏了你的文章 - <a href="${base}/view/${row.postId}">${row.post.title}</a>
+                                                收藏了你的文章 - <a href="${base}/post/${row.postId}">${row.post.title}</a>
                                             <#elseif (row.event == 3)>
-                                                评论了你的文章 - <a href="${base}/view/${row.postId}">点击查看详情</a>
+                                                评论了你的文章 - <a href="${base}/post/${row.postId}">点击查看详情</a>
                                             <#elseif (row.event == 4)>
-                                                回复了你的评论 - <a href="${base}/view/${row.postId}">点击查看详情</a>
+                                                回复了你的评论 - <a href="${base}/post/${row.postId}">点击查看详情</a>
                                             </#if>
                                         </span>
                                     </div>

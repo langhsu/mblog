@@ -60,6 +60,3 @@ site:
         site_favicon: /dist/images/logo/m.png
         storage_max_width: 800
         storeage_limit_size: 2
-        mail_smtp_host: smtp.mtons.com
-        mail_smtp_username: example@mtons.com
-        mail_smtp_password: Example2018

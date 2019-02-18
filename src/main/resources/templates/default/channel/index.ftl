@@ -43,13 +43,13 @@
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                            <@classify row/><a href="${base}/view/${row.id}">${row.title}</a>
+                                            <@classify row/><a href="${base}/post/${row.id}">${row.title}</a>
                                         </div>
                                     </div>
                                 </li>
                             </#list>
 
-                            <#if  results.content?size == 0>
+                            <#if results.content?size == 0>
                                 <li class="list-group-item ">
                                     <div class="infos">
                                         <div class="media-heading">该目录下还没有内容!</div>

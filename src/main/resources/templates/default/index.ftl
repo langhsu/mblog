@@ -8,7 +8,7 @@
         <#list results.content as row>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="block">
-                    <a class="block-thumbnail" href="${base}/view/${row.id}">
+                    <a class="block-thumbnail" href="${base}/post/${row.id}">
                         <div class="thumbnail-overlay"></div>
                         <span class="button-zoom">
                             <img src="${base}/dist/images/image-overlay-view-icon.png">
@@ -43,7 +43,7 @@
             <ul class="list-group row topic-list">
                 <#list results.content as row>
                     <li class="list-group-item media col-md-6" style="margin-top: 0px;">
-                        <a class="reply_last_time hidden-xs meta" href="${base}/view/${row.id}">
+                        <a class="reply_last_time hidden-xs meta" href="${base}/post/${row.id}">
                             <span class="stress">${row.views}</span> 浏览<span> ⋅ </span>${row.comments} 回复
                         </a>
 
@@ -56,7 +56,7 @@
 
                         <div class="infos">
                             <div class="media-heading">
-                                <@classify row/><a href="${base}/view/${row.id}">${row.title?html}</a>
+                                <@classify row/><a href="${base}/post/${row.id}">${row.title?html}</a>
                             </div>
                         </div>
                     </li>

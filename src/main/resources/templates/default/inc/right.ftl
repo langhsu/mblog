@@ -35,9 +35,9 @@
 
 <script type="text/javascript">
 
-var li_template = '<li>{0}. <a href="${base}/view/{1}">{2}</a></li>';
+var li_template = '<li>{0}. <a href="${base}/post/{1}">{2}</a></li>';
 
-var comment_li_template = '<li><a href="${base}/view/{0}">{1}</a></li>'
+var comment_li_template = '<li><a href="${base}/post/{0}">{1}</a></li>'
 
 seajs.use('sidebox', function (sidebox) {
 	sidebox.init({

@@ -72,11 +72,14 @@ public class ShiroConfiguration {
         Map<String, String> hashMap = new LinkedHashMap<>();
         hashMap.put("/dist/**", "anon");
         hashMap.put("/theme/**", "anon");
-        hashMap.put("/store/**", "anon");
+        hashMap.put("/storage/**", "anon");
         hashMap.put("/login", "anon");
         hashMap.put("/user/**", "authc");
         hashMap.put("/settings/**", "authc");
-        hashMap.put("/post/**", "authc");
+        hashMap.put("/post/editing", "authc");
+        hashMap.put("/post/submit", "authc");
+        hashMap.put("/post/delete/*", "authc");
+        hashMap.put("/post/upload", "authc");
 
         hashMap.put("/admin", "authc,perms[admin]");
         hashMap.put("/admin/**", "authc,perms[admin]");

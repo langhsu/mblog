@@ -14,7 +14,7 @@
                         <#list results.content as row>
                             <li class="list-group-item" el="loop-${row.id}">
                                 <#if row.post??>
-                                    <a href="${base}/view/${row.post.id}" class="remove-padding-left">${row.post.title}</a>
+                                    <a href="${base}/post/${row.post.id}" class="remove-padding-left">${row.post.title}</a>
                                 <#else>
                                     <a href="javascript:;" class="remove-padding-left">文章已删除</a>
                                 </#if>

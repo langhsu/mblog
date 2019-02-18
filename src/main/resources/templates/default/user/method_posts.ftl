@@ -13,7 +13,7 @@
                     <ul class="list-group">
                         <#list results.content as row>
                             <li class="list-group-item" el="loop-${row.id}">
-                                <a href="${base}/view/${row.id}" class="remove-padding-left">${row.title}</a>
+                                <a href="${base}/post/${row.id}" class="remove-padding-left">${row.title}</a>
                                 <span class="meta">
                                     ${row.favors} 点赞
                                     <span> ⋅ </span>
