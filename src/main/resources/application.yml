@@ -48,7 +48,7 @@ shiro:
 
 # site.options.theme: [default|classic]
 site:
-    version: 3.0
+    version: 3.1.12
     location: ${user.dir}
     controls:
         register: true
