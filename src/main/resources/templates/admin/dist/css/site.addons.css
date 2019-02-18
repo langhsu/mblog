@@ -59,7 +59,9 @@
     cursor: pointer;
 }
 
-
+.mce-fullscreen {
+    z-index: 9999!important;
+}
 .error {
     color: #b94a48;
 }
