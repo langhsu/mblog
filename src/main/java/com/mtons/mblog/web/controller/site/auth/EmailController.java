@@ -53,7 +53,8 @@ public class EmailController extends BaseController {
         Map<String, Object> context = new HashMap<>();
         context.put("code", code);
 
-        mailService.sendTemplateEmail(email, "邮箱验证码", Consts.EMAIL_TEMPLATE_CODE, context);
+        String siteName = siteOptions.getValue("site_name");
+        mailService.sendTemplateEmail(email, siteName + " - 验证邮箱", Consts.EMAIL_TEMPLATE_CODE, context);
         return Result.successMessage("邮件发送成功");
     }
 
