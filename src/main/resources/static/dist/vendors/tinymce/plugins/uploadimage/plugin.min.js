@@ -28,7 +28,7 @@ tinymce.PluginManager.add('uploadimage', function (editor) {
                         if (data.status == 200) {
                             editor.focus();
                             //data.url.forEach(function (src) {
-                            editor.selection.setContent(dom.createHTML('img', {src: data.path}));
+                            editor.selection.setContent(dom.createHTML('img', {src: _MTONS.BASE_PATH + data.path}));
                             //})
                         } else {
                             editor.notificationManager.open({

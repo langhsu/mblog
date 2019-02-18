@@ -8,6 +8,7 @@ $(function () {
     tinymce.init({
         selector: "#content",
         theme: 'modern',
+        language: "zh_CN",
         upload_image_url: "${base}/post/upload", //配置的上传图片的路由
         height: 400,
         plugins: [
@@ -18,8 +19,9 @@ $(function () {
         toolbar: "undo redo | formatselect bold underline blockquote alignleft aligncenter alignright " +
         "forecolor bullist numlist link unlink uploadimage codesample removeformat fullscreen ",
         menubar: false,
-        language: "zh_CN",
         statusbar : false,
+        paste_data_images: true,
+        convert_urls: false,
         body_class: 'markdown-body',
         codesample_dialog_width: '600',
         codesample_dialog_height: '400',

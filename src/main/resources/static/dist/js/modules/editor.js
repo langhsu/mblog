@@ -15,6 +15,7 @@ define(function(require, exports, module) {
             var options = {
                 selector: "#content",
                 theme: 'modern',
+                language: "zh_CN",
                 upload_image_url: _MTONS.BASE_PATH + "/post/upload", //配置的上传图片的路由
                 height: 400,
                 plugins: [
@@ -25,8 +26,9 @@ define(function(require, exports, module) {
                 toolbar: "undo redo | formatselect | bold underline blockquote | alignleft aligncenter alignright | " +
                 "forecolor bullist numlist | link unlink | uploadimage codesample removeformat | fullscreen ",
                 menubar: false,
-                language: "zh_CN",
                 statusbar : false,
+                paste_data_images: true,
+                convert_urls: false,
                 body_class: 'markdown-body',
                 codesample_dialog_width: '600',
                 codesample_dialog_height: '400',
@@ -43,7 +45,6 @@ define(function(require, exports, module) {
                     {text: 'C#', value: 'csharp'},
                     {text: 'C++', value: 'cpp'}
                 ],
-                paste_data_images: true,
                 // entity_encoding: 'raw',
                 content_css: [
                     _MTONS.BASE_PATH + '/dist/vendors/bootstrap/css/bootstrap.min.css',

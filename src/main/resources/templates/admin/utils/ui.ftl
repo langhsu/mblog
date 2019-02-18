@@ -21,6 +21,12 @@
     <link href="${base}/theme/admin/dist/css/site.addons.css" rel="stylesheet">
     <link href="${base}/theme/admin/dist/css/skins/skin-blue.css" rel="stylesheet">
 
+    <script type="text/javascript">
+        var _MTONS = _MTONS || {};
+        _MTONS.BASE_PATH = '${base}';
+        _MTONS.LOGIN_TOKEN = '${profile.id}';
+    </script>
+
     <!-- jQuery -->
     <script src="${base}/dist/js/jquery.min.js"></script>
     <script src="${base}/dist/js/plugins.js"></script>
