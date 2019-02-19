@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * @author langhsu on 2015/8/15.
+ * @author langhsu
  */
 public class Result implements Serializable {
     private static final long serialVersionUID = -1491499610244557029L;
@@ -26,47 +26,49 @@ public class Result implements Serializable {
     private Object data; // 返回数据
     private ArrayList<Button> links = new ArrayList<>();
 
-    private Result(int code, String message){
+    private Result(int code, String message) {
         this(code, message, null);
     }
 
-    private Result(int code, String message, Object data){
+    private Result(int code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public static Result success(){
+    public static Result success() {
         return success(null);
     }
 
     /**
      * 处理成功，并返回数据
+     *
      * @param data
      * @return
      */
-    public static Result success(Object data){
+    public static Result success(Object data) {
         return success("操作成功", data);
     }
 
-    public static Result successMessage(String message){
+    public static Result successMessage(String message) {
         return success(message, null);
     }
 
-    public static Result success(String message, Object data){
+    public static Result success(String message, Object data) {
         return new Result(Result.SUCCESS, message, data);
     }
 
-    public static Result failure(String message){
+    public static Result failure(String message) {
         return failure(Result.FAILURED, message);
     }
 
     /**
      * 处理失败，并返回数据（一般为错误信息）
+     *
      * @param code
      * @return
      */
-    public static Result failure(int code, String message){
+    public static Result failure(int code, String message) {
         return new Result(code, message, null);
     }
 
@@ -89,6 +91,7 @@ public class Result implements Serializable {
     public Object getData() {
         return data;
     }
+
     public void setData(Object data) {
         this.data = data;
     }
@@ -107,7 +110,7 @@ public class Result implements Serializable {
     }
 
     public String toString() {
-        return "{code:\"" + code + "\", message:\"" + message + "\", data:\"" + (data != null ? data.toString():"") + "\"}";
+        return "{code:\"" + code + "\", message:\"" + message + "\", data:\"" + (data != null ? data.toString() : "") + "\"}";
     }
 
     public class Button {

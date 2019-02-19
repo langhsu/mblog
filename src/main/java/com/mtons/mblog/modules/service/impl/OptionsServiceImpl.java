@@ -12,6 +12,7 @@ package com.mtons.mblog.modules.service.impl;
 import com.mtons.mblog.modules.entity.Options;
 import com.mtons.mblog.modules.repository.OptionsRepository;
 import com.mtons.mblog.modules.service.OptionsService;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ import java.util.Map;
 
 /**
  * @author langhsu
- *
  */
 @Service
 public class OptionsServiceImpl implements OptionsService {
@@ -57,21 +57,19 @@ public class OptionsServiceImpl implements OptionsService {
 		if (options == null) {
 			return;
 		}
-		
-		for (Options opt :  options) {
+
+		options.forEach(opt -> {
 			Options entity = optionsRepository.findByKey(opt.getKey());
 
-			// 修改
 			if (entity != null) {
-				entity.setValue(opt.getValue());
-			}
-			// 添加
-			else {
+				entity.setValue(StringUtils.trim(opt.getValue()));
+			} else {
 				entity = new Options();
-				BeanUtils.copyProperties(opt, entity);
+				entity.setKey(opt.getKey());
+				entity.setValue(StringUtils.trim(opt.getValue()));
 			}
 			optionsRepository.save(entity);
-		}
+		});
 	}
 
 	@Override

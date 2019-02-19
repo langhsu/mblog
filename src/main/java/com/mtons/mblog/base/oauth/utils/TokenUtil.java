@@ -41,6 +41,6 @@ public class TokenUtil {
     }
 
     public static String randomState() {
-        return org.apache.commons.lang.RandomStringUtils.random(24, "abcdefghijklmnopqrstuvwxyz0123456789");
+        return org.apache.commons.lang3.RandomStringUtils.random(24, STR_S);
     }
 }

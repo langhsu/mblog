@@ -5,7 +5,6 @@ package com.mtons.mblog.modules.template.directive;
 
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
 /**

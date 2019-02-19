@@ -25,7 +25,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private PermissionRepository permissionRepository;
 
-    private Sort sort = new Sort(
+    private Sort sort = Sort.by(
             new Sort.Order(Sort.Direction.DESC, "weight"),
             new Sort.Order(Sort.Direction.ASC, "id")
     );

@@ -9,7 +9,6 @@
 */
 package com.mtons.mblog.base.utils;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigInteger;
@@ -45,20 +44,11 @@ public class MD5 {
 	 * @param salt 随机数
 	 * @return string
 	 */
-	public static String generatePasswordMD5(String input, String salt) {
+	public static String md5(String input, String salt) {
 		if(StringUtils.isEmpty(salt)) {
 			salt = "";
 		}
 		return md5(salt + md5(input));
 	}
-	
-	/**
-	 * 随机生成指定长度的字符串
-	 * @param length 长度
-	 * @return string
-	 */
-	public static String randString(int length) {
-		return RandomStringUtils.random(length);
-	}
-	
+
 }
