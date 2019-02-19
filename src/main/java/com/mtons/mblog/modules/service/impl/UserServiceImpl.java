@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyMap();
         }
-        List<User> list = userRepository.findAllByIdIn(ids);
+        List<User> list = userRepository.findAllById(ids);
         Map<Long, UserVO> ret = new HashMap<>();
 
         list.forEach(po -> ret.put(po.getId(), BeanMapUtils.copy(po)));

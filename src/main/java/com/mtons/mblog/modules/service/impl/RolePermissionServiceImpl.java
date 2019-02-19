@@ -33,7 +33,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         if (rps != null && rps.size() > 0) {
             Set<Long> pids = new HashSet<>();
             rps.forEach(rp -> pids.add(rp.getPermissionId()));
-            rets = permissionRepository.findAllByIdIsIn(pids);
+            rets = permissionRepository.findAllById(pids);
         }
         return rets;
     }

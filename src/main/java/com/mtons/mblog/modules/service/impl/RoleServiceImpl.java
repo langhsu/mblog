@@ -59,7 +59,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Map<Long, Role> findByIds(Set<Long> ids) {
-        List<Role> list = roleRepository.findAllByIdIsIn(ids);
+        List<Role> list = roleRepository.findAllById(ids);
         Map<Long, Role> ret = new LinkedHashMap<>();
         list.forEach(po -> {
             Role vo = toVO(po);

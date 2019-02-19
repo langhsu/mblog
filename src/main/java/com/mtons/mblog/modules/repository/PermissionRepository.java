@@ -14,8 +14,6 @@ import java.util.Set;
  * @author langhsu on 2018/8/12.
  */
 public interface PermissionRepository extends JpaRepository<Permission, Long>, JpaSpecificationExecutor<Permission> {
-    List<Permission> findAllByIdIsIn(Set<Long> id);
-
     List<Permission> findAllByParentId(int parentId, Sort sort);
 
     @Query(value = "select count(role_id) from shiro_role_permission where permission_id=:permId", nativeQuery = true)

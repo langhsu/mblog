@@ -29,8 +29,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     User findByEmail(String email);
 
-    List<User> findAllByIdIn(Set<Long> ids);
-
     @Modifying
     @Query("update User set posts = posts + :increment where id = :id")
     int updatePosts(@Param("id") long id, @Param("increment") int increment);

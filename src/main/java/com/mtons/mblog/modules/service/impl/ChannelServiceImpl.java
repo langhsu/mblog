@@ -43,7 +43,7 @@ public class ChannelServiceImpl implements ChannelService {
 
 	@Override
 	public Map<Integer, Channel> findMapByIds(Collection<Integer> ids) {
-		List<Channel> list = channelRepository.findAllByIdIn(ids);
+		List<Channel> list = channelRepository.findAllById(ids);
 		Map<Integer, Channel> rets = new HashMap<>();
 		list.forEach(po -> rets.put(po.getId(), po));
 		return rets;
