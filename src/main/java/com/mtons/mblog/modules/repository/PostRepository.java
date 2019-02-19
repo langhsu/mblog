@@ -34,16 +34,6 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
      */
     Page<Post> findAllByAuthorIdOrderByCreatedDesc(Pageable pageable, long authorId);
 
-    // findLatests
-    List<Post> findTop10ByOrderByCreatedDesc();
-
-    // findHots
-    List<Post> findTop10ByOrderByViewsDesc();
-
-    List<Post> findAllByIdIn(Collection<Long> id);
-
-    List<Post> findTop5ByFeaturedGreaterThanOrderByCreatedDesc(int featured);
-
     @Query("select coalesce(max(weight), 0) from Post")
     int maxWeight();
 

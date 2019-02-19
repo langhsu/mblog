@@ -119,7 +119,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public Map<Long, CommentVO> findByIds(Set<Long> ids) {
-		List<Comment> list = commentRepository.findByIdIn(ids);
+		List<Comment> list = commentRepository.findAllById(ids);
 		Map<Long, CommentVO> ret = new HashMap<>();
 		Set<Long> uids = new HashSet<>();
 
@@ -151,7 +151,12 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional
 	public void delete(List<Long> ids) {
+		List<Comment> list = commentRepository.findAllById(ids);
 		commentRepository.deleteAllByIdIn(ids);
+
+		list.forEach(po -> {
+			userEventService.identityComment(po.getAuthorId(), po.getId(), false);
+		});
 	}
 
 	@Override
@@ -159,9 +164,12 @@ public class CommentServiceImpl implements CommentService {
 	public void delete(long id, long authorId) {
 		Optional<Comment> optional = commentRepository.findById(id);
 		if (optional.isPresent()) {
+			Comment po = optional.get();
 			// 判断文章是否属于当前登录用户
-			Assert.isTrue(optional.get().getAuthorId() == authorId, "认证失败");
+			Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
 			commentRepository.deleteById(id);
+
+			userEventService.identityComment(authorId, po.getId(), false);
 		}
 	}
 
@@ -172,8 +180,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<CommentVO> latests(int maxResults) {
-		Pageable pageable = new PageRequest(0, maxResults, new Sort(Sort.Direction.DESC, "id"));
+	public List<CommentVO> findLatests(int maxResults) {
+		Pageable pageable = PageRequest.of(0, maxResults, new Sort(Sort.Direction.DESC, "id"));
 		Page<Comment> page = commentRepository.findAll(pageable);
 		List<CommentVO> rets = new ArrayList<>();
 

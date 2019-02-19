@@ -26,7 +26,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpec
 	Page<Comment> findAll(Pageable pageable);
 	Page<Comment> findAllByToIdOrderByCreatedDesc(Pageable pageable, long toId);
 	Page<Comment> findAllByAuthorIdOrderByCreatedDesc(Pageable pageable, long authorId);
-	List<Comment> findByIdIn(Set<Long> ids);
 	List<Comment> findAllByAuthorIdAndToIdOrderByCreatedDesc(long authorId, long toId);
 	int deleteAllByIdIn(Collection<Long> ids);
 }

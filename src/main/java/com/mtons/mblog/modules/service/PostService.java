@@ -48,9 +48,6 @@ public interface PostService {
 	@Cacheable
 	Page<PostVO> pagingByAuthorId(Pageable pageable, long userId);
 
-	@Cacheable
-	List<PostVO> findAllFeatured();
-
 	/**
 	 * 查询最近更新 - 按发布时间排序
 	 * @param maxResults
@@ -67,7 +64,7 @@ public interface PostService {
 	 * @return
 	 */
 	@Cacheable
-	List<PostVO> findHots(int maxResults, long ignoreUserId);
+	List<PostVO> findHottests(int maxResults, long ignoreUserId);
 	
 	/**
 	 * 根据Ids查询
@@ -113,13 +110,6 @@ public interface PostService {
 	 */
 	@CacheEvict(allEntries = true)
 	void updateWeight(long id, int weight);
-	
-	/**
-	 * 删除
-	 * @param id
-	 */
-	@CacheEvict(allEntries = true)
-	void delete(long id);
 	
 	/**
 	 * 带作者验证的删除 - 验证是否属于自己的文章

@@ -69,7 +69,7 @@ public class PostSearchServiceImpl implements PostSearchService {
         List<PostVO> rets = new ArrayList<>(list.size());
 
         for (Post po : list) {
-            PostVO m = BeanMapUtils.copy(po, 0);
+            PostVO m = BeanMapUtils.copy(po);
 
             // 处理高亮
             String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
@@ -110,7 +110,7 @@ public class PostSearchServiceImpl implements PostSearchService {
         List<PostVO> rets = new ArrayList<>(results.size());
 
         for (Post po : results) {
-            PostVO m = BeanMapUtils.copy(po, 0);
+            PostVO m = BeanMapUtils.copy(po);
             rets.add(m);
         }
 

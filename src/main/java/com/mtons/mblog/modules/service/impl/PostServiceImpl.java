@@ -25,13 +25,12 @@ import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -39,6 +38,7 @@ import org.springframework.util.Assert;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author langhsu
@@ -140,28 +140,13 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostVO> findAllFeatured() {
-		List<Post> list = postRepository.findTop5ByFeaturedGreaterThanOrderByCreatedDesc(Consts.FEATURED_DEFAULT);
-		return toPosts(list);
-	}
-
-	@Override
 	public List<PostVO> findLatests(int maxResults, long ignoreUserId) {
-		List<Post> list = postRepository.findTop10ByOrderByCreatedDesc();
-		List<PostVO> rets = new ArrayList<>();
-
-		list.forEach(po -> rets.add(BeanMapUtils.copy(po, 0)));
-
-		return rets;
+		return find("created", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	
 	@Override
-	public List<PostVO> findHots(int maxResults, long ignoreUserId) {
-		List<Post> list = postRepository.findTop10ByOrderByViewsDesc();
-		List<PostVO> rets = new ArrayList<>();
-
-		list.forEach(po -> rets.add(BeanMapUtils.copy(po, 0)));
-		return rets;
+	public List<PostVO> findHottests(int maxResults, long ignoreUserId) {
+		return find("views", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	
 	@Override
@@ -170,19 +155,18 @@ public class PostServiceImpl implements PostService {
 			return Collections.emptyMap();
 		}
 
-		List<Post> list = postRepository.findAllByIdIn(ids);
+		List<Post> list = postRepository.findAllById(ids);
 		Map<Long, PostVO> rets = new HashMap<>();
 
 		HashSet<Long> uids = new HashSet<>();
 
 		list.forEach(po -> {
-			rets.put(po.getId(), BeanMapUtils.copy(po, 0));
+			rets.put(po.getId(), BeanMapUtils.copy(po));
 			uids.add(po.getAuthorId());
 		});
 		
 		// 加载用户信息
 		buildUsers(rets.values(), uids);
-
 		return rets;
 	}
 
@@ -218,10 +202,9 @@ public class PostServiceImpl implements PostService {
 	public PostVO get(long id) {
 		Optional<Post> po = postRepository.findById(id);
 		if (po.isPresent()) {
-			PostVO d = BeanMapUtils.copy(po.get(), 1);
+			PostVO d = BeanMapUtils.copy(po.get());
 
 			d.setAuthor(userService.get(d.getAuthorId()));
-
 			d.setChannel(channelService.getById(d.getChannelId()));
 
 			PostAttribute attr = postAttributeRepository.findById(d.getId()).get();
@@ -287,15 +270,6 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	public void delete(long id) {
-		Post po = postRepository.findById(id).get();
-		postRepository.deleteById(id);
-		postAttributeRepository.deleteById(id);
-		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
-	}
-	
-	@Override
-	@Transactional
 	public void delete(long id, long authorId) {
 		Post po = postRepository.findById(id).get();
 		// 判断文章是否属于当前登录用户
@@ -310,7 +284,14 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	public void delete(Collection<Long> ids) {
-		ids.forEach(this::delete);
+		if (CollectionUtils.isNotEmpty(ids)) {
+			List<Post> list = postRepository.findAllById(ids);
+			list.forEach(po -> {
+				postRepository.delete(po);
+				postAttributeRepository.deleteById(po.getId());
+				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+			});
+		}
 	}
 
 	@Override
@@ -345,6 +326,12 @@ public class PostServiceImpl implements PostService {
 		return postRepository.count();
 	}
 
+	private List<Post> find(String orderBy, int size) {
+		Pageable pageable = PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, orderBy));
+		Page<Post> page = postRepository.findAll(pageable);
+		return page.getContent();
+	}
+
 	/**
 	 * 截取文章内容
 	 * @param text
@@ -357,16 +344,13 @@ public class PostServiceImpl implements PostService {
 	private List<PostVO> toPosts(List<Post> posts) {
 		List<PostVO> rets = new ArrayList<>();
 
-		HashSet<Long> pids = new HashSet<>();
 		HashSet<Long> uids = new HashSet<>();
 		HashSet<Integer> groupIds = new HashSet<>();
 
 		posts.forEach(po -> {
-			pids.add(po.getId());
 			uids.add(po.getAuthorId());
 			groupIds.add(po.getChannelId());
-
-			rets.add(BeanMapUtils.copy(po, 0));
+			rets.add(BeanMapUtils.copy(po));
 		});
 
 		// 加载用户信息
@@ -378,7 +362,6 @@ public class PostServiceImpl implements PostService {
 
 	private void buildUsers(Collection<PostVO> posts, Set<Long> uids) {
 		Map<Long, UserVO> userMap = userService.findMapByIds(uids);
-
 		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
 	}
 

@@ -93,7 +93,7 @@ public class SidebarController extends BaseController {
 		if (up != null) {
 			ignoreUserId = up.getId();
 		}
-		List<PostVO> rets = postService.findHots(6, ignoreUserId);
+		List<PostVO> rets = postService.findHottests(6, ignoreUserId);
 		return rets;
 	}
 	
@@ -103,6 +103,6 @@ public class SidebarController extends BaseController {
 	 */
 	@RequestMapping(value="/latest_comments")
 	public @ResponseBody List<CommentVO> latestComments() {
-         return commentService.latests(6);
+         return commentService.findLatests(6);
 	}
 }

@@ -54,7 +54,7 @@ public interface CommentService {
 
 	List<Comment> findAllByAuthorIdAndToId(long authorId, long toId);
 
-	List<CommentVO> latests(int maxResults);
+	List<CommentVO> findLatests(int maxResults);
 
 	long count();
 }
