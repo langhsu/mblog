@@ -1,17 +1,16 @@
 <footer class="footer">
     <div class="container">
-        <div class="footer-col footer-col-logo hidden-xs hidden-sm">
-            <img src="<@resource src=options['site_logo']/>" alt="Mblog"/>
-        </div>
-        <div class="footer-col footer-col-copy">
-            <div class="copyright">
-				<span>${options['site_copyright']} . ${options['site_icp']}</span>
-			</div>
-        </div>
-        <div class="footer-col footer-col-sns hidden-xs hidden-sm">
-            <div class="footer-sns">
+        <div class="footer-row">
+            <nav class="footer-nav">
+                <a class="footer-nav-item footer-nav-logo" href="/">
+                    <img src="<@resource src=options['site_logo']/>" alt="mblog"/>
+                </a>
+                <span class="footer-nav-item">${options['site_copyright']}</span>
+                <span class="footer-nav-item">${options['site_icp']}</span>
+            </nav>
+            <div class="gh-foot-min-back hidden-xs hidden-sm">
                 <!-- 请保留此处标识-->
-                <span>Powered by <a href="https://github.com/langhsu/mblog" target="_blank">mblog</a></span>
+                <span class="footer-nav-item">Powered by <a href="https://github.com/langhsu/mblog" target="_blank">mblog</a></span>
             </div>
         </div>
     </div>
