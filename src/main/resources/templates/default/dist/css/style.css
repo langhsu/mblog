@@ -1377,42 +1377,49 @@ abbr[data-original-title], abbr[title] {
 .footer {
     padding: 15px 0;
     color: #5f676f;
+    font-size: 1.3rem;
+    border-top: 1px solid #e5eff5;
     background: #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-
 .footer a {
-    color: #5f676f
+    color: #738a94;
+    text-decoration: none;
 }
-
 .footer a:hover {
-    color: #000;
+    color: #343f44;
     text-decoration: none
 }
-
-.footer .copyright {
-    font-size: 14px;
+.footer .footer-row, .footer .footer-nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
 }
-
-.footer .footer-col {
-    display: inline-block;
-    vertical-align: middle
+.footer .footer-row {
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 10px 0;
+    border-top: none;
 }
-
-.footer .footer-col-logo img {
-    display: block;
-    margin-right: 40px;
-    max-height: 42px;
-    height: auto;
-    border: 0
+.footer .footer-nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
 }
-
-.footer .footer-col-sns {
-    float: right
+.footer .footer-nav-logo img {
+    width: auto;
+    height: 22px;
 }
-
-.footer .footer-sns {
-    font-size: 14px;
-    line-height: 42px;
+.footer .footer-nav-item {
+    padding: 0 15px;
 }
 
 /* Tablet (Portrait)
