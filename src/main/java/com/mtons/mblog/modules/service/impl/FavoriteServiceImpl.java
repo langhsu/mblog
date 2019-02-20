@@ -21,11 +21,34 @@ import java.util.*;
  * @author langhsu on 2015/8/31.
  */
 @Service
+@Transactional(readOnly = true)
 public class FavoriteServiceImpl implements FavoriteService {
     @Autowired
     private FavoriteRepository favoriteRepository;
     @Autowired
     private PostService postService;
+
+    @Override
+    public Page<FavoriteVO> pagingByOwnId(Pageable pageable, long ownId) {
+        Page<Favorite> page = favoriteRepository.findAllByOwnIdOrderByCreatedDesc(pageable, ownId);
+
+        List<FavoriteVO> rets = new ArrayList<>();
+        Set<Long> postIds = new HashSet<>();
+        for (Favorite po : page.getContent()) {
+            rets.add(BeanMapUtils.copy(po));
+            postIds.add(po.getPostId());
+        }
+
+        if (postIds.size() > 0) {
+            Map<Long, PostVO> posts = postService.findMapByIds(postIds);
+
+            for (FavoriteVO t : rets) {
+                PostVO p = posts.get(t.getPostId());
+                t.setPost(p);
+            }
+        }
+        return new PageImpl<>(rets, pageable, page.getTotalElements());
+    }
 
     @Override
     @Transactional
@@ -51,26 +74,4 @@ public class FavoriteServiceImpl implements FavoriteService {
         favoriteRepository.delete(po);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Page<FavoriteVO> pagingByOwnId(Pageable pageable, long ownId) {
-        Page<Favorite> page = favoriteRepository.findAllByOwnIdOrderByCreatedDesc(pageable, ownId);
-
-        List<FavoriteVO> rets = new ArrayList<>();
-        Set<Long> postIds = new HashSet<>();
-        for (Favorite po : page.getContent()) {
-            rets.add(BeanMapUtils.copy(po));
-            postIds.add(po.getPostId());
-        }
-
-        if (postIds.size() > 0) {
-            Map<Long, PostVO> posts = postService.findMapByIds(postIds);
-
-            for (FavoriteVO t : rets) {
-                PostVO p = posts.get(t.getPostId());
-                t.setPost(p);
-            }
-        }
-        return new PageImpl<>(rets, pageable, page.getTotalElements());
-    }
 }

@@ -5,22 +5,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @author langhsu on 2015/8/31.
+ * 收藏记录
+ * @author langhsu
  */
 public interface FavoriteService {
     /**
-     *
-     * @param userId
-     * @param postId
-     * @return
-     */
-    void add(long userId, long postId);
-    void delete(long userId, long postId);
-
-    /**
-     * 分页查询用户的喜欢记录
+     * 查询用户收藏记录
      * @param pageable
      * @param ownId
+     * @return
      */
     Page<FavoriteVO> pagingByOwnId(Pageable pageable, long ownId);
+
+    void add(long userId, long postId);
+    void delete(long userId, long postId);
 }

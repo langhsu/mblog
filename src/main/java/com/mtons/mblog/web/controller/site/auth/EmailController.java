@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,8 @@ public class EmailController extends BaseController {
     private MailService mailService;
     @Autowired
     private SecurityCodeService securityCodeService;
+
+    private static final String EMAIL_TITLE = "[{0}]您正在使用邮箱安全验证服务";
 
     @GetMapping("/send_code")
     @ResponseBody
@@ -53,8 +56,8 @@ public class EmailController extends BaseController {
         Map<String, Object> context = new HashMap<>();
         context.put("code", code);
 
-        String siteName = siteOptions.getValue("site_name");
-        mailService.sendTemplateEmail(email, siteName + " - 验证邮箱", Consts.EMAIL_TEMPLATE_CODE, context);
+        String title = MessageFormat.format(EMAIL_TITLE, siteOptions.getValue("site_name"));
+        mailService.sendTemplateEmail(email, title, Consts.EMAIL_TEMPLATE_CODE, context);
         return Result.successMessage("邮件发送成功");
     }
 

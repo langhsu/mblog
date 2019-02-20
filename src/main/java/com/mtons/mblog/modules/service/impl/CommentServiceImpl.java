@@ -15,10 +15,10 @@ import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Comment;
 import com.mtons.mblog.modules.repository.CommentRepository;
 import com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.service.UserEventService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
-import com.mtons.mblog.modules.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -118,6 +118,28 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	public List<Comment> findAllByAuthorIdAndToId(long authorId, long toId) {
+		return commentRepository.findAllByAuthorIdAndToIdOrderByCreatedDesc(authorId, toId);
+	}
+
+	@Override
+	public List<CommentVO> findLatests(int maxResults) {
+		Pageable pageable = PageRequest.of(0, maxResults, new Sort(Sort.Direction.DESC, "id"));
+		Page<Comment> page = commentRepository.findAll(pageable);
+		List<CommentVO> rets = new ArrayList<>();
+
+		HashSet<Long> uids= new HashSet<>();
+
+		page.getContent().forEach(po -> {
+			uids.add(po.getAuthorId());
+			rets.add(BeanMapUtils.copy(po));
+		});
+
+		buildUsers(rets, uids);
+		return rets;
+	}
+
+	@Override
 	public Map<Long, CommentVO> findByIds(Set<Long> ids) {
 		List<Comment> list = commentRepository.findAllById(ids);
 		Map<Long, CommentVO> ret = new HashMap<>();
@@ -171,29 +193,6 @@ public class CommentServiceImpl implements CommentService {
 
 			userEventService.identityComment(authorId, po.getId(), false);
 		}
-	}
-
-	@Override
-	@Transactional
-	public List<Comment> findAllByAuthorIdAndToId(long authorId, long toId) {
-		return commentRepository.findAllByAuthorIdAndToIdOrderByCreatedDesc(authorId, toId);
-	}
-
-	@Override
-	public List<CommentVO> findLatests(int maxResults) {
-		Pageable pageable = PageRequest.of(0, maxResults, new Sort(Sort.Direction.DESC, "id"));
-		Page<Comment> page = commentRepository.findAll(pageable);
-		List<CommentVO> rets = new ArrayList<>();
-
-		HashSet<Long> uids= new HashSet<>();
-
-		page.getContent().forEach(po -> {
-			uids.add(po.getAuthorId());
-			rets.add(BeanMapUtils.copy(po));
-		});
-
-		buildUsers(rets, uids);
-		return rets;
 	}
 
 	@Override
