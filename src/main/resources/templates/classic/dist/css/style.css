@@ -83,7 +83,7 @@ abbr[data-original-title], abbr[title] {
 }
 
 .meta a, .operate a {
-    padding: 0 5px;
+    padding: 5px;
     color: #888;
     text-decoration: none;
 }
