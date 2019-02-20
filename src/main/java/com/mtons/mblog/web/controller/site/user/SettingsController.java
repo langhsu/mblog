@@ -89,7 +89,7 @@ public class SettingsController extends BaseController {
             Assert.hasLength(email, "请输入邮箱地址");
             Assert.hasLength(code, "请输入验证码");
 
-            securityCodeService.verify(profile.getId(), Consts.CODE_BIND, code);
+            securityCodeService.verify(String.valueOf(profile.getId()), Consts.CODE_BIND, code);
             // 先执行修改，判断邮箱是否更改，或邮箱是否被人使用
             AccountProfile p = userService.updateEmail(profile.getId(), email);
             putProfile(p);

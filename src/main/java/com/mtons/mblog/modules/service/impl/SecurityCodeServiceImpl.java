@@ -37,15 +37,15 @@ public class SecurityCodeServiceImpl implements SecurityCodeService {
 
     @Override
     @Transactional
-    public String generateCode(long userId, int type, String target) {
-        SecurityCode po = securityCodeRepository.findByUserId(userId);
+    public String generateCode(String key, int type, String target) {
+        SecurityCode po = securityCodeRepository.findByKey(key);
 
         String code = RandomStringUtils.randomNumeric(6);
         Date now = new Date();
 
         if (po == null) {
             po = new SecurityCode();
-            po.setUserId(userId);
+            po.setKey(key);
             po.setCreated(now);
             po.setExpired(DateUtils.addMinutes(now, survivalTime));
             po.setCode(code);
@@ -75,11 +75,9 @@ public class SecurityCodeServiceImpl implements SecurityCodeService {
 
     @Override
     @Transactional
-    public boolean verify(long userId, int type, String code) {
+    public boolean verify(String key, int type, String code) {
         Assert.hasLength(code, "验证码不能为空");
-
-        SecurityCode po = securityCodeRepository.findByUserIdAndType(userId, type);
-
+        SecurityCode po = securityCodeRepository.findByKeyAndType(key, type);
         Assert.notNull(po, "您没有进行过类型验证");
 
         Date now = new Date();

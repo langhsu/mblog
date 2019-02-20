@@ -19,7 +19,11 @@ define(function(require, exports, module) {
         errorElement: "em",
         errorPlacement: function (error, element) {
             error.addClass("help-block");
-            error.insertAfter(element);
+            if ( element.prop( "name" ) === "email" ) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
         },
         highlight: function (element, errorClass, validClass) {
             J(element).closest("div").addClass("has-error").removeClass("has-success");
@@ -35,12 +39,19 @@ define(function(require, exports, module) {
     };
 
     var Validate = {
-        register: function (formId) {
+        register: function (formId, sendCodeButtonId) {
             _bind_validate(formId, {
                 rules: {
                     username: {
                         required: true,
                         check_username: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    code: {
+                        required: true
                     },
                     password: {
                         required: true
@@ -62,6 +73,21 @@ define(function(require, exports, module) {
                         equalTo: '两次输入的密码不一致'
                     }
                 }
+            });
+
+            J(sendCodeButtonId).click(function () {
+                var btn = J(this).button('sending');
+                var email = J('input[name=email]').val();
+                J.getJSON(_BATH + '/email/send_code', {'email': email, 'type': 3}, function (data) {
+                    if (data.code === 0) {
+                        btn.text('重新发送');
+                        J('#message').html('<div class="alert alert-success">' + data.message + '</div>');
+                    } else {
+                        J('#message').html('<div class="alert alert-danger">' + data.message + '</div>');
+                    }
+
+                    btn.button('reset');
+                });
             });
         },
         oauthRegister: function (formId) {

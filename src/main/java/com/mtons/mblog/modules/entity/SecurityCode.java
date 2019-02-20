@@ -27,13 +27,13 @@ public class SecurityCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", unique = true, nullable = false)
-    private long userId; // 用户ID
+    @Column(name = "key_", unique = true, nullable = false, length = 64)
+    private String key; // 用户ID
 
     @Column(length = 16, nullable = false)
     private String code; // 验证码
 
-    @Column(length = 96)
+    @Column(length = 64)
     private String target; // 目标：邮箱
 
     @Column
@@ -58,12 +58,12 @@ public class SecurityCode {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getKey() {
+        return key;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getCode() {

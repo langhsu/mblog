@@ -11,12 +11,16 @@ import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author langhsu
@@ -40,11 +44,17 @@ public class RegisterController extends BaseController {
 	}
 	
 	@PostMapping("/register")
-	public String register(UserVO post, ModelMap model) {
+	public String register(UserVO post, HttpServletRequest request, ModelMap model) {
 		Result data;
 		String ret = view(Views.REGISTER);
 
 		try {
+			if (siteOptions.getControls().isRegister_email_validate()) {
+				String code = request.getParameter("code");
+				Assert.state(StringUtils.isNotBlank(post.getEmail()), "请输入邮箱地址");
+				Assert.state(StringUtils.isNotBlank(code), "请输入邮箱验证码");
+				securityCodeService.verify(post.getEmail(), Consts.CODE_REG, code);
+			}
 			post.setAvatar(Consts.AVATAR);
 			userService.register(post);
 			data = Result.successMessage("恭喜您! 注册成功");

@@ -82,6 +82,7 @@ public class SiteOptions {
 
     public static class Controls {
         private boolean register;
+        private boolean register_email_validate;
         private boolean post;
         private boolean comment;
 
@@ -91,6 +92,14 @@ public class SiteOptions {
 
         public void setRegister(boolean register) {
             this.register = register;
+        }
+
+        public boolean isRegister_email_validate() {
+            return register_email_validate;
+        }
+
+        public void setRegister_email_validate(boolean register_email_validate) {
+            this.register_email_validate = register_email_validate;
         }
 
         public boolean isPost() {

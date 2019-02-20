@@ -15,17 +15,17 @@ package com.mtons.mblog.modules.service;
 public interface SecurityCodeService {
     /**
      * 生成验证码
-     * @param userId
+     * @param key
      * @param target : email mobile
      * @return
      */
-    String generateCode(long userId, int type, String target);
+    String generateCode(String key, int type, String target);
 
     /**
      * 检验验证码有效性
-     * @param userId
+     * @param key
      * @param code
      * @return token
      */
-    boolean verify(long userId, int type, String code);
+    boolean verify(String key, int type, String code);
 }

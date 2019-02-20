@@ -51,6 +51,8 @@
     12. 优化了图片裁剪功能
     13. 支持Docker, 详情见 https://hub.docker.com/r/langhsu/mblog
     14. 邮件服务后台可配
+    15. 新增标签页
+    16. 新增注册邮箱验证开关(需要手动删除之前的 mto_security_code 表)
     
 [官网地址](http://www.mtons.com)
     
