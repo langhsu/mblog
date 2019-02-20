@@ -53,7 +53,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> list() {
-        List<Role> list = roleRepository.findAllByStatusOrderByIdDesc(Role.STATUS_NORMAL);
+        List<Role> list = roleRepository.findAllByStatus(Role.STATUS_NORMAL);
         return list;
     }
 

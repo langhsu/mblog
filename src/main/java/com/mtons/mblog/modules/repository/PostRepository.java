@@ -32,7 +32,7 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
      * @param authorId
      * @return
      */
-    Page<Post> findAllByAuthorIdOrderByCreatedDesc(Pageable pageable, long authorId);
+    Page<Post> findAllByAuthorId(Pageable pageable, long authorId);
 
     @Query("select coalesce(max(weight), 0) from Post")
     int maxWeight();

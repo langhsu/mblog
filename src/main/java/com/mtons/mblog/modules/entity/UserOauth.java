@@ -32,19 +32,19 @@ public class UserOauth {
     @Column(name = "oauth_type")
     private int oauthType; // 认证类型：QQ、新浪
 
-    @Column(name = "oauth_user_id")
+    @Column(name = "oauth_user_id", length = 128)
     private String oauthUserId; // 对应第三方用户ID
 
-    @Column(name = "oauth_code")
+    @Column(name = "oauth_code", length = 128)
     private String oauthCode;  // 第三方返回的code
 
-    @Column(name = "access_token")
+    @Column(name = "access_token", length = 128)
     private String accessToken;  // 访问令牌
 
-    @Column(name = "expire_in")
+    @Column(name = "expire_in", length = 128)
     private String expireIn;
 
-    @Column(name = "refresh_token")
+    @Column(name = "refresh_token", length = 128)
     private String refreshToken;
 
     public long getId() {

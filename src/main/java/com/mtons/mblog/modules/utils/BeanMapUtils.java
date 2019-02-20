@@ -62,4 +62,15 @@ public class BeanMapUtils {
         return ret;
     }
 
+    public static PostTagVO copy(PostTag po) {
+        PostTagVO ret = new PostTagVO();
+        BeanUtils.copyProperties(po, ret);
+        return ret;
+    }
+
+    public static TagVO copy(Tag po) {
+        TagVO ret = new TagVO();
+        BeanUtils.copyProperties(po, ret);
+        return ret;
+    }
 }

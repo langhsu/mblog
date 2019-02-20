@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.entity;
 
+import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -20,6 +21,7 @@ import java.io.Serializable;
  * @author langhsu
  *
  */
+@Data
 @Entity
 @Table(name = "mto_channel")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -33,45 +35,15 @@ public class Channel implements Serializable {
 	/**
 	 * 名称
 	 */
+	@Column(length = 32)
 	private String name;
 
 	/**
 	 * 唯一关键字
 	 */
-	@Column(name = "key_", unique = true)
+	@Column(name = "key_", unique = true, length = 32)
 	private String key;
 
 	private int status;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
 }

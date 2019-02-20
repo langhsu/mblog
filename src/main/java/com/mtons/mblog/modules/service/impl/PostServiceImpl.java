@@ -20,10 +20,7 @@ import com.mtons.mblog.modules.entity.PostAttribute;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
 import com.mtons.mblog.modules.repository.PostAttributeRepository;
 import com.mtons.mblog.modules.repository.PostRepository;
-import com.mtons.mblog.modules.service.ChannelService;
-import com.mtons.mblog.modules.service.FavoriteService;
-import com.mtons.mblog.modules.service.PostService;
-import com.mtons.mblog.modules.service.UserService;
+import com.mtons.mblog.modules.service.*;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -50,13 +47,15 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostRepository postRepository;
 	@Autowired
+	private PostAttributeRepository postAttributeRepository;
+	@Autowired
 	private UserService userService;
 	@Autowired
 	private FavoriteService favoriteService;
 	@Autowired
 	private ChannelService channelService;
 	@Autowired
-	private PostAttributeRepository postAttributeRepository;
+	private TagService tagService;
 	@Autowired
 	private ApplicationContext applicationContext;
 
@@ -135,7 +134,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public Page<PostVO> pagingByAuthorId(Pageable pageable, long userId) {
-		Page<Post> page = postRepository.findAllByAuthorIdOrderByCreatedDesc(pageable, userId);
+		Page<Post> page = postRepository.findAllByAuthorId(pageable, userId);
 		return new PageImpl<>(toPosts(page.getContent()), pageable, page.getTotalElements());
 	}
 
@@ -188,11 +187,12 @@ public class PostServiceImpl implements PostService {
 		}
 
 		postRepository.save(po);
+		tagService.batchUpdate(po.getTags(), po.getId());
 
 		PostAttribute attr = new PostAttribute();
 		attr.setContent(post.getContent());
 		attr.setId(po.getId());
-		submitAttr(attr);
+		postAttributeRepository.save(attr);
 
 		onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
 		return po.getId();
@@ -242,7 +242,9 @@ public class PostServiceImpl implements PostService {
 			PostAttribute attr = new PostAttribute();
 			attr.setContent(p.getContent());
 			attr.setId(po.getId());
-			submitAttr(attr);
+			postAttributeRepository.save(attr);
+
+			tagService.batchUpdate(po.getTags(), po.getId());
 		}
 	}
 
@@ -368,10 +370,6 @@ public class PostServiceImpl implements PostService {
 	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {
 		Map<Integer, Channel> map = channelService.findMapByIds(groupIds);
 		posts.forEach(p -> p.setChannel(map.get(p.getChannelId())));
-	}
-
-	private void submitAttr(PostAttribute attr) {
-		postAttributeRepository.save(attr);
 	}
 
 	private void onPushEvent(Post post, int action) {

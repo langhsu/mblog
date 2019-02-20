@@ -26,12 +26,14 @@ public class Options {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
+	@Column(length = 5)
 	private int type;
 	
-	@Column(name = "key_", unique = true)
+	@Column(name = "key_", unique = true, length = 32)
 	private String key;
-	
+
+	@Column(length = 300)
 	private String value;
 
 	public long getId() {

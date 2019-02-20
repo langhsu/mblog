@@ -35,7 +35,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional(readOnly = true)
     public Page<MessageVO> pagingByOwnId(Pageable pageable, long ownId) {
-        Page<Message> page = messageRepository.findAllByOwnIdOrderByIdDesc(pageable, ownId);
+        Page<Message> page = messageRepository.findAllByOwnId(pageable, ownId);
         List<MessageVO> rets = new ArrayList<>();
 
         Set<Long> postIds = new HashSet<>();

@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +41,7 @@ public class CommentController extends BaseController {
 
 	@RequestMapping("/list/{toId}")
 	public @ResponseBody Page<CommentVO> view(@PathVariable Long toId) {
-		Pageable pageable = wrapPageable();
+		Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "id"));
 		return commentService.pagingByPostId(pageable, toId);
 	}
 	

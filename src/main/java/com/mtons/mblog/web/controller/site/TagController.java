@@ -3,14 +3,19 @@
  */
 package com.mtons.mblog.web.controller.site;
 
+import com.mtons.mblog.modules.data.PostTagVO;
 import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.data.TagVO;
+import com.mtons.mblog.modules.entity.PostTag;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.modules.service.TagService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,22 +29,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TagController extends BaseController {
     @Autowired
-    private PostSearchService postSearchService;
+    private TagService tagService;
 
-    @RequestMapping("/tag/{kw}")
-    public String tag(@PathVariable String kw, ModelMap model) {
-        Pageable pageable = wrapPageable();
-        try {
-            if (StringUtils.isNotEmpty(kw)) {
-                Page<PostVO> page = postSearchService.searchByTag(pageable, kw);
-                model.put("results", page);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @RequestMapping("/tags")
+    public String index(ModelMap model) {
+        Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "updated"));
+        Page<TagVO> page = tagService.pagingQueryTags(pageable);
+        model.put("results", page);
+        return view(Views.TAG_INDEX);
+    }
 
-        model.put("kw", kw);
-        return view(Views.TAGS_TAG);
+    @RequestMapping("/tag/{name}")
+    public String tag(@PathVariable String name, ModelMap model) {
+        Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "weight"));
+        Page<PostTagVO> page = tagService.pagingQueryPosts(pageable, name);
+        model.put("results", page);
+
+        model.put("name", name);
+        return view(Views.TAG_VIEW);
     }
 
 }

@@ -8,7 +8,9 @@ import java.util.Date;
  * @author langhsu on 2015/8/31.
  */
 @Entity
-@Table(name = "mto_favorite")
+@Table(name = "mto_favorite", indexes = {
+        @Index(name = "IK_OWN_ID", columnList = "own_id")
+})
 public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

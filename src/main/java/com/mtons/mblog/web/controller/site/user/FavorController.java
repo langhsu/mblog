@@ -48,7 +48,6 @@ public class FavorController extends BaseController {
     /**
      * 取消收藏
      * @param id
-     * @param request
      * @return
      */
     @RequestMapping("/unfavor")

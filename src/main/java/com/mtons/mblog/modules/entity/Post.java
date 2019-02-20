@@ -13,6 +13,7 @@ import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.hibernate.search.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Index;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,7 +23,9 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name = "mto_post")
+@Table(name = "mto_post", indexes = {
+		@Index(name = "IK_CHANNEL_ID", columnList = "channel_id")
+})
 @Indexed(index = "post")
 @Analyzer(impl = SmartChineseAnalyzer.class)
 public class Post implements Serializable {
@@ -53,17 +56,20 @@ public class Post implements Serializable {
 	 * 摘要
 	 */
 	@Field
+	@Column(length = 140)
 	private String summary;
 
 	/**
 	 * 预览图
 	 */
+	@Column(length = 128)
 	private String thumbnail;
 
 	/**
 	 * 标签, 多个逗号隔开
 	 */
 	@Field
+	@Column(length = 64)
 	private String tags;
 
 	@Field

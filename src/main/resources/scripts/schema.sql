@@ -21,11 +21,11 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `mto_channel`;
 CREATE TABLE `mto_channel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `key_` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `key_` varchar(32) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_2s863lts1h6m7c30152262cvj` (`key_`)
+  UNIQUE KEY `UK_KEY` (`key_`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -42,32 +42,32 @@ INSERT INTO `mto_channel` VALUES ('4', 'share', '分享', '0');
 DROP TABLE IF EXISTS `mto_options`;
 CREATE TABLE `mto_options` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `key_` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `value` varchar(255) DEFAULT NULL,
+  `key_` varchar(32) DEFAULT NULL,
+  `type` int(5) DEFAULT 0,
+  `value` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_99vo6d7ci4wlxruo3gd0q2jq8` (`key_`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `UK_KEY` (`key_`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mto_options
 -- ----------------------------
 INSERT INTO `mto_options` VALUES ('1', 'site_name', '0', 'Mtons');
-INSERT INTO `mto_options` VALUES ('3', 'site_domain', '0', 'http://mtons.com');
-INSERT INTO `mto_options` VALUES ('4', 'site_keywords', '0', 'mtons,博客,社区');
-INSERT INTO `mto_options` VALUES ('5', 'site_description', '0', 'Mtons, 做一个有内涵的技术社区');
-INSERT INTO `mto_options` VALUES ('6', 'site_metas', '0', '');
-INSERT INTO `mto_options` VALUES ('7', 'site_copyright', '0', 'Copyright © Mtons');
-INSERT INTO `mto_options` VALUES ('8', 'site_icp', '0', '');
-INSERT INTO `mto_options` VALUES ('11', 'qq_callback', '0', '');
-INSERT INTO `mto_options` VALUES ('12', 'qq_app_id', '0', '');
-INSERT INTO `mto_options` VALUES ('13', 'qq_app_key', '0', '');
-INSERT INTO `mto_options` VALUES ('14', 'weibo_callback', '0', '');
-INSERT INTO `mto_options` VALUES ('15', 'weibo_client_id', '0', '');
-INSERT INTO `mto_options` VALUES ('16', 'weibo_client_sercret', '0', '');
-INSERT INTO `mto_options` VALUES ('23', 'github_callback', '0', '');
-INSERT INTO `mto_options` VALUES ('24', 'github_client_id', '0', '');
-INSERT INTO `mto_options` VALUES ('25', 'github_secret_key', '0', '');
+INSERT INTO `mto_options` VALUES ('2', 'site_domain', '0', 'http://mtons.com');
+INSERT INTO `mto_options` VALUES ('3', 'site_keywords', '0', 'mtons,博客,社区');
+INSERT INTO `mto_options` VALUES ('4', 'site_description', '0', 'Mtons, 做一个有内涵的技术社区');
+INSERT INTO `mto_options` VALUES ('5', 'site_metas', '0', '');
+INSERT INTO `mto_options` VALUES ('6', 'site_copyright', '0', 'Copyright © Mtons');
+INSERT INTO `mto_options` VALUES ('7', 'site_icp', '0', '');
+INSERT INTO `mto_options` VALUES ('8', 'qq_callback', '0', '');
+INSERT INTO `mto_options` VALUES ('9', 'qq_app_id', '0', '');
+INSERT INTO `mto_options` VALUES ('10', 'qq_app_key', '0', '');
+INSERT INTO `mto_options` VALUES ('11', 'weibo_callback', '0', '');
+INSERT INTO `mto_options` VALUES ('12', 'weibo_client_id', '0', '');
+INSERT INTO `mto_options` VALUES ('13', 'weibo_client_sercret', '0', '');
+INSERT INTO `mto_options` VALUES ('14', 'github_callback', '0', '');
+INSERT INTO `mto_options` VALUES ('15', 'github_client_id', '0', '');
+INSERT INTO `mto_options` VALUES ('16', 'github_secret_key', '0', '');
 
 -- ----------------------------
 -- Table structure for mto_user
@@ -90,7 +90,7 @@ CREATE TABLE `mto_user` (
   `posts` int(11) NOT NULL,
   `signature` varchar(140) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_username` (`username`)
+  UNIQUE KEY `UK_USERNAME` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -104,13 +104,13 @@ INSERT INTO `mto_user` VALUES ('1', 'admin', '小豆丁', '/dist/images/ava/defa
 DROP TABLE IF EXISTS `mto_user_oauth`;
 CREATE TABLE `mto_user_oauth` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `access_token` varchar(255) DEFAULT NULL,
-  `expire_in` varchar(255) DEFAULT NULL,
-  `oauth_code` varchar(255) DEFAULT NULL,
-  `oauth_type` int(11) DEFAULT NULL,
-  `oauth_user_id` varchar(255) DEFAULT NULL,
-  `refresh_token` varchar(255) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
+  `access_token` varchar(128) DEFAULT NULL,
+  `expire_in` varchar(128) DEFAULT NULL,
+  `oauth_code` varchar(128) DEFAULT NULL,
+  `oauth_type` int(11) DEFAULT NULL,
+  `oauth_user_id` varchar(128) DEFAULT NULL,
+  `refresh_token` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -124,13 +124,13 @@ CREATE TABLE `mto_user_oauth` (
 DROP TABLE IF EXISTS `shiro_permission`;
 CREATE TABLE `shiro_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
+  `description` varchar(140) DEFAULT NULL,
+  `name` varchar(32) NOT NULL,
   `parent_id` bigint(11) DEFAULT NULL,
   `version` int(11) DEFAULT NULL,
   `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_89ve8ffuihnryt1nw4o2t1feu` (`name`)
+  UNIQUE KEY `UK_NAME` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -162,8 +162,8 @@ INSERT INTO `shiro_permission` VALUES ('20', '修改配置', 'options:update', '
 DROP TABLE IF EXISTS `shiro_role`;
 CREATE TABLE `shiro_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
+  `description` varchar(140) DEFAULT NULL,
+  `name` varchar(32) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

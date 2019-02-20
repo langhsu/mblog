@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author langhsu on 2015/8/31.
  */
 public interface MessageRepository extends JpaRepository<Message, Long>, JpaSpecificationExecutor<Message> {
-    Page<Message> findAllByOwnIdOrderByIdDesc(Pageable pageable, long ownId);
+    Page<Message> findAllByOwnId(Pageable pageable, long ownId);
 
     /**
      * 查询我的未读消息

@@ -24,9 +24,9 @@ import java.util.Set;
  */
 public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpecificationExecutor<Comment> {
 	Page<Comment> findAll(Pageable pageable);
-	Page<Comment> findAllByToIdOrderByCreatedDesc(Pageable pageable, long toId);
-	Page<Comment> findAllByAuthorIdOrderByCreatedDesc(Pageable pageable, long authorId);
-	List<Comment> findAllByAuthorIdAndToIdOrderByCreatedDesc(long authorId, long toId);
+	Page<Comment> findAllByToId(Pageable pageable, long toId);
+	Page<Comment> findAllByAuthorId(Pageable pageable, long authorId);
+	List<Comment> findAllByAuthorIdAndToId(long authorId, long toId);
 	List<Comment> removeByIdIn(Collection<Long> ids);
 	List<Comment> removeByToId(long postId);
 }

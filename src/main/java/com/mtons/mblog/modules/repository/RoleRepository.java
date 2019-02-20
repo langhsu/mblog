@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Set;
 
 public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
-    List<Role> findAllByStatusOrderByIdDesc(int status);
+    List<Role> findAllByStatus(int status);
 }

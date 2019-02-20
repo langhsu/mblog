@@ -23,9 +23,10 @@ public class Permission implements Serializable {
     @Column(name = "parent_id", updatable = false)
     private long parentId;
     
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 32)
     private String name;
 
+    @Column(length = 140)
     private String description;
 
     private int weight;

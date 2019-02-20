@@ -10,6 +10,7 @@ import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
+import com.mtons.mblog.modules.template.TemplateModelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,10 +45,8 @@ public class ContentsDirective extends TemplateDirective {
 
     @Override
     public void execute(DirectiveHandler handler) throws Exception {
-        Integer pageNo = handler.getInteger("pageNo", 1);
         Integer channelId = handler.getInteger("channelId", 0);
         String order = handler.getString("order", Consts.order.NEWEST);
-        Integer size = handler.getInteger("size", Consts.PAGE_DEFAULT_SIZE);
 
         Set<Integer> excludeChannelIds = new HashSet<>();
 
@@ -58,7 +57,7 @@ public class ContentsDirective extends TemplateDirective {
             }
         }
 
-        Pageable pageable = PageRequest.of(pageNo - 1, size);
+        Pageable pageable = TemplateModelUtils.wrapPageable(handler);
         Page<PostVO> result = postService.paging(pageable, channelId, excludeChannelIds, order);
 
         handler.put(RESULTS, result).render();

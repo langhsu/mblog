@@ -20,7 +20,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -81,11 +81,19 @@ public class BaseController {
 		return new UsernamePasswordToken(username, MD5.md5(password));
 	}
 
-	protected Pageable wrapPageable() {
+	protected PageRequest wrapPageable() {
+		return wrapPageable(null);
+	}
+
+	protected PageRequest wrapPageable(Sort sort) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		int pageSize = ServletRequestUtils.getIntParameter(request, "pageSize", 10);
 		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
-		return PageRequest.of(pageNo - 1, pageSize);
+
+		if (null == sort) {
+			sort = Sort.unsorted();
+		}
+		return PageRequest.of(pageNo - 1, pageSize, sort);
 	}
 
 	/**
@@ -95,7 +103,7 @@ public class BaseController {
 	 * @param pn 页码
 	 * @return
 	 */
-	protected Pageable wrapPageable(Integer pn, Integer pageSize) {
+	protected PageRequest wrapPageable(Integer pn, Integer pageSize) {
 		if (pn == null || pn == 0) {
 			pn = 1;
 		}

@@ -32,7 +32,7 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public Page<FavoriteVO> pagingByOwnId(Pageable pageable, long ownId) {
-        Page<Favorite> page = favoriteRepository.findAllByOwnIdOrderByCreatedDesc(pageable, ownId);
+        Page<Favorite> page = favoriteRepository.findAllByOwnId(pageable, ownId);
 
         List<FavoriteVO> rets = new ArrayList<>();
         Set<Long> postIds = new HashSet<>();

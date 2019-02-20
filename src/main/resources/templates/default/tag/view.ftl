@@ -8,7 +8,7 @@
             <div class="panel-heading">
                 <ul class="list-inline topic-filter">
                     <li class="popover-with-html">
-                        标签: ${kw} 共 ${results.totalElements} 个结果.
+                        标签: ${name} 共 ${results.totalElements} 个结果.
                     </li>
                 </ul>
                 <div class="clearfix"></div>
@@ -18,28 +18,29 @@
 
                 <ul class="list-group row topic-list">
 					<#list results.content as row>
+                        <#assign post = row.post />
                         <li class="list-group-item ">
                             <a class="reply_count_area hidden-xs pull-right" href="#">
                                 <div class="count_set">
-                                    <span class="count_of_votes" title="阅读数">${row.views}</span>
+                                    <span class="count_of_votes" title="阅读数">${post.views}</span>
                                     <span class="count_seperator">/</span>
-                                    <span class="count_of_replies" title="回复数">${row.comments}</span>
+                                    <span class="count_of_replies" title="回复数">${post.comments}</span>
                                     <span class="count_seperator">/</span>
-                                    <span class="count_of_visits" title="点赞数">${row.favors}</span>
+                                    <span class="count_of_visits" title="点赞数">${post.favors}</span>
                                     <span class="count_seperator">|</span>
-                                    <abbr class="timeago">${timeAgo(row.created)}</abbr>
+                                    <abbr class="timeago">${timeAgo(post.created)}</abbr>
                                 </div>
                             </a>
                             <div class="avatar pull-left">
-                                <a href="${base}/users/${row.author.id}">
+                                <a href="${base}/users/${post.author.id}">
                                     <img class="media-object img-thumbnail avatar avatar-middle"
-                                         src="<@resource src=row.author.avatar/>">
+                                         src="<@resource src=post.author.avatar/>">
                                 </a>
                             </div>
                             <div class="infos">
                                 <div class="media-heading">
 								<#--<span class="hidden-xs label label-warning">${row.channel.name}</span>-->
-                                    <a href="${base}/post/${row.id}">${row.title}</a>
+                                    <a href="${base}/post/${post.id}">${post.title}</a>
                                 </div>
                             </div>
                         </li>

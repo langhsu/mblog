@@ -8,12 +8,12 @@
             <ul class="ajax-load-box posts-con">
                 <li class="ajax-load-con content">
                     <div class="content-box posts-aside">
-                        <div class="posts-default-content">标签: ${kw} 共 ${results.totalElements} 个结果.</div>
+                        <div class="posts-default-content">标签: ${name} 共 ${results.totalElements} 个结果.</div>
                     </div>
                 </li>
                 <#include "/classic/inc/posts_item.ftl"/>
                 <#list results.content as row>
-                    <@posts_item row false/>
+                    <@posts_item row.post/>
                 </#list>
                 <#if !results?? || results.content?size == 0>
                     <li class="ajax-load-con content">

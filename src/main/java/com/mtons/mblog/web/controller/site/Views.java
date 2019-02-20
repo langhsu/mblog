@@ -38,8 +38,9 @@ public interface Views {
 	String SETTINGS_PROFILE = "/settings/profile";
 	String SETTINGS_EMAIL = "/settings/email";
 
-	String TAGS_TAG = "/tag";
-	
+	String TAG_INDEX = "/tag/index";
+	String TAG_VIEW = "/tag/view";
+
 	String BROWSE_SEARCH = "/search";
 
 	String ROUTE_POST_EDITING = "/channel/editing";

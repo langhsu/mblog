@@ -1032,6 +1032,43 @@ abbr[data-original-title], abbr[title] {
     text-decoration: none;
 }
 
+/* Tag
+-------------------------------------------------- */
+.streams-tags .row-item {
+    margin-bottom: 15px;
+}
+.streams-tags .title {
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.streams-tags .title .label {
+    margin-left: 5px;
+}
+.streams-tags .avatar {
+    padding: 0;
+}
+.streams-tags .avatar img{
+    width: 100%;
+    width: 42px;
+    height: 42px;
+    border-radius: 25px;
+}
+
+.streams-tags .media-body, .streams-tags .media-left, .streams-tags .media-right {
+    vertical-align: middle;
+}
+.streams-tags .media-heading {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+}
+.streams-tags .media-heading a {
+    color: #999;
+}
 /* Detail
 -------------------------------------------------- */
 .topic {

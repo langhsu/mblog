@@ -1,6 +1,10 @@
 package com.mtons.mblog.modules.template;
 
+import com.mtons.mblog.base.lang.Consts;
 import freemarker.template.*;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,6 +25,21 @@ public class TemplateModelUtils {
 
     public static final DateFormat SHORT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final int SHORT_DATE_LENGTH = 10;
+
+    public static PageRequest wrapPageable(DirectiveHandler handler) throws Exception {
+        return wrapPageable(handler, null);
+    }
+
+    public static PageRequest wrapPageable(DirectiveHandler handler, String orderBy) throws Exception {
+        int pageNo = handler.getInteger("pageNo", 1);
+        int size = handler.getInteger("size", Consts.PAGE_DEFAULT_SIZE);
+
+        Sort sort = Sort.unsorted();
+        if (StringUtils.isBlank(orderBy)) {
+            Sort.by(Sort.Direction.DESC, orderBy);
+        }
+        return PageRequest.of(pageNo - 1, size, sort);
+    }
 
     public static String converString(TemplateModel model) throws TemplateModelException {
         if (null != model) {

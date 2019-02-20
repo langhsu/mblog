@@ -27,10 +27,10 @@ public class SecurityCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", unique = true)
+    @Column(name = "user_id", unique = true, nullable = false)
     private long userId; // 用户ID
 
-    @Column(length = 60, nullable = false)
+    @Column(length = 16, nullable = false)
     private String code; // 验证码
 
     @Column(length = 96)
