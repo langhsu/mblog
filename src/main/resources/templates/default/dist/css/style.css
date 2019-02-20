@@ -956,6 +956,53 @@ abbr[data-original-title], abbr[title] {
 .user-nav .list-group-item .label {float: right;}
 .user-nav:first-child {margin-top: 15px;}
 
+/* Tag
+-------------------------------------------------- */
+.streams-tags {
+    padding-top: 30px;
+}
+.streams-tags .row-item {
+    margin-bottom: 15px;
+}
+.streams-tags .title {
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.streams-tags .title .label {
+    margin-left: 5px;
+}
+
+.streams-tags .media {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+}
+.streams-tags .avatar {
+    padding: 0;
+}
+.streams-tags .avatar img{
+    width: 100%;
+    width: 42px;
+    height: 42px;
+    border-radius: 25px;
+}
+
+.streams-tags .media-body, .streams-tags .media-left, .streams-tags .media-right {
+    vertical-align: middle;
+}
+.streams-tags .media-heading {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+}
+.streams-tags .media-heading a {
+    color: #999;
+}
+
 /* Detail
 -------------------------------------------------- */
 

@@ -7,7 +7,6 @@ import com.mtons.mblog.modules.data.FavoriteVO;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
-import com.mtons.mblog.modules.template.TemplateModelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +31,7 @@ public class AuthorFavoritesDirective extends TemplateDirective {
     @Override
     public void execute(DirectiveHandler handler) throws Exception {
         long userId = handler.getInteger("userId", 0);
-        Pageable pageable = TemplateModelUtils.wrapPageable(handler, "id");
+        Pageable pageable = wrapPageable(handler, "id");
 
         Page<FavoriteVO> result = favoriteService.pagingByOwnId(pageable, userId);
         handler.put(RESULTS, result).render();

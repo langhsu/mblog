@@ -10,10 +10,8 @@ import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
-import com.mtons.mblog.modules.template.TemplateModelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -57,7 +55,7 @@ public class ContentsDirective extends TemplateDirective {
             }
         }
 
-        Pageable pageable = TemplateModelUtils.wrapPageable(handler);
+        Pageable pageable = wrapPageable(handler);
         Page<PostVO> result = postService.paging(pageable, channelId, excludeChannelIds, order);
 
         handler.put(RESULTS, result).render();

@@ -1034,6 +1034,9 @@ abbr[data-original-title], abbr[title] {
 
 /* Tag
 -------------------------------------------------- */
+.streams-tags {
+    padding-top: 30px;
+}
 .streams-tags .row-item {
     margin-bottom: 15px;
 }
@@ -1044,6 +1047,12 @@ abbr[data-original-title], abbr[title] {
 
 .streams-tags .title .label {
     margin-left: 5px;
+}
+
+.streams-tags .media {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
 }
 .streams-tags .avatar {
     padding: 0;
