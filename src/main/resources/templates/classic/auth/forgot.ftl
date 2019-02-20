@@ -34,7 +34,7 @@
                         <label class="control-label" for="username">确认密码</label>
                         <input class="form-control" name="password2" type="password" maxlength="18" placeholder="请再输入一次密码" data-required data-conditional="confirm" data-describedby="message" data-description="confirm">
                     </div>
-                    <button type="submit" class="btn btn-success btn-block">
+                    <button type="submit" class="btn btn-primary btn-block">
                         提 交
                     </button>
                 </form>

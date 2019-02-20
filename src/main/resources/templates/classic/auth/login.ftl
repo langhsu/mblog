@@ -23,7 +23,7 @@
                             <input type="checkbox" name="rememberMe" value="1"> 记住登录？
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-success btn-block">
+                    <button type="submit" class="btn btn-primary btn-block">
                         登录 Use it
                     </button>
                     <@controls name="register">

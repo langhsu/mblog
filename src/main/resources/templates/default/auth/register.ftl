@@ -22,7 +22,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="email" maxlength="64" placeholder="请输入邮箱地址" required>
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button" id="sendCode">获取验证码</button>
+                                    <button class="btn btn-success" type="button" id="sendCode">获取验证码</button>
                                 </span>
                             </div>
                         </div>

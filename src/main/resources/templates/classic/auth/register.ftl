@@ -39,7 +39,7 @@
                         <label class="control-label" for="username">确认密码</label>
                         <input class="form-control" id="password2" name="password2" type="password" placeholder="请再一次输入密码" maxlength="18">
                     </div>
-                    <button type="submit" class="btn btn-success btn-block">
+                    <button type="submit" class="btn btn-primary btn-block">
                         提交
                     </button>
                 </form>
