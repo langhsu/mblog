@@ -19,6 +19,7 @@ import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.service.UserEventService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -166,19 +167,19 @@ public class CommentServiceImpl implements CommentService {
 		po.setPid(comment.getPid());
 		commentRepository.save(po);
 
-		userEventService.identityComment(comment.getAuthorId(), po.getId(), true);
+		userEventService.identityComment(comment.getAuthorId(), true);
 		return po.getId();
 	}
 
 	@Override
 	@Transactional
 	public void delete(List<Long> ids) {
-		List<Comment> list = commentRepository.findAllById(ids);
-		commentRepository.deleteAllByIdIn(ids);
-
-		list.forEach(po -> {
-			userEventService.identityComment(po.getAuthorId(), po.getId(), false);
-		});
+		List<Comment> list = commentRepository.removeByIdIn(ids);
+		if (CollectionUtils.isNotEmpty(list)) {
+			list.forEach(po -> {
+				userEventService.identityComment(po.getAuthorId(), false);
+			});
+		}
 	}
 
 	@Override
@@ -191,7 +192,18 @@ public class CommentServiceImpl implements CommentService {
 			Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
 			commentRepository.deleteById(id);
 
-			userEventService.identityComment(authorId, po.getId(), false);
+			userEventService.identityComment(authorId, false);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void deleteByPostId(long postId) {
+		List<Comment> list = commentRepository.removeByToId(postId);
+		if (CollectionUtils.isNotEmpty(list)) {
+			Set<Long> userIds = new HashSet<>();
+			list.forEach(n -> userIds.add(n.getAuthorId()));
+			userEventService.identityComment(userIds, false);
 		}
 	}
 

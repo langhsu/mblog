@@ -19,4 +19,5 @@ public interface FavoriteService {
 
     void add(long userId, long postId);
     void delete(long userId, long postId);
+    void deleteByPostId(long postId);
 }

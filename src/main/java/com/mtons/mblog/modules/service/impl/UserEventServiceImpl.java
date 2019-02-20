@@ -16,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * 用户事件操作, 用于统计用户信息
  * @author langhsu on 2015/8/6.
@@ -27,13 +30,18 @@ public class UserEventServiceImpl implements UserEventService {
     private UserRepository userRepository;
 
     @Override
-    public void identityPost(Long userId, long postId, boolean identity) {
+    public void identityPost(Long userId, boolean identity) {
         userRepository.updatePosts(userId, (identity) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP);
     }
 
     @Override
-    public void identityComment(Long userId, long commentId, boolean identity) {
-        userRepository.updateComments(userId, (identity) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP);
+    public void identityComment(Long userId, boolean identity) {
+        userRepository.updateComments(Collections.singleton(userId), (identity) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP);
+    }
+
+    @Override
+    public void identityComment(Set<Long> userIds, boolean identity) {
+        userRepository.updateComments(userIds, (identity) ? Consts.IDENTITY_STEP : Consts.DECREASE_STEP);
     }
 
 }

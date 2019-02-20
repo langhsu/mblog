@@ -7,6 +7,7 @@ import com.mtons.mblog.modules.utils.BeanMapUtils;
 import com.mtons.mblog.modules.entity.Favorite;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,6 +21,7 @@ import java.util.*;
 /**
  * @author langhsu on 2015/8/31.
  */
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 public class FavoriteServiceImpl implements FavoriteService {
@@ -72,6 +74,13 @@ public class FavoriteServiceImpl implements FavoriteService {
         Favorite po = favoriteRepository.findByOwnIdAndPostId(userId, postId);
         Assert.notNull(po, "还没有喜欢过此文章");
         favoriteRepository.delete(po);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByPostId(long postId) {
+        int rows = favoriteRepository.deleteByPostId(postId);
+        log.info("favoriteRepository delete {]", rows);
     }
 
 }

@@ -12,4 +12,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface FavoriteRepository extends JpaRepository<Favorite, Long>, JpaSpecificationExecutor<Favorite> {
     Favorite findByOwnIdAndPostId(long ownId, long postId);
     Page<Favorite> findAllByOwnIdOrderByCreatedDesc(Pageable pageable, long ownId);
+    int deleteByPostId(long postId);
 }

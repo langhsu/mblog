@@ -1,6 +1,8 @@
 package com.mtons.mblog.modules.event.handler;
 
 import com.mtons.mblog.modules.event.PostUpdateEvent;
+import com.mtons.mblog.modules.service.CommentService;
+import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.UserEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -14,6 +16,10 @@ import org.springframework.stereotype.Component;
 public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEvent> {
     @Autowired
     private UserEventService userEventService;
+    @Autowired
+    private FavoriteService favoriteService;
+    @Autowired
+    private CommentService commentService;
 
     @Async
     @Override
@@ -24,10 +30,12 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
 
         switch (event.getAction()) {
             case PostUpdateEvent.ACTION_PUBLISH:
-                userEventService.identityPost(event.getUserId(), event.getPostId(), true);
+                userEventService.identityPost(event.getUserId(), true);
                 break;
             case PostUpdateEvent.ACTION_DELETE:
-                userEventService.identityPost(event.getUserId(), event.getPostId(), false);
+                userEventService.identityPost(event.getUserId(), false);
+                favoriteService.deleteByPostId(event.getPostId());
+                commentService.deleteByPostId(event.getPostId());
                 break;
         }
     }

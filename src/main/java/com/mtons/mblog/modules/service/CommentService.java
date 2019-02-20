@@ -49,12 +49,9 @@ public interface CommentService {
 	
 	void delete(List<Long> ids);
 
-	/**
-	 * 带作者验证的删除
-	 * @param id
-	 * @param authorId
-	 */
 	void delete(long id, long authorId);
+
+	void deleteByPostId(long postId);
 
 	long count();
 }
