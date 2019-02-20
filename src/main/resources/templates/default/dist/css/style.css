@@ -1381,8 +1381,8 @@ abbr[data-original-title], abbr[title] {
  */
 .chats { background: #fff; }
 .chats h4 { display: block; height: 40px; line-height: 40px; font-weight: 500; text-indent: 10px; font-size: 14px; }
-.chats .chat_other { border-bottom: 1px solid #e5e5e5; }
-.chats .chat_other h4 { margin: 5px; display: block; height: 40px; line-height: 40px; font-weight: 500; }
+.chats .chat_header { border-bottom: 1px solid #e5e5e5; }
+.chats .chat_header h4 { margin: 5px; display: block; height: 40px; line-height: 40px; font-weight: 500; }
 .chats .its { padding-left: 15px; padding-right: 15px; }
 .chats .its li { display: block; padding: 15px 0; border-bottom: 1px solid #e5e5e5; }
 .chats .its li .avt { float: left; display: block; width: 40px; }
@@ -1397,19 +1397,19 @@ abbr[data-original-title], abbr[title] {
 .chats .chat_p { color: #9c9c9c; }
 .chats .chat_reply { }
 
-.cbox-wrap { padding: 15px;}
-.cbox-wrap .cbox-title { margin-bottom: 10px; font-weight: 500;}
-.cbox-wrap .cbox-post { border: 1px solid #ccc;}
-.cbox-wrap .cbox-post a { color: #9c9c9c}
-.cbox-wrap .cbox-input {}
-.cbox-wrap .cbox-input textarea {border-style: none; display: block; width: 100%; padding: 6px; font-size: 14px; line-height: 1.42857143; color: #555; overflow-y: auto; overflow-x: hidden; resize: none;}
+.chat_post { padding: 15px;}
+.chat_post .cbox-title { margin-bottom: 10px; font-weight: 500;}
+.chat_post .cbox-post { border: 1px solid #ccc;}
+.chat_post .cbox-post a { color: #9c9c9c}
+.chat_post .cbox-input {}
+.chat_post .cbox-input textarea {border-style: none; display: block; width: 100%; padding: 6px; font-size: 14px; line-height: 1.42857143; color: #555; overflow-y: auto; overflow-x: hidden; resize: none;}
 
-.cbox-wrap .fa-2 { font-size: 1.7em; }
-.cbox-wrap .cbox-ats {padding: 0; display: block; border-top: 1px solid #ccc;}
-.cbox-wrap .ats-func {float: left;}
-.cbox-wrap .OwO-logo:hover {color: #ff8a00!important;}
-.cbox-wrap .ats-issue {float: right;}
-.cbox-wrap .ats-issue .btn {border-radius: 0!important; padding: 5px 16px;}
+.chat_post .fa-2 { font-size: 1.7em; }
+.chat_post .cbox-ats {padding: 0; display: block; border-top: 1px solid #ccc;}
+.chat_post .ats-func {float: left;}
+.chat_post .OwO-logo:hover {color: #ff8a00!important;}
+.chat_post .ats-issue {float: right;}
+.chat_post .ats-issue .btn {border-radius: 0!important; padding: 5px 16px;}
 #chat_reply {color: #1f8902;}
 
 .OwO .OwO-logo {

@@ -45,12 +45,12 @@
         <!-- Comments -->
         <@controls name="comment">
         <div id="chat" class="chats shadow-box">
-            <div class="chat_other">
+            <div class="chat_header">
                 <h4>全部评论: <i id="chat_count">0</i> 条</h4>
             </div>
             <ul id="chat_container" class="its"></ul>
             <div id="pager" class="text-center"></div>
-            <div class="cbox-wrap">
+            <div class="chat_post">
                 <div class="cbox-title">我有话说: <span id="chat_reply" style="display:none;">@<i
                         id="chat_to"></i></span>
                 </div>
