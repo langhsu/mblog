@@ -8,7 +8,7 @@
                         <#assign post = row.post />
                         <div class="col-sm-6 row-item">
                             <h2 class="title">
-                                <a href="${base}/tag/${row.name}/">${row.name}</a>
+                                <a href="${base}/tag/${row.name}/"><i class="fa fa-quote-left"></i> ${row.name}</a>
                                 <span class="label label-default">${row.posts}</span>
                             </h2>
                             <#if post??>
