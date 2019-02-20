@@ -80,7 +80,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Transactional
     public void deleteByPostId(long postId) {
         int rows = favoriteRepository.deleteByPostId(postId);
-        log.info("favoriteRepository delete {]", rows);
+        log.info("favoriteRepository delete {}", rows);
     }
 
 }
