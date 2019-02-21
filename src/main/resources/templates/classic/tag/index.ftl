@@ -27,12 +27,10 @@
                             </#if>
                         </div>
                     </#list>
-                    <#if  results.content?size == 0>
-                    <li class="ajax-load-con content">
-                        <div class="content-box posts-aside">
-                            <div class="posts-default-content">该目录下还没有内容!</div>
+                    <#if results.content?size == 0>
+                        <div class="infos">
+                            <div class="media-heading">该目录下还没有内容!</div>
                         </div>
-                    </li>
                     </#if>
                 </div>
             </div>

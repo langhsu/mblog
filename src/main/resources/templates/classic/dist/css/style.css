@@ -751,6 +751,14 @@ abbr[data-original-title], abbr[title] {
     width: 100%
 }
 
+.posts-item-img .overlay, .posts-item-img .overlay {
+    opacity: 0
+}
+
+.posts-item-img a:hover .overlay, .posts-item-img a:hover .overlay {
+    opacity: 0.2
+}
+
 .posts-item-gallery {
     margin-left: 260px;
     position: static;

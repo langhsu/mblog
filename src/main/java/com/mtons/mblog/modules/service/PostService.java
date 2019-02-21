@@ -39,7 +39,7 @@ public interface PostService {
 	@Cacheable
 	Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds, String ord);
 
-	Page<PostVO> paging4Admin(Pageable pageable, long id, String title, int channelId);
+	Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title);
 	
 	/**
 	 * 查询个人发布文章
@@ -105,10 +105,10 @@ public interface PostService {
 	/**
 	 * 置顶
 	 * @param id
-	 * @param weight 0: 取消, 1: 置顶
+	 * @param weighted 0: 取消, 1: 置顶
 	 */
 	@CacheEvict(allEntries = true)
-	void updateWeight(long id, int weight);
+	void updateWeight(long id, int weighted);
 	
 	/**
 	 * 带作者验证的删除 - 验证是否属于自己的文章
@@ -130,12 +130,14 @@ public interface PostService {
 	 * 自增浏览数
 	 * @param id
 	 */
+	@CacheEvict(key = "'view_' + #id")
 	void identityViews(long id);
 	
 	/**
 	 * 自增评论数
 	 * @param id
 	 */
+	@CacheEvict(key = "'view_' + #id")
 	void identityComments(long id);
 
 	/**

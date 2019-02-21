@@ -102,7 +102,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Page<PostVO> paging4Admin(Pageable pageable, long id, String title, int channelId) {
+	public Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
             query.orderBy(
 					builder.desc(root.<Long>get("weight")),
@@ -115,17 +115,10 @@ public class PostServiceImpl implements PostService {
 				predicate.getExpressions().add(
 						builder.equal(root.get("channelId").as(Integer.class), channelId));
 			}
-
 			if (StringUtils.isNotBlank(title)) {
 				predicate.getExpressions().add(
 						builder.like(root.get("title").as(String.class), "%" + title + "%"));
 			}
-
-			if (id > Consts.ZERO) {
-				predicate.getExpressions().add(
-						builder.equal(root.get("id").as(Integer.class), id));
-			}
-
             return predicate;
         }, pageable);
 
@@ -259,11 +252,11 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	public void updateWeight(long id, int weight) {
+	public void updateWeight(long id, int weighted) {
 		Post po = postRepository.findById(id).get();
 
-		int max = weight;
-		if (Consts.FEATURED_ACTIVE == weight) {
+		int max = Consts.ZERO;
+		if (Consts.FEATURED_ACTIVE == weighted) {
 			max = postRepository.maxWeight() + 1;
 		}
 		po.setWeight(max);
