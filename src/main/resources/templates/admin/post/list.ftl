@@ -23,6 +23,14 @@
                     <form id="qForm" class="form-inline search-row">
                         <input type="hidden" name="pageNo" value="${page.number + 1}"/>
                         <div class="form-group">
+                            <select class="form-control" name="channelId" data-select="${channelId}">
+                                <option value="0">查询所有栏目</option>
+                                <#list channels as row>
+                                    <option value="${row.id}">${row.name}</option>
+                                </#list>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <input type="text" name="title" class="form-control" value="${title}" placeholder="请输入标题关键字">
                         </div>
                         <button type="submit" class="btn btn-default">查询</button>

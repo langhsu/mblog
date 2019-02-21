@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,40 +52,23 @@ public class OptionsServiceImpl implements OptionsService {
 
 	@Override
 	@Transactional
-	public void update(List<Options> options) {
+	public void update(Map<String, String> options) {
 		if (options == null) {
 			return;
 		}
 
-		options.forEach(opt -> {
-			Options entity = optionsRepository.findByKey(opt.getKey());
-
+		options.forEach((key, value) -> {
+			Options entity = optionsRepository.findByKey(key);
+			String val = StringUtils.trim(value);
 			if (entity != null) {
-				entity.setValue(StringUtils.trim(opt.getValue()));
+				entity.setValue(val);
 			} else {
 				entity = new Options();
-				entity.setKey(opt.getKey());
-				entity.setValue(StringUtils.trim(opt.getValue()));
+				entity.setKey(key);
+				entity.setValue(val);
 			}
 			optionsRepository.save(entity);
 		});
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Map<String, Options> findAll2Map() {
-		List<Options> list = findAll();
-		Map<String, Options> ret = new LinkedHashMap<>();
-		list.forEach(opt -> ret.put(opt.getKey(), opt));
-		return ret;
-	}
-
-	public String findConfigValueByName(String key) {
-		Options entity = optionsRepository.findByKey(key);
-		if (entity != null) {
-			return entity.getValue();
-		}
-		return null;
 	}
 
 	@Override

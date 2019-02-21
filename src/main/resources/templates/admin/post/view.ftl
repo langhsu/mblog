@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <label>栏目</label>
                             <select class="form-control" name="channelId">
-                                <#list groups as row>
+                                <#list channels as row>
                                     <option value="${row.id}" <#if (view.channelId == row.id)> selected </#if>>${row.name}</option>
                                 </#list>
                             </select>

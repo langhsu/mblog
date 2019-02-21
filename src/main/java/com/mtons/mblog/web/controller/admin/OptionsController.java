@@ -11,7 +11,6 @@ package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.config.ContextStartup;
-import com.mtons.mblog.modules.entity.Options;
 import com.mtons.mblog.modules.service.OptionsService;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.web.controller.BaseController;
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,19 +46,8 @@ public class OptionsController extends BaseController {
 	
 	@RequestMapping("/update")
 	public String update(@RequestParam Map<String, String> body, ModelMap model) {
-		List<Options> options = new ArrayList<>();
-
-		body.forEach((k, v) -> {
-			Options opt = new Options();
-			opt.setKey(k);
-			opt.setValue(v);
-			options.add(opt);
-		});
-
-		optionsService.update(options);
-
+		optionsService.update(body);
 		contextStartup.reloadOptions(false);
-
 		model.put("data", Result.success());
 		return "/admin/options/index";
 	}

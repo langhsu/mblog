@@ -45,14 +45,15 @@ public class PostController extends BaseController {
 	@RequestMapping("/list")
 	public String list(String title, ModelMap model, HttpServletRequest request) {
 		long id = ServletRequestUtils.getLongParameter(request, "id", Consts.ZERO);
-		int group = ServletRequestUtils.getIntParameter(request, "group", Consts.ZERO);
+		int channelId = ServletRequestUtils.getIntParameter(request, "channelId", Consts.ZERO);
 
 		Pageable pageable = wrapPageable();
-		Page<PostVO> page = postService.paging4Admin(pageable, id, title, group);
+		Page<PostVO> page = postService.paging4Admin(pageable, id, title, channelId);
 		model.put("page", page);
 		model.put("title", title);
 		model.put("id", id);
-		model.put("group", group);
+		model.put("channelId", channelId);
+		model.put("channels", channelService.findAll(Consts.IGNORE));
 		return "/admin/post/list";
 	}
 	
@@ -68,8 +69,8 @@ public class PostController extends BaseController {
 			PostVO ret = postService.get(id);
 			model.put("view", ret);
 		}
-		model.put("groups", channelService.findAll(Consts.IGNORE));
-		return "/admin/post/update";
+		model.put("channels", channelService.findAll(Consts.IGNORE));
+		return "/admin/post/view";
 	}
 	
 	/**
@@ -78,7 +79,7 @@ public class PostController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String subUpdate(PostVO post) throws Exception {
+	public String subUpdate(PostVO post) {
 		if (post != null) {
 			if (post.getId() > 0) {
 				postService.update(post);
