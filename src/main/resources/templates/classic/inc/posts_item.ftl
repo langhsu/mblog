@@ -1,17 +1,17 @@
 <#macro posts_item row escape=true>
-<li class="ajax-load-con content">
+<li class="content">
     <#if row.thumbnail?? && row.thumbnail?length gt 0>
-        <div class="content-box posts-gallery-box">
-            <div class="posts-gallery-img">
+        <div class="content-box">
+            <div class="posts-item-img">
                 <a href="${base}/post/${row.id}" title="">
                     <div class="overlay"></div>
                     <img class="lazy thumbnail" src="<@resource src=row.thumbnail/>" style="display: inline-block;">
                 </a>
             </div>
-            <div class="posts-gallery-content">
+            <div class="posts-item posts-item-gallery">
                 <h2><a href="${base}/post/${row.id}"><#if escape>${row.title?html}<#else>${row.title}</#if></a></h2>
-                <div class="posts-gallery-text">${row.summary}</div>
-                <div class="posts-default-info posts-gallery-info">
+                <div class="item-text">${row.summary}</div>
+                <div class="item-info">
                     <ul>
                         <li class="post-author hidden-xs">
                             <div class="avatar">
@@ -29,12 +29,12 @@
         </div>
     <#else>
         <div class="content-box posts-aside">
-            <div class="posts-default-content">
-                <div class="posts-default-title">
+            <div class="posts-item">
+                <div class="item-title">
                     <h2><a href="${base}/post/${row.id}"><#if escape>${row.title?html}<#else>${row.title}</#if></a></h2>
                 </div>
-                <div class="posts-text">${row.summary}</div>
-                <div class="posts-default-info">
+                <div class="item-text">${row.summary}</div>
+                <div class="item-info">
                     <ul>
                         <li class="post-author hidden-xs">
                             <div class="avatar">

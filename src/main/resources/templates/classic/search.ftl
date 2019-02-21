@@ -5,10 +5,10 @@
 <div class="row streams">
     <div class="col-xs-12 col-md-9 side-left">
         <div class="posts ">
-            <ul class="ajax-load-box posts-con">
-                <li class="ajax-load-con content">
+            <ul class="posts-list">
+                <li class="content">
                     <div class="content-box posts-aside">
-                        <div class="posts-default-content">搜索: ${kw} 共 ${results.totalElements} 个结果.</div>
+                        <div class="posts-item">搜索: ${kw} 共 ${results.totalElements} 个结果.</div>
                     </div>
                 </li>
                 <#include "/classic/inc/posts_item.ftl"/>
@@ -16,9 +16,9 @@
                     <@posts_item row false/>
                 </#list>
                 <#if !results?? || results.content?size == 0>
-                    <li class="ajax-load-con content">
+                    <li class="content">
                         <div class="content-box posts-aside">
-                            <div class="posts-default-content">该目录下还没有内容!</div>
+                            <div class="posts-item">该目录下还没有内容!</div>
                         </div>
                     </li>
                 </#if>

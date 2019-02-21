@@ -5,7 +5,7 @@
 <div class="row streams">
     <div class="col-xs-12 col-md-9 side-left">
         <div class="posts ">
-            <ul class="ajax-load-box posts-con">
+            <ul class="posts-list">
                 <li class="ajax-load-con content">
                     <div class="content-box posts-aside">
                         <div class="posts-default-content">标签: ${name} 共 ${results.totalElements} 个结果.</div>
