@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class PostSearchServiceImpl implements PostSearchService {
     @Autowired
     private EntityManager entityManager;
