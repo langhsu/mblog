@@ -6,16 +6,16 @@ import com.mtons.mblog.modules.entity.Post;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.modules.utils.BeanMapUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
-import org.hibernate.search.SearchFactory;
 import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.query.dsl.MustJunction;
+import org.hibernate.search.jpa.FullTextQuery;
+import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,103 +25,76 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author : langhsu
  * @version : 1.0
  * @date : 2019/1/18
  */
+@Slf4j
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class PostSearchServiceImpl implements PostSearchService {
     @Autowired
-    @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     private UserService userService;
 
     @Override
-    public Page<PostVO> search(Pageable pageable, String q) throws Exception {
-        FullTextEntityManager fullTextSession = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
+    public Page<PostVO> search(Pageable pageable, String term) throws Exception {
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+        QueryBuilder builder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Post.class).get();
 
-        SearchFactory sf = fullTextSession.getSearchFactory();
-        QueryBuilder qb = sf.buildQueryBuilder().forEntity(Post.class).get();
+        Query luceneQuery = builder
+                .keyword()
+                .fuzzy()
+                .withEditDistanceUpTo(1)
+                .withPrefixLength(1)
+                .onFields("title", "summary", "tags")
+                .matching(term).createQuery();
 
-        org.apache.lucene.search.Query luceneQuery  = qb.keyword().onFields("title","summary","tags")
-                .matching(q).createQuery();
-
-        org.hibernate.search.jpa.FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
+        FullTextQuery query = fullTextEntityManager.createFullTextQuery(luceneQuery, Post.class);
         query.setFirstResult((int) pageable.getOffset());
         query.setMaxResults(pageable.getPageSize());
 
-        StandardAnalyzer standardAnalyzer = new StandardAnalyzer();
+        SmartChineseAnalyzer analyzer = new SmartChineseAnalyzer();
         SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<span style='color:red;'>", "</span>");
-        QueryScorer queryScorer = new QueryScorer(luceneQuery);
-        Highlighter highlighter = new Highlighter(formatter, queryScorer);
+        QueryScorer scorer = new QueryScorer(luceneQuery);
+        Highlighter highlighter = new Highlighter(formatter, scorer);
 
         List<Post> list = query.getResultList();
-        List<PostVO> rets = new ArrayList<>(list.size());
+        List<PostVO> rets = list.stream().map(po -> {
+            PostVO post = BeanMapUtils.copy(po);
 
-        for (Post po : list) {
-            PostVO m = BeanMapUtils.copy(po);
+            try {
+                // 处理高亮
+                String title = highlighter.getBestFragment(analyzer, "title", post.getTitle());
+                String summary = highlighter.getBestFragment(analyzer, "summary", post.getSummary());
 
-            // 处理高亮
-            String title = highlighter.getBestFragment(standardAnalyzer, "title", m.getTitle());
-            String summary = highlighter.getBestFragment(standardAnalyzer, "summary", m.getSummary());
-
-            if (StringUtils.isNotEmpty(title)) {
-                m.setTitle(title);
+                if (StringUtils.isNotEmpty(title)) {
+                    post.setTitle(title);
+                }
+                if (StringUtils.isNotEmpty(summary)) {
+                    post.setSummary(summary);
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
             }
-            if (StringUtils.isNotEmpty(summary)) {
-                m.setSummary(summary);
-            }
-            rets.add(m);
-        }
-        buildUsers(rets);
-        return new PageImpl<>(rets, pageable, query.getResultSize());
-    }
-
-    @Override
-    public Page<PostVO> searchByTag(Pageable pageable, String tag) {
-        FullTextEntityManager fullTextSession = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
-        SearchFactory sf = fullTextSession.getSearchFactory();
-        QueryBuilder qb = sf.buildQueryBuilder().forEntity(Post.class).get();
-
-        org.apache.lucene.search.Query luceneQuery  = null;
-
-        MustJunction term = qb.bool().must(qb.phrase().onField("tags").sentence(tag).createQuery());
-
-        luceneQuery = term.createQuery();
-
-        org.hibernate.search.jpa.FullTextQuery query = fullTextSession.createFullTextQuery(luceneQuery);
-        query.setFirstResult((int) pageable.getOffset());
-        query.setMaxResults(pageable.getPageSize());
-
-        Sort sort = new Sort(new SortField("id", SortField.Type.LONG, true));
-        query.setSort(sort);
-
-        List<Post> results = query.getResultList();
-        List<PostVO> rets = new ArrayList<>(results.size());
-
-        for (Post po : results) {
-            PostVO m = BeanMapUtils.copy(po);
-            rets.add(m);
-        }
-
+            return post;
+        }).collect(Collectors.toList());
         buildUsers(rets);
         return new PageImpl<>(rets, pageable, query.getResultSize());
     }
 
     @Override
     public void resetIndexes() {
-        FullTextEntityManager fullTextSession = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
-        fullTextSession.createIndexer(Post.class).start();
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+        fullTextEntityManager.createIndexer(Post.class).start();
     }
 
     private void buildUsers(List<PostVO> list) {
