@@ -26,7 +26,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long>, JpaSpec
 	Page<Comment> findAll(Pageable pageable);
 	Page<Comment> findAllByToId(Pageable pageable, long toId);
 	Page<Comment> findAllByAuthorId(Pageable pageable, long authorId);
-	List<Comment> findAllByAuthorIdAndToId(long authorId, long toId);
 	List<Comment> removeByIdIn(Collection<Long> ids);
 	List<Comment> removeByToId(long postId);
+	long countByAuthorIdAndToId(long authorId, long toId);
 }

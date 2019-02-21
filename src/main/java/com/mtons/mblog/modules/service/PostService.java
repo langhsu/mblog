@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.service;
 
+import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.PostVO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -26,7 +27,7 @@ import java.util.Set;
  * @author langhsu
  *
  */
-@CacheConfig(cacheNames = "postCaches")
+@CacheConfig(cacheNames = Consts.CACHE_USER)
 public interface PostService {
 	/**
 	 * 分页查询所有文章
@@ -51,20 +52,18 @@ public interface PostService {
 	/**
 	 * 查询最近更新 - 按发布时间排序
 	 * @param maxResults
-	 * @param ignoreUserId
 	 * @return
 	 */
 	@Cacheable
-	List<PostVO> findLatests(int maxResults, long ignoreUserId);
+	List<PostVO> findLatests(int maxResults);
 
 	/**
 	 * 查询热门文章 - 按浏览次数排序
 	 * @param maxResults
-	 * @param ignoreUserId
 	 * @return
 	 */
 	@Cacheable
-	List<PostVO> findHottests(int maxResults, long ignoreUserId);
+	List<PostVO> findHottests(int maxResults);
 	
 	/**
 	 * 根据Ids查询

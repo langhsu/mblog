@@ -1,8 +1,8 @@
 package com.mtons.mblog.modules.hook.interceptor.impl;
 
-import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.PostVO;
+import com.mtons.mblog.modules.hook.interceptor.InterceptorHookSupport;
 import com.mtons.mblog.modules.service.CommentService;
 import com.mtons.mblog.web.controller.site.ChannelController;
 import org.apache.shiro.SecurityUtils;
@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * @author Beldon
@@ -26,6 +25,7 @@ public class HidenContentPugin extends InterceptorHookSupport {
     private CommentService commentService;
 
     private static final String SHOW = "<blockquote>隐藏内容，请回复后查看</blockquote>";
+
     @Override
     public String[] getInterceptor() {
         //说明要拦截的controller
@@ -72,10 +72,7 @@ public class HidenContentPugin extends InterceptorHookSupport {
             if (profile.getId() == userId) {
                 return false;
             }
-            List l = commentService.findAllByAuthorIdAndToId(profile.getId(), id);
-            if (l.size() > 0) {
-                return false;
-            }
+            return commentService.countByAuthorIdAndToId(profile.getId(), id) <= 0;
         }
         return true;
     }

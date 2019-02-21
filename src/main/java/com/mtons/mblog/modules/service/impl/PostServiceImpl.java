@@ -139,12 +139,12 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostVO> findLatests(int maxResults, long ignoreUserId) {
+	public List<PostVO> findLatests(int maxResults) {
 		return find("created", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	
 	@Override
-	public List<PostVO> findHottests(int maxResults, long ignoreUserId) {
+	public List<PostVO> findHottests(int maxResults) {
 		return find("views", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	

@@ -10,23 +10,18 @@
 package com.mtons.mblog.web.controller.api;
 
 import com.mtons.mblog.base.lang.Result;
-import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.CommentVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.service.CommentService;
-import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,7 +31,7 @@ import java.util.List;
  * @author langhsu
  *
  */
-@Controller
+@RestController
 @RequestMapping("/api")
 public class SidebarController extends BaseController {
 	@Autowired
@@ -44,9 +39,8 @@ public class SidebarController extends BaseController {
 	@Autowired
 	private CommentService commentService;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody
-	Result login(String username, String password, ModelMap model) {
+	@PostMapping("/login")
+	public Result login(String username, String password) {
 		Result data = Result.failure("操作失败");
 
 		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
@@ -76,33 +70,17 @@ public class SidebarController extends BaseController {
 	}
 
 	@RequestMapping("/latests")
-	public @ResponseBody List<PostVO> latests() {
-		AccountProfile up = getProfile();
-		long ignoreUserId = 0;
-		if (up != null) {
-			ignoreUserId = up.getId();
-		}
-		List<PostVO> rets = postService.findLatests(6, ignoreUserId);
-		return rets;
+	public List<PostVO> latests(@RequestParam(name ="size", defaultValue = "6") Integer size) {
+		return postService.findLatests(size);
 	}
 	
 	@RequestMapping("/hots")
-	public @ResponseBody List<PostVO> hots() {
-		AccountProfile up = getProfile();
-		long ignoreUserId = 0;
-		if (up != null) {
-			ignoreUserId = up.getId();
-		}
-		List<PostVO> rets = postService.findHottests(6, ignoreUserId);
-		return rets;
+	public List<PostVO> hots(@RequestParam(name ="size", defaultValue = "6") Integer size) {
+		return postService.findHottests(size);
 	}
 	
-	/**
-	 * 热门评论
-	 * @return
-	 */
 	@RequestMapping(value="/latest_comments")
-	public @ResponseBody List<CommentVO> latestComments() {
-         return commentService.findLatests(6);
+	public @ResponseBody List<CommentVO> latestComments(@RequestParam(name ="size", defaultValue = "6") Integer size) {
+         return commentService.findLatests(size);
 	}
 }

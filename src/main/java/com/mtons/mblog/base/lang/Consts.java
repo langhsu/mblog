@@ -47,9 +47,6 @@ public interface Consts {
 	// 禁用状态
 	int STATUS_CLOSED = 1;
 
-	// 删除状态
-	int STATUS_REMOVED = 2;
-
 	/* 状态-初始 */
 	int STATUS_NORMAL = 0;
 
@@ -73,7 +70,7 @@ public interface Consts {
 
 	int CODE_BIND = 1;   // bind email
 	int CODE_FORGOT = 2; // forgot password
-	int CODE_REG = 3;
+	int CODE_REGISTER = 3;
 
 	int CODE_STATUS_INIT = 0;      // 验证码-初始
 	int CODE_STATUS_CERTIFIED = 1; // 验证码-已使用
@@ -96,6 +93,9 @@ public interface Consts {
 	int MESSAGE_EVENT_COMMENT = 3; // 有人评论了你
 
 	int MESSAGE_EVENT_COMMENT_REPLY = 4; // 有人回复了你
+
+	String CACHE_USER = "userCaches";
+	String CACHE_POST = "postCaches";
 
 	/**
 	 * 第三方回调配置

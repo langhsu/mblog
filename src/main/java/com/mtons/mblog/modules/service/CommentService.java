@@ -34,8 +34,6 @@ public interface CommentService {
 	 */
 	Page<CommentVO> pagingByPostId(Pageable pageable, long toId);
 
-	List<Comment> findAllByAuthorIdAndToId(long authorId, long toId);
-
 	List<CommentVO> findLatests(int maxResults);
 
 	Map<Long, CommentVO> findByIds(Set<Long> ids);
@@ -54,4 +52,6 @@ public interface CommentService {
 	void deleteByPostId(long postId);
 
 	long count();
+
+	long countByAuthorIdAndToId(long authorId, long toId);
 }

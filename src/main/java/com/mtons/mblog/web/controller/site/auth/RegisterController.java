@@ -53,7 +53,7 @@ public class RegisterController extends BaseController {
 				String code = request.getParameter("code");
 				Assert.state(StringUtils.isNotBlank(post.getEmail()), "请输入邮箱地址");
 				Assert.state(StringUtils.isNotBlank(code), "请输入邮箱验证码");
-				securityCodeService.verify(post.getEmail(), Consts.CODE_REG, code);
+				securityCodeService.verify(post.getEmail(), Consts.CODE_REGISTER, code);
 			}
 			post.setAvatar(Consts.AVATAR);
 			userService.register(post);

@@ -119,11 +119,6 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<Comment> findAllByAuthorIdAndToId(long authorId, long toId) {
-		return commentRepository.findAllByAuthorIdAndToId(authorId, toId);
-	}
-
-	@Override
 	public List<CommentVO> findLatests(int maxResults) {
 		Pageable pageable = PageRequest.of(0, maxResults, new Sort(Sort.Direction.DESC, "id"));
 		Page<Comment> page = commentRepository.findAll(pageable);
@@ -210,6 +205,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public long count() {
 		return commentRepository.count();
+	}
+
+	@Override
+	public long countByAuthorIdAndToId(long authorId, long toId) {
+		return commentRepository.countByAuthorIdAndToId(authorId, toId);
 	}
 
 	private void buildUsers(Collection<CommentVO> posts, Set<Long> uids) {

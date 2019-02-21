@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.modules.service;
 
+import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
 import org.springframework.cache.annotation.CacheConfig;
@@ -24,7 +25,7 @@ import java.util.Set;
  * @author langhsu
  *
  */
-@CacheConfig(cacheNames = "userCaches")
+@CacheConfig(cacheNames = Consts.CACHE_USER)
 public interface UserService {
 	/**
 	 * 分页查询
