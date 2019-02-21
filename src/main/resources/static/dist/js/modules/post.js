@@ -44,7 +44,7 @@ define(function(require, exports, module) {
         
         bindUpload : function () {
             $('#upload_btn').change(function(){
-                $(this).upload(_MTONS.BASE_PATH + '/post/upload?crop=1&width=360&height=240', function(data){
+                $(this).upload(_MTONS.BASE_PATH + '/post/upload?crop=1', function(data){
                     if (data.status == 200) {
                         var path = data.path;
                         $("#thumbnail_image").css("background", "url(" + path + ") no-repeat scroll center 0 rgba(0, 0, 0, 0)");
