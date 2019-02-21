@@ -1,5 +1,6 @@
 server:
     port: 8080
+    use-forward-headers: true
     tomcat:
         uri-encoding: UTF-8
 spring:
