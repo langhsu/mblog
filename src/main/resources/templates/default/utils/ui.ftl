@@ -22,14 +22,12 @@
     <!--[if IE]>
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/>
     <![endif]-->
-    <meta name="baidu-site-verification" content="2nXjznVkpe" />
-
-    <title>${title?default(options['site_name'])}</title>
     <meta name="keywords" content="mtons, ${keywords?default(options['site_keywords'])}">
     <meta name="description" content="${description?default(options['site_description'])}">
-
     <meta property="mtons:mblog" content="${site.version}">
     ${options['site_metas']}
+
+    <title>${title?default(options['site_name'])}</title>
 
     <link href="${base}/dist/vendors/pace/themes/pace-theme-minimal.css" rel="stylesheet" />
     <link href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
