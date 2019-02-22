@@ -48,7 +48,7 @@ public class PostController extends BaseController {
 		int channelId = ServletRequestUtils.getIntParameter(request, "channelId", Consts.ZERO);
 
 		Pageable pageable = wrapPageable();
-		Page<PostVO> page = postService.paging4Admin(pageable, id, title, channelId);
+		Page<PostVO> page = postService.paging4Admin(pageable, channelId, title);
 		model.put("page", page);
 		model.put("title", title);
 		model.put("id", id);

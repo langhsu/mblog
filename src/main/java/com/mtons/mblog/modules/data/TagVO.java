@@ -1,12 +1,29 @@
 package com.mtons.mblog.modules.data;
 
-import com.mtons.mblog.modules.entity.Tag;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author : langhsu
  */
 @Data
-public class TagVO extends Tag {
+public class TagVO {
+    private long id;
+
+    private String name;
+
+    private String thumbnail;
+
+    private String description;
+
+    private long latestPostId;
+
+    private Date created;
+
+    private Date updated;
+
+    private int posts;
+
     private PostVO post;
 }

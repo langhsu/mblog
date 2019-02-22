@@ -1,12 +1,19 @@
 package com.mtons.mblog.modules.data;
 
-import com.mtons.mblog.modules.entity.PostTag;
 import lombok.Data;
 
 /**
  * @author : langhsu
  */
 @Data
-public class PostTagVO extends PostTag {
+public class PostTagVO {
+    private long id;
+
+    private long postId;
+
+    private long tagId;
+
+    private long weight;
+
     private PostVO post;
 }
