@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author langhsu on 2015/8/31.
+ * @author langhsu
  */
 public interface MessageRepository extends JpaRepository<Message, Long>, JpaSpecificationExecutor<Message> {
     Page<Message> findAllByOwnId(Pageable pageable, long ownId);
@@ -30,4 +30,6 @@ public interface MessageRepository extends JpaRepository<Message, Long>, JpaSpec
     @Modifying
     @Query("update Message n set n.status = 1 where n.status = 0 and n.ownId = :id")
     int updateReadedByOwnId(@Param("id") Long id);
+
+    int deleteByPostId(long postId);
 }

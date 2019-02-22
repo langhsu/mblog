@@ -31,7 +31,7 @@ public class AuthorMessagesDirective extends TemplateDirective {
     @Override
     public void execute(DirectiveHandler handler) throws Exception {
         long userId = handler.getInteger("userId", 0);
-        Pageable pageable = wrapPageable(handler, "id");
+        Pageable pageable = wrapPageable(handler);
 
         Page<MessageVO> result = messageService.pagingByOwnId(pageable, userId);
         handler.put(RESULTS, result).render();

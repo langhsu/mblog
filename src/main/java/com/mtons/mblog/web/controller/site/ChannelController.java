@@ -49,7 +49,7 @@ public class ChannelController extends BaseController {
 		model.put("channel", channel);
 		model.put("order", order);
 		model.put("pageNo", pageNo);
-		return view(Views.ROUTE_POST_INDEX);
+		return view(Views.POST_INDEX);
 	}
 
 	@RequestMapping("/post/{id:\\d*}")
@@ -60,6 +60,6 @@ public class ChannelController extends BaseController {
 
 		postService.identityViews(id);
 		model.put("view", view);
-		return view(Views.ROUTE_POST_VIEW);
+		return view(Views.POST_VIEW);
 	}
 }

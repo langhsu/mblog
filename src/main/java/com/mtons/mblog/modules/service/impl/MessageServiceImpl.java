@@ -21,9 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
- * @author langhsu on 2015/8/31.
+ * @author langhsu
  */
 @Service
+@Transactional(readOnly = true)
 public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageRepository messageRepository;
@@ -33,7 +34,6 @@ public class MessageServiceImpl implements MessageService {
     private PostService postService;
 
     @Override
-    @Transactional(readOnly = true)
     public Page<MessageVO> pagingByOwnId(Pageable pageable, long ownId) {
         Page<Message> page = messageRepository.findAllByOwnId(pageable, ownId);
         List<MessageVO> rets = new ArrayList<>();
@@ -74,20 +74,19 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional
-    public void send(MessageVO notify) {
-        if (notify == null || notify.getOwnId() <=0 || notify.getFromId() <= 0) {
+    public void send(MessageVO message) {
+        if (message == null || message.getOwnId() <=0 || message.getFromId() <= 0) {
             return;
         }
 
         Message po = new Message();
-        BeanUtils.copyProperties(notify, po);
+        BeanUtils.copyProperties(message, po);
         po.setCreated(new Date());
 
         messageRepository.save(po);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int unread4Me(long ownId) {
         return messageRepository.countByOwnIdAndStatus(ownId, Consts.UNREAD);
     }
@@ -96,5 +95,11 @@ public class MessageServiceImpl implements MessageService {
     @Transactional
     public void readed4Me(long ownId) {
         messageRepository.updateReadedByOwnId(ownId);
+    }
+
+    @Override
+    @Transactional
+    public int deleteByPostId(long postId) {
+        return messageRepository.deleteByPostId(postId);
     }
 }

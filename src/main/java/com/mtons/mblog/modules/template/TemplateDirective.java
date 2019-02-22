@@ -37,15 +37,7 @@ public abstract class TemplateDirective implements TemplateDirectiveModel {
     public abstract void execute(DirectiveHandler handler) throws Exception;
 
     public PageRequest wrapPageable(DirectiveHandler handler) throws Exception {
-        return wrapPageable(handler, "id");
-    }
-
-    public PageRequest wrapPageable(DirectiveHandler handler, String orderBy) throws Exception {
-        Sort sort = Sort.unsorted();
-        if (StringUtils.isNotBlank(orderBy)) {
-            Sort.by(Sort.Direction.DESC, orderBy);
-        }
-        return wrapPageable(handler, sort);
+        return wrapPageable(handler, Sort.by(Sort.Direction.DESC, "id"));
     }
 
     /**
@@ -59,6 +51,10 @@ public abstract class TemplateDirective implements TemplateDirectiveModel {
     public PageRequest wrapPageable(DirectiveHandler handler, Sort sort) throws Exception {
         int pageNo = handler.getInteger("pageNo", 1);
         int size = handler.getInteger("size", Consts.PAGE_DEFAULT_SIZE);
-        return PageRequest.of(pageNo - 1, size, sort);
+        if (null == sort) {
+            return PageRequest.of(pageNo - 1, size);
+        } else {
+            return PageRequest.of(pageNo - 1, size, sort);
+        }
     }
 }

@@ -55,7 +55,7 @@ public class ContentsDirective extends TemplateDirective {
             }
         }
 
-        Pageable pageable = wrapPageable(handler);
+        Pageable pageable = wrapPageable(handler, null);
         Page<PostVO> result = postService.paging(pageable, channelId, excludeChannelIds, order);
 
         handler.put(RESULTS, result).render();

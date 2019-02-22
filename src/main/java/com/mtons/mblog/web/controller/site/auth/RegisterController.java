@@ -38,7 +38,7 @@ public class RegisterController extends BaseController {
 	public String view() {
 		AccountProfile profile = getProfile();
 		if (profile != null) {
-			return "redirect:/home";
+			return String.format(Views.REDIRECT_USER_HOME, profile.getId());
 		}
 		return view(Views.REGISTER);
 	}

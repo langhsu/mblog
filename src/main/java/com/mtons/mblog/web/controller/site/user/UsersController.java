@@ -11,8 +11,6 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.modules.data.AccountProfile;
-import com.mtons.mblog.modules.data.BadgesCount;
-import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.*;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;

@@ -12,7 +12,6 @@ package com.mtons.mblog.web.controller.site;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.service.PostSearchService;
 import com.mtons.mblog.web.controller.BaseController;
-import com.mtons.mblog.modules.service.PostService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,7 +42,7 @@ public class SearchController extends BaseController {
 			e.printStackTrace();
 		}
 		model.put("kw", kw);
-		return view(Views.BROWSE_SEARCH);
+		return view(Views.SEARCH);
 	}
 	
 }

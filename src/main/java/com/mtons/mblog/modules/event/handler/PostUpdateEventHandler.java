@@ -1,10 +1,7 @@
 package com.mtons.mblog.modules.event.handler;
 
 import com.mtons.mblog.modules.event.PostUpdateEvent;
-import com.mtons.mblog.modules.service.CommentService;
-import com.mtons.mblog.modules.service.FavoriteService;
-import com.mtons.mblog.modules.service.TagService;
-import com.mtons.mblog.modules.service.UserEventService;
+import com.mtons.mblog.modules.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Async;
@@ -23,6 +20,8 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
     private CommentService commentService;
     @Autowired
     private TagService tagService;
+    @Autowired
+    private MessageService messageService;
 
     @Async
     @Override
@@ -40,6 +39,7 @@ public class PostUpdateEventHandler implements ApplicationListener<PostUpdateEve
                 favoriteService.deleteByPostId(event.getPostId());
                 commentService.deleteByPostId(event.getPostId());
                 tagService.deteleMappingByPostId(event.getPostId());
+                messageService.deleteByPostId(event.getPostId());
                 break;
         }
     }

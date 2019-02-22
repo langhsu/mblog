@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @author langhsu on 2015/8/31.
+ * @author langhsu
  */
 public interface MessageService {
 
@@ -30,4 +30,10 @@ public interface MessageService {
      */
     void readed4Me(long ownId);
 
+    /**
+     * 根据文章ID清理消息
+     * @param postId
+     * @return
+     */
+    int deleteByPostId(long postId);
 }

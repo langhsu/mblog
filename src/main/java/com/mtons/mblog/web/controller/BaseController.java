@@ -42,107 +42,103 @@ import java.util.Date;
  *
  * @author langhsu
  * @since 3.0
- * 
  */
 @Slf4j
 public class BaseController {
-	@Autowired
-	protected StorageFactory storageFactory;
-	@Autowired
-	protected SiteOptions siteOptions;
+    @Autowired
+    protected StorageFactory storageFactory;
+    @Autowired
+    protected SiteOptions siteOptions;
 
-	@InitBinder
-	public void initBinder(ServletRequestDataBinder binder) {
-		/**
-		 * 自动转换日期类型的字段格式
-		 */
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));
+    @InitBinder
+    public void initBinder(ServletRequestDataBinder binder) {
+        /**
+         * 自动转换日期类型的字段格式
+         */
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));
 
-		/**
-		 * 防止XSS攻击
-		 */
-		binder.registerCustomEditor(String.class, new StringEscapeEditor(true, false));
-	}
+        /**
+         * 防止XSS攻击
+         */
+        binder.registerCustomEditor(String.class, new StringEscapeEditor(true, false));
+    }
 
-	/**
-	 * 获取登录信息
-	 * 
-	 * @return
-	 */
-	protected AccountProfile getProfile(){
-		Subject subject = SecurityUtils.getSubject();
-		return (AccountProfile) subject.getPrincipal();
-	}
-	
-	protected void putProfile(AccountProfile profile) {
-		SecurityUtils.getSubject().getSession(true).setAttribute("profile", profile);
-	}
+    /**
+     * 获取登录信息
+     *
+     * @return
+     */
+    protected AccountProfile getProfile() {
+        Subject subject = SecurityUtils.getSubject();
+        return (AccountProfile) subject.getPrincipal();
+    }
 
-	protected boolean isAuthenticated() {
-		return SecurityUtils.getSubject() != null && (SecurityUtils.getSubject().isAuthenticated() || SecurityUtils.getSubject().isRemembered());
-	}
-	protected UsernamePasswordToken createToken(String username, String password) {
-		return new UsernamePasswordToken(username, MD5.md5(password));
-	}
+    protected void putProfile(AccountProfile profile) {
+        SecurityUtils.getSubject().getSession(true).setAttribute("profile", profile);
+    }
 
-	protected PageRequest wrapPageable() {
-		return wrapPageable(null);
-	}
+    protected boolean isAuthenticated() {
+        return SecurityUtils.getSubject() != null && (SecurityUtils.getSubject().isAuthenticated() || SecurityUtils.getSubject().isRemembered());
+    }
 
-	protected PageRequest wrapPageable(Sort sort) {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		int pageSize = ServletRequestUtils.getIntParameter(request, "pageSize", 10);
-		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
+    protected PageRequest wrapPageable() {
+        return wrapPageable(null);
+    }
 
-		if (null == sort) {
-			sort = Sort.unsorted();
-		}
-		return PageRequest.of(pageNo - 1, pageSize, sort);
-	}
+    protected PageRequest wrapPageable(Sort sort) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        int pageSize = ServletRequestUtils.getIntParameter(request, "pageSize", 10);
+        int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
 
-	/**
-	 * 包装分页对象
-	 *
-	 * @param pn 页码
-	 * @param pn 页码
-	 * @return
-	 */
-	protected PageRequest wrapPageable(Integer pn, Integer pageSize) {
-		if (pn == null || pn == 0) {
-			pn = 1;
-		}
-		if (pageSize == null || pageSize == 0) {
-			pageSize = 10;
-		}
-		return PageRequest.of(pn - 1, pageSize);
-	}
+        if (null == sort) {
+            sort = Sort.unsorted();
+        }
+        return PageRequest.of(pageNo - 1, pageSize, sort);
+    }
 
-	protected String view(String view) {
-		return "/" + siteOptions.getValue("theme") + view;
-	}
+    /**
+     * 包装分页对象
+     *
+     * @param pn 页码
+     * @param pn 页码
+     * @return
+     */
+    protected PageRequest wrapPageable(Integer pn, Integer pageSize) {
+        if (pn == null || pn == 0) {
+            pn = 1;
+        }
+        if (pageSize == null || pageSize == 0) {
+            pageSize = 10;
+        }
+        return PageRequest.of(pn - 1, pageSize);
+    }
 
-	protected Result<AccountProfile> executeLogin(String username, String password, boolean rememberMe) {
-		Result<AccountProfile> ret = Result.failure("登录失败");
+    protected String view(String view) {
+        return "/" + siteOptions.getValue("theme") + view;
+    }
 
-		if (StringUtils.isAnyBlank(username, password)) {
-			return ret;
-		}
+    protected Result<AccountProfile> executeLogin(String username, String password, boolean rememberMe) {
+        Result<AccountProfile> ret = Result.failure("登录失败");
 
-		UsernamePasswordToken token = new UsernamePasswordToken(username, MD5.md5(password), rememberMe);
+        if (StringUtils.isAnyBlank(username, password)) {
+            return ret;
+        }
 
-		try {
-			SecurityUtils.getSubject().login(token);
-			ret = Result.success(getProfile());
-		} catch (UnknownAccountException e) {
-			log.error(e.getMessage());
-			ret = Result.failure("用户不存在");
-		} catch (LockedAccountException e) {
-			log.error(e.getMessage());
-			ret = Result.failure("用户被禁用");
-		} catch (AuthenticationException e) {
-			log.error(e.getMessage());
-			ret = Result.failure("用户认证失败");
-		}
-		return ret;
-	}
+        UsernamePasswordToken token = new UsernamePasswordToken(username, MD5.md5(password), rememberMe);
+
+        try {
+            SecurityUtils.getSubject().login(token);
+            ret = Result.success(getProfile());
+        } catch (UnknownAccountException e) {
+            log.error(e.getMessage());
+            ret = Result.failure("用户不存在");
+        } catch (LockedAccountException e) {
+            log.error(e.getMessage());
+            ret = Result.failure("用户被禁用");
+        } catch (AuthenticationException e) {
+            log.error(e.getMessage());
+            ret = Result.failure("用户认证失败");
+        }
+        return ret;
+    }
 }

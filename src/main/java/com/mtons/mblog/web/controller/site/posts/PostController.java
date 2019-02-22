@@ -53,7 +53,7 @@ public class PostController extends BaseController {
 		}
 
 		model.put("channels", channelService.findAll(Consts.STATUS_NORMAL));
-		return view(Views.ROUTE_POST_EDITING);
+		return view(Views.POST_EDITING);
 	}
 
 	/**
