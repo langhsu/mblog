@@ -261,6 +261,9 @@ abbr[data-original-title], abbr[title] {
     color: #337ab7;
 }
 
+.help-block {
+    margin-bottom: 5px;
+}
 /* HEAD
 -------------------------------------------------- */
 .site-header {

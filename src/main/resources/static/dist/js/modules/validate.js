@@ -15,7 +15,7 @@ define(function(require, exports, module) {
     var J = jQuery, _BATH = _MTONS.BASE_PATH;
 
     var _configs = {
-        errorElement: "em",
+        errorElement: "p",
         errorPlacement: function (error, element) {
             error.addClass("help-block");
             if ( element.prop( "name" ) === "email" ) {
