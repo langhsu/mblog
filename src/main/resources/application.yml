@@ -36,7 +36,11 @@ spring:
             template_update_delay: 0
             datetime_format: yyyy-MM-dd HH:mm
             number_format: 0.##
-
+    flyway:
+        enabled: false
+        baseline-on-migrate: true
+        encoding: UTF-8
+        locations: classpath:scripts/migration
 shiro:
     web:
         enabled: true

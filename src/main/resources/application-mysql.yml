@@ -7,7 +7,8 @@ spring:
         url: jdbc:mysql://localhost/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
         username: root
         password: root
-
+    flyway:
+        enabled: true
     jpa:
         database: mysql
         show-sql: false
