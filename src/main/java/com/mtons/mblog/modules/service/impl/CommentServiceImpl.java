@@ -77,7 +77,7 @@ public class CommentServiceImpl implements CommentService {
 				parentIds.add(c.getPid());
 			}
 			uids.add(c.getAuthorId());
-			postIds.add(c.getToId());
+			postIds.add(c.getPostId());
 
 			rets.add(c);
 		});
@@ -92,8 +92,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Page<CommentVO> pagingByPostId(Pageable pageable, long toId) {
-		Page<Comment> page = commentRepository.findAllByToId(pageable, toId);
+	public Page<CommentVO> pagingByPostId(Pageable pageable, long postId) {
+		Page<Comment> page = commentRepository.findAllByPostId(pageable, postId);
 		
 		List<CommentVO> rets = new ArrayList<>();
 		Set<Long> parentIds = new HashSet<>();
@@ -156,7 +156,7 @@ public class CommentServiceImpl implements CommentService {
 		Comment po = new Comment();
 		
 		po.setAuthorId(comment.getAuthorId());
-		po.setToId(comment.getToId());
+		po.setPostId(comment.getPostId());
 		po.setContent(comment.getContent());
 		po.setCreated(new Date());
 		po.setPid(comment.getPid());
@@ -194,7 +194,7 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional
 	public void deleteByPostId(long postId) {
-		List<Comment> list = commentRepository.removeByToId(postId);
+		List<Comment> list = commentRepository.removeByPostId(postId);
 		if (CollectionUtils.isNotEmpty(list)) {
 			Set<Long> userIds = new HashSet<>();
 			list.forEach(n -> userIds.add(n.getAuthorId()));
@@ -208,8 +208,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public long countByAuthorIdAndToId(long authorId, long toId) {
-		return commentRepository.countByAuthorIdAndToId(authorId, toId);
+	public long countByAuthorIdAndPostId(long authorId, long toId) {
+		return commentRepository.countByAuthorIdAndPostId(authorId, toId);
 	}
 
 	private void buildUsers(Collection<CommentVO> posts, Set<Long> uids) {
@@ -220,8 +220,7 @@ public class CommentServiceImpl implements CommentService {
 
 	private void buildPosts(Collection<CommentVO> comments, Set<Long> postIds) {
 		Map<Long, PostVO> postMap = postService.findMapByIds(postIds);
-
-		comments.forEach(p -> p.setPost(postMap.get(p.getToId())));
+		comments.forEach(p -> p.setPost(postMap.get(p.getPostId())));
 	}
 
 	private void buildParent(Collection<CommentVO> comments, Set<Long> parentIds) {

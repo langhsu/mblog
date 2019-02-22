@@ -9,26 +9,26 @@ import org.springframework.data.domain.Pageable;
  */
 public interface MessageService {
 
-    Page<MessageVO> pagingByOwnId(Pageable pageable, long ownId);
+    Page<MessageVO> pagingByUserId(Pageable pageable, long userId);
 
     /**
      * 发送通知
-     * @param notify
+     * @param message
      */
-    void send(MessageVO notify);
+    void send(MessageVO message);
 
     /**
      * 未读消息数量
-     * @param ownId
+     * @param userId
      * @return
      */
-    int unread4Me(long ownId);
+    int unread4Me(long userId);
 
     /**
      * 标记为已读
-     * @param ownId
+     * @param userId
      */
-    void readed4Me(long ownId);
+    void readed4Me(long userId);
 
     /**
      * 根据文章ID清理消息

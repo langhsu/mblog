@@ -1,8 +1,5 @@
 package com.mtons.mblog.modules.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,7 +9,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "shiro_permission")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Permission implements Serializable {
     private static final long serialVersionUID = -5979636077639378677L;
 

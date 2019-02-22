@@ -24,8 +24,7 @@ CREATE TABLE `mto_channel` (
   `key_` varchar(32) DEFAULT NULL,
   `name` varchar(32) DEFAULT NULL,
   `status` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_KEY` (`key_`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -45,8 +44,7 @@ CREATE TABLE `mto_options` (
   `key_` varchar(32) DEFAULT NULL,
   `type` int(5) DEFAULT 0,
   `value` varchar(300) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_KEY` (`key_`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

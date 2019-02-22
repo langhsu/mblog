@@ -9,10 +9,6 @@
 */
 package com.mtons.mblog.modules.entity;
 
-import lombok.Data;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -21,10 +17,8 @@ import java.io.Serializable;
  * @author langhsu
  *
  */
-@Data
 @Entity
 @Table(name = "mto_channel")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Channel implements Serializable {
 	private static final long serialVersionUID = 2436696690653745208L;
 
@@ -46,4 +40,35 @@ public class Channel implements Serializable {
 
 	private int status;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

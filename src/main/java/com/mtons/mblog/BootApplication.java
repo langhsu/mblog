@@ -6,14 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 
 /**
  * SprintBootApplication
  */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+        FlywayAutoConfiguration.class
+})
 @EnableCaching
-@EnableTransactionManagement
 public class BootApplication {
 
     /**

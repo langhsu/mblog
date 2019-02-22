@@ -14,22 +14,22 @@ import org.springframework.transaction.annotation.Transactional;
  * @author langhsu
  */
 public interface MessageRepository extends JpaRepository<Message, Long>, JpaSpecificationExecutor<Message> {
-    Page<Message> findAllByOwnId(Pageable pageable, long ownId);
+    Page<Message> findAllByUserId(Pageable pageable, long userId);
 
     /**
      * 查询我的未读消息
      *
-     * @param ownId
+     * @param userId
      * @return
      */
-    int countByOwnIdAndStatus(long ownId, int status);
+    int countByUserIdAndStatus(long userId, int status);
 
     /**
      * 标记我的消息为已读
      */
     @Modifying
-    @Query("update Message n set n.status = 1 where n.status = 0 and n.ownId = :id")
-    int updateReadedByOwnId(@Param("id") Long id);
+    @Query("update Message n set n.status = 1 where n.status = 0 and n.userId = :uid")
+    int updateReadedByUserId(@Param("uid") Long uid);
 
     int deleteByPostId(long postId);
 }

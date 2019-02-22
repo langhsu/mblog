@@ -1,13 +1,10 @@
 package com.mtons.mblog.modules.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 /**
  * @author : langhsu
  */
-@Data
 @Entity
 @Table(name = "mto_post_tag", indexes = {
         @Index(name = "IK_TAG_ID", columnList = "tag_id")
@@ -25,4 +22,35 @@ public class PostTag {
 
     private long weight;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(long postId) {
+        this.postId = postId;
+    }
+
+    public long getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(long tagId) {
+        this.tagId = tagId;
+    }
+
+    public long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(long weight) {
+        this.weight = weight;
+    }
 }

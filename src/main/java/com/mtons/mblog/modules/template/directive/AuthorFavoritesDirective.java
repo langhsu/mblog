@@ -33,7 +33,7 @@ public class AuthorFavoritesDirective extends TemplateDirective {
         long userId = handler.getInteger("userId", 0);
         Pageable pageable = wrapPageable(handler);
 
-        Page<FavoriteVO> result = favoriteService.pagingByOwnId(pageable, userId);
+        Page<FavoriteVO> result = favoriteService.pagingByUserId(pageable, userId);
         handler.put(RESULTS, result).render();
     }
 

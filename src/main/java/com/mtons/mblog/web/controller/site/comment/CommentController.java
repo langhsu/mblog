@@ -61,7 +61,7 @@ public class CommentController extends BaseController {
 			AccountProfile up = getProfile();
 			
 			CommentVO c = new CommentVO();
-			c.setToId(toId);
+			c.setPostId(toId);
 			c.setContent(HtmlUtils.htmlEscape(text));
 			c.setAuthorId(up.getId());
 			

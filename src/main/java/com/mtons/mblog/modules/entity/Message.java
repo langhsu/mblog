@@ -1,8 +1,5 @@
 package com.mtons.mblog.modules.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,14 +9,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_message")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "own_id")
-    private long ownId;
+    @Column(name = "user_id")
+    private long userId;
 
     @Column(name = "from_id")
     private long fromId;
@@ -42,12 +38,12 @@ public class Message {
         this.id = id;
     }
 
-    public long getOwnId() {
-        return ownId;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setOwnId(long ownId) {
-        this.ownId = ownId;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public long getFromId() {

@@ -9,8 +9,6 @@
 */
 package com.mtons.mblog.modules.entity;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 /**
@@ -20,7 +18,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "mto_user_oauth")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserOauth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

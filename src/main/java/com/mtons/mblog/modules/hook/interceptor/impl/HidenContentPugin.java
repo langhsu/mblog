@@ -72,7 +72,7 @@ public class HidenContentPugin extends InterceptorHookSupport {
             if (profile.getId() == userId) {
                 return false;
             }
-            return commentService.countByAuthorIdAndToId(profile.getId(), id) <= 0;
+            return commentService.countByAuthorIdAndPostId(profile.getId(), id) <= 0;
         }
         return true;
     }

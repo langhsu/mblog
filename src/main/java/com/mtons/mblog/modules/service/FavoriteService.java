@@ -12,10 +12,10 @@ public interface FavoriteService {
     /**
      * 查询用户收藏记录
      * @param pageable
-     * @param ownId
+     * @param userId
      * @return
      */
-    Page<FavoriteVO> pagingByOwnId(Pageable pageable, long ownId);
+    Page<FavoriteVO> pagingByUserId(Pageable pageable, long userId);
 
     void add(long userId, long postId);
     void delete(long userId, long postId);

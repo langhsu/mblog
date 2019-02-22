@@ -55,7 +55,7 @@ seajs.use('sidebox', function (sidebox) {
       		return jQuery.format(li_template, i + 1, data.id, data.title);
         },
         onLoadLatestComment : function (i, data) {
-      		return jQuery.format(comment_li_template, data.toId, data.content);
+      		return jQuery.format(comment_li_template, data.postId, data.content);
         }
 	});
 });

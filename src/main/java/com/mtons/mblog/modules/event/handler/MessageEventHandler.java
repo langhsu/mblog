@@ -1,11 +1,11 @@
 package com.mtons.mblog.modules.event.handler;
 
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.data.MessageVO;
 import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.service.PostService;
+import com.mtons.mblog.modules.event.MessageEvent;
 import com.mtons.mblog.modules.service.MessageService;
+import com.mtons.mblog.modules.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Async;
@@ -32,18 +32,18 @@ public class MessageEventHandler implements ApplicationListener<MessageEvent> {
         switch (event.getEvent()) {
             case Consts.MESSAGE_EVENT_FAVOR_POST:
                 PostVO p = postService.get(event.getPostId());
-                nt.setOwnId(p.getAuthorId());
+                nt.setUserId(p.getAuthorId());
                 break;
             case Consts.MESSAGE_EVENT_COMMENT:
             case Consts.MESSAGE_EVENT_COMMENT_REPLY:
                 PostVO p2 = postService.get(event.getPostId());
-                nt.setOwnId(p2.getAuthorId());
+                nt.setUserId(p2.getAuthorId());
 
                 // 自增评论数
                 postService.identityComments(event.getPostId());
                 break;
             default:
-                nt.setOwnId(event.getToUserId());
+                nt.setUserId(event.getToUserId());
         }
 
         messageService.send(nt);

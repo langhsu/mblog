@@ -11,7 +11,6 @@
 define(function(require, exports, module) {
     require('validation');
     require('validation-additional');
-    require('validation-localization');
 
     var J = jQuery, _BATH = _MTONS.BASE_PATH;
 
@@ -63,7 +62,15 @@ define(function(require, exports, module) {
                 },
                 messages: {
                     username: {
-                        required: '请输入用户名'
+                        required: '请输入用户名',
+                        check_username: '只能是字母/字母+数字,不少于5位'
+                    },
+                    email: {
+                        required: '请输入邮箱地址',
+                        email: '邮箱格式不正确'
+                    },
+                    code: {
+                        required: '请输入收到的验证码'
                     },
                     password: {
                         required: '请输入密码'
@@ -100,7 +107,8 @@ define(function(require, exports, module) {
                 },
                 messages: {
                     username: {
-                        required: '请输入用户名'
+                        required: '请输入用户名',
+                        check_username: '只能是字母/字母+数字,不少于5位'
                     }
                 }
             });
@@ -135,6 +143,12 @@ define(function(require, exports, module) {
                     }
                 },
                 messages: {
+                    email: {
+                        required: '请输入邮箱地址',
+                        email: '邮箱格式不正确'
+                    },
+                    password: '请输入新密码',
+                    code: '请输入收到的验证码',
                     password2: {
                         required: '请输入确认密码',
                         equalTo: '两次输入的密码不一致'
@@ -151,6 +165,15 @@ define(function(require, exports, module) {
                     },
                     code: {
                         required: true
+                    }
+                },
+                messages: {
+                    email: {
+                        required: '请输入邮箱地址',
+                        email: '邮箱格式不正确'
+                    },
+                    code: {
+                        required: '请输入收到的验证码'
                     }
                 }
             });
@@ -181,6 +204,8 @@ define(function(require, exports, module) {
                     }
                 },
                 messages: {
+                    oldPassword: '请输入当前密码',
+                    password: '请输入新密码',
                     password2: {
                         required: '请输入确认密码',
                         equalTo: '两次输入的密码不一致'
@@ -190,7 +215,14 @@ define(function(require, exports, module) {
         },
 
         updateProfile: function (formId) {
-            _bind_validate(formId, {});
+            _bind_validate(formId, {
+                rules: {
+                    name: 'required'
+                },
+                messages: {
+                    name: '请输入昵称'
+                }
+            });
         }
     };
 

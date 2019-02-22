@@ -34,8 +34,8 @@ public class MessageServiceImpl implements MessageService {
     private PostService postService;
 
     @Override
-    public Page<MessageVO> pagingByOwnId(Pageable pageable, long ownId) {
-        Page<Message> page = messageRepository.findAllByOwnId(pageable, ownId);
+    public Page<MessageVO> pagingByUserId(Pageable pageable, long userId) {
+        Page<Message> page = messageRepository.findAllByUserId(pageable, userId);
         List<MessageVO> rets = new ArrayList<>();
 
         Set<Long> postIds = new HashSet<>();
@@ -75,7 +75,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void send(MessageVO message) {
-        if (message == null || message.getOwnId() <=0 || message.getFromId() <= 0) {
+        if (message == null || message.getUserId() <=0 || message.getFromId() <= 0) {
             return;
         }
 
@@ -87,14 +87,14 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public int unread4Me(long ownId) {
-        return messageRepository.countByOwnIdAndStatus(ownId, Consts.UNREAD);
+    public int unread4Me(long userId) {
+        return messageRepository.countByUserIdAndStatus(userId, Consts.UNREAD);
     }
 
     @Override
     @Transactional
-    public void readed4Me(long ownId) {
-        messageRepository.updateReadedByOwnId(ownId);
+    public void readed4Me(long userId) {
+        messageRepository.updateReadedByUserId(userId);
     }
 
     @Override

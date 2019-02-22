@@ -19,14 +19,14 @@ define(function(require, exports, module) {
     	};
     
     // 图片懒加载
-    var imagesLazyload = function () {
-    	require.async('lazyload', function () {
-    		$("img").lazyload({
-	   	   		 placeholder: _MTONS.BASE_PATH + '/dist/images/spinner.gif',
-	   	   		 effect: "fadeIn"
-	   	   	});
-        });
-    }
+    // var imagesLazyload = function () {
+    // 	require.async('lazyload', function () {
+    // 		$("img").lazyload({
+	//    	   		 placeholder: _MTONS.BASE_PATH + '/dist/images/spinner.gif',
+	//    	   		 effect: "fadeIn"
+	//    	   	});
+    //     });
+    // }
     
     // 返回顶部
     var backToTop = function () {
@@ -76,7 +76,7 @@ define(function(require, exports, module) {
 	}
 
     exports.init = function () {
-    	imagesLazyload();
+    	// imagesLazyload();
     	backToTop();
 		bindClickEvent();
         $('[data-toggle="tooltip"]').tooltip();

@@ -30,9 +30,9 @@ public interface CommentService {
 	/**
 	 * 查询评论列表
 	 * @param pageable
-	 * @param toId
+	 * @param postId
 	 */
-	Page<CommentVO> pagingByPostId(Pageable pageable, long toId);
+	Page<CommentVO> pagingByPostId(Pageable pageable, long postId);
 
 	List<CommentVO> findLatests(int maxResults);
 
@@ -53,5 +53,5 @@ public interface CommentService {
 
 	long count();
 
-	long countByAuthorIdAndToId(long authorId, long toId);
+	long countByAuthorIdAndPostId(long authorId, long postId);
 }

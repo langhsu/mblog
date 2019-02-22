@@ -9,9 +9,6 @@
 */
 package com.mtons.mblog.modules.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 /**
@@ -21,7 +18,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "mto_options")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Options {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

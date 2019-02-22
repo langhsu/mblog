@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_comment", indexes = {
-        @Index(name = "IK_TO_ID", columnList = "to_id")
+        @Index(name = "IK_POST_ID", columnList = "post_id")
 })
 public class Comment {
     @Id
@@ -27,15 +27,15 @@ public class Comment {
     private long id;
 
     /**
-     * 所属内容ID
-     */
-    @Column(name = "to_id")
-    private long toId;
-
-    /**
      * 父评论ID
      */
     private long pid;
+
+    /**
+     * 所属内容ID
+     */
+    @Column(name = "post_id")
+    private long postId;
 
     /**
      * 评论内容
@@ -59,12 +59,20 @@ public class Comment {
         this.id = id;
     }
 
-    public long getToId() {
-        return toId;
+    public long getPid() {
+        return pid;
     }
 
-    public void setToId(long toId) {
-        this.toId = toId;
+    public void setPid(long pid) {
+        this.pid = pid;
+    }
+
+    public long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(long postId) {
+        this.postId = postId;
     }
 
     public String getContent() {
@@ -98,13 +106,4 @@ public class Comment {
     public void setStatus(int status) {
         this.status = status;
     }
-
-    public long getPid() {
-        return pid;
-    }
-
-    public void setPid(long pid) {
-        this.pid = pid;
-    }
-
 }

@@ -9,9 +9,6 @@
 */
 package com.mtons.mblog.modules.entity;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -21,7 +18,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "mto_security_code")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class SecurityCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
