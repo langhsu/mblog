@@ -3,8 +3,8 @@
  */
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.SecurityCodeService;
@@ -45,9 +45,7 @@ public class RegisterController extends BaseController {
 	
 	@PostMapping("/register")
 	public String register(UserVO post, HttpServletRequest request, ModelMap model) {
-		Result data;
-		String ret = view(Views.REGISTER);
-
+		String view = view(Views.REGISTER);
 		try {
 			if (siteOptions.getControls().isRegister_email_validate()) {
 				String code = request.getParameter("code");
@@ -57,15 +55,13 @@ public class RegisterController extends BaseController {
 			}
 			post.setAvatar(Consts.AVATAR);
 			userService.register(post);
-			data = Result.successMessage("恭喜您! 注册成功");
-			data.addLink("login", "前往登录");
-			ret = view(Views.REGISTER_RESULT);
+			Result<AccountProfile> result = executeLogin(post.getUsername(), post.getPassword(), false);
+			view = String.format(Views.REDIRECT_USER_HOME, result.getData().getId());
 		} catch (Exception e) {
             model.addAttribute("post", post);
-			data = Result.failure(e.getMessage());
+			model.put("data", Result.failure(e.getMessage()));
 		}
-		model.put("data", data);
-		return ret;
+		return view;
 	}
 
 }

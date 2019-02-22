@@ -146,7 +146,6 @@ public class SettingsController extends BaseController {
 
             result.ok(UploadController.errorInfo.get("SUCCESS"));
             result.setName(fileName);
-            result.setType(getSuffix(fileName));
             result.setPath(path);
             result.setSize(file.getSize());
         } catch (Exception e) {

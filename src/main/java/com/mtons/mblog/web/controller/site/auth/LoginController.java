@@ -9,30 +9,22 @@
 */
 package com.mtons.mblog.web.controller.site.auth;
 
-import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 登录页
+ * 登录
  * @author langhsu
  */
-@Slf4j
 @Controller
 public class LoginController extends BaseController {
     @Autowired
@@ -42,7 +34,7 @@ public class LoginController extends BaseController {
      * 跳转登录页
      * @return
      */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@GetMapping(value = "/login")
 	public String view() {
 		return view(Views.LOGIN);
 	}
@@ -54,39 +46,21 @@ public class LoginController extends BaseController {
      * @param model
      * @return
      */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(String username, String password,@RequestParam(value = "rememberMe",defaultValue = "0") int rememberMe, ModelMap model) {
-		String ret = view(Views.LOGIN);
-		
-		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-            return ret;
-        }
+	@PostMapping(value = "/login")
+	public String login(String username,
+                        String password,
+                        @RequestParam(value = "rememberMe",defaultValue = "0") Boolean rememberMe,
+                        ModelMap model) {
+		String view = view(Views.LOGIN);
 
-        UsernamePasswordToken token = createToken(username, password);
-        if (token == null) {
-        	model.put("message", "用户名或密码错误");
-            return ret;
-        }
+        Result<AccountProfile> result = executeLogin(username, password, rememberMe);
 
-        if (rememberMe == 1) {
-            token.setRememberMe(true);
+        if (result.isOk()) {
+            view = String.format(Views.REDIRECT_USER_HOME, result.getData().getId());
+        } else {
+            model.put("message", result.getMessage());
         }
-
-        try {
-            SecurityUtils.getSubject().login(token);
-            AccountProfile profile = getProfile();
-            ret = String.format(Views.REDIRECT_USER_HOME, profile.getId());
-        } catch (UnknownAccountException e) {
-            log.error(e.getMessage());
-            throw new MtonsException("用户不存在");
-        } catch (LockedAccountException e) {
-            log.error(e.getMessage());
-            throw new MtonsException("用户被禁用");
-        } catch (AuthenticationException e) {
-            log.error(e.getMessage());
-            throw new MtonsException("用户认证失败");
-        }
-        return ret;
+        return view;
 	}
 
 }

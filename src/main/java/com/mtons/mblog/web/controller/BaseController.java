@@ -9,12 +9,18 @@
 */
 package com.mtons.mblog.web.controller;
 
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.storage.StorageFactory;
 import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.data.AccountProfile;
 import com.mtons.mblog.web.formatter.StringEscapeEditor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +34,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,9 +44,8 @@ import java.util.Date;
  * @since 3.0
  * 
  */
+@Slf4j
 public class BaseController {
-	@Autowired
-	protected HttpSession session;
 	@Autowired
 	protected StorageFactory storageFactory;
 	@Autowired
@@ -113,13 +117,32 @@ public class BaseController {
 		return PageRequest.of(pn - 1, pageSize);
 	}
 
-	protected String getSuffix(String name) {
-		int pos = name.lastIndexOf(".");
-		return name.substring(pos);
-	}
-
 	protected String view(String view) {
 		return "/" + siteOptions.getValue("theme") + view;
 	}
 
+	protected Result<AccountProfile> executeLogin(String username, String password, boolean rememberMe) {
+		Result<AccountProfile> ret = Result.failure("登录失败");
+
+		if (StringUtils.isAnyBlank(username, password)) {
+			return ret;
+		}
+
+		UsernamePasswordToken token = new UsernamePasswordToken(username, MD5.md5(password), rememberMe);
+
+		try {
+			SecurityUtils.getSubject().login(token);
+			ret = Result.success(getProfile());
+		} catch (UnknownAccountException e) {
+			log.error(e.getMessage());
+			ret = Result.failure("用户不存在");
+		} catch (LockedAccountException e) {
+			log.error(e.getMessage());
+			ret = Result.failure("用户被禁用");
+		} catch (AuthenticationException e) {
+			log.error(e.getMessage());
+			ret = Result.failure("用户认证失败");
+		}
+		return ret;
+	}
 }

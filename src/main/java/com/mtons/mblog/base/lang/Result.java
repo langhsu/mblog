@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * @author langhsu
  */
-public class Result implements Serializable {
+public class Result<T> implements Serializable {
     private static final long serialVersionUID = -1491499610244557029L;
 
     public static int SUCCESS = 0;
@@ -23,20 +23,20 @@ public class Result implements Serializable {
 
     private int code; // 处理状态：0: 成功
     private String message;
-    private Object data; // 返回数据
+    private T data; // 返回数据
     private ArrayList<Button> links = new ArrayList<>();
 
     private Result(int code, String message) {
         this(code, message, null);
     }
 
-    private Result(int code, String message, Object data) {
+    private Result(int code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public static Result success() {
+    public static <T> Result<T> success() {
         return success(null);
     }
 
@@ -46,19 +46,19 @@ public class Result implements Serializable {
      * @param data
      * @return
      */
-    public static Result success(Object data) {
+    public static <T> Result<T> success(T data) {
         return success("操作成功", data);
     }
 
-    public static Result successMessage(String message) {
+    public static <T> Result<T> successMessage(String message) {
         return success(message, null);
     }
 
-    public static Result success(String message, Object data) {
-        return new Result(Result.SUCCESS, message, data);
+    public static <T> Result<T> success(String message, T data) {
+        return new Result<>(Result.SUCCESS, message, data);
     }
 
-    public static Result failure(String message) {
+    public static <T> Result<T> failure(String message) {
         return failure(Result.FAILURED, message);
     }
 
@@ -68,8 +68,12 @@ public class Result implements Serializable {
      * @param code
      * @return
      */
-    public static Result failure(int code, String message) {
-        return new Result(code, message, null);
+    public static <T> Result<T> failure(int code, String message) {
+        return new Result<>(code, message, null);
+    }
+
+    public boolean isOk() {
+        return code == SUCCESS;
     }
 
     public int getCode() {
@@ -88,11 +92,11 @@ public class Result implements Serializable {
         this.message = message;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

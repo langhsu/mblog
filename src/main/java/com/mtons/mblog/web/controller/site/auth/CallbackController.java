@@ -2,6 +2,7 @@ package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.MtonsException;
+import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.oauth.*;
 import com.mtons.mblog.base.oauth.utils.OpenOauthBean;
 import com.mtons.mblog.base.oauth.utils.TokenUtil;
@@ -16,11 +17,6 @@ import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -36,7 +32,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * 第三方登录回调
  *
- * @author langhsu on 2015/8/12.
+ * @author langhsu
  */
 @Slf4j
 @Controller
@@ -117,7 +113,7 @@ public class CallbackController extends BaseController {
             return view(Views.OAUTH_REGISTER);
         }
         String username = userService.get(thirdToken.getUserId()).getUsername();
-        return login(username, thirdToken.getAccessToken(), request);
+        return login(username, thirdToken.getAccessToken());
     }
 
     /**
@@ -186,7 +182,7 @@ public class CallbackController extends BaseController {
             return view(Views.OAUTH_REGISTER);
         }
         String username = userService.get(thirdToken.getUserId()).getUsername();
-        return login(username, thirdToken.getAccessToken(), request);
+        return login(username, thirdToken.getAccessToken());
     }
 
     /**
@@ -260,7 +256,7 @@ public class CallbackController extends BaseController {
             return view(Views.OAUTH_REGISTER);
         }
         String username = userService.get(thirdToken.getUserId()).getUsername();
-        return login(username, thirdToken.getAccessToken(), request);
+        return login(username, thirdToken.getAccessToken());
 
 
     }
@@ -333,7 +329,7 @@ public class CallbackController extends BaseController {
             return view(Views.OAUTH_REGISTER);
         }
         String username = userService.get(thirdToken.getUserId()).getUsername();
-        return login(username, thirdToken.getAccessToken(), request);
+        return login(username, thirdToken.getAccessToken());
     }
 
     /**
@@ -352,13 +348,12 @@ public class CallbackController extends BaseController {
         // 已存在：提取用户信息，登录
         if (thirdToken != null) {
             username = userService.get(thirdToken.getUserId()).getUsername();
-            // 不存在：注册新用户，并绑定此token，登录
-        } else {
+        } else { // 不存在：注册新用户，并绑定此token，登录
             UserVO user = userService.getByUsername(username);
             if (user == null) {
                 UserVO u = userService.register(wrapUser(openOauth));
 
-                // ===将远程图片下载到本地===
+                // 将远程图片下载到本地
                 String ava100 = Consts.avatarPath + getAvaPath(u.getId(), 100);
                 byte[] bytes = ImageUtils.download(openOauth.getAvatar());
                 storageFactory.get().writeToStore(bytes, ava100);
@@ -372,36 +367,27 @@ public class CallbackController extends BaseController {
                 username = user.getUsername();
             }
         }
-        return login(username, openOauth.getAccessToken(), request);
+        return login(username, openOauth.getAccessToken());
     }
 
     /**
      * 执行登录请求
      *
      * @param username
-     * @param request
+     * @param accessToken
      * @return
      */
-    private String login(String username, String accessToken, HttpServletRequest request) {
-        String ret = view(Views.LOGIN);
+    private String login(String username, String accessToken) {
+        String view = view(Views.LOGIN);
 
         if (StringUtils.isNotBlank(username)) {
-            UsernamePasswordToken token = createToken(username, accessToken);
-            try {
-                SecurityUtils.getSubject().login(token);
-                AccountProfile profile = getProfile();
-                ret = String.format(Views.REDIRECT_USER_HOME, profile.getId());
-            } catch (UnknownAccountException e) {
-                throw new MtonsException("用户不存在");
-            } catch (LockedAccountException e) {
-                throw new MtonsException("用户被禁用");
-            } catch (AuthenticationException e) {
-                log.error(e.getMessage());
-                throw new MtonsException("用户认证失败");
+            Result<AccountProfile> result = executeLogin(username, accessToken, false);
+            if (result.isOk()) {
+                view = String.format(Views.REDIRECT_USER_HOME, result.getData().getId());
             }
-            return ret;
+            return view;
         }
-        throw new MtonsException("登录失败！");
+        throw new MtonsException("登录失败");
     }
 
     private UserVO wrapUser(OpenOauthVO openOauth) {

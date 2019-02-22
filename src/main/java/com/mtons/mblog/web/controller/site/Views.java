@@ -10,40 +10,37 @@
 package com.mtons.mblog.web.controller.site;
 
 /**
- * 
  * 返回页面配置
- * 
- * @author langhsu
  *
+ * @author langhsu
  */
 public interface Views {
-	String LOGIN = "/auth/login";
-	String REGISTER = "/auth/register";
-	String REGISTER_RESULT = "/auth/result";
-	String OAUTH_REGISTER = "/auth/oauth_register";
+    String LOGIN = "/auth/login";
+    String REGISTER = "/auth/register";
+    String OAUTH_REGISTER = "/auth/oauth_register";
 
-	String FORGOT = "/auth/forgot";
+    String FORGOT = "/auth/forgot";
 
-	String INDEX = "/index";
+    String INDEX = "/index";
 
-	String USER_POSTS = "/user/method_posts";
-	String USER_COMMENTS = "/user/method_comments";
-	String USER_FAVORITES = "/user/method_favorites";
-	String USER_MESSAGES = "/user/method_messages";
+    String USER_POSTS = "/user/method_posts";
+    String USER_COMMENTS = "/user/method_comments";
+    String USER_FAVORITES = "/user/method_favorites";
+    String USER_MESSAGES = "/user/method_messages";
 
-	String REDIRECT_USER_HOME = "redirect:/users/%d";
+    String REDIRECT_USER_HOME = "redirect:/users/%d";
 
-	String SETTINGS_AVATAR = "/settings/avatar";
-	String SETTINGS_PASSWORD = "/settings/password";
-	String SETTINGS_PROFILE = "/settings/profile";
-	String SETTINGS_EMAIL = "/settings/email";
+    String SETTINGS_AVATAR = "/settings/avatar";
+    String SETTINGS_PASSWORD = "/settings/password";
+    String SETTINGS_PROFILE = "/settings/profile";
+    String SETTINGS_EMAIL = "/settings/email";
 
-	String TAG_INDEX = "/tag/index";
-	String TAG_VIEW = "/tag/view";
+    String TAG_INDEX = "/tag/index";
+    String TAG_VIEW = "/tag/view";
 
-	String BROWSE_SEARCH = "/search";
+    String BROWSE_SEARCH = "/search";
 
-	String ROUTE_POST_EDITING = "/channel/editing";
-	String ROUTE_POST_INDEX = "/channel/index";
-	String ROUTE_POST_VIEW = "/channel/view";
+    String ROUTE_POST_EDITING = "/channel/editing";
+    String ROUTE_POST_INDEX = "/channel/index";
+    String ROUTE_POST_VIEW = "/channel/view";
 }
