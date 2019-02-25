@@ -1,4 +1,4 @@
-<#include "/classic/utils/ui.ftl"/>
+<#include "/classic/inc/layout.ftl"/>
 
 <#assign title = view.title + ' - ' + options['site_name'] />
 <#assign keywords = view.keywords?default(options['site_keywords']) />
@@ -84,9 +84,7 @@
         <ul class="list-group about-user">
             <li class="list-group-item user-card" >
                 <div class="user-avatar">
-                    <a href="${base}/users/${view.author.id}">
-                        <@showAva view.author.avatar "img-circle"/>
-                    </a>
+                    <@utils.showAva view.author "img-circle"/>
                 </div>
                 <div class="user-name">
                     <span>${view.author.name}</span>

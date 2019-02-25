@@ -1,4 +1,4 @@
-<#include "/classic/utils/ui.ftl"/>
+<#include "/classic/inc/layout.ftl"/>
 <@layout "编辑文章">
 
 <form id="submitForm" class="form" action="${base}/post/submit" method="post" enctype="multipart/form-data">

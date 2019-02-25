@@ -19,13 +19,13 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class AuthorContentsDirective extends TemplateDirective {
+public class UserContentsDirective extends TemplateDirective {
     @Autowired
 	private PostService postService;
 
 	@Override
 	public String getName() {
-		return "author_contents";
+		return "user_contents";
 	}
 
     @Override

@@ -3,8 +3,8 @@
  */
 package com.mtons.mblog.modules.template.directive;
 
-import com.mtons.mblog.modules.data.FavoriteVO;
-import com.mtons.mblog.modules.service.FavoriteService;
+import com.mtons.mblog.modules.data.MessageVO;
+import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +13,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 /**
- * 根据作者取收藏列表
+ * 查询用户消息列表
  *
  * @author landy
  * @since 3.0
  */
 @Component
-public class AuthorFavoritesDirective extends TemplateDirective {
+public class UserMessagesDirective extends TemplateDirective {
     @Autowired
-	private FavoriteService favoriteService;
+	private MessageService messageService;
 
 	@Override
 	public String getName() {
-		return "author_favorites";
+		return "user_messages";
 	}
 
     @Override
@@ -33,7 +33,7 @@ public class AuthorFavoritesDirective extends TemplateDirective {
         long userId = handler.getInteger("userId", 0);
         Pageable pageable = wrapPageable(handler);
 
-        Page<FavoriteVO> result = favoriteService.pagingByUserId(pageable, userId);
+        Page<MessageVO> result = messageService.pagingByUserId(pageable, userId);
         handler.put(RESULTS, result).render();
     }
 

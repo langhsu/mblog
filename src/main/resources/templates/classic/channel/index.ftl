@@ -1,4 +1,4 @@
-<#include "/classic/utils/ui.ftl"/>
+<#include "/classic/inc/layout.ftl"/>
 <@layout channel.name>
     <div class="row">
         <div class="col-xs-12 col-md-9 side-left">
@@ -21,7 +21,7 @@
 
                 <!-- Pager -->
                 <div class="text-center">
-                    <@pager request.requestURI!"", results, 5/>
+                    <@utils.pager request.requestURI!"", results, 5/>
                 </div>
             </@contents>
 

@@ -27,15 +27,17 @@ spring:
     freemarker:
         template-loader-path:
         - classpath:/templates
-        - file:./templates
+        - file:${site.location}/storage/templates
         cache: false
-        checkTemplateLocation: false
+        check-template-location: true
+        charset: utf-8
         settings:
             classic_compatible: true #处理空值
             template_exception_handler: rethrow
             template_update_delay: 0
             datetime_format: yyyy-MM-dd HH:mm
             number_format: 0.##
+            auto_import: /utils.ftl as utils
     flyway:
         enabled: false
         baseline-on-migrate: true

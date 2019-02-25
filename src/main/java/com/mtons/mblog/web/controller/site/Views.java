@@ -40,25 +40,27 @@ public interface Views {
      */
     String INDEX = "/index";
 
+    String USER_METHOD_TEMPLATE = "/user/method_%s";
+
     /**
      * 用户文章列表
      */
-    String USER_POSTS = "/user/method_posts";
+    String METHOD_POSTS = "posts";
 
     /**
      * 用户评论列表
      */
-    String USER_COMMENTS = "/user/method_comments";
+    String METHOD_COMMENTS = "comments";
 
     /**
      * 用户收藏列表
      */
-    String USER_FAVORITES = "/user/method_favorites";
+    String METHOD_FAVORITES = "favorites";
 
     /**
      * 用户消息列表
      */
-    String USER_MESSAGES = "/user/method_messages";
+    String METHOD_MESSAGES = "messages";
 
     /**
      * 个人-修改头像

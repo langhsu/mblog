@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/inc/layout.ftl"/>
 <@layout "修改用户信息">
 
 <div class="panel panel-default stacked">

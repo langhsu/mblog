@@ -1062,11 +1062,11 @@ abbr[data-original-title], abbr[title] {
     border-radius: 5px;
 }
 
-.streams-tags .avatar {
+.streams-tags .media-left a {
     padding: 0;
 }
 
-.streams-tags .avatar img {
+.streams-tags .media-left a img {
     width: 100%;
     width: 42px;
     height: 42px;

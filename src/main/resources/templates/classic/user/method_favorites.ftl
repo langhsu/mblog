@@ -1,4 +1,4 @@
-<#include "/classic/utils/ui.ftl"/>
+<#include "/classic/inc/layout.ftl"/>
 
 <@layout user.name +  "的收藏">
 <div class="row users-show">
@@ -8,7 +8,7 @@
     <div class="col-xs-12 col-md-9 side-right">
         <div class="panel panel-default">
             <div class="panel-heading">收藏的文章</div>
-            <@author_favorites userId=user.id pageNo=pageNo>
+            <@user_favorites userId=user.id pageNo=pageNo>
                 <div class="panel-body">
                     <ul class="list-group">
                         <#list results.content as row>
@@ -42,9 +42,9 @@
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <@pager request.requestURI!'', results, 5/>
+                    <@utils.pager request.requestURI!'', results, 5/>
                 </div>
-            </@author_favorites>
+            </@user_favorites>
         </div>
     </div>
 </div>

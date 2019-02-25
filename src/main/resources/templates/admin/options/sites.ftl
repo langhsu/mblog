@@ -60,6 +60,7 @@
                 <select class="form-control" name="theme" data-select="${options['theme']}">
                     <option value="default">default</option>
                     <option value="classic">classic</option>
+                    <option value="simple">simple</option>
                 </select>
             </div>
         </div>

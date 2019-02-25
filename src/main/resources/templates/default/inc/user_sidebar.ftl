@@ -2,9 +2,7 @@
 <ul class="list-group about-user">
     <li class="list-group-item user-card" >
         <div class="user-avatar">
-            <a href="${base}/users/${user.id}">
-            <@showAva user.avatar "img-circle"/>
-            </a>
+            <@utils.showAva user "img-circle"/>
         </div>
         <div class="user-name">
             <span>${user.name}</span>
