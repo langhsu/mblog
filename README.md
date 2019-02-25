@@ -66,4 +66,5 @@
 
 ### 这些用户在使用mblog(如需要在此展示您的博客请联系作者)：
 [https://www.lyp82nlf.com/](https://www.lyp82nlf.com/)
-
+[http://www.outshine.cn/](http://www.outshine.cn/)
+[http://www.jiangxindc.com](http://www.jiangxindc.com)
