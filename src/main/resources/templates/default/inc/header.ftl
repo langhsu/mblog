@@ -8,30 +8,39 @@
             </div>
             <div class="modal-body">
                 <form method="POST" action="${base}/login" accept-charset="UTF-8">
-                    <div class="form-group ">
+                    <div class="form-group">
                         <label class="control-label" for="username">账号</label>
                         <input class="form-control" id="ajax_login_username" name="username" type="text" required>
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         <label class="control-label" for="password">密码</label>
                         <input class="form-control" id="ajax_login_password" name="password" type="password" required>
                     </div>
-                    <button id="ajax_login_submit" class="btn btn-success btn-block btn-sm" type="button">
-                        登录 Use it
-                    </button>
-                    <div id="ajax_login_message" class="text-danger"></div>
+                    <div class="form-group">
+                        <button id="ajax_login_submit" class="btn btn-success btn-block btn-sm" type="button">
+                            登录 Use it
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <div id="ajax_login_message" class="text-danger"></div>
+                    </div>
                     <@controls name="register">
-                        <hr>
                         <fieldset class="form-group">
-                            <div class="alert alert-info">
-                                使用以下方法注册或者登录（<a class="forget-password" href="${base}/forgot/apply">忘记密码？</a>）
-                            </div>
+                            <#if site.hasValue("qq_app_id")>
                             <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_weibo">
                                 <i class="fa fa-weibo"></i> 微博帐号登录
                             </a>
+                            </#if>
+                            <#if site.hasValue("weibo_client_id")>
                             <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_qq">
                                 <i class="fa fa-qq"></i> QQ帐号登录
                             </a>
+                            </#if>
+                            <#if site.hasValue("github_client_id")>
+                            <a class="btn btn-default btn-block" href="${base}/oauth/callback/call_github">
+                                <i class="fa fa-github"></i> Github帐号登录
+                            </a>
+                            </#if>
                         </fieldset>
                     </@controls>
                 </form>

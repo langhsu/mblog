@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.config;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -78,6 +79,10 @@ public class SiteOptions {
 
     public String getValue(String key) {
         return options.get(key);
+    }
+
+    public boolean hasValue(String key) {
+        return StringUtils.isNotBlank(options.get(key));
     }
 
     public static class Controls {

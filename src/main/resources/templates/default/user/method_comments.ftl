@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/inc/layout.ftl"/>
 
 <@layout user.name + "的评论">
 <div class="row users-show">
@@ -8,7 +8,7 @@
     <div class="col-xs-12 col-md-9 side-right">
         <div class="panel panel-default">
             <div class="panel-heading">发表的评论</div>
-            <@author_comments userId=user.id pageNo=pageNo>
+            <@user_comments userId=user.id pageNo=pageNo>
                 <div class="panel-body">
                     <ul class="list-group">
                         <#list results.content as row>
@@ -46,9 +46,9 @@
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <@pager request.requestURI!'', results, 5/>
+                    <@utils.pager request.requestURI!'', results, 5/>
                 </div>
-            </@author_comments>
+            </@user_comments>
         </div>
     </div>
 </div>

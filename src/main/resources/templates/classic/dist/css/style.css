@@ -961,6 +961,7 @@ abbr[data-original-title], abbr[title] {
 
 .streams-tags .title i {
     color: #d2d2d2;
+    margin-right: 5px;
 }
 
 .streams-tags .title .label {
@@ -973,11 +974,11 @@ abbr[data-original-title], abbr[title] {
     border-radius: 5px;
 }
 
-.streams-tags .avatar {
+.streams-tags .media-left a {
     padding: 0;
 }
 
-.streams-tags .avatar img {
+.streams-tags .media-left a img {
     width: 42px;
     height: 42px;
     border-radius: 25px;

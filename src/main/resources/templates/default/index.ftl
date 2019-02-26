@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/inc/layout.ftl"/>
 <#assign topId = 1 />
 
 <@layout>
@@ -48,15 +48,12 @@
                         </a>
 
                         <div class="avatar pull-left">
-                            <a href="${base}/users/${row.author.id}">
-                                <img class="media-object img-thumbnail avatar avatar-middle"
-                                     src="<@resource src=row.author.avatar + '?t=' + .now?time />">
-                            </a>
+                            <@utils.showAva row.author "media-object img-thumbnail avatar avatar-middle"/>
                         </div>
 
                         <div class="infos">
                             <div class="media-heading">
-                                <@classify row/><a href="${base}/post/${row.id}">${row.title?html}</a>
+                                <@utils.showChannel row/><a href="${base}/post/${row.id}">${row.title?html}</a>
                             </div>
                         </div>
                     </li>

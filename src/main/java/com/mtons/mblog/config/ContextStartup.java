@@ -82,6 +82,8 @@ public class ContextStartup implements ApplicationRunner, ServletContextAware {
         servletContext.setAttribute("options", map);
         servletContext.setAttribute("site", siteOptions);
         mailService.config();
+
+        System.setProperty("site.location", siteOptions.getLocation());
     }
 
     public void resetChannels() {

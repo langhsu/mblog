@@ -10,6 +10,7 @@
 package com.mtons.mblog.web.controller.admin;
 
 import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.utils.BlogUtils;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.modules.service.OptionsService;
 import com.mtons.mblog.modules.service.PostSearchService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,7 +42,8 @@ public class OptionsController extends BaseController {
 	private ContextStartup contextStartup;
 
 	@RequestMapping("/index")
-	public String list() {
+	public String index(ModelMap model) {
+		model.put("themes", BlogUtils.getThemes());
 		return "/admin/options/index";
 	}
 	
@@ -49,6 +52,7 @@ public class OptionsController extends BaseController {
 		optionsService.update(body);
 		contextStartup.reloadOptions(false);
 		model.put("data", Result.success());
+		model.put("themes", BlogUtils.getThemes());
 		return "/admin/options/index";
 	}
 

@@ -154,7 +154,7 @@ public class SettingsController extends BaseController {
         return result;
     }
 
-    public String getAvaPath(long uid, int size) {
+    private String getAvaPath(long uid, int size) {
         String base = FilePathUtils.getAvatar(uid);
         return String.format("/%s_%d.jpg", base, size);
     }

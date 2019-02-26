@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/inc/layout.ftl"/>
 <@layout channel.name>
     <div class="row streams">
         <div class="col-xs-12 col-md-9 side-left">
@@ -36,14 +36,11 @@
                                         </div>
                                     </a>
                                     <div class="avatar pull-left">
-                                        <a href="${base}/users/${row.author.id}">
-                                            <img class="media-object img-thumbnail avatar avatar-middle"
-                                                 src="<@resource src=row.author.avatar + '?t=' + .now?time />">
-                                        </a>
+                                        <@utils.showAva row.author "media-object img-thumbnail avatar avatar-middle"/>
                                     </div>
                                     <div class="infos">
                                         <div class="media-heading">
-                                            <@classify row/><a href="${base}/post/${row.id}">${row.title}</a>
+                                            <@utils.showChannel row/><a href="${base}/post/${row.id}">${row.title}</a>
                                         </div>
                                     </div>
                                 </li>
@@ -61,7 +58,7 @@
 
                     <div class="panel-footer text-right remove-padding-horizontal pager-footer">
                         <!-- Pager -->
-                        <@pager request.requestURI!"", results, 5/>
+                        <@utils.pager request.requestURI!"", results, 5/>
                     </div>
                 </@contents>
             </div>

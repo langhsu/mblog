@@ -19,13 +19,13 @@ import org.springframework.stereotype.Component;
  * @since 3.0
  */
 @Component
-public class AuthorCommentsDirective extends TemplateDirective {
+public class UserCommentsDirective extends TemplateDirective {
     @Autowired
 	private CommentService commentService;
 
 	@Override
 	public String getName() {
-		return "author_comments";
+		return "user_comments";
 	}
 
     @Override

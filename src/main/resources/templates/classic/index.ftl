@@ -1,4 +1,4 @@
-<#include "/classic/utils/ui.ftl"/>
+<#include "/classic/inc/layout.ftl"/>
 <#assign topId = 1 />
 
 <@layout>
@@ -51,7 +51,7 @@
         </div>
         <div class="text-center">
             <!-- Pager -->
-            <@pager request.requestURI!"", results, 5/>
+            <@utils.pager request.requestURI!"", results, 5/>
         </div>
     </div>
     <div class="col-xs-12 col-md-3 side-right">

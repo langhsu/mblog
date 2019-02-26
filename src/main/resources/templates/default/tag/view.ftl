@@ -1,4 +1,4 @@
-<#include "/default/utils/ui.ftl"/>
+<#include "/default/inc/layout.ftl"/>
 
 <@layout "标签:" + kw>
 
@@ -32,10 +32,7 @@
                                 </div>
                             </a>
                             <div class="avatar pull-left">
-                                <a href="${base}/users/${post.author.id}">
-                                    <img class="media-object img-thumbnail avatar avatar-middle"
-                                         src="<@resource src=post.author.avatar/>">
-                                </a>
+                                <@utils.showAva post.author "media-object img-thumbnail avatar avatar-middle"/>
                             </div>
                             <div class="infos">
                                 <div class="media-heading">
@@ -57,7 +54,7 @@
             </div>
 
             <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-				<@pager request.requestURI, results, 5/>
+				<@utils.pager request.requestURI, results, 5/>
             </div>
         </div>
     </div>

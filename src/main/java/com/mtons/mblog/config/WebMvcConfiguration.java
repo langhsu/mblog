@@ -39,8 +39,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/dist/");
         registry.addResourceHandler("/theme/*/dist/**")
                 .addResourceLocations("classpath:/templates/");
-        registry.addResourceHandler("/storage/**")
-                .addResourceLocations("file:///" + siteOptions.getLocation() + "/storage/");
+        registry.addResourceHandler("/storage/avatars/**")
+                .addResourceLocations("file:///" + siteOptions.getLocation() + "/storage/avatars/");
+        registry.addResourceHandler("/storage/thumbnails/**")
+                .addResourceLocations("file:///" + siteOptions.getLocation() + "/storage/thumbnails/");
     }
 
     @Override

@@ -11,9 +11,11 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.modules.data.AccountProfile;
-import com.mtons.mblog.modules.service.*;
+import com.mtons.mblog.modules.service.MessageService;
+import com.mtons.mblog.modules.service.UserService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,95 +28,66 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用户主页
- * @author langhsu
  *
+ * @author langhsu
  */
 @Controller
 @RequestMapping("/users")
 public class UsersController extends BaseController {
-	@Autowired
-	private PostService postService;
-	@Autowired
-	private CommentService commentService;
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private FavoriteService favoriteService;
-	@Autowired
-	private MessageService messageService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private MessageService messageService;
 
-	/**
-	 * 我发布的文章
-	 * @param model
-	 * @return
-	 */
-	@GetMapping(value="/{userId}")
-	public String posts(@PathVariable(value = "userId") Long userId, ModelMap model, HttpServletRequest request) {
-		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
-		model.put("pageNo", pageNo);
-		initUser(userId, model);
-		return view(Views.USER_POSTS);
-	}
+    /**
+     * 用户文章
+     * @param userId 用户ID
+     * @param model  ModelMap
+     * @return template name
+     */
+    @GetMapping(value = "/{userId}")
+    public String posts(@PathVariable(value = "userId") Long userId,
+                        ModelMap model, HttpServletRequest request) {
+        return method(userId, Views.METHOD_POSTS, model, request);
+    }
 
-	/**
-	 * 我发表的评论
-	 * @param model
-	 * @return
-	 */
-	@GetMapping(value="/{userId}/comments")
-	public String comments(@PathVariable(value = "userId") Long userId, ModelMap model, HttpServletRequest request) {
-		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
-		model.put("pageNo", pageNo);
-		initUser(userId, model);
-		return view(Views.USER_COMMENTS);
-	}
+    /**
+     * 通用方法, 访问 users 目录下的页面
+     * @param userId 用户ID
+     * @param method 调用方法
+     * @param model  ModelMap
+     * @return template name
+     */
+    @GetMapping(value = "/{userId}/{method}")
+    public String method(@PathVariable(value = "userId") Long userId,
+                         @PathVariable(value = "method") String method,
+                         ModelMap model, HttpServletRequest request) {
+        model.put("pageNo", ServletRequestUtils.getIntParameter(request, "pageNo", 1));
 
-	/**
-	 * 我喜欢过的文章
-	 * @param model
-	 * @return
-	 */
-	@GetMapping(value="/{userId}/favorites")
-	public String favors(@PathVariable(value = "userId") Long userId,ModelMap model, HttpServletRequest request) {
-		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
-		model.put("pageNo", pageNo);
-		initUser(userId, model);
-		return view(Views.USER_FAVORITES);
-	}
+        // 访问消息页, 判断登录
+        if (Views.METHOD_MESSAGES.equals(method)) {
+            // 标记已读
+            AccountProfile profile = getProfile();
+            if (null == profile || profile.getId() != userId) {
+                throw new MtonsException("您没有权限访问该页面");
+            }
+            messageService.readed4Me(profile.getId());
+        }
 
-	/**
-	 * 我的通知
-	 * @param model
-	 * @return
-	 */
-	@GetMapping(value="/{userId}/messages")
-	public String notifies(@PathVariable(value = "userId") Long userId, ModelMap model, HttpServletRequest request) {
-		int pageNo = ServletRequestUtils.getIntParameter(request, "pageNo", 1);
-		model.put("pageNo", pageNo);
+        initUser(userId, model);
+        return view(String.format(Views.USER_METHOD_TEMPLATE, method));
+    }
 
-		// 标记已读
-		AccountProfile profile = getProfile();
+    private void initUser(long userId, ModelMap model) {
+        model.put("user", userService.get(userId));
+        boolean owner = false;
 
-		if (null == profile || profile.getId() != userId) {
-			throw new MtonsException("您还没权限访问该页面");
-		}
-
-		messageService.readed4Me(profile.getId());
-
-		initUser(userId, model);
-		return view(Views.USER_MESSAGES);
-	}
-
-	private void initUser(long userId, ModelMap model) {
-		model.put("user", userService.get(userId));
-		boolean owner = false;
-
-		AccountProfile profile = getProfile();
-		if (null != profile && profile.getId() == userId) {
-			owner = true;
-			putProfile(userService.findProfile(profile.getId()));
-		}
-		model.put("owner", owner);
-	}
+        AccountProfile profile = getProfile();
+        if (null != profile && profile.getId() == userId) {
+            owner = true;
+            putProfile(userService.findProfile(profile.getId()));
+        }
+        model.put("owner", owner);
+    }
 
 }
