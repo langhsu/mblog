@@ -69,7 +69,7 @@ public class UsersController extends BaseController {
             // 标记已读
             AccountProfile profile = getProfile();
             if (null == profile || profile.getId() != userId) {
-                throw new MtonsException("您还没权限访问该页面");
+                throw new MtonsException("您没有权限访问该页面");
             }
             messageService.readed4Me(profile.getId());
         }

@@ -11,10 +11,8 @@ package com.mtons.mblog.web.controller.site.auth;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.modules.data.AccountProfile;
-import com.mtons.mblog.modules.service.MessageService;
 import com.mtons.mblog.web.controller.BaseController;
 import com.mtons.mblog.web.controller.site.Views;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class LoginController extends BaseController {
-    @Autowired
-    private MessageService messageService;
 
     /**
      * 跳转登录页

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author langhsu on 2015/8/31.
+ * @author langhsu
  */
 @RestController
 @RequestMapping("/user")
@@ -34,9 +34,7 @@ public class FavorController extends BaseController {
             try {
                 AccountProfile up = getProfile();
                 postService.favor(up.getId(), id);
-
-                sendNotify(up.getId(), id);
-
+                sendMessage(up.getId(), id);
                 data = Result.success();
             } catch (Exception e) {
                 data = Result.failure(e.getMessage());
@@ -70,8 +68,8 @@ public class FavorController extends BaseController {
      * @param userId
      * @param postId
      */
-    private void sendNotify(long userId, long postId) {
-        MessageEvent event = new MessageEvent("MessageEvent");
+    private void sendMessage(long userId, long postId) {
+        MessageEvent event = new MessageEvent("MessageEvent" + System.currentTimeMillis());
         event.setFromUserId(userId);
         event.setEvent(Consts.MESSAGE_EVENT_FAVOR_POST);
         // 此处不知道文章作者, 让通知事件系统补全
