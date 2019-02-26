@@ -58,9 +58,9 @@
             <label class="col-lg-2 control-label">主题</label>
             <div class="col-lg-2">
                 <select class="form-control" name="theme" data-select="${options['theme']}">
-                    <option value="default">default</option>
-                    <option value="classic">classic</option>
-                    <option value="simple">simple</option>
+                    <#list themes as row>
+                        <option value="${row.name}">${row.name}</option>
+                    </#list>
                 </select>
             </div>
         </div>
