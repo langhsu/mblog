@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author : landy
@@ -35,28 +35,27 @@ public class BlogUtils {
 
     private static List<Theme> loadDirectory(String root, String directoryName) throws IOException {
         Path directory = Paths.get(root).resolve(directoryName);
-        List<Theme> rets = new ArrayList<>();
-        Files.list(directory).filter(entry -> {
-            String fileName = entry.getFileName().toString();
-            return Files.isDirectory(entry) && !StringUtils.equals("__MACOSX", fileName) && !StringUtils.equals("admin", fileName);
-        }).forEach(entry -> {
+        return Files.list(directory).filter(entry -> {
+            String name = entry.getFileName().toString();
+            return Files.isDirectory(entry) && !StringUtils.equals("__MACOSX", name) && !StringUtils.equals("admin", name);
+        }).map(entry -> {
+            Theme theme = null;
             try {
-                Theme theme;
-                Path about = Paths.get(entry.toString()).resolve("about.json");
+                Path about = entry.resolve("about.json");
                 if (Files.exists(about)) {
                     StringBuilder json = new StringBuilder();
                     Files.readAllLines(about).forEach(json::append);
                     theme = JSON.parseObject(json.toString(), Theme.class);
-                } else {
-                    theme = new Theme();
                 }
-                theme.setName(entry.getFileName().toString());
-                theme.setPath(entry.toString());
-                rets.add(theme);
             } catch (Exception e) {
                 log.error(e.getMessage());
             }
-        });
-        return rets;
+            if (null == theme) {
+                theme = new Theme();
+            }
+            theme.setName(entry.getFileName().toString());
+            theme.setPath(entry.toString());
+            return theme;
+        }).collect(Collectors.toList());
     }
 }
