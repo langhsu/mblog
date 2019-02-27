@@ -2,6 +2,7 @@ package com.mtons.mblog.base.utils;
 
 import org.apache.commons.io.FileUtils;
 
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,9 +36,9 @@ public class FileKit {
         return false;
     }
 
-    public static String getFilename(String path) {
-        int pos = path.lastIndexOf(File.separator);
-        return path.substring(pos + 1);
+    public static String getFilename(@NotNull String filename) {
+        int pos = filename.lastIndexOf(".");
+        return filename.substring(0, pos);
     }
 
     public static String getSuffix(String filename) {
