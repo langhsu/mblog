@@ -15,7 +15,7 @@ import com.mtons.mblog.modules.entity.UserOauth;
 import com.mtons.mblog.modules.entity.User;
 import com.mtons.mblog.modules.repository.UserRepository;
 import com.mtons.mblog.modules.service.OpenOauthService;
-import com.mtons.mblog.modules.utils.BeanMapUtils;
+import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.base.utils.MD5;
 import com.mtons.mblog.modules.repository.UserOauthRepository;
 import org.springframework.beans.BeanUtils;

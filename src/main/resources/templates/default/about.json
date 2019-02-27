@@ -5,8 +5,6 @@
     "author": "landy",
     "website": "http://mtons.com",
     "previews": [
-        "/theme/default/dist/images/preview/1.jpg",
-        "/theme/default/dist/images/preview/2.jpg",
-        "/theme/default/dist/images/preview/3.jpg"
+        "/theme/default/dist/images/preview/1.png"
     ]
 }

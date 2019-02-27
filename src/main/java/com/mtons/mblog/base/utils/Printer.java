@@ -26,4 +26,8 @@ public class Printer {
     public static void error(String message, Throwable t) {
         log.error(message, t);
     }
+
+    public static void error(Throwable t) {
+        log.error(t.getMessage(), t);
+    }
 }

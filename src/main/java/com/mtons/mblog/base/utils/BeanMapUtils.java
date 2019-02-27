@@ -7,7 +7,7 @@
 |
 +---------------------------------------------------------------------------
 */
-package com.mtons.mblog.modules.utils;
+package com.mtons.mblog.base.utils;
 
 import com.mtons.mblog.modules.data.*;
 import com.mtons.mblog.modules.entity.*;

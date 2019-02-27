@@ -21,7 +21,7 @@
 /* 上传头像按钮 */
 .thumbnail-box .upload-btn {
     text-align: center;
-    margin-bottom: 9px;
+    margin-bottom: 0;
 }
 
 .thumbnail-box .upload-btn label {
