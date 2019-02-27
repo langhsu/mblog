@@ -30,6 +30,12 @@
     "permission": "role:list"
   },
   {
+    "icon": "fa fa-circle-o icon-xlarge",
+    "name": "主题管理",
+    "url": "admin/theme/index",
+    "permission": "theme:index"
+  },
+  {
     "icon": "fa fa-sun-o icon-xlarge",
     "name": "系统配置",
     "url": "admin/options/index",

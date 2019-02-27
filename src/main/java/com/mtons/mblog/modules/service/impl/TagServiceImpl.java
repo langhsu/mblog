@@ -10,7 +10,7 @@ import com.mtons.mblog.modules.repository.PostTagRepository;
 import com.mtons.mblog.modules.repository.TagRepository;
 import com.mtons.mblog.modules.service.TagService;
 import com.mtons.mblog.modules.service.PostService;
-import com.mtons.mblog.modules.utils.BeanMapUtils;
+import com.mtons.mblog.base.utils.BeanMapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

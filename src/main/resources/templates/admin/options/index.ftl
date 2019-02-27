@@ -20,7 +20,7 @@
                     <li class=""><a href="#storage" data-toggle="tab" aria-expanded="false">图片存储</a></li>
                     <li class="pull-right header"><i class="fa fa-cogs"></i></li>
                 </ul>
-                <div class="tab-content no-padding">
+                <div class="tab-content">
                     <div class="tab-pane active" id="sites">
                         <#include "/admin/options/sites.ftl">
                     </div>

@@ -43,7 +43,6 @@ public class OptionsController extends BaseController {
 
 	@RequestMapping("/index")
 	public String index(ModelMap model) {
-		model.put("themes", BlogUtils.getThemes());
 		return "/admin/options/index";
 	}
 	
@@ -52,7 +51,6 @@ public class OptionsController extends BaseController {
 		optionsService.update(body);
 		contextStartup.reloadOptions(false);
 		model.put("data", Result.success());
-		model.put("themes", BlogUtils.getThemes());
 		return "/admin/options/index";
 	}
 

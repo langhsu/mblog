@@ -142,15 +142,16 @@ INSERT INTO `shiro_permission` VALUES ('5', '文章管理', 'post:list', '0', '0
 INSERT INTO `shiro_permission` VALUES ('6', '编辑文章', 'post:update', '5', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('7', '删除文章', 'post:delete', '5', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('8', '评论管理', 'comment:list', '0', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('10', '删除评论', 'comment:delete', '8', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('11', '用户管理', 'user:list', '0', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('12', '用户授权', 'user:role', '11', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('13', '修改密码', 'user:pwd', '11', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('14', '激活用户', 'user:open', '11', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('15', '关闭用户', 'user:close', '11', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('16', '角色管理', 'role:list', '0', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('17', '修改角色', 'role:update', '16', '0', '0');
-INSERT INTO `shiro_permission` VALUES ('18', '删除角色', 'role:delete', '16', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('9', '删除评论', 'comment:delete', '8', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('10', '用户管理', 'user:list', '0', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('11', '用户授权', 'user:role', '10', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('12', '修改密码', 'user:pwd', '10', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('13', '激活用户', 'user:open', '10', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('14', '关闭用户', 'user:close', '10', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('15', '角色管理', 'role:list', '0', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('16', '修改角色', 'role:update', '15', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('17', '删除角色', 'role:delete', '15', '0', '0');
+INSERT INTO `shiro_permission` VALUES ('18', '修改配置', 'options:update', '0', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('19', '系统配置', 'options:index', '0', '0', '0');
 INSERT INTO `shiro_permission` VALUES ('20', '修改配置', 'options:update', '19', '0', '0');
 
@@ -185,26 +186,26 @@ CREATE TABLE `shiro_role_permission` (
 -- ----------------------------
 -- Records of shiro_role_permission
 -- ----------------------------
-INSERT INTO `shiro_role_permission` VALUES ('1', '10', '1');
-INSERT INTO `shiro_role_permission` VALUES ('2', '4', '1');
-INSERT INTO `shiro_role_permission` VALUES ('3', '16', '1');
-INSERT INTO `shiro_role_permission` VALUES ('4', '1', '1');
-INSERT INTO `shiro_role_permission` VALUES ('5', '14', '1');
-INSERT INTO `shiro_role_permission` VALUES ('6', '17', '1');
-INSERT INTO `shiro_role_permission` VALUES ('7', '3', '1');
-INSERT INTO `shiro_role_permission` VALUES ('8', '12', '1');
-INSERT INTO `shiro_role_permission` VALUES ('9', '6', '1');
-INSERT INTO `shiro_role_permission` VALUES ('10', '2', '1');
-INSERT INTO `shiro_role_permission` VALUES ('11', '5', '1');
-INSERT INTO `shiro_role_permission` VALUES ('12', '18', '1');
-INSERT INTO `shiro_role_permission` VALUES ('13', '15', '1');
-INSERT INTO `shiro_role_permission` VALUES ('14', '19', '1');
-INSERT INTO `shiro_role_permission` VALUES ('15', '13', '1');
-INSERT INTO `shiro_role_permission` VALUES ('16', '7', '1');
-INSERT INTO `shiro_role_permission` VALUES ('17', '20', '1');
-INSERT INTO `shiro_role_permission` VALUES ('18', '8', '1');
-INSERT INTO `shiro_role_permission` VALUES ('19', '11', '1');
-
+INSERT INTO `shiro_role_permission` VALUES ('1', '1', '1');
+INSERT INTO `shiro_role_permission` VALUES ('2', '2', '1');
+INSERT INTO `shiro_role_permission` VALUES ('3', '3', '1');
+INSERT INTO `shiro_role_permission` VALUES ('4', '4', '1');
+INSERT INTO `shiro_role_permission` VALUES ('5', '5', '1');
+INSERT INTO `shiro_role_permission` VALUES ('6', '6', '1');
+INSERT INTO `shiro_role_permission` VALUES ('7', '7', '1');
+INSERT INTO `shiro_role_permission` VALUES ('8', '8', '1');
+INSERT INTO `shiro_role_permission` VALUES ('9', '9', '1');
+INSERT INTO `shiro_role_permission` VALUES ('10', '10', '1');
+INSERT INTO `shiro_role_permission` VALUES ('11', '11', '1');
+INSERT INTO `shiro_role_permission` VALUES ('12', '12', '1');
+INSERT INTO `shiro_role_permission` VALUES ('13', '13', '1');
+INSERT INTO `shiro_role_permission` VALUES ('14', '14', '1');
+INSERT INTO `shiro_role_permission` VALUES ('15', '15', '1');
+INSERT INTO `shiro_role_permission` VALUES ('16', '16', '1');
+INSERT INTO `shiro_role_permission` VALUES ('17', '17', '1');
+INSERT INTO `shiro_role_permission` VALUES ('18', '18', '1');
+INSERT INTO `shiro_role_permission` VALUES ('19', '19', '1');
+INSERT INTO `shiro_role_permission` VALUES ('20', '20', '1');
 -- ----------------------------
 -- Table structure for shiro_user_role
 -- ----------------------------

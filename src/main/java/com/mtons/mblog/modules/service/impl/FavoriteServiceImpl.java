@@ -3,7 +3,7 @@ package com.mtons.mblog.modules.service.impl;
 import com.mtons.mblog.modules.data.FavoriteVO;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.repository.FavoriteRepository;
-import com.mtons.mblog.modules.utils.BeanMapUtils;
+import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.modules.entity.Favorite;
 import com.mtons.mblog.modules.service.FavoriteService;
 import com.mtons.mblog.modules.service.PostService;
