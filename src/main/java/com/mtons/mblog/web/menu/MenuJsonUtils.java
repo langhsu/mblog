@@ -30,8 +30,15 @@ public class MenuJsonUtils {
 
         StringBuilder json = new StringBuilder();
         String tmp;
-        while ((tmp = reader.readLine()) != null) {
-            json.append(tmp);
+        try {
+            while ((tmp = reader.readLine()) != null) {
+                json.append(tmp);
+            }
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            reader.close();
+            inStream.close();
         }
 
         List<Menu> menus = JSONArray.parseArray(json.toString(), Menu.class);
