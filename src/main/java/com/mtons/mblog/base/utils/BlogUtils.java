@@ -47,7 +47,10 @@ public class BlogUtils {
             return Result.failure("site.location未配置");
         }
 
-        Path root = Paths.get(location).resolve("storage/templates");
+        Path root = Paths.get(location, "storage", "templates");
+        if (Files.notExists(root)) {
+            Files.createDirectories(root);
+        }
         Path zip = root.resolve(file.getOriginalFilename());
 
         Path target = root.resolve(FileKit.getFilename(Objects.requireNonNull(file.getOriginalFilename())));
@@ -65,7 +68,7 @@ public class BlogUtils {
     }
 
     private static List<Theme> loadDirectory(Path directory) throws IOException {
-        if (!Files.exists(directory)) {
+        if (Files.notExists(directory)) {
             return Collections.emptyList();
         }
         return Files.list(directory).filter(entry -> {
