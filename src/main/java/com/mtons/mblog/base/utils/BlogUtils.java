@@ -4,13 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Theme;
+import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,16 +32,13 @@ import java.util.stream.Collectors;
 public class BlogUtils {
 
     public static List<Theme> getThemes() {
-        InputStream inStream = BlogUtils.class.getResourceAsStream("/scripts/themes.json");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, Charset.forName("UTF-8")));
+        ClassPathResource classPathResource = new ClassPathResource("/scripts/themes.json");
         List<Theme> themes = null;
         try {
-            StringBuilder json = new StringBuilder();
-            String tmp;
-            while ((tmp = reader.readLine()) != null) {
-                json.append(tmp);
-            }
-            themes = JSONArray.parseArray(json.toString(), Theme.class);
+            @Cleanup InputStream inputStream = classPathResource.getInputStream();
+            byte[] bytes = FileCopyUtils.copyToByteArray(inputStream);
+            String json = new String(bytes);
+            themes = JSONArray.parseArray(json, Theme.class);
 
             String location = System.getProperty("site.location");
             if (null != location) {
@@ -45,15 +46,6 @@ public class BlogUtils {
             }
         } catch (Exception e) {
             log.error("load themes error {}", e.getMessage(), e);
-        } finally {
-            try {
-                inStream.close();
-            } catch (IOException e) {
-            }
-            try {
-                reader.close();
-            } catch (IOException e) {
-            }
         }
         return themes;
     }
