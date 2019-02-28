@@ -27,13 +27,13 @@ public class BlogUtils {
     public static List<Theme> getThemes() {
         List<Theme> themes = null;
         try {
-            themes = loadDirectory(ResourceUtils.getFile("classpath:").getPath(), "templates");
+            themes = loadDirectory(Paths.get(ResourceUtils.getFile("classpath:templates").getAbsolutePath()));
             String location = System.getProperty("site.location");
             if (null != location) {
-                themes.addAll(loadDirectory(location, "storage/templates"));
+                themes.addAll(loadDirectory(Paths.get(location, "storage", "templates")));
             }
         } catch (Exception e) {
-            log.error("load themes error {}", e.getMessage());
+            log.error("load themes error {}", e.getMessage(), e);
         }
         return themes;
     }
@@ -61,8 +61,7 @@ public class BlogUtils {
         return Result.success();
     }
 
-    private static List<Theme> loadDirectory(String root, String directoryName) throws IOException {
-        Path directory = Paths.get(root).resolve(directoryName);
+    private static List<Theme> loadDirectory(Path directory) throws IOException {
         return Files.list(directory).filter(entry -> {
             String name = entry.getFileName().toString();
             return Files.isDirectory(entry) && !StringUtils.equals("__MACOSX", name) && !StringUtils.equals("admin", name);
