@@ -5,14 +5,18 @@ import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Theme;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ClassPathUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -27,7 +31,8 @@ public class BlogUtils {
     public static List<Theme> getThemes() {
         List<Theme> themes = null;
         try {
-            themes = loadDirectory(Paths.get(ResourceUtils.getFile("classpath:templates").getAbsolutePath()));
+            File templates = new ClassPathResource("templates").getFile();
+            themes = loadDirectory(templates.toPath());
             String location = System.getProperty("site.location");
             if (null != location) {
                 themes.addAll(loadDirectory(Paths.get(location, "storage", "templates")));
@@ -62,6 +67,9 @@ public class BlogUtils {
     }
 
     private static List<Theme> loadDirectory(Path directory) throws IOException {
+        if (!Files.exists(directory)) {
+            return Collections.emptyList();
+        }
         return Files.list(directory).filter(entry -> {
             String name = entry.getFileName().toString();
             return Files.isDirectory(entry) && !StringUtils.equals("__MACOSX", name) && !StringUtils.equals("admin", name);
