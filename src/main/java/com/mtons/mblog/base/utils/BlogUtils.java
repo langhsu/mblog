@@ -84,7 +84,7 @@ public class BlogUtils {
                     theme = JSON.parseObject(json.toString(), Theme.class);
                 }
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error("BlogUtils.loadDirectory error {}", e.getMessage(), e);
             }
             if (null == theme) {
                 theme = new Theme();
