@@ -6,14 +6,16 @@ import com.mtons.mblog.base.lang.Theme;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -29,8 +31,10 @@ public class BlogUtils {
     public static List<Theme> getThemes() {
         List<Theme> themes = null;
         try {
-            File templates = new ClassPathResource("templates").getFile();
-            themes = loadDirectory(templates.toPath());
+            log.info("start find themes");
+            File path = new File(ResourceUtils.getURL("classpath:templates").getPath());
+            log.info("path {}", path.getAbsolutePath());
+            themes = loadDirectory(path);
             String location = System.getProperty("site.location");
             if (null != location) {
                 themes.addAll(loadDirectory(Paths.get(location, "storage", "templates")));
@@ -93,5 +97,35 @@ public class BlogUtils {
             theme.setPath(entry.toString());
             return theme;
         }).collect(Collectors.toList());
+    }
+
+    private static List<Theme> loadDirectory(File directory) throws IOException {
+        final File[] files = directory.listFiles();
+
+        log.info("list {}", files);
+        if (null == files) {
+            return Collections.emptyList();
+        }
+
+        List<Theme> themes = new ArrayList<>();
+        Theme theme = null;
+        for (File file : files) {
+            String name = file.getName();
+            log.info("list item {}", name);
+            if (file.isDirectory() && !StringUtils.equals("__MACOSX", name) && !StringUtils.equals("admin", name)) {
+                File about = new File(file, "about.json");
+                if (about.exists()) {
+                    String json = FileUtils.readFileToString(about);
+                    theme = JSON.parseObject(json.toString(), Theme.class);
+                }
+                if (null == theme) {
+                    theme = new Theme();
+                }
+                theme.setName(name);
+                theme.setPath(file.getPath());
+                themes.add(theme);
+            }
+        }
+        return themes;
     }
 }
