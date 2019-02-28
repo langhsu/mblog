@@ -1,6 +1,5 @@
 package com.mtons.mblog.base.utils;
 
-import cn.hutool.core.util.ZipUtil;
 import com.alibaba.fastjson.JSON;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Theme;
@@ -57,7 +56,7 @@ public class BlogUtils {
         Files.createDirectory(target);
 
         FileUtils.writeByteArrayToFile(zip.toFile(), file.getBytes());
-        ZipUtil.unzip(zip.toFile(), target.toFile());
+        ZipUtils.unzip(zip, target);
         Files.delete(zip);
         return Result.success();
     }
