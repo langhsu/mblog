@@ -107,7 +107,6 @@ public class BlogUtils {
     private static List<Theme> loadDirectory(File directory) throws IOException {
         final File[] files = directory.listFiles();
 
-        log.info("list {}", files);
         if (null == files) {
             return Collections.emptyList();
         }
