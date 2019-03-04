@@ -2,7 +2,7 @@
     <div class="container">
         <div class="footer-row">
             <nav class="footer-nav">
-                <a class="footer-nav-item footer-nav-logo" href="/">
+                <a class="footer-nav-item footer-nav-logo" href="${base}/">
                     <img src="<@resource src=options['site_logo']/>" alt="mblog"/>
                 </a>
                 <span class="footer-nav-item">${options['site_copyright']}</span>
