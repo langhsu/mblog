@@ -1,5 +1,6 @@
 package com.mtons.mblog.modules.service.impl;
 
+import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Post;
@@ -46,6 +47,7 @@ public class PostSearchServiceImpl implements PostSearchService {
     private UserService userService;
 
     @Override
+    @PostStatusFilter
     public Page<PostVO> search(Pageable pageable, String term) throws Exception {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
         QueryBuilder builder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Post.class).get();

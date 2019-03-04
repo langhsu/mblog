@@ -23,6 +23,7 @@
                         <#include "/admin/message.ftl">
                         <#if view??>
                             <input type="hidden" name="id" value="${view.id}"/>
+                            <input type="hidden" name="status" value="${view.status}"/>
                         </#if>
                         <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
                         <div class="form-group">
@@ -43,7 +44,8 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">提交</button>
+                        <button id="publish" class="btn btn-primary">发布</button>
+                        <button id="draft" class="btn btn-info">草稿</button>
                     </div>
                 </div>
             </div>
@@ -88,6 +90,16 @@ $(function() {
                 $("#thumbnail").val(path);
             }
         });
+    });
+
+    $("#draft").click(function () {
+        $("input[name='status']").val(1);
+        $("form").submit();
+    });
+
+    $("#publish").click(function () {
+        $("input[name='status']").val(0);
+        $("form").submit();
     });
 
     $("form").submit(function () {

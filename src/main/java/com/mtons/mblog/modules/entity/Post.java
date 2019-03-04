@@ -10,22 +10,29 @@
 package com.mtons.mblog.modules.entity;
 
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
 import org.hibernate.search.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.Index;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 内容表
  * @author langhsu
- * 
+ *
  */
 @Entity
 @Table(name = "mto_post", indexes = {
 		@Index(name = "IK_CHANNEL_ID", columnList = "channel_id")
 })
+@FilterDefs({
+		@FilterDef(name = "POST_STATUS_FILTER", defaultCondition = "status = 0" )})
+@Filters({ @Filter(name = "POST_STATUS_FILTER") })
 @Indexed(index = "post")
 @Analyzer(impl = SmartChineseAnalyzer.class)
 public class Post implements Serializable {
