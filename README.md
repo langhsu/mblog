@@ -33,7 +33,8 @@
  IDE得装lombok插件
 ```
 
-- 更多文档及教程见 [http://mtons.com/dock/mblog](http://mtons.com/dock/mblog)
+- 文档: [说明文档](https://langhsu.github.io/mblog/#/)
+- 官网：[官网地址](http://www.mtons.com)
 - QQ交流群：378433412
 
 ### 版本(3.2)更新内容：
@@ -60,9 +61,7 @@
     14. 邮件服务后台可配
     15. 新增标签页
     16. 新增注册邮箱验证开关(需要手动删除之前的 mto_security_code 表)
-    
-[官网地址](http://www.mtons.com)
-    
+        
 ### 图片演示 
 ![首页](https://images.gitee.com/uploads/images/2019/0125/142627_fcd67bfd_116277.jpeg "前台首页.jpg")
 ![文章](https://images.gitee.com/uploads/images/2019/0125/142647_328aa3d7_116277.jpeg "文章阅读.jpg")
