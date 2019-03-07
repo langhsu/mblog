@@ -31,7 +31,7 @@ public interface Consts {
 
 	String ROLE_ADMIN = "admin";
 
-	int PAGE_DEFAULT_SIZE = 16;
+	int PAGE_DEFAULT_SIZE = 10;
 
 	int IDENTITY_STEP = 1; // 自增步进
 
