@@ -14,6 +14,7 @@
 <section class="content container-fluid">
     <div class="row">
         <form id="qForm" method="post" action="${base}/admin/post/update">
+            <input type="hidden" name="status" value="${view.status!0}"/>
             <div class="col-md-9">
                 <div class="box">
                     <div class="box-header with-border">
@@ -23,7 +24,6 @@
                         <#include "/admin/message.ftl">
                         <#if view??>
                             <input type="hidden" name="id" value="${view.id}"/>
-                            <input type="hidden" name="status" value="${view.status}"/>
                         </#if>
                         <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
                         <div class="form-group">
@@ -44,8 +44,8 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        <button id="publish" class="btn btn-primary">发布</button>
-                        <button id="draft" class="btn btn-info">草稿</button>
+                        <button type="button" data-status="0" class="btn btn-primary" event="submit">发布</button>
+                        <button type="button" data-status="1" class="btn btn-info" event="submit">草稿</button>
                     </div>
                 </div>
             </div>
@@ -92,13 +92,9 @@ $(function() {
         });
     });
 
-    $("#draft").click(function () {
-        $("input[name='status']").val(1);
-        $("form").submit();
-    });
-
-    $("#publish").click(function () {
-        $("input[name='status']").val(0);
+    $('button[event="submit"]').click(function () {
+        var status = $(this).data('status');
+        $("input[name='status']").val(status);
         $("form").submit();
     });
 

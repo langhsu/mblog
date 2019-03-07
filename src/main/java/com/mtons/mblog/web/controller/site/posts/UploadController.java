@@ -80,8 +80,8 @@ public class UploadController extends BaseController {
         try {
             String path;
             if (crop == 1) {
-                int width = ServletRequestUtils.getIntParameter(request, "width", 240);
-                int height = ServletRequestUtils.getIntParameter(request, "height", 135);
+                int width = ServletRequestUtils.getIntParameter(request, "width", 360);
+                int height = ServletRequestUtils.getIntParameter(request, "height", 200);
                 path = storageFactory.get().storeScale(file, Consts.thumbnailPath, width, height);
             } else {
                 path = storageFactory.get().storeScale(file, Consts.thumbnailPath, size);
