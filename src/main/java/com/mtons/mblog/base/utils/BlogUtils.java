@@ -1,14 +1,15 @@
 package com.mtons.mblog.base.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Theme;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,14 +33,11 @@ import java.util.stream.Collectors;
 public class BlogUtils {
 
     public static List<Theme> getThemes() {
-        ClassPathResource classPathResource = new ClassPathResource("/scripts/themes.json");
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         List<Theme> themes = null;
         try {
-            @Cleanup InputStream inputStream = classPathResource.getInputStream();
-            byte[] bytes = FileCopyUtils.copyToByteArray(inputStream);
-            String json = new String(bytes);
-            themes = JSONArray.parseArray(json, Theme.class);
-
+            Resource[] resources = resolver.getResources("templates/*/about.json");
+            themes = loadDirectory(resources);
             String location = System.getProperty("site.location");
             if (null != location) {
                 themes.addAll(loadDirectory(Paths.get(location, "storage", "templates")));
@@ -127,6 +125,28 @@ public class BlogUtils {
                 }
                 theme.setName(name);
                 theme.setPath(file.getPath());
+                themes.add(theme);
+            }
+        }
+        return themes;
+    }
+
+    private static List<Theme> loadDirectory(Resource[] resources) throws IOException {
+        if (null == resources) {
+            return Collections.emptyList();
+        }
+
+        List<Theme> themes = new ArrayList<>();
+        Theme theme = null;
+
+        for (Resource r : resources) {
+            String name = r.getFilename();
+            log.info("list item {}", name);
+            if (r.exists()) {
+                @Cleanup InputStream inputStream = r.getInputStream();
+                byte[] bytes = FileCopyUtils.copyToByteArray(inputStream);
+                String json = new String(bytes);
+                theme = JSON.parseObject(json, Theme.class);
                 themes.add(theme);
             }
         }
