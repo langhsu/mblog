@@ -46,6 +46,7 @@
                                 <th width="100">发表日期</th>
                                 <th width="60">访问数</th>
                                 <th width="80">状态</th>
+                                <th width="80">发布</th>
                                 <th width="180">操作</th>
                             </tr>
                             </thead>
@@ -70,6 +71,14 @@
                                         </#if>
                                         <#if (row.weight > 0)>
                                             <span class="label label-warning">置顶</span>
+                                        </#if>
+                                    </td>
+                                    <td>
+                                        <#if (row.status = 0)>
+                                            <span class="label label-default">已发布</span>
+                                        </#if>
+                                        <#if (row.status = 1)>
+                                            <span class="label label-warning">草稿</span>
                                         </#if>
                                     </td>
                                     <td>
