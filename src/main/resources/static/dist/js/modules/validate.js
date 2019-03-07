@@ -9,9 +9,6 @@
 */
 
 define(function(require, exports, module) {
-    require('validation');
-    require('validation-additional');
-
     var J = jQuery, _BATH = _MTONS.BASE_PATH;
 
     var _configs = {
@@ -34,7 +31,10 @@ define(function(require, exports, module) {
 
     var _bind_validate = function (formId, configs) {
         var options = J.extend({}, _configs, configs);
-        J(formId).validate(options);
+
+        require.async(['validation', 'validation-additional'], function () {
+            J(formId).validate(options);
+        });
     };
 
     var Validate = {

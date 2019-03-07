@@ -11,9 +11,6 @@
 define(function(require, exports, module) {
 	J = jQuery;
 	require('tagsinput');
-    require('validation');
-    require('validation-additional');
-    require('validation-localization');
 
 	var PostView = function () {};
 	
@@ -55,35 +52,47 @@ define(function(require, exports, module) {
         },
 
         bindValidate: function () {
-            $("#submitForm").submit(function () {
-                tinyMCE.triggerSave();
-            }).validate({
-                ignore: "",
-                rules: {
-                    title: 'required',
-                    channelId: 'required',
-                    content: {
-                        required: true,
-                        check_editor: true
+            require.async(['validation', 'validation-additional'], function () {
+                $("#submitForm").submit(function () {
+                    if (tinyMCE) {
+                        tinyMCE.triggerSave();
                     }
-                },
-                errorElement: "em",
-                errorPlacement: function (error, element) {
-                    error.addClass("help-block");
-                    if (element.prop("type") === "checkbox") {
-                        error.insertAfter(element.parent("label"));
-                    } else if (element.is("textarea")) {
-                        error.insertAfter(element.next());
-                    } else {
-                        error.insertAfter(element);
+                }).validate({
+                    ignore: "",
+                    rules: {
+                        title: 'required',
+                        channelId: 'required',
+                        content: {
+                            required: true,
+                            check_editor: true
+                        }
+                    },
+                    messages: {
+                        title: '请输入标题',
+                        channelId: '请选择栏目',
+                        content: {
+                            required: '内容不能为空',
+                            check_editor: '内容不能为空'
+                        }
+                    },
+                    errorElement: "p",
+                    errorPlacement: function (error, element) {
+                        error.addClass("help-block");
+                        if (element.prop("type") === "checkbox") {
+                            error.insertAfter(element.parent("label"));
+                        } else if (element.is("textarea")) {
+                            error.insertAfter(element.next());
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    },
+                    highlight: function (element, errorClass, validClass) {
+                        $(element).closest("div").addClass("has-error").removeClass("has-success");
+                    },
+                    unhighlight: function (element, errorClass, validClass) {
+                        $(element).closest("div").addClass("has-success").removeClass("has-error");
                     }
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).closest("div").addClass("has-error").removeClass("has-success");
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).closest("div").addClass("has-success").removeClass("has-error");
-                }
+                });
             });
         }
     };
