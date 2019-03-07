@@ -54,6 +54,15 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-lg-2 control-label">文章编辑器</label>
+        <div class="col-lg-2">
+            <select class="form-control" name="editor" data-select="${options['editor']}">
+                <option value="tinymce">tinymce</option>
+                <option value="markdown">markdown</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-primary">提交</button>
         </div>

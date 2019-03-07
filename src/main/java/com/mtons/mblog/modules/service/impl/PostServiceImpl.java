@@ -11,6 +11,7 @@ package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.base.utils.MarkdownUtils;
 import com.mtons.mblog.base.utils.PreviewTextUtils;
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.modules.data.PostVO;
@@ -179,7 +180,7 @@ public class PostServiceImpl implements PostService {
 
 		// 处理摘要
 		if (StringUtils.isBlank(post.getSummary())) {
-			po.setSummary(trimSummary(post.getContent()));
+			po.setSummary(trimSummary(post.getEditor(), post.getContent()));
 		} else {
 			po.setSummary(post.getSummary());
 		}
@@ -232,7 +233,7 @@ public class PostServiceImpl implements PostService {
 
 			// 处理摘要
 			if (StringUtils.isBlank(p.getSummary())) {
-				po.setSummary(trimSummary(p.getContent()));
+				po.setSummary(trimSummary(p.getEditor(), p.getContent()));
 			} else {
 				po.setSummary(p.getSummary());
 			}
@@ -343,8 +344,12 @@ public class PostServiceImpl implements PostService {
 	 * @param text
 	 * @return
 	 */
-	private String trimSummary(String text){
-		return PreviewTextUtils.getText(text, 126);
+	private String trimSummary(String editor, final String text){
+		if (Consts.EDITOR_MARKDOWN.endsWith(editor)) {
+			return PreviewTextUtils.getText(MarkdownUtils.renderMarkdown(text), 126);
+		} else {
+			return PreviewTextUtils.getText(text, 126);
+		}
 	}
 
 	private List<PostVO> toPosts(List<Post> posts) {
