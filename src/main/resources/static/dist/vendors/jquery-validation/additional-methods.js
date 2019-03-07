@@ -1515,9 +1515,7 @@ $.validator.addMethod("check_username",function(value, element, params){
 }, "只能是字母/字母+数字的组合,不少于5位");
 
 $.validator.addMethod("check_editor",function(value, element, params){
-	var checkUsername = /^[a-z][a-z_0-9]{4,18}$/i;
-	var text = $(value).text();
-	return this.optional(element)||(text.trim().length > 0);
+	return this.optional(element)||(value.trim().length > 0);
 }, "内容不能为空");
 
 return $;

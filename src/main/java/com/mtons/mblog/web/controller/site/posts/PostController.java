@@ -39,6 +39,7 @@ public class PostController extends BaseController {
 	public String view(Long id, ModelMap model) {
 		model.put("channels", channelService.findAll(Consts.STATUS_NORMAL));
 		model.put("editing", true);
+		String editor = siteOptions.getValue("editor");
 		if (null != id && id > 0) {
 			AccountProfile profile = getProfile();
 			PostVO view = postService.get(id);
@@ -48,7 +49,12 @@ public class PostController extends BaseController {
 
 			Assert.isTrue(view.getChannel().getStatus() == Consts.STATUS_NORMAL, "请在后台编辑此文章");
 			model.put("view", view);
+
+			if (StringUtils.isNoneBlank(view.getEditor())) {
+				editor = view.getEditor();
+			}
 		}
+		model.put("editor", editor);
 		return view(Views.POST_EDITING);
 	}
 

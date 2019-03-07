@@ -15,6 +15,7 @@
     <div class="row">
         <form id="qForm" method="post" action="${base}/admin/post/update">
             <input type="hidden" name="status" value="${view.status!0}"/>
+            <input type="hidden" name="editor" value="${view.editor!'tinymce'}"/>
             <div class="col-md-9">
                 <div class="box">
                     <div class="box-header with-border">
@@ -40,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label>内容</label>
-                            <#include "/admin/editor/ueditor.ftl"/>
+                            <#include "/admin/editor/${editor}.ftl"/>
                         </div>
                     </div>
                     <div class="box-footer">
@@ -99,7 +100,9 @@ $(function() {
     });
 
     $("form").submit(function () {
-        tinyMCE.triggerSave();
+        if (typeof tinyMCE == "function") {
+            tinyMCE.triggerSave();
+        }
     }).validate({
         ignore: "",
         rules: {

@@ -189,6 +189,7 @@ public class PostServiceImpl implements PostService {
 
 		PostAttribute attr = new PostAttribute();
 		attr.setContent(post.getContent());
+		attr.setEditor(post.getEditor());
 		attr.setId(po.getId());
 		postAttributeRepository.save(attr);
 
@@ -207,6 +208,7 @@ public class PostServiceImpl implements PostService {
 
 			PostAttribute attr = postAttributeRepository.findById(d.getId()).get();
 			d.setContent(attr.getContent());
+			d.setEditor(attr.getEditor());
 			return d;
 		}
 		return null;
@@ -240,6 +242,7 @@ public class PostServiceImpl implements PostService {
 			// 保存扩展
 			PostAttribute attr = new PostAttribute();
 			attr.setContent(p.getContent());
+			attr.setEditor(p.getEditor());
 			attr.setId(po.getId());
 			postAttributeRepository.save(attr);
 

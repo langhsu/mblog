@@ -60,7 +60,7 @@ define(function(require, exports, module) {
         bindValidate: function () {
             require.async(['validation', 'validation-additional'], function () {
                 $("#submitForm").submit(function () {
-                    if (tinyMCE) {
+                    if (typeof tinyMCE == "function") {
                         tinyMCE.triggerSave();
                     }
                 }).validate({

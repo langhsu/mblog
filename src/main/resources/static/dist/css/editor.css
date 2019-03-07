@@ -1,4 +1,8 @@
 /* Editor style */
+.CodeMirror {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 body.markdown-body {
     padding: 0;
     margin: 20px 15px;

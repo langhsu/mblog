@@ -25,6 +25,7 @@ import java.io.Serializable;
 public class PostVO extends Post implements Serializable {
 	private static final long serialVersionUID = -1144627551517707139L;
 
+	private String editor;
 	private String content;
 
 	private UserVO author;
@@ -54,6 +55,14 @@ public class PostVO extends Post implements Serializable {
 
 	public void setAttribute(PostAttribute attribute) {
 		this.attribute = attribute;
+	}
+
+	public String getEditor() {
+		return editor;
+	}
+
+	public void setEditor(String editor) {
+		this.editor = editor;
 	}
 
 	public String getContent() {

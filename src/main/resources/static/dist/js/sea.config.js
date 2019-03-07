@@ -13,6 +13,7 @@ seajs.config({
         'editor': 'dist/js/modules/editor',
         'view': 'dist/js/modules/view',
         'validate': 'dist/js/modules/validate',
+        'markdown': 'dist/js/modules/markdown',
 
         /* vendors */
         'pace': 'vendors/pace/pace.min',
@@ -35,7 +36,12 @@ seajs.config({
         'form': 'dist/js/jquery.form.min',
 
         'owo': 'vendors/owo/OwO.min.js',
-        'owo-css': 'vendors/owo/OwO.min.css'
+        'owo-css': 'vendors/owo/OwO.min.css',
+
+        'codemirror': 'vendors/codemirror/lib/codemirror.js',
+        'codemirror-css': 'vendors/codemirror/lib/codemirror.css',
+        'codemirror-theme': 'vendors/codemirror/theme/idea.css',
+        'codemirror-keymap': 'vendors/codemirror/keymap/sublime'
     },
 
     // 路径配置
