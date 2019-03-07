@@ -44,8 +44,8 @@
                         </div>
                     </div>
                     <div class="box-footer">
-                        <button type="button" data-status="0" class="btn btn-primary" event="submit">发布</button>
-                        <button type="button" data-status="1" class="btn btn-info" event="submit">草稿</button>
+                        <button type="button" data-status="0" class="btn btn-primary" event="post_submit">发布</button>
+                        <button type="button" data-status="1" class="btn btn-info" event="post_submit">草稿</button>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@ $(function() {
         });
     });
 
-    $('button[event="submit"]').click(function () {
+    $('button[event="post_submit"]').click(function () {
         var status = $(this).data('status');
         $("input[name='status']").val(status);
         $("form").submit();

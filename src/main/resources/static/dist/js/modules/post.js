@@ -30,6 +30,12 @@ define(function(require, exports, module) {
         	that.bindTagit();
         	that.bindValidate();
         	that.bindUpload();
+
+            $('button[event="post_submit"]').click(function () {
+                var status = $(this).data('status');
+                $("input[name='status']").val(status);
+                $("#submitForm").submit();
+            });
         },
         
         bindTagit : function () {

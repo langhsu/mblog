@@ -2,6 +2,7 @@
 <@layout "编辑文章">
 
 <form id="submitForm" class="form" action="${base}/post/submit" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="status" value="${view.status!0}"/>
     <div class="row">
         <div class="col-xs-12 col-md-8">
             <div id="message"></div>
@@ -52,7 +53,7 @@
     <div class="col-xs-12 col-md-12">
             <div class="form-group">
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary" style="padding-left: 30px; padding-right: 30px;">提交</button>
+                    <button type="button" data-status="0" class="btn btn-primary" event="post_submit" style="padding-left: 30px; padding-right: 30px;">发布</button>
                 </div>
             </div>
     </div>
