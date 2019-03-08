@@ -14,19 +14,18 @@
 <section class="content container-fluid">
     <div class="row">
         <form id="qForm" method="post" action="${base}/admin/post/update">
+            <#if view??>
+                <input type="hidden" name="id" value="${view.id}"/>
+            </#if>
             <input type="hidden" name="status" value="${view.status!0}"/>
             <input type="hidden" name="editor" value="${editor!'tinymce'}"/>
+            <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
             <div class="col-md-9">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">文章编辑</h3>
                     </div>
                     <div class="box-body">
-                        <#include "/admin/message.ftl">
-                        <#if view??>
-                            <input type="hidden" name="id" value="${view.id}"/>
-                        </#if>
-                        <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
                         <div class="form-group">
                             <label>标题</label>
                             <input type="text" class="form-control" name="title" value="${view.title}" maxlength="64" placeholder="文章标题" required >
