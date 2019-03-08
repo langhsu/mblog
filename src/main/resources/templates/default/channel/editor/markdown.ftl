@@ -31,12 +31,18 @@
             <li class="item" event="inlinecode">
                 <span class="icon fa fa-code"></span>
             </li>
-            <li class="item" event="premode">
-                <span class="icon fa fa-eye"></span>
+            <li class="item active" event="premode" data-value="editMode">
+                <span class="icon fa fa-tablet"></span>
+            </li>
+            <li class="item" event="premode" data-value="liveMode">
+                <span class="icon fa fa-columns"></span>
+            </li>
+            <li class="item" event="premode" data-value="previewMode">
+                <span class="icon fa fa-desktop"></span>
             </li>
         </ul>
     </div>
-    <div class="editor-container">
+    <div class="editor-container editMode">
         <div class="editor-body">
             <textarea id="content" name="content" rows="5" class="form-control" required>${view.content?html}</textarea>
         </div>

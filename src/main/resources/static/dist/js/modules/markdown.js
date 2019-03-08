@@ -16,6 +16,6 @@ define('markdown', [
     ], function(require, exports, module) {
 
     require.async(['codemirror-markdown', 'codemirror-keymap', 'app.markdown'], function () {
-        MkEditor.initEditor();
+        MdEditor.initEditor();
     });
 });

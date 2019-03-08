@@ -1,4 +1,4 @@
-var MkEditor = {
+var MdEditor = {
     format: {
         undo: function undo(editor) {
             editor.undo();
@@ -159,15 +159,17 @@ var MkEditor = {
             input_f.click();
         },
 
-        setPreMode: function setPreMode(element, editor) {
+        setPreMode: function setPreMode(element, mode, editor) {
             var preview = $('.editor-preview');
-            if (preview.hasClass('show')) {
-                element.find('.icon').removeClass('fa-eye-slash').addClass('fa-eye');
-            } else {
+			$('li[event="premode"]').removeClass('active');
+			element.addClass('active');
+			$('.editor-container').removeClass('liveMode editMode previewMode').addClass(mode);
+            //if (preview.hasClass('show')) {
+            //    element.find('.icon').removeClass('fa-eye-slash').addClass('fa-eye');
+            //} else {
                 element.find('.icon').removeClass('fa-eye').addClass('fa-eye-slash');
-                $('.mk-editor .editor-preview').html(marked(editor.getValue()));
-            }
-            preview.toggleClass('show');
+            //}
+            //preview.toggleClass('show');
         }
     },
 
@@ -187,9 +189,12 @@ var MkEditor = {
         });
         editor.setSize('auto', '450px');
 
-        editor.on('change', function (cm, co) {
-            $('#content').text(cm.getValue());
+        editor.on('change', function (editor) {
+            $('#content').text(editor.getValue());
+            $('.editor-preview').html(marked(editor.getValue()));
         });
+		
+		$('.editor-preview').html(marked($('#content').text()));
 
         // Toolbar click
         $('div.editor-toolbar').on('click', 'li', function () {
@@ -197,49 +202,50 @@ var MkEditor = {
             var event = that.attr('event');
             switch (event) {
                 case 'undo':
-                    MkEditor.format.undo(editor);
+                    MdEditor.format.undo(editor);
                     break;
                 case 'redo':
-                    MkEditor.format.redo(editor);
+                    MdEditor.format.redo(editor);
                     break;
                 case 'bold':
-                    MkEditor.format.setBold(editor);
+                    MdEditor.format.setBold(editor);
                     break;
                 case 'italic':
-                    MkEditor.format.setItalic(editor);
+                    MdEditor.format.setItalic(editor);
                     break;
                 case 'blockquote':
-                    MkEditor.format.setBlockQuote(editor);
+                    MdEditor.format.setBlockQuote(editor);
                     break;
                 case 'h1':
-                    MkEditor.format.setHeader(editor, 1);
+                    MdEditor.format.setHeader(editor, 1);
                     break;
                 case 'h2':
-                    MkEditor.format.setHeader(editor, 2);
+                    MdEditor.format.setHeader(editor, 2);
                     break;
                 case 'h3':
-                    MkEditor.format.setHeader(editor, 3);
+                    MdEditor.format.setHeader(editor, 3);
                     break;
                 case 'h4':
-                    MkEditor.format.setHeader(editor, 4);
+                    MdEditor.format.setHeader(editor, 4);
                     break;
                 case 'h5':
-                    MkEditor.format.setHeader(editor, 5);
+                    MdEditor.format.setHeader(editor, 5);
                     break;
                 case 'link':
-                    MkEditor.format.setLink(editor);
+                    MdEditor.format.setLink(editor);
                     break;
                 case 'image':
-                    MkEditor.format.setImage(editor);
+                    MdEditor.format.setImage(editor);
                     break;
                 case 'inlinecode':
-                    MkEditor.format.setInlineCode(editor);
+                    MdEditor.format.setInlineCode(editor);
                     break;
                 case 'uploadimage':
-                    MkEditor.format.uploadImage(editor);
+                    MdEditor.format.uploadImage(editor);
                     break;
                 case 'premode':
-                    MkEditor.format.setPreMode(that, editor);
+					var mode = that.data('value');
+                    MdEditor.format.setPreMode(that, mode, editor);
                     break;
                 default:
                     break;
