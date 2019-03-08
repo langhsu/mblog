@@ -157,6 +157,10 @@ abbr[data-original-title], abbr[title] {
 
 /* Override bootstrap
 -------------------------------------------------- */
+.form-control, .bootstrap-tagsinput {
+    border-radius: 2px;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #03a9f4;

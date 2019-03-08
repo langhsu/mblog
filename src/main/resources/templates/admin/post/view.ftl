@@ -20,36 +20,22 @@
             <input type="hidden" name="status" value="${view.status!0}"/>
             <input type="hidden" name="editor" value="${editor!'tinymce'}"/>
             <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
-            <div class="col-md-9">
+            <div class="col-md-9 side-left">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">文章编辑</h3>
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label>标题</label>
                             <input type="text" class="form-control" name="title" value="${view.title}" maxlength="64" placeholder="文章标题" required >
                         </div>
                         <div class="form-group">
-                            <label>栏目</label>
-                            <select class="form-control" name="channelId">
-                                <#list channels as row>
-                                    <option value="${row.id}" <#if (view.channelId == row.id)> selected </#if>>${row.name}</option>
-                                </#list>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>内容</label>
                             <#include "/admin/editor/${editor}.ftl"/>
                         </div>
                     </div>
-                    <div class="box-footer">
-                        <button type="button" data-status="0" class="btn btn-primary" event="post_submit">发布</button>
-                        <button type="button" data-status="1" class="btn btn-info" event="post_submit">草稿</button>
-                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 side-right">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">预览图</h3>
@@ -68,12 +54,23 @@
                     </div>
                 </div>
                 <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">标签</h3>
-                    </div>
                     <div class="box-body">
-                        <input type="text" name="tags" data-role="tagsinput" class="form-control" value="${view.tags}">
-                        <p class="help-block" style="font-size: 12px;">添加相关标签，用逗号或空格分隔.</p>
+                        <div class="form-group">
+                            <label>栏目</label>
+                            <select class="form-control" name="channelId">
+                                <#list channels as row>
+                                    <option value="${row.id}" <#if (view.channelId == row.id)> selected </#if>>${row.name}</option>
+                                </#list>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>标签</label>
+                            <input type="text" name="tags" data-role="tagsinput" class="form-control" value="${view.tags}" placeholder="添加相关标签，逗号分隔 (最多4个)">
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="button" data-status="1" class="btn btn-default btn-sm" event="post_submit">草稿</button>
+                        <button type="button" data-status="0" class="btn btn-primary btn-sm pull-right" event="post_submit">发布</button>
                     </div>
                 </div>
             </div>

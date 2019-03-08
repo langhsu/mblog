@@ -153,7 +153,7 @@ var MdEditor = {
                             layer.alert(result.message);
                         }
                     }
-                })
+                });
             });
 
             input_f.click();

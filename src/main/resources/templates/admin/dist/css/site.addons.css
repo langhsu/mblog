@@ -1,6 +1,10 @@
-.CodeMirror {
-    border: 1px solid #ccc;
-    border-radius: 2px;
+
+.side-left {
+}
+
+.side-right {
+    padding: 0 0 0 15px;
+    margin-left: -15px;
 }
 
 .search-row {
@@ -69,4 +73,23 @@
 }
 .error {
     color: #b94a48;
+}
+
+/* Tablet (Portrait)
+================================================== */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .side-right {
+        padding: 0 15px 0 15px;
+        margin-left: 0;
+    }
+
+}
+
+/* Mobile (Portrait & Landscape)
+================================================== */
+@media only screen and (max-width: 767px) {
+    .side-right {
+        padding: 0 15px 0 15px;
+        margin-left: 0;
+    }
 }
