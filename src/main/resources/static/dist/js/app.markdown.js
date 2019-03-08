@@ -136,8 +136,8 @@ var MkEditor = {
                     url: _MTONS.BASE_PATH + "/post/upload",
                     data: form,
                     type: "POST",
-                    cache: false,//上传文件无需缓存
-                    processData: false,//用于对data参数进行序列化处理 这里必须false
+                    cache: false, //上传文件无需缓存
+                    processData: false, //用于对data参数进行序列化处理 这里必须false
                     contentType: false, //必须
                     success: function (result) {
                         if (result.status === 200) {

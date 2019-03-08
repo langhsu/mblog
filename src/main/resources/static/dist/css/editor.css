@@ -68,6 +68,23 @@
 
 .mk-editor .show {
     display: block;
+    animation: showIndex 0.3s;
+    -moz-animation: showIndex  0.3s; /* Firefox */
+    -webkit-animation: showIndex  0.3s; /* Safari and Chrome */
+    -o-animation: showIndex  0.3s; /* Opera */
+}
+
+@keyframes showIndex {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(750px) translateZ(0);
+        transform: translateX(750px) translateZ(0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0) translateZ(0);
+        transform: translateX(0) translateZ(0);
+    }
 }
 
 /* Body */
