@@ -86,7 +86,7 @@ define(function(require, exports, module) {
                     if (element.prop("type") === "checkbox") {
                         error.insertAfter(element.parent("label"));
                     } else if (element.is("textarea")) {
-                        error.insertAfter(element.next());
+                        error.insertAfter(element.closest(".form-group"));
                     } else {
                         error.insertAfter(element);
                     }

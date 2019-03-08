@@ -1,4 +1,4 @@
-<div class="panel panel-default corner-radius panel-hot-topics">
+<div class="panel panel-default widget">
 	<div class="panel-heading">
 		<h3 class="panel-title"><i class="fa fa-area-chart"></i> 热门文章</h3>
 	</div>
@@ -9,7 +9,7 @@
 	</div>
 </div>
 
-<div class="panel panel-default corner-radius panel-hot-topics">
+<div class="panel panel-default widget">
 	<div class="panel-heading">
 		<h3 class="panel-title"><i class="fa fa-bars"></i> 最新发布</h3>
 	</div>
@@ -20,7 +20,7 @@
 	</div>
 </div>
 <@controls name="comment">
-<div class="panel panel-default corner-radius panel-hot-topics">
+<div class="panel panel-default widget">
     <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-comment-o"></i> 最新评论</h3>
     </div>

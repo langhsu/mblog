@@ -1275,37 +1275,13 @@ abbr[data-original-title], abbr[title] {
 
 /* Right
 -------------------------------------------------- */
-.side-right ul.list {
-    margin: 0;
-    padding-left: 2px;
-}
-
-.side-right ul.list a, .side-right ul.list a:focus, .side-right ul.list a:hover {
-    color: #737373;
-}
-
-.side-right ul.list li {
-    margin-bottom: 8px;
-    line-height: 22px;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-    font-size: 14px;
-}
-
-.side-right ul.list li:last-child {
-    margin-bottom: 0;
-}
-
-.side-right .panel .panel-heading {
+.widget .panel-heading {
     text-align: left;
     padding: 15px 15px 5px;
     border-bottom: 0;
 }
 
-.side-right .panel-title {
+.widget .panel-title {
     padding-bottom: 15px;
     border-bottom: 2px solid #080808;
 }

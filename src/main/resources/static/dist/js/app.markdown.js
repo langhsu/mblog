@@ -160,16 +160,9 @@ var MdEditor = {
         },
 
         setPreMode: function setPreMode(element, mode, editor) {
-            var preview = $('.editor-preview');
-			$('li[event="premode"]').removeClass('active');
+			$('button.active').removeClass('active');
 			element.addClass('active');
 			$('.editor-container').removeClass('liveMode editMode previewMode').addClass(mode);
-            //if (preview.hasClass('show')) {
-            //    element.find('.icon').removeClass('fa-eye-slash').addClass('fa-eye');
-            //} else {
-                element.find('.icon').removeClass('fa-eye').addClass('fa-eye-slash');
-            //}
-            //preview.toggleClass('show');
         }
     },
 
@@ -190,14 +183,15 @@ var MdEditor = {
         editor.setSize('auto', '450px');
 
         editor.on('change', function (editor) {
-            $('#content').text(editor.getValue());
+            var $content = $('#content');
+            $content.text(editor.getValue());
             $('.editor-preview').html(marked(editor.getValue()));
         });
 		
 		$('.editor-preview').html(marked($('#content').text()));
 
         // Toolbar click
-        $('div.editor-toolbar').on('click', 'li', function () {
+        $('div.editor-toolbar').on('click', 'button[event]', function () {
             var that = $(this);
             var event = that.attr('event');
             switch (event) {
