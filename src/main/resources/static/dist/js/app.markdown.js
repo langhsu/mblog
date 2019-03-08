@@ -141,7 +141,7 @@ var MkEditor = {
                     contentType: false, //必须
                     success: function (result) {
                         if (result.status === 200) {
-                            var image = `![` + result.name + `](` + result.path + `)`;
+                            var image = `![` + result.name + `](` + _MTONS.BASE_PATH + result.path + `)`;
                             editor.replaceSelection(image);
                             var cursor = editor.getCursor();
                             editor.setCursor({
