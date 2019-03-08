@@ -15,7 +15,7 @@
     <div class="row">
         <form id="qForm" method="post" action="${base}/admin/post/update">
             <input type="hidden" name="status" value="${view.status!0}"/>
-            <input type="hidden" name="editor" value="${view.editor!'tinymce'}"/>
+            <input type="hidden" name="editor" value="${editor!'tinymce'}"/>
             <div class="col-md-9">
                 <div class="box">
                     <div class="box-header with-border">
