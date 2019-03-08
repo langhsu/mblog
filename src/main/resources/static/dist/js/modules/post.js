@@ -58,53 +58,53 @@ define(function(require, exports, module) {
         },
 
         bindValidate: function () {
-            require.async(['validation', 'validation-additional'], function () {
-                $("#submitForm").submit(function () {
-                    if (typeof tinyMCE == "function") {
-                        tinyMCE.triggerSave();
+            $("#submitForm").submit(function () {
+                if (typeof tinyMCE == "function") {
+                    tinyMCE.triggerSave();
+                }
+            }).validate({
+                ignore: "",
+                rules: {
+                    title: 'required',
+                    channelId: 'required',
+                    content: {
+                        required: true,
+                        check_editor: true
                     }
-                }).validate({
-                    ignore: "",
-                    rules: {
-                        title: 'required',
-                        channelId: 'required',
-                        content: {
-                            required: true,
-                            check_editor: true
-                        }
-                    },
-                    messages: {
-                        title: '请输入标题',
-                        channelId: '请选择栏目',
-                        content: {
-                            required: '内容不能为空',
-                            check_editor: '内容不能为空'
-                        }
-                    },
-                    errorElement: "p",
-                    errorPlacement: function (error, element) {
-                        error.addClass("help-block");
-                        if (element.prop("type") === "checkbox") {
-                            error.insertAfter(element.parent("label"));
-                        } else if (element.is("textarea")) {
-                            error.insertAfter(element.next());
-                        } else {
-                            error.insertAfter(element);
-                        }
-                    },
-                    highlight: function (element, errorClass, validClass) {
-                        $(element).closest("div").addClass("has-error").removeClass("has-success");
-                    },
-                    unhighlight: function (element, errorClass, validClass) {
-                        $(element).closest("div").addClass("has-success").removeClass("has-error");
+                },
+                messages: {
+                    title: '请输入标题',
+                    channelId: '请选择栏目',
+                    content: {
+                        required: '内容不能为空',
+                        check_editor: '内容不能为空'
                     }
-                });
+                },
+                errorElement: "p",
+                errorPlacement: function (error, element) {
+                    error.addClass("help-block");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else if (element.is("textarea")) {
+                        error.insertAfter(element.next());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest("div").addClass("has-error").removeClass("has-success");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest("div").addClass("has-success").removeClass("has-error");
+                }
             });
+
         }
     };
 	
 	exports.init = function () {
-		new PostView().init();
+        require.async(['validation', 'validation-additional'], function () {
+		    new PostView().init();
+        });
 	}
-	
 });
