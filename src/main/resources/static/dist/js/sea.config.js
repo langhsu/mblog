@@ -42,7 +42,10 @@ seajs.config({
         'codemirror-markdown': 'vendors/codemirror/mode/markdown/markdown',
         'codemirror-css': 'vendors/codemirror/lib/codemirror.css',
         'codemirror-theme': 'vendors/codemirror/theme/idea.css',
-        'codemirror-keymap': 'vendors/codemirror/keymap/sublime'
+        'codemirror-keymap': 'vendors/codemirror/keymap/sublime',
+
+        'marked': 'vendors/marked/marked.min',
+        'app.markdown': 'dist/js/app.markdown'
     },
 
     // 路径配置

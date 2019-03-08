@@ -36,10 +36,38 @@
 .mk-editor .editor-toolbar-menu .item .icon {
     cursor: pointer;
     padding: 1px;
+    font-size: smaller;
 }
 
 .mk-editor .editor-toolbar-menu .item .icon:hover {
     color: #0077bb;
+}
+
+.mk-editor .editor-container {
+    position: relative;
+}
+.mk-editor .editor-preview {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: #f9f9f5;
+    z-index: 9999;
+    overflow: auto;
+    -webkit-transition: left 0.2s ease;
+    -moz-transition: left 0.2s ease;
+    -ms-transition: left 0.2s ease;
+    transition: left 0.2s ease;
+}
+
+.mk-editor .editor-preview {
+    padding: 15px;
+    background: #fff;
+}
+
+.mk-editor .show {
+    display: block;
 }
 
 /* Body */

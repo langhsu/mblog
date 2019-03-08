@@ -1,26 +1,56 @@
 <link href="${base}/dist/vendors/codemirror/lib/codemirror.css" rel="stylesheet">
 <link href="${base}/dist/vendors/codemirror/theme/idea.css" rel="stylesheet">
+<link href="${base}/dist/css/editor.css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="${base}/dist/vendors/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" charset="utf-8" src="${base}/dist/vendors/codemirror/mode/markdown/markdown.js"></script>
 <script type="text/javascript" charset="utf-8" src="${base}/dist/vendors/codemirror/keymap/sublime.js"></script>
-
-<textarea id="content" name="content" rows="5" class="form-control" required>${view.content?html}</textarea>
-
+<script type="text/javascript" charset="utf-8" src="${base}/dist/vendors/marked/marked.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="${base}/dist/js/app.markdown.js"></script>
+<div class="mk-editor">
+    <div class="editor-toolbar">
+        <ul class="editor-toolbar-menu">
+            <li class="item" event="undo">
+                <span class="icon fa fa-rotate-left"></span>
+            </li>
+            <li class="item" event="redo">
+                <span class="icon fa fa-rotate-right"></span>
+            </li>
+            <li class="item" event="bold">
+                <span class="icon fa fa-bold"></span>
+            </li>
+            <li class="item" event="italic">
+                <span class="icon fa fa-italic"></span>
+            </li>
+            <li class="item" event="h2">
+                <span class="icon fa fa-header"></span>
+            </li>
+            <li class="item" event="blockquote">
+                <span class="icon fa fa-quote-left"></span>
+            </li>
+            <li class="item" event="link">
+                <span class="icon fa fa-link"></span>
+            </li>
+            <li class="item" event="image">
+                <span class="icon fa fa-image"></span>
+            </li>
+            <li class="item" event="inlinecode">
+                <span class="icon fa fa-code"></span>
+            </li>
+            <li class="item" event="premode">
+                <span class="icon fa fa-eye"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="editor-container">
+        <div class="editor-body">
+            <textarea id="content" name="content" rows="5" class="form-control" required>${view.content?html}</textarea>
+        </div>
+        <div class="editor-preview markdown-body">
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
-    var editor = CodeMirror.fromTextArea(document.getElementById("content"), {
-        mode: 'markdown',     // Markdown
-        lineNumbers: true,     // 显示行数
-        indentUnit: 4,         // 缩进4格
-        tabSize: 4,
-        autoCloseBrackets: true,
-        matchBrackets: true,   // 括号匹配
-        lineWrapping: true,    // 自动换行
-        theme: 'idea',
-        keyMap: 'sublime',
-        extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
-    });
-    editor.setSize('auto', '450px');
-
-    editor.on('change', function (cm, co) {
-        $('#content').text(cm.getValue());
+    $(function () {
+        MkEditor.initEditor();
     });
 </script>
