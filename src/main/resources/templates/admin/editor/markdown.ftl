@@ -6,7 +6,7 @@
 <script type="text/javascript" charset="utf-8" src="${base}/dist/vendors/codemirror/keymap/sublime.js"></script>
 <script type="text/javascript" charset="utf-8" src="${base}/dist/vendors/marked/marked.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="${base}/dist/js/app.markdown.js"></script>
-<div class="mk-editor">
+<div class="md-editor">
     <div class="editor-toolbar">
         <ul class="editor-toolbar-menu">
             <li class="item" event="undo">

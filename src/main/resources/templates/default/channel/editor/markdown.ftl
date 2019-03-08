@@ -1,4 +1,4 @@
-<div class="mk-editor">
+<div class="md-editor">
     <div class="editor-toolbar">
         <ul class="editor-toolbar-menu">
             <li class="item" event="undo">

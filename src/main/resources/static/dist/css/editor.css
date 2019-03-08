@@ -4,24 +4,24 @@
 }
 
 /* Editor style */
-.mk-editor {
+.md-editor {
     border: 1px solid #ccc;
     border-radius: 2px;
 }
-.mk-editor .editor-toolbar {
+.md-editor .editor-toolbar {
     width: 100%;
     z-index: 106;
     border-bottom: 1px solid #CCC;
 }
 
-.mk-editor .editor-toolbar-menu {
+.md-editor .editor-toolbar-menu {
     list-style: none;
     margin: 0;
     padding: 5px 10px;
     font-size: 18px;
 }
 
-.mk-editor .editor-toolbar-menu > li {
+.md-editor .editor-toolbar-menu > li {
     display: inline-block;
     position: relative;
     width: 20px;
@@ -29,29 +29,29 @@
     color: #666;
 }
 
-.mk-editor .editor-toolbar .item {
+.md-editor .editor-toolbar .item {
     margin-right: 5px;
 }
 
-.mk-editor .editor-toolbar .item:hover {
+.md-editor .editor-toolbar .item:hover {
     color: #0077bb;
 }
 
-.mk-editor .editor-toolbar .item.active {
+.md-editor .editor-toolbar .item.active {
     color: #0077bb;
 }
 
-.mk-editor .editor-toolbar .item .icon {
+.md-editor .editor-toolbar .item .icon {
     cursor: pointer;
     padding: 1px;
     font-size: smaller;
 }
 
-.mk-editor .editor-container {
+.md-editor .editor-container {
     position: relative;
     overflow: hidden;
 }
-.mk-editor .editor-preview {
+.md-editor .editor-preview {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -65,7 +65,7 @@
     transition: left 0.3s ease;
 }
 
-.mk-editor .editor-preview {
+.md-editor .editor-preview {
     padding: 15px;
     background: #f7f7f7;
     animation: showIndex 0.3s;
@@ -74,7 +74,7 @@
     -o-animation: showIndex  0.3s; /* Opera */
 }
 
-.mk-editor .editor-body {
+.md-editor .editor-body {
     position: initial;
     min-height: auto;
     height: 100%;
