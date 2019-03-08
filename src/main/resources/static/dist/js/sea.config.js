@@ -39,6 +39,7 @@ seajs.config({
         'owo-css': 'vendors/owo/OwO.min.css',
 
         'codemirror': 'vendors/codemirror/lib/codemirror.js',
+        'codemirror-markdown': 'vendors/codemirror/mode/markdown/markdown',
         'codemirror-css': 'vendors/codemirror/lib/codemirror.css',
         'codemirror-theme': 'vendors/codemirror/theme/idea.css',
         'codemirror-keymap': 'vendors/codemirror/keymap/sublime'
