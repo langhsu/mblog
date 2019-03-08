@@ -33,6 +33,9 @@
             <li class="item" event="image">
                 <span class="icon fa fa-image"></span>
             </li>
+            <li class="item" event="uploadimage">
+                <span class="icon fa fa-file-image-o"></span>
+            </li>
             <li class="item" event="inlinecode">
                 <span class="icon fa fa-code"></span>
             </li>

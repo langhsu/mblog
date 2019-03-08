@@ -123,6 +123,42 @@ var MkEditor = {
             editor.focus();
         },
 
+        uploadImage: function(editor) {
+            var input_f = $('<input type="file" name="file" accept="image/jpg,image/jpeg,image/png,image/gif">');
+            input_f.on('change', function () {
+                var file = input_f[0].files[0];
+                if (!file) {
+                    return false;
+                }
+                var form = new FormData();
+                form.append("file", file);
+                $.ajax({
+                    url: _MTONS.BASE_PATH + "/post/upload",
+                    data: form,
+                    type: "POST",
+                    cache: false,//上传文件无需缓存
+                    processData: false,//用于对data参数进行序列化处理 这里必须false
+                    contentType: false, //必须
+                    success: function (result) {
+                        if (result.status === 200) {
+                            var image = `![` + result.name + `](` + result.path + `)`;
+                            editor.replaceSelection(image);
+                            var cursor = editor.getCursor();
+                            editor.setCursor({
+                                line: cursor.line,
+                                ch: cursor.ch - 3
+                            });
+                            editor.focus();
+                        } else {
+                            layer.alert(result.message);
+                        }
+                    }
+                })
+            });
+
+            input_f.click();
+        },
+
         setPreMode: function setPreMode(element, editor) {
             var preview = $('.editor-preview');
             if (preview.hasClass('show')) {
@@ -198,6 +234,9 @@ var MkEditor = {
                     break;
                 case 'inlinecode':
                     MkEditor.format.setInlineCode(editor);
+                    break;
+                case 'uploadimage':
+                    MkEditor.format.uploadImage(editor);
                     break;
                 case 'premode':
                     MkEditor.format.setPreMode(that, editor);
