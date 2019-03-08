@@ -335,7 +335,22 @@ public class PostServiceImpl implements PostService {
 	@PostStatusFilter
 	private List<Post> find(String orderBy, int size) {
 		Pageable pageable = PageRequest.of(0, size, Sort.by(Sort.Direction.DESC, orderBy));
-		Page<Post> page = postRepository.findAll(pageable);
+
+		Set<Integer> excludeChannelIds = new HashSet<>();
+
+		List<Channel> channels = channelService.findAll(Consts.STATUS_CLOSED);
+		if (channels != null) {
+			channels.forEach((c) -> excludeChannelIds.add(c.getId()));
+		}
+
+		Page<Post> page = postRepository.findAll((root, query, builder) -> {
+			Predicate predicate = builder.conjunction();
+			if (excludeChannelIds.size() > 0) {
+				predicate.getExpressions().add(
+						builder.not(root.get("channelId").in(excludeChannelIds)));
+			}
+			return predicate;
+		}, pageable);
 		return page.getContent();
 	}
 
