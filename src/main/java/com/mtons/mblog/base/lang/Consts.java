@@ -117,4 +117,6 @@ public interface Consts {
 	String GITHUB_SECRET_KEY = "github_secret_key";//github应用SECRET_KEY
 
 	String EMAIL_TEMPLATE_CODE = "email_code.ftl";
+
+	String EDITOR_MARKDOWN = "markdown";
 }

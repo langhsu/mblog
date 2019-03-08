@@ -1,3 +1,8 @@
+.CodeMirror {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
 .search-row {
     padding-bottom: 10px;
 }

@@ -35,14 +35,16 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String location = "file:///" + siteOptions.getLocation();
         registry.addResourceHandler("/dist/**")
                 .addResourceLocations("classpath:/static/dist/");
         registry.addResourceHandler("/theme/*/dist/**")
-                .addResourceLocations("classpath:/templates/");
+                .addResourceLocations("classpath:/templates/")
+                .addResourceLocations(location + "/storage/templates/");
         registry.addResourceHandler("/storage/avatars/**")
-                .addResourceLocations("file:///" + siteOptions.getLocation() + "/storage/avatars/");
+                .addResourceLocations(location + "/storage/avatars/");
         registry.addResourceHandler("/storage/thumbnails/**")
-                .addResourceLocations("file:///" + siteOptions.getLocation() + "/storage/thumbnails/");
+                .addResourceLocations(location + "/storage/thumbnails/");
     }
 
     @Override

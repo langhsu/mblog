@@ -16,6 +16,9 @@ public class PostAttribute implements Serializable {
 	@Id
     private long id;
 
+	@Column(length = 16, columnDefinition = "varchar(16) default 'tinymce'")
+	private String editor;
+
     /**
      * 内容
      */
@@ -30,6 +33,14 @@ public class PostAttribute implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getEditor() {
+        return editor;
+    }
+
+    public void setEditor(String editor) {
+        this.editor = editor;
     }
 
     public String getContent() {
