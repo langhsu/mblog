@@ -1,4 +1,5 @@
 var MdEditor = {
+    editorId: null,
     format: {
         undo: function undo(editor) {
             editor.undo();
@@ -160,9 +161,21 @@ var MdEditor = {
         },
 
         setPreMode: function setPreMode(element, mode, editor) {
-			$('button.active').removeClass('active');
+			$('button[event=premode].active').removeClass('active');
 			element.addClass('active');
 			$('.editor-container').removeClass('liveMode editMode previewMode').addClass(mode);
+        },
+        
+        fullscreen: function (editor) {
+            var $btn = $('button[event=fullscreen]');
+            $btn.toggleClass('active');
+            $('.md-editor').toggleClass('fullscreen');
+            var height = $(window).height() - 37;
+            if ($btn.hasClass('active')) {
+                editor.setSize('auto', height + 'px');
+            } else {
+                editor.setSize('auto', '450px');
+            }
         }
     },
 
@@ -240,6 +253,9 @@ var MdEditor = {
                 case 'premode':
 					var mode = that.data('value');
                     MdEditor.format.setPreMode(that, mode, editor);
+                    break;
+                case 'fullscreen':
+                    MdEditor.format.fullscreen(editor);
                     break;
                 default:
                     break;

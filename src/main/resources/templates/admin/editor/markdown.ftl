@@ -14,6 +14,7 @@
         <button type="button" event="redo">
             <i class="icon fa fa-rotate-right"></i>
         </button>
+        <i class="separator">|</i>
         <button type="button" event="bold">
             <i class="icon fa fa-bold"></i>
         </button>
@@ -47,6 +48,10 @@
         </button>
         <button type="button" event="premode" data-value="previewMode">
             <i class="icon fa fa-desktop"></i>
+        </button>
+        <i class="separator">|</i>
+        <button type="button" event="fullscreen">
+            <i class="icon fa fa-arrows-alt"></i>
         </button>
     </div>
     <div class="editor-container editMode">
