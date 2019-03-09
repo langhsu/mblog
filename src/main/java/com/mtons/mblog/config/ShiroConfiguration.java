@@ -81,19 +81,16 @@ public class ShiroConfiguration {
         hashMap.put("/post/delete/*", "authc");
         hashMap.put("/post/upload", "authc");
 
-        hashMap.put("/admin", "authc,perms[admin]");
-        hashMap.put("/admin/**", "authc,perms[admin]");
-
         hashMap.put("/admin/channel/list", "authc,perms[channel:list]");
         hashMap.put("/admin/channel/update", "authc,perms[channel:update]");
         hashMap.put("/admin/channel/delete", "authc,perms[channel:delete]");
 
-        hashMap.put("/admin/posts/list", "authc,perms[post:list]");
-        hashMap.put("/admin/posts/update", "authc,perms[post:update]");
-        hashMap.put("/admin/posts/delete", "authc,perms[post:delete]");
+        hashMap.put("/admin/post/list", "authc,perms[post:list]");
+        hashMap.put("/admin/post/update", "authc,perms[post:update]");
+        hashMap.put("/admin/post/delete", "authc,perms[post:delete]");
 
-        hashMap.put("/admin/comments/list", "authc,perms[comment:list]");
-        hashMap.put("/admin/comments/delete", "authc,perms[comment:delete]");
+        hashMap.put("/admin/comment/list", "authc,perms[comment:list]");
+        hashMap.put("/admin/comment/delete", "authc,perms[comment:delete]");
 
         hashMap.put("/admin/user/list", "authc,perms[user:list]");
         hashMap.put("/admin/user/update_role", "authc,perms[user:role]");
@@ -107,6 +104,11 @@ public class ShiroConfiguration {
         hashMap.put("/admin/role/list", "authc,perms[role:list]");
         hashMap.put("/admin/role/update", "authc,perms[role:update]");
         hashMap.put("/admin/role/delete", "authc,perms[role:delete]");
+
+        hashMap.put("/admin/theme/*", "authc,perms[theme:index]");
+
+        hashMap.put("/admin", "authc,perms[admin]");
+        hashMap.put("/admin/*", "authc,perms[admin]");
 
         shiroFilter.setFilterChainDefinitionMap(hashMap);
         return shiroFilter;
