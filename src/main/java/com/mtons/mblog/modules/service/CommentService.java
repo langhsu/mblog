@@ -34,7 +34,7 @@ public interface CommentService {
 	 */
 	Page<CommentVO> pagingByPostId(Pageable pageable, long postId);
 
-	List<CommentVO> findLatests(int maxResults);
+	List<CommentVO> findLatestComments(int maxResults);
 
 	Map<Long, CommentVO> findByIds(Set<Long> ids);
 	

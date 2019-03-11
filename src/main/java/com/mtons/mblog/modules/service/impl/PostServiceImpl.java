@@ -136,13 +136,13 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@PostStatusFilter
-	public List<PostVO> findLatests(int maxResults) {
+	public List<PostVO> findLatestPosts(int maxResults) {
 		return find("created", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	
 	@Override
 	@PostStatusFilter
-	public List<PostVO> findHottests(int maxResults) {
+	public List<PostVO> findHottestPosts(int maxResults) {
 		return find("views", maxResults).stream().map(BeanMapUtils::copy).collect(Collectors.toList());
 	}
 	

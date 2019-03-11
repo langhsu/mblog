@@ -119,7 +119,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<CommentVO> findLatests(int maxResults) {
+	public List<CommentVO> findLatestComments(int maxResults) {
 		Pageable pageable = PageRequest.of(0, maxResults, new Sort(Sort.Direction.DESC, "id"));
 		Page<Comment> page = commentRepository.findAll(pageable);
 		List<CommentVO> rets = new ArrayList<>();

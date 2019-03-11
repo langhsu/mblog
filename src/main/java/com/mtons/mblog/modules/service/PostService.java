@@ -55,7 +55,7 @@ public interface PostService {
 	 * @return
 	 */
 	@Cacheable
-	List<PostVO> findLatests(int maxResults);
+	List<PostVO> findLatestPosts(int maxResults);
 
 	/**
 	 * 查询热门文章 - 按浏览次数排序
@@ -63,7 +63,7 @@ public interface PostService {
 	 * @return
 	 */
 	@Cacheable
-	List<PostVO> findHottests(int maxResults);
+	List<PostVO> findHottestPosts(int maxResults);
 	
 	/**
 	 * 根据Ids查询

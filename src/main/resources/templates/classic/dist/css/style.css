@@ -1290,6 +1290,30 @@ abbr[data-original-title], abbr[title] {
     border-bottom: 2px solid #080808;
 }
 
+.widget ul.list {
+    margin: 0;
+    padding-left: 2px;
+}
+
+.widget ul.list a, .widget ul.list a:focus, .widget ul.list a:hover {
+    color: #737373;
+}
+
+.widget ul.list li {
+    margin-bottom: 8px;
+    line-height: 22px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    font-size: 14px;
+}
+
+.side-right ul.list li:last-child {
+    margin-bottom: 0;
+}
+
 /* User
 -------------------------------------------------- */
 .box {
