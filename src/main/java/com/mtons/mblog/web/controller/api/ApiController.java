@@ -11,11 +11,13 @@ package com.mtons.mblog.web.controller.api;
 
 import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.base.lang.Result;
+import com.mtons.mblog.base.utils.BeanMapUtils;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,6 @@ public class ApiController extends BaseController {
     public Page<PostVO> posts(HttpServletRequest request) {
         String order = ServletRequestUtils.getStringParameter(request, "order", Consts.order.NEWEST);
         int channelId = ServletRequestUtils.getIntParameter(request, "channelId", 0);
-        return postService.paging(wrapPageable(), channelId, null, order);
+        return postService.paging(wrapPageable(Sort.by(Sort.Direction.DESC, BeanMapUtils.postOrder(order))), channelId, null);
     }
 }

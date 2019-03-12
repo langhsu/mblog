@@ -234,7 +234,7 @@ abbr[data-original-title], abbr[title] {
     width: 100%;
     min-height: 50px;
     border-bottom: 1px solid #f0f0f0;
-    background: #fff;
+    background: #171717;
     opacity: .97;
 }
 
@@ -251,24 +251,30 @@ abbr[data-original-title], abbr[title] {
     margin-bottom: 0;
 }
 
+.site-header a {
+    color: #dbdbdb;
+}
+
 .site-header .navbar-nav {
     margin-left: 25px;
 }
 
 .site-header .navbar-nav > li > a {
-    color: #383838;
     font-size: 14px;
     padding-top: 15px;
     padding-bottom: 15px;
 }
 
-.site-header .navbar-nav > li > a:focus, .site-header .navbar-nav > li > a:hover {
-    color: #03a9f4;
+.site-header .navbar-nav > li > a:focus,
+.site-header .navbar-nav > li > a:hover,
+.site-header .navbar-button > li > a:focus,
+.site-header .navbar-button > li > a:hover {
+    color: #fff;
     background-color: transparent;
 }
 
 .site-header .navbar-nav > li.active > a {
-    color: #03a9f4;
+    color: #fff;
 }
 
 .site-header .navbar-button {
@@ -297,6 +303,13 @@ abbr[data-original-title], abbr[title] {
 
 .site-header .navbar-button > li > a.login, .site-header .navbar-button > li > a.signup {
     min-width: 70px;
+    background-color: #333;
+    border: 0 solid transparent;
+}
+
+.site-header .navbar-button > li > a.login:hover, .site-header .navbar-button > li > a.signup:hover {
+    color: #171717!important;
+    background: #fff!important;
 }
 
 .site-header .navbar-button > li > a.user {
@@ -309,7 +322,7 @@ abbr[data-original-title], abbr[title] {
 .site-header .navbar-button > li > a.user img {
     width: 30px;
     height: 30px;
-    border: 1px solid #eee;
+    border: 0 solid transparent;
     border-radius: 50%;
     margin-right: 5px;
 }
@@ -333,10 +346,10 @@ abbr[data-original-title], abbr[title] {
     padding-left: 30px;
     font-size: 14px;
     line-height: 1em;
-    background-color: #fff;
+    background-color: #333;
+    color: #ccc;
     border: none;
     border-radius: 0;
-    color: inherit;
 }
 
 .site-header .navbar-form .mac-style {
@@ -367,7 +380,7 @@ abbr[data-original-title], abbr[title] {
 
 .site-header .navbar-form .mac-style:focus {
     width: 200px;
-    background-color: #fafafa;
+    background-color: #333;
 }
 
 .headroom {

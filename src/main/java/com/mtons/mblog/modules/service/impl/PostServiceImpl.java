@@ -33,7 +33,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -62,20 +61,8 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@PostStatusFilter
-	public Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds, String ord) {
+	public Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
-
-			List<Order> orders = new ArrayList<>();
-
-			if (Consts.order.FAVOR.equals(ord)) {
-				orders.add(builder.desc(root.<Long>get("favors")));
-			} else if (Consts.order.HOTTEST.equals(ord)) {
-				orders.add(builder.desc(root.<Long>get("comments")));
-			} else {
-				orders.add(builder.desc(root.<Long>get("weight")));
-			}
-			orders.add(builder.desc(root.<Long>get("created")));
-
 			Predicate predicate = builder.conjunction();
 
 			if (channelId > Consts.ZERO) {
@@ -88,14 +75,8 @@ public class PostServiceImpl implements PostService {
 						builder.not(root.get("channelId").in(excludeChannelIds)));
 			}
 
-			if (Consts.order.HOTTEST.equals(ord)) {
-				orders.add(builder.desc(root.<Long>get("views")));
-			}
-
 //			predicate.getExpressions().add(
 //					builder.equal(root.get("featured").as(Integer.class), Consts.FEATURED_DEFAULT));
-
-			query.orderBy(orders);
 
 			return predicate;
 		}, pageable);
@@ -106,13 +87,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title) {
 		Page<Post> page = postRepository.findAll((root, query, builder) -> {
-            query.orderBy(
-					builder.desc(root.<Long>get("weight")),
-					builder.desc(root.<Long>get("created"))
-			);
-
             Predicate predicate = builder.conjunction();
-
 			if (channelId > Consts.ZERO) {
 				predicate.getExpressions().add(
 						builder.equal(root.get("channelId").as(Integer.class), channelId));

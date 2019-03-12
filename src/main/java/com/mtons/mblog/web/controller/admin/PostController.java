@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -48,7 +49,7 @@ public class PostController extends BaseController {
 		long id = ServletRequestUtils.getLongParameter(request, "id", Consts.ZERO);
 		int channelId = ServletRequestUtils.getIntParameter(request, "channelId", Consts.ZERO);
 
-		Pageable pageable = wrapPageable();
+		Pageable pageable = wrapPageable(Sort.by(Sort.Direction.DESC, "weight", "created"));
 		Page<PostVO> page = postService.paging4Admin(pageable, channelId, title);
 		model.put("page", page);
 		model.put("title", title);

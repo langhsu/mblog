@@ -34,10 +34,9 @@ public interface PostService {
 	 * 
 	 * @param pageable
 	 * @param channelId 分组Id
-	 * @param ord   排序
 	 */
 	@Cacheable
-	Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds, String ord);
+	Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds);
 
 	Page<PostVO> paging4Admin(Pageable pageable, int channelId, String title);
 	
