@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.base.utils;
 
+import com.mtons.mblog.base.lang.Consts;
 import com.mtons.mblog.modules.data.*;
 import com.mtons.mblog.modules.entity.*;
 import org.springframework.beans.BeanUtils;
@@ -72,5 +73,21 @@ public class BeanMapUtils {
         TagVO ret = new TagVO();
         BeanUtils.copyProperties(po, ret);
         return ret;
+    }
+
+    public static String[] postOrder(String order) {
+        String[] orders;
+        switch (order) {
+            case Consts.order.HOTTEST:
+                orders = new String[]{"comments", "views", "created"};
+                break;
+            case Consts.order.FAVOR:
+                orders = new String[]{"favors", "created"};
+                break;
+            default:
+                orders = new String[]{"weight", "created"};
+                break;
+        }
+        return orders;
     }
 }
