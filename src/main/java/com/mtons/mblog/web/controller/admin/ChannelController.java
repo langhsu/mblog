@@ -18,8 +18,12 @@ import com.mtons.mblog.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author langhsu
@@ -58,6 +62,15 @@ public class ChannelController extends BaseController {
 			contextStartup.resetChannels();
 		}
 		return "redirect:/admin/channel/list";
+	}
+
+	@RequestMapping("/weight")
+	@ResponseBody
+	public Result weight(@RequestParam Integer id, HttpServletRequest request) {
+		int weight = ServletRequestUtils.getIntParameter(request, "weight", Consts.FEATURED_ACTIVE);
+		channelService.updateWeight(id, weight);
+		contextStartup.resetChannels();
+		return Result.success();
 	}
 	
 	@RequestMapping("/delete")

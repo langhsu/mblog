@@ -15,6 +15,7 @@
                 <#if view??>
                     <input type="hidden" name="id" value="${view.id}" />
                 </#if>
+                <input type="hidden" name="weight" value="${view.weight!0}">
                 <input type="hidden" id="thumbnail" name="thumbnail" value="${view.thumbnail}">
                 <div class="box">
                     <div class="box-header with-border">

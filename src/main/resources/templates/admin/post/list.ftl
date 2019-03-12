@@ -179,7 +179,7 @@ $(function() {
     // 推荐/加精
     $('#dataGrid a[rel="weight"]').bind('click', function(){
         var that = $(this);
-        layer.confirm('确定推荐吗?推荐后将显示在Banner位上', {
+        layer.confirm('确定置顶该项吗', {
             btn: ['确定','取消'], //按钮
             shade: false //不显示遮罩
         }, function(){

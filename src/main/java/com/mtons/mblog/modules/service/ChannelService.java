@@ -26,7 +26,7 @@ public interface ChannelService {
 	Map<Integer, Channel> findMapByIds(Collection<Integer> ids);
 	Channel getById(int id);
 	void update(Channel channel);
+	void updateWeight(int id, int weighted);
 	void delete(int id);
-
 	long count();
 }
