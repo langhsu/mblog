@@ -255,6 +255,11 @@ abbr[data-original-title], abbr[title] {
     color: #dbdbdb;
 }
 
+.site-header a:focus, .site-header a:hover {
+    color: #fff!important;
+    background-color: transparent!important;
+}
+
 .site-header .navbar-nav {
     margin-left: 25px;
 }
@@ -263,11 +268,6 @@ abbr[data-original-title], abbr[title] {
     font-size: 14px;
     padding-top: 15px;
     padding-bottom: 15px;
-}
-
-.site-header .navbar-nav > li > a:focus, .site-header .navbar-nav > li > a:hover {
-    color: #fff;
-    background-color: transparent;
 }
 
 .site-header .navbar-nav > li.active > a {
@@ -304,9 +304,9 @@ abbr[data-original-title], abbr[title] {
     border: 0 solid transparent;
 }
 
-.site-header .navbar-button > li > a:hover {
-    color: #171717;
-    background: #fff;
+.site-header .navbar-button > li > a.login:hover, .site-header .navbar-button > li > a.signup:hover {
+    color: #171717!important;
+    background: #fff!important;
 }
 
 .site-header .navbar-button > li > a.user {
