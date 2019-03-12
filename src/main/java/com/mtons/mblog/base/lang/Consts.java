@@ -29,6 +29,8 @@ public interface Consts {
 	 */
 	String SEPARATOR = ",";
 
+	String SEPARATOR_X = "x";
+
 	String ROLE_ADMIN = "admin";
 
 	int PAGE_DEFAULT_SIZE = 10;
@@ -119,4 +121,9 @@ public interface Consts {
 	String EMAIL_TEMPLATE_CODE = "email_code.ftl";
 
 	String EDITOR_MARKDOWN = "markdown";
+
+	String STORAGE_LIMIT_SIZE = "storage_limit_size";
+	String STORAGE_MAX_WIDTH = "storage_max_width";
+
+	String THUMBNAIL_POST_SIZE = "thumbnail_post_size";
 }

@@ -38,6 +38,12 @@ public class Channel implements Serializable {
 	@Column(name = "key_", unique = true, length = 32)
 	private String key;
 
+	/**
+	 * 预览图
+	 */
+	@Column(length = 128)
+	private String thumbnail;
+
 	private int status;
 
 	public int getId() {
@@ -70,5 +76,13 @@ public class Channel implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 }

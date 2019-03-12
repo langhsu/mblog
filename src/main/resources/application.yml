@@ -80,5 +80,7 @@ site:
         site_logo: /dist/images/logo/logo.png
         site_favicon: /dist/images/logo/m.png
         storage_max_width: 800
-        storeage_limit_size: 2
+        storage_limit_size: 2
         editor: markdown
+        thumbnail_channel_size: 200x112
+        thumbnail_post_size: 360x200
