@@ -255,11 +255,6 @@ abbr[data-original-title], abbr[title] {
     color: #dbdbdb;
 }
 
-.site-header a:focus, .site-header a:hover {
-    color: #fff!important;
-    background-color: transparent!important;
-}
-
 .site-header .navbar-nav {
     margin-left: 25px;
 }
@@ -268,6 +263,14 @@ abbr[data-original-title], abbr[title] {
     font-size: 14px;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+.site-header .navbar-nav > li > a:focus,
+.site-header .navbar-nav > li > a:hover,
+.site-header .navbar-button > li > a:focus,
+.site-header .navbar-button > li > a:hover {
+    color: #fff;
+    background-color: transparent;
 }
 
 .site-header .navbar-nav > li.active > a {
