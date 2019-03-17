@@ -52,8 +52,8 @@ public class UploadController extends BaseController {
     public UploadResult upload(@RequestParam(value = "file", required = false) MultipartFile file,
                                HttpServletRequest request) throws IOException {
         UploadResult result = new UploadResult();
-        int crop = ServletRequestUtils.getIntParameter(request, "crop", 0);
-        int size = ServletRequestUtils.getIntParameter(request, "size", 800);
+        String crop = request.getParameter("crop");
+        int size = ServletRequestUtils.getIntParameter(request, "size", siteOptions.getIntegerValue(Consts.STORAGE_MAX_WIDTH));
 
         // 检查空
         if (null == file || file.isEmpty()) {
@@ -68,7 +68,7 @@ public class UploadController extends BaseController {
         }
 
         // 检查大小
-        String limitSize = siteOptions.getValue("storage_limit_size");
+        String limitSize = siteOptions.getValue(Consts.STORAGE_LIMIT_SIZE);
         if (StringUtils.isBlank(limitSize)) {
             limitSize = "2";
         }
@@ -79,9 +79,10 @@ public class UploadController extends BaseController {
         // 保存图片
         try {
             String path;
-            if (crop == 1) {
-                int width = ServletRequestUtils.getIntParameter(request, "width", 360);
-                int height = ServletRequestUtils.getIntParameter(request, "height", 200);
+            if (StringUtils.isNotBlank(crop)) {
+                Integer[] imageSize = siteOptions.getIntegerArrayValue(crop, Consts.SEPARATOR_X);
+                int width = ServletRequestUtils.getIntParameter(request, "width", imageSize[0]);
+                int height = ServletRequestUtils.getIntParameter(request, "height", imageSize[1]);
                 path = storageFactory.get().storeScale(file, Consts.thumbnailPath, width, height);
             } else {
                 path = storageFactory.get().storeScale(file, Consts.thumbnailPath, size);

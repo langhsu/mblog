@@ -13,7 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,7 +80,22 @@ public class SiteOptions {
     }
 
     public String getValue(String key) {
-        return options.get(key);
+        String value = options.get(key);
+        return null != value ? value.trim() : null;
+    }
+
+    public Integer getIntegerValue(String key) {
+        return Integer.parseInt(options.get(key));
+    }
+
+    public Integer[] getIntegerArrayValue(String key, String separator) {
+        @NotNull String value = getValue(key);
+        String[] array = value.split(separator);
+        Integer[] ret = new Integer[array.length];
+        for (int i = 0; i < array.length; i ++) {
+            ret[i] = Integer.parseInt(array[i]);
+        }
+        return ret;
     }
 
     public boolean hasValue(String key) {

@@ -27,7 +27,7 @@
                                 <th>名称</th>
                                 <th>Key</th>
                                 <th>状态</th>
-                                <th width="100">操作</th>
+                                <th width="140">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -44,6 +44,7 @@
                                         </#if>
                                     </td>
                                     <td>
+                                        <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" data-action="weight">置顶</a>
                                         <a href="view?id=${row.id}" class="btn btn-xs btn-success">修改</a>
                                         <a href="javascript:void(0);" class="btn btn-xs btn-primary" data-id="${row.id}"
                                            data-action="delete">删除</a>
@@ -72,7 +73,23 @@
         }
     }
 
+    function doUpdateWeight(id, weight) {
+        J.getJSON('${base}/admin/channel/weight', J.param({'id': id, 'weight': weight}, true), ajaxReload);
+    }
+
     $(function () {
+        $('#dataGrid a[data-action="weight"]').bind('click', function(){
+            var that = $(this);
+            layer.confirm('确定将该项排序在第一位吗?', {
+                btn: ['确定','取消'], //按钮
+                shade: false //不显示遮罩
+            }, function(){
+                doUpdateWeight(that.attr('data-id'), 1);
+            }, function(){
+            });
+            return false;
+        });
+
         // 删除
         $('#dataGrid a[data-action="delete"]').bind('click', function () {
             var that = $(this);

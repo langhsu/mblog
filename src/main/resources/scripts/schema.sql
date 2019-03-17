@@ -23,17 +23,19 @@ CREATE TABLE `mto_channel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `key_` varchar(32) DEFAULT NULL,
   `name` varchar(32) DEFAULT NULL,
-  `status` int(11) NOT NULL,
+  `status` int(5) NOT NULL,
+  `thumbnail` varchar(128) DEFAULT NULL,
+  `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of mto_channel
 -- ----------------------------
-INSERT INTO `mto_channel` VALUES ('1', 'banner', 'banner', '1');
-INSERT INTO `mto_channel` VALUES ('2', 'blog', '博客', '0');
-INSERT INTO `mto_channel` VALUES ('3', 'jotting', '随笔', '0');
-INSERT INTO `mto_channel` VALUES ('4', 'share', '分享', '0');
+INSERT INTO `mto_channel` VALUES ('1', 'banner', 'banner', '1', '', '3');
+INSERT INTO `mto_channel` VALUES ('2', 'blog', '博客', '0', '', '2');
+INSERT INTO `mto_channel` VALUES ('3', 'jotting', '随笔', '0', '', '1');
+INSERT INTO `mto_channel` VALUES ('4', 'share', '分享', '0', '', '0');
 
 -- ----------------------------
 -- Table structure for mto_options
