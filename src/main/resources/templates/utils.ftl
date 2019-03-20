@@ -1,7 +1,7 @@
 <#-- 用户头像显示 -->
 <#macro showAva user clazz>
 <a href="${base}/users/${user.id}">
-    <img class="${clazz}" src="<@resource src=user.avatar />"/>
+    <img class="${clazz}" src="<@resource src=base + user.avatar />"/>
 </a>
 </#macro>
 
