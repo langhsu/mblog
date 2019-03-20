@@ -96,7 +96,7 @@ CREATE TABLE `mto_user` (
 -- ----------------------------
 -- Records of mto_user
 -- ----------------------------
-INSERT INTO `mto_user` VALUES ('1', 'admin', '小豆丁', '/dist/images/ava/default.png', 'example@mtons.com', '3TGCQF25BLHU9R7IQUITN0FCC5', '0', '2017-08-06 17:52:41', '2017-07-26 11:08:36', '2017-10-17 13:24:13', '0', '1', '0', '0', '');
+INSERT INTO `mto_user` VALUES ('1', 'admin', '小豆丁', 'https://en.gravatar.com/userimage/154673030/b9a54b5b990a61cc074668b2e2a0b8c0.png', 'example@mtons.com', '3TGCQF25BLHU9R7IQUITN0FCC5', '0', '2017-08-06 17:52:41', '2017-07-26 11:08:36', '2017-10-17 13:24:13', '0', '1', '0', '0', '');
 
 -- ----------------------------
 -- Table structure for mto_user_oauth
