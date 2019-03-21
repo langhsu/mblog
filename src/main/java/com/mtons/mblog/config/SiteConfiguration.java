@@ -47,7 +47,7 @@ public class SiteConfiguration {
         executor.setMaxPoolSize(8);
         executor.setQueueCapacity(100);
         executor.setKeepAliveSeconds(60);
-        executor.setThreadNamePrefix("home.bus.logThread-");
+        executor.setThreadNamePrefix("mtons.mblog.logThread-");
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.setWaitForTasksToCompleteOnShutdown(true);
         return executor;
