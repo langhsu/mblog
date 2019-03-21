@@ -53,7 +53,7 @@ public interface PostService {
 	 * @param maxResults
 	 * @return
 	 */
-	@Cacheable
+	@Cacheable(key = "'latest_' + #maxResults")
 	List<PostVO> findLatestPosts(int maxResults);
 
 	/**
@@ -61,7 +61,7 @@ public interface PostService {
 	 * @param maxResults
 	 * @return
 	 */
-	@Cacheable
+	@Cacheable(key = "'hottest_' + #maxResults")
 	List<PostVO> findHottestPosts(int maxResults);
 	
 	/**
@@ -83,7 +83,7 @@ public interface PostService {
 	 * @param id
 	 * @return
 	 */
-	@Cacheable(key = "'view_' + #id")
+	@Cacheable(key = "'post_' + #id")
 	PostVO get(long id);
 
 	/**
