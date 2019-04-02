@@ -23,6 +23,8 @@
 		<qiniu.sdk.version>7.2.18</qiniu.sdk.version>
 		<flyway.version>5.2.4</flyway.version>
 		<commonmark.version>0.12.1</commonmark.version>
+
+		<cfg.diamond.client.version>3.4-GA-SNAPSHOT</cfg.diamond.client.version>
 	</properties>
 
 	<parent>
@@ -33,6 +35,13 @@
 	</parent>
 
 	<dependencies>
+		<!-- cfg -->
+		<dependency>
+			<groupId>com.taobao.diamond</groupId>
+			<artifactId>diamond-client</artifactId>
+			<version>${cfg.diamond.client.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
@@ -70,10 +79,11 @@
 			<version>${commons.httpclient}</version>
 		</dependency>
 
+		<!-- 短信/邮件  -->
 		<dependency>
-			<groupId>io.github.biezhi</groupId>
-			<artifactId>oh-my-email</artifactId>
-			<version>0.0.4</version>
+			<groupId>com.yueny.rapid.message</groupId>
+			<artifactId>rapid-ok-email</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -259,20 +269,21 @@
 	<profiles>
 		<!--开发默认环境-->
 		<profile>
-			<id>mysql</id>
+			<id>dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
+				<env>dev</env>
 				<profileActive>mysql</profileActive>
 			</properties>
 		</profile>
-
-		<!--测试环境-->
 		<profile>
-			<id>h2</id>
+			<id>prod</id>
 			<properties>
-				<profileActive>h2</profileActive>
+				<env>prod</env>
+				<!-- h2 -->
+				<profileActive>mysql</profileActive>
 			</properties>
 		</profile>
 	</profiles>
@@ -325,6 +336,29 @@
 						<arg>-parameters</arg>
 					</compilerArgs>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>add-resource</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>profile/${env}</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -3,19 +3,21 @@ package com.mtons.mblog.modules.service.impl;
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.config.SiteOptions;
 import com.mtons.mblog.modules.service.MailService;
+import com.yueny.rapid.email.OkEmail;
+import com.yueny.rapid.email.sender.entity.ThreadEmailEntry;
+import com.yueny.rapid.email.util.MailSmtpType;
 import freemarker.template.Template;
-import io.github.biezhi.ome.OhMyEmail;
-import io.github.biezhi.ome.SendMailException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.util.Map;
-import java.util.Properties;
+import java.util.concurrent.Future;
 
 /**
  * @author : langhsu
@@ -30,6 +32,9 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private TaskExecutor taskExecutor;
 
+//    @Value("${batch:50}")
+//    private int batch;
+
     @Override
     public void config() {
         String mailHost = siteOptions.getValue("mail_smtp_host");
@@ -37,9 +42,7 @@ public class MailServiceImpl implements MailService {
         String mailPassowrd = siteOptions.getValue("mail_smtp_password");
 
         if (StringUtils.isNoneBlank(mailHost, mailUsername, mailPassowrd)) {
-            final Properties properties = OhMyEmail.defaultConfig(false);
-            properties.setProperty("mail.smtp.host", mailHost);
-            OhMyEmail.config(properties, mailUsername, mailPassowrd);
+            OkEmail.config(MailSmtpType._126, mailUsername, mailPassowrd);
         } else {
             log.error("邮件服务配置信息未设置, 请在后台系统配置中进行设置");
         }
@@ -51,16 +54,21 @@ public class MailServiceImpl implements MailService {
         String from = siteOptions.getValue("site_name");
 
         taskExecutor.execute(() -> {
-            try {
-                OhMyEmail.subject(title)
+            Future<ThreadEmailEntry> future = OkEmail.subject(title)
                         .from(from)
                         .to(to)
                         .html(text)
-                        .send();
-            } catch (SendMailException e) {
-                log.error(e.getMessage(), e);
+                        .sendFuture();
+
+            try{
+                if(future == null){
+                    log.error("mail send fail, result is null.");
+                }else{
+                    log.info("email: {} send result:{}.", to, future.get());
+                }
+            } catch(Exception ex){
+                log.error("mail send error: ", ex);
             }
-            log.info("email: {} send success", to);
         });
     }
 

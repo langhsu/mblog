@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 8090
     use-forward-headers: true
     undertow:
         io-threads: 2
@@ -68,7 +68,9 @@ site:
     location: ${user.dir}
     controls:
         # 注册开关
-        register: true
+        register: false
+        # 登陆开关是否显示
+        login_show: false
         # 注册开启邮箱验证
         register_email_validate: false
         # 发布文章开关

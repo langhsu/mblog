@@ -9,6 +9,8 @@
 */
 package com.mtons.mblog.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 读取 yml 配置信息
  * @author : langhsu
  * @version : 1.0
  * @date : 2019/01/18
@@ -107,6 +110,10 @@ public class SiteOptions {
         private boolean register_email_validate;
         private boolean post;
         private boolean comment;
+
+        @Getter
+        @Setter
+        private boolean login_show; // 是否显示注册按钮
 
         public boolean isRegister() {
             return register;
