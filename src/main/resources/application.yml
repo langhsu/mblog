@@ -64,19 +64,19 @@ logging:
 
 # site.options.theme: [default|classic]
 site:
-    version: 3.5.0
+    # version: 3.5.0
     location: ${user.dir}
     controls:
-        # 注册开关
-        register: false
+        # 注册开关, 配置见配置中心
+        #register: false
         # 登陆开关是否显示
-        login_show: false
+        #login_show: false
         # 注册开启邮箱验证
         register_email_validate: false
         # 发布文章开关
-        post: true
+        #post: true
         # 评论开关
-        comment: true
+        #comment: true
     options:
         theme: classic
         site_logo: /dist/images/logo/logo.png
