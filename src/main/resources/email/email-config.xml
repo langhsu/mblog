@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="gb2312"?>
+<email>
+	<transport-protocol>smtp</transport-protocol>
+
+    <!-- 设置缺省的FROM地址-->
+	<from>deep_blue_yang@126.com</from>
+    <!-- 设置缺省的FROM地址别名-->
+	<alias>deep_blue_yang@126</alias>
+    <!-- 设置SMTP服务器名称 -->
+	<host-name>smtp.126.com</host-name>
+	<!-- 设置非SSL协议SMTP端口 -->
+	<smtp-port>465</smtp-port>
+	<!-- 设置是否使用SSL -->
+	<ssl>true</ssl>
+	<!-- 设置SSL协议SMTP端口 -->
+	<ssl-port>465</ssl-port>
+
+	<!-- 认证用户 -->
+	<auth decrypt="true">
+		<!-- 认证用户名 -->
+		<user-name>deep_blue_yang@126.com</user-name>
+		<!-- 认证用户密码 new  -->
+		<password>21C738B2A8FCB58AEB50F272125A4EC0</password>
+	</auth>
+	
+	<!-- 配置项 -->
+	<config print-duration-timer="true">
+		<debug>true</debug>
+	</config>
+	
+</email>
