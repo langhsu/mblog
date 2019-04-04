@@ -31,6 +31,7 @@ import java.util.Map;
  */
 @Configuration
 @ConfigurationProperties(prefix = "site")
+//@RefreshScope
 public class SiteOptions {
 //    site.controls.register=false
 //    site.controls.login_show=false

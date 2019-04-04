@@ -33,10 +33,11 @@
  IDE得装lombok插件
 ```
 
-- 文档: [说明文档](https://langhsu.github.io/mblog/#/)
-- 官网: [官网地址](http://www.mtons.com)
-- QQ交流群：378433412
-    
+# Future
+* 是否允许匿名评论功能开发
+  + author_id 由bugint 改为 varchar
+
+ 
 ### 版本(3.5)更新内容：
     1. 文件存储目录可配置, 见 site.location, 默认为 user.dir
     2. 支持在${site.location}/storage/templates 目录下扩展自己的主题(${site.location}具体位置见启动日志)
@@ -62,14 +63,6 @@
     14. 邮件服务后台可配
     15. 新增标签页
     16. 新增注册邮箱验证开关(需要手动删除之前的 mto_security_code 表)
-        
-### 图片演示 
-![首页](https://images.gitee.com/uploads/images/2019/0125/142627_fcd67bfd_116277.jpeg "前台首页.jpg")
-![文章](https://images.gitee.com/uploads/images/2019/0125/142647_328aa3d7_116277.jpeg "文章阅读.jpg")
-![后台](https://images.gitee.com/uploads/images/2019/0125/142704_cca6a479_116277.jpeg "后台首页.jpg")
-![后台文章管理](https://images.gitee.com/uploads/images/2019/0125/142725_3754efbf_116277.jpeg "后台文章编辑.jpg")
-
-图片来自@weian豆丁
 
 ### 这些用户在使用mblog(如需要在此展示您的博客请联系作者)：
 [https://www.lyp82nlf.com/](https://www.lyp82nlf.com/)

@@ -44,8 +44,16 @@ public class CommentController extends BaseController {
         return commentService.pagingByPostId(pageable, toId);
     }
 
+    /**
+     * 评论提交
+     * @param toId 回复人的id, 来自数据库唯一标示
+     * @param text 回复内容
+     * @param request
+     * @return
+     */
     @RequestMapping("/submit")
     public Result post(Long toId, String text, HttpServletRequest request) {
+        // TODO 是否允许匿名提交评论功能, 如果允许, 则校验通过
         if (!isAuthenticated()) {
             return Result.failure("请先登录在进行操作");
         }
@@ -61,6 +69,8 @@ public class CommentController extends BaseController {
         CommentVO c = new CommentVO();
         c.setPostId(toId);
         c.setContent(HtmlUtils.htmlEscape(text));
+
+        // TODO 如果允许匿名评论且 authorId 为空或者未登录, 则生成随机id
         c.setAuthorId(profile.getId());
 
         c.setPid(pid);

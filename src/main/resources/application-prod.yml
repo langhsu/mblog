@@ -1,0 +1,10 @@
+# 生产环境的公共配置
+spring:
+  profiles:
+      # 引用 application-mysql.yml 文件,可选项为  h2/mysql
+      include: mysql
+
+  datasource:
+      url: jdbc:mysql://localhost:10011/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+      username: root
+      password: Yueny09.

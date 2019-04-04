@@ -212,6 +212,10 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -275,15 +279,14 @@
 			</activation>
 			<properties>
 				<env>dev</env>
-				<profileActive>mysql</profileActive>
+				<profileActive>dev</profileActive>
 			</properties>
 		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
 				<env>prod</env>
-				<!-- h2 -->
-				<profileActive>mysql</profileActive>
+				<profileActive>prod</profileActive>
 			</properties>
 		</profile>
 	</profiles>
