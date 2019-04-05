@@ -2,6 +2,7 @@ package com.mtons.mblog.modules.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 图片
@@ -24,8 +25,14 @@ public class Pic implements Serializable {
     @Column(name = "path", columnDefinition = "varchar(255) NOT NULL DEFAULT ''")
     private String path;
 
-    @Column(name = "count", columnDefinition = "bigint(20) NOT NULL DEFAULT '0'")
-    private long count;
+    @Column(name = "amount", columnDefinition = "bigint(20) NOT NULL DEFAULT '0'")
+    private long amount;
+
+    @Column(name = "create_time")
+    private LocalDateTime createTime;
+
+    @Column(name = "update_time")
+    private LocalDateTime updateTime;
 
     public long getId() {
         return id;
@@ -51,11 +58,27 @@ public class Pic implements Serializable {
         this.path = path;
     }
 
-    public long getCount() {
-        return count;
+    public long getAmount() {
+        return amount;
     }
 
-    public void setCount(long count) {
-        this.count = count;
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
     }
 }

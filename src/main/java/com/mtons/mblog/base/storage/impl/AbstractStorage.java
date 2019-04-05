@@ -74,7 +74,7 @@ public abstract class AbstractStorage implements Storage {
         pic.setId(id);
         pic.setMd5(md5);
         pic.setPath(path);
-        pic.setCount(0);
+        pic.setAmount(0);
         picRepository.save(pic);
         return path;
     }

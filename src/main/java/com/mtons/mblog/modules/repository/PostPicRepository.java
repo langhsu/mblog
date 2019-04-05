@@ -4,6 +4,8 @@ import com.mtons.mblog.modules.entity.PostPic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
+
 /**
  * 文章图片 dao
  *
@@ -12,5 +14,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface PostPicRepository extends JpaRepository<PostPic, Long>, JpaSpecificationExecutor<PostPic> {
 
     int deleteByPostId(long postId);
+
+    List<PostPic> findByPicId(long picId);
 
 }

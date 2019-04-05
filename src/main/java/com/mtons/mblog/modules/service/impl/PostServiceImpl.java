@@ -485,7 +485,7 @@ public class PostServiceImpl implements PostService {
             Optional<Pic> picOptional = picRepository.findById(id);
             if (picOptional.isPresent()){
                 Pic pic = picOptional.get();
-                pic.setCount(pic.getCount() + diff);
+                pic.setAmount(pic.getAmount() + diff);
                 picRepository.save(pic);
             }
         }
