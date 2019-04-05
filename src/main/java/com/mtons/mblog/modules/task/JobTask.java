@@ -2,10 +2,10 @@ package com.mtons.mblog.modules.task;
 
 import com.mtons.mblog.base.storage.StorageFactory;
 import com.mtons.mblog.base.utils.ResourceLock;
-import com.mtons.mblog.modules.entity.Pic;
-import com.mtons.mblog.modules.entity.PostPic;
-import com.mtons.mblog.modules.repository.PicRepository;
-import com.mtons.mblog.modules.repository.PostPicRepository;
+import com.mtons.mblog.modules.entity.Resource;
+import com.mtons.mblog.modules.entity.PostResource;
+import com.mtons.mblog.modules.repository.ResourceRepository;
+import com.mtons.mblog.modules.repository.PostResourceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class JobTask {
 
     @Autowired
-    PicRepository picRepository;
+    ResourceRepository resourceRepository;
     @Autowired
-    PostPicRepository postPicRepository;
+    PostResourceRepository postResourceRepository;
     @Autowired
     protected StorageFactory storageFactory;
 
@@ -41,18 +41,18 @@ public class JobTask {
         log.info("开始清理图片");
         now = now.minusDays(3);
         String timeStr = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now);
-        List<Pic> pics = picRepository.find0Before(timeStr);
-        if (CollectionUtils.isNotEmpty(pics)){
-            for (Pic pic : pics){
-                String key = ResourceLock.getPicKey(pic.getId());
+        List<Resource> resources = resourceRepository.find0Before(timeStr);
+        if (CollectionUtils.isNotEmpty(resources)){
+            for (Resource resource : resources){
+                String key = ResourceLock.getPicKey(resource.getId());
                 AtomicInteger lock = ResourceLock.getAtomicInteger(key);
                 synchronized (lock){
-                    List<PostPic> postPic = postPicRepository.findByPicId(pic.getId());
-                    if (CollectionUtils.isEmpty(postPic)){
-                        storageFactory.get().deleteFile(pic.getPath());
-                        picRepository.delete(pic);
+                    List<PostResource> postResource = postResourceRepository.findByResourceId(resource.getId());
+                    if (CollectionUtils.isEmpty(postResource)){
+                        storageFactory.get().deleteFile(resource.getPath());
+                        resourceRepository.delete(resource);
                     }else{
-                        log.error("图片计数错误， picId: {}", pic.getId());
+                        log.error("图片计数错误， picId: {}", resource.getId());
                     }
                 }
             }

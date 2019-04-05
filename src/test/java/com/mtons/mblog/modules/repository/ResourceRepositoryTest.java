@@ -1,7 +1,7 @@
 package com.mtons.mblog.modules.repository;
 
 import com.mtons.mblog.BootApplication;
-import com.mtons.mblog.modules.entity.Pic;
+import com.mtons.mblog.modules.entity.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +18,17 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BootApplication.class)
-public class PicRepositoryTest {
+public class ResourceRepositoryTest {
 
     @Autowired
-    PicRepository picRepository;
+    ResourceRepository resourceRepository;
 
     @Test
     public void find0Before() {
 
         LocalDateTime now = LocalDateTime.now();
         String timeStr = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(now);
-        List<Pic> beforePics = picRepository.find0Before(timeStr);
-        System.out.println(beforePics);
+        List<Resource> beforeResources = resourceRepository.find0Before(timeStr);
+        System.out.println(beforeResources);
     }
 }

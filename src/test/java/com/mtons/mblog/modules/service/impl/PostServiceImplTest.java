@@ -24,6 +24,5 @@ public class PostServiceImplTest {
 
     @Test
     public void cleanPostPic() {
-        postService.cleanPostPic(15);
     }
 }

@@ -16,12 +16,13 @@ import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.*;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
-import com.mtons.mblog.modules.repository.PicRepository;
+import com.mtons.mblog.modules.repository.ResourceRepository;
 import com.mtons.mblog.modules.repository.PostAttributeRepository;
-import com.mtons.mblog.modules.repository.PostPicRepository;
+import com.mtons.mblog.modules.repository.PostResourceRepository;
 import com.mtons.mblog.modules.repository.PostRepository;
 import com.mtons.mblog.modules.service.*;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,6 @@ import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -60,9 +60,9 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private ApplicationContext applicationContext;
 	@Autowired
-	private PostPicRepository postPicRepository;
+	private PostResourceRepository postResourceRepository;
 	@Autowired
-	private PicRepository picRepository;
+	private ResourceRepository resourceRepository;
 
 	@Override
 	@PostStatusFilter
@@ -174,7 +174,7 @@ public class PostServiceImpl implements PostService {
 		attr.setId(po.getId());
 		postAttributeRepository.save(attr);
 
-		countPic(po.getId(), null,  attr.getContent());
+		countResource(po.getId(), null,  attr.getContent());
 		onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
 		return po.getId();
 	}
@@ -235,9 +235,7 @@ public class PostServiceImpl implements PostService {
 
 			tagService.batchUpdate(po.getTags(), po.getId());
 
-			countPic(po.getId(), originContent, p.getContent());
-		}else{
-			cleanPostPic(p.getId());
+			countResource(po.getId(), originContent, p.getContent());
 		}
 	}
 
@@ -394,106 +392,54 @@ public class PostServiceImpl implements PostService {
 		applicationContext.publishEvent(event);
 	}
 
-	public void countPic(Long postId, String originContent, String newContent){
+	public void countResource(Long postId, String originContent, String newContent){
 	    if (StringUtils.isEmpty(originContent)){
 	        originContent = "";
         }
         if (StringUtils.isEmpty(newContent)){
 	        newContent = "";
         }
-		String key = ResourceLock.getPostKey(postId);
-        AtomicInteger lock = ResourceLock.getAtomicInteger(key);
-        synchronized (lock){
-            Pattern pattern = Pattern.compile(Consts.PIC_MARK + "*[0-9]{1,40}");
-            Matcher originMatcher = pattern.matcher(originContent);
-            Matcher newMatcher = pattern.matcher(newContent);
-            Map<Long, Integer> originMap = new LinkedHashMap<>();
-            Map<Long, Integer> newMap = new LinkedHashMap<>();
-            while (originMatcher.find()){
-                String idStr = originMatcher.group().replaceAll(Consts.PIC_MARK, "").replaceAll("/", "");
-                if (StringUtils.isNumeric(idStr)){
-                    Long id = Long.parseLong(idStr);
-                    if (originMap.containsKey(id)) {
-                        originMap.put(id, originMap.get(id) + 1);
-                    } else {
-                        originMap.put(id, 1);
-                    }
-                }
-            }
-            while (newMatcher.find()){
-                String idStr = newMatcher.group().replaceAll(Consts.PIC_MARK, "").replaceAll("/", "");
-                if (StringUtils.isNumeric(idStr)){
-                    Long id = Long.parseLong(idStr);
-                    if (newMap.containsKey(id)) {
-                        newMap.put(id, newMap.get(id) + 1);
-                    } else {
-                        newMap.put(id, 1);
-                    }
-                }
-            }
 
-            Set<Long> originIds = originMap.keySet();
-            Set<Long> newIds = newMap.keySet();
-            Set<Long> toRemoveOriginIds = new HashSet<>(originIds);
-            toRemoveOriginIds.removeAll(newIds);
+		Set<String> exists = extractImageMd5(originContent);
+		Set<String> news = extractImageMd5(newContent);
 
-            newIds.forEach(id -> {
-                Integer oldNum = originMap.get(id);
-                if (oldNum == null){
-                    oldNum = 0;
-                }
-                Integer newNum = newMap.get(id);
-                if (newNum == null){
-                    newNum = 0;
-                }
-                modPicCount(id, newNum - oldNum);
-            });
-            toRemoveOriginIds.forEach(id -> {
-                Integer oldNum = originMap.get(id);
-                if (oldNum == null){
-                    oldNum = 0;
-                }
-                modPicCount(id, 0 - oldNum);
-            });
+        List<String> adds = ListUtils.removeAll(news, exists);
+		List<String> deleteds = ListUtils.removeAll(exists, news);
 
-            postPicRepository.deleteByPostId(postId);
-            List<PostPic> postPics = new ArrayList<>();
-            for (int i = 0; i < newIds.size(); i++) {
-                PostPic postPic = new PostPic();
-                Long picId = (Long) CollectionUtils.get(newIds, i);
-                Optional<Pic> picOptional = picRepository.findById(picId);
-                if (picOptional.isPresent()){
-					postPic.setId(IdUtils.getId());
-					postPic.setPicId(picId);
-					postPic.setSort(i);
-					postPic.setPostId(postId);
-					postPic.setPath(picOptional.get().getPath());
-					postPics.add(postPic);
-				}
-            }
-            new Thread(() -> postPicRepository.saveAll(postPics)).start();
+		if (adds.size() > 0) {
+			List<Resource> resources = resourceRepository.findByMd5In(adds);
+
+			List<PostResource> prs = resources.stream().map(n -> {
+				PostResource pr = new PostResource();
+				pr.setResourceId(n.getId());
+				pr.setPostId(postId);
+				pr.setPath(n.getPath());
+				return pr;
+			}).collect(Collectors.toList());
+			postResourceRepository.saveAll(prs);
+
+			resourceRepository.updateAmount(adds, 1);
+		}
+
+		if (deleteds.size() > 0) {
+			List<Resource> resources = resourceRepository.findByMd5In(deleteds);
+			List<Long> rids = resources.stream().map(Resource::getId).collect(Collectors.toList());
+			postResourceRepository.deleteByPostIdAndResourceIdIn(postId, rids);
+			resourceRepository.updateAmount(deleteds, -1);
 		}
 	}
 
-	public void modPicCount(Long id, Integer diff){
-	    if (diff == 0){
-	        return;
-        }
-        String key = ResourceLock.getPicKey(id);
-        AtomicInteger lock = ResourceLock.getAtomicInteger(key);
-        synchronized (lock){
-            Optional<Pic> picOptional = picRepository.findById(id);
-            if (picOptional.isPresent()){
-                Pic pic = picOptional.get();
-                pic.setAmount(pic.getAmount() + diff);
-                picRepository.save(pic);
-            }
-        }
-    }
+	public Set<String> extractImageMd5(String text) {
+		Pattern pattern = Pattern.compile("(?<=/_signature/)[^/]+?jpg");
 
+		Set<String> md5s = new HashSet<>();
 
+		Matcher originMatcher = pattern.matcher(text);
+		while (originMatcher.find()) {
+			String key = originMatcher.group();
+			md5s.add(key.substring(0, key.lastIndexOf(".")));
+		}
 
-	public void cleanPostPic(long postId) {
-		postPicRepository.deleteByPostId(postId);
+		return md5s;
 	}
 }

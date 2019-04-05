@@ -3,7 +3,6 @@
  */
 package com.mtons.mblog.base.utils;
 
-import com.mtons.mblog.base.lang.Consts;
 import org.apache.commons.text.RandomStringGenerator;
 
 /**
@@ -40,23 +39,22 @@ public class FilePathUtils {
 	 * @param originalFilename 原始文件名
 	 * @return 10位长度文件名+文件后缀
 	 */
-	public static String wholePathName(String originalFilename, Long id) {
+	public static String wholePathName(String originalFilename, String key) {
 		StringBuilder builder = new StringBuilder(52);
-		builder.append(Consts.PIC_MARK);
-		builder.append(id);
+		builder.append("/_signature/");
+		builder.append(key);
 		builder.append(FileKit.getSuffix(originalFilename));
 		return builder.toString();
 	}
 
-	public static String wholePathName(String basePath, String ext, Long id) {
-		return basePath + wholePathName(ext, id);
+	public static String wholePathName(String basePath, String ext, String key) {
+		return basePath + wholePathName(ext, key);
 	}
 	
 	public static void main(String[] args) {
 		String base = FilePathUtils.getAvatar(50);
 		System.out.println(String.format("/%s_%d.jpg", base, 100));
-		System.out.println(FilePathUtils.wholePathName("a.jpg", IdUtils.getId()));
-		System.out.println(IdUtils.getId());
+		System.out.println(FilePathUtils.wholePathName("a.jpg", "123"));
 	}
 	
 }
