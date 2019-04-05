@@ -457,6 +457,7 @@ public class PostServiceImpl implements PostService {
             });
 
             postPicRepository.deleteByPostId(postId);
+            List<PostPic> postPics = new ArrayList<>();
             for (int i = 0; i < newIds.size(); i++) {
                 PostPic postPic = new PostPic();
                 Long picId = (Long) CollectionUtils.get(newIds, i);
@@ -464,8 +465,9 @@ public class PostServiceImpl implements PostService {
                 postPic.setPicId(picId);
                 postPic.setSort(i);
                 postPic.setPostId(postId);
-                postPicRepository.save(postPic);
+                postPics.add(postPic);
             }
+            new Thread(() -> postPicRepository.saveAll(postPics)).start();
 		}
 	}
 
