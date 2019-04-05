@@ -10,6 +10,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
+/**
+ * post service test
+ *
+ * @author saxing 2019/4/5 17:32
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BootApplication.class)
 public class PostServiceImplTest {
