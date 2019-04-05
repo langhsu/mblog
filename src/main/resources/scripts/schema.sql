@@ -86,7 +86,6 @@ CREATE TABLE `mto_user` (
   `last_login` datetime DEFAULT NULL,
   `gender` int(5) NOT NULL,
   `role_id` int(11) DEFAULT NULL,
-  -- 已发表评论数
   `comments` int(11) NOT NULL,
   `posts` int(11) NOT NULL,
   `signature` varchar(140) DEFAULT NULL,

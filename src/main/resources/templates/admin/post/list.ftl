@@ -40,7 +40,7 @@
                             <thead>
                             <tr>
                                 <th width="30"><input type="checkbox" class="checkall"></th>
-                                <th width="80">#预览图</th>
+                                <th width="80">#</th>
                                 <th>文章标题</th>
                                 <th width="120">作者</th>
                                 <th width="100">发表日期</th>

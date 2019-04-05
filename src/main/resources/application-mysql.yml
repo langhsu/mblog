@@ -1,13 +1,12 @@
-# MYSQL 数据库配置
 spring:
     datasource:
         #schema: classpath*:scripts/schema.sql
         #continue-on-error: false
         #sql-script-encoding: utf-8
         driver-class-name: com.mysql.cj.jdbc.Driver
-#        url: jdbc:mysql://127.0.0.1:3306/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
-#        username:
-#        password:
+        url: jdbc:mysql://localhost/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+        username: root
+        password: root
     flyway:
         enabled: true
     jpa:
