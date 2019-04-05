@@ -11,7 +11,9 @@ import java.io.Serializable;
  * @author saxing 2019/4/3 22:39
  */
 @Entity
-@Table(name = "mto_post_pic")
+@Table(name = "mto_post_pic", indexes = {
+        @Index(columnList = "post_id")
+})
 public class PostPic implements Serializable {
     private static final long serialVersionUID = -2343406058301647253L;
 
@@ -23,6 +25,9 @@ public class PostPic implements Serializable {
 
     @Column(name = "pic_id", columnDefinition = "bigint(20) NOT NULL")
     private long picId;
+
+    @Column(name = "path", columnDefinition = "varchar(255) NOT NULL DEFAULT ''")
+    private String path;
 
     @Column(name = "sort", columnDefinition = "int(11) NOT NULL DEFAULT '0'")
     private int sort;
@@ -57,5 +62,13 @@ public class PostPic implements Serializable {
 
     public void setSort(int sort) {
         this.sort = sort;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

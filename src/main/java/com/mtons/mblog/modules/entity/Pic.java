@@ -21,7 +21,7 @@ public class Pic implements Serializable {
     @Column(name = "md5", columnDefinition = "varchar(50) NOT NULL DEFAULT ''")
     private String md5;
 
-    @Column(name = "path", columnDefinition = "varchar(200) NOT NULL DEFAULT ''")
+    @Column(name = "path", columnDefinition = "varchar(255) NOT NULL DEFAULT ''")
     private String path;
 
     @Column(name = "count", columnDefinition = "bigint(20) NOT NULL DEFAULT '0'")

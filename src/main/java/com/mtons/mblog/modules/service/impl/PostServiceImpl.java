@@ -461,11 +461,15 @@ public class PostServiceImpl implements PostService {
             for (int i = 0; i < newIds.size(); i++) {
                 PostPic postPic = new PostPic();
                 Long picId = (Long) CollectionUtils.get(newIds, i);
-                postPic.setId(IdUtils.getId());
-                postPic.setPicId(picId);
-                postPic.setSort(i);
-                postPic.setPostId(postId);
-                postPics.add(postPic);
+                Optional<Pic> picOptional = picRepository.findById(picId);
+                if (picOptional.isPresent()){
+					postPic.setId(IdUtils.getId());
+					postPic.setPicId(picId);
+					postPic.setSort(i);
+					postPic.setPostId(postId);
+					postPic.setPath(picOptional.get().getPath());
+					postPics.add(postPic);
+				}
             }
             new Thread(() -> postPicRepository.saveAll(postPics)).start();
 		}
