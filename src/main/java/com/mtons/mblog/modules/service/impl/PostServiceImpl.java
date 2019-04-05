@@ -10,17 +10,15 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.base.utils.BeanMapUtils;
-import com.mtons.mblog.base.utils.MarkdownUtils;
-import com.mtons.mblog.base.utils.PreviewTextUtils;
+import com.mtons.mblog.base.utils.*;
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.modules.entity.Channel;
-import com.mtons.mblog.modules.entity.Post;
-import com.mtons.mblog.modules.entity.PostAttribute;
+import com.mtons.mblog.modules.entity.*;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
+import com.mtons.mblog.modules.repository.PicRepository;
 import com.mtons.mblog.modules.repository.PostAttributeRepository;
+import com.mtons.mblog.modules.repository.PostPicRepository;
 import com.mtons.mblog.modules.repository.PostRepository;
 import com.mtons.mblog.modules.service.*;
 import org.apache.commons.collections.CollectionUtils;
@@ -35,6 +33,9 @@ import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -58,6 +59,10 @@ public class PostServiceImpl implements PostService {
 	private TagService tagService;
 	@Autowired
 	private ApplicationContext applicationContext;
+	@Autowired
+	private PostPicRepository postPicRepository;
+	@Autowired
+	private PicRepository picRepository;
 
 	@Override
 	@PostStatusFilter
@@ -169,6 +174,7 @@ public class PostServiceImpl implements PostService {
 		attr.setId(po.getId());
 		postAttributeRepository.save(attr);
 
+		countPic(po.getId(), null,  attr.getContent());
 		onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
 		return po.getId();
 	}
@@ -216,6 +222,11 @@ public class PostServiceImpl implements PostService {
 			po.setTags(p.getTags());//标签
 
 			// 保存扩展
+			Optional<PostAttribute> attributeOptional = postAttributeRepository.findById(po.getId());
+			String originContent = "";
+			if (attributeOptional.isPresent()){
+				originContent = attributeOptional.get().getContent();
+			}
 			PostAttribute attr = new PostAttribute();
 			attr.setContent(p.getContent());
 			attr.setEditor(p.getEditor());
@@ -223,6 +234,10 @@ public class PostServiceImpl implements PostService {
 			postAttributeRepository.save(attr);
 
 			tagService.batchUpdate(po.getTags(), po.getId());
+
+			countPic(po.getId(), originContent, p.getContent());
+		}else{
+			cleanPostPic(p.getId());
 		}
 	}
 
@@ -377,5 +392,102 @@ public class PostServiceImpl implements PostService {
 		event.setUserId(post.getAuthorId());
 		event.setAction(action);
 		applicationContext.publishEvent(event);
+	}
+
+	public void countPic(Long postId, String originContent, String newContent){
+	    if (StringUtils.isEmpty(originContent)){
+	        originContent = "";
+        }
+        if (StringUtils.isEmpty(newContent)){
+	        newContent = "";
+        }
+		String key = ResourceLock.getPostKey(postId);
+        AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+        synchronized (lock){
+            Pattern pattern = Pattern.compile(Consts.PIC_MARK + "*[0-9]{1,40}");
+            Matcher originMatcher = pattern.matcher(originContent);
+            Matcher newMatcher = pattern.matcher(newContent);
+            Map<Long, Integer> originMap = new LinkedHashMap<>();
+            Map<Long, Integer> newMap = new LinkedHashMap<>();
+            while (originMatcher.find()){
+                String idStr = originMatcher.group().replaceAll(Consts.PIC_MARK, "").replaceAll("/", "");
+                if (StringUtils.isNumeric(idStr)){
+                    Long id = Long.parseLong(idStr);
+                    if (originMap.containsKey(id)) {
+                        originMap.put(id, originMap.get(id) + 1);
+                    } else {
+                        originMap.put(id, 1);
+                    }
+                }
+            }
+            while (newMatcher.find()){
+                String idStr = newMatcher.group().replaceAll(Consts.PIC_MARK, "").replaceAll("/", "");
+                if (StringUtils.isNumeric(idStr)){
+                    Long id = Long.parseLong(idStr);
+                    if (newMap.containsKey(id)) {
+                        newMap.put(id, newMap.get(id) + 1);
+                    } else {
+                        newMap.put(id, 1);
+                    }
+                }
+            }
+
+            Set<Long> originIds = originMap.keySet();
+            Set<Long> newIds = newMap.keySet();
+            Set<Long> toRemoveOriginIds = new HashSet<>(originIds);
+            toRemoveOriginIds.removeAll(newIds);
+
+            newIds.forEach(id -> {
+                Integer oldNum = originMap.get(id);
+                if (oldNum == null){
+                    oldNum = 0;
+                }
+                Integer newNum = newMap.get(id);
+                if (newNum == null){
+                    newNum = 0;
+                }
+                modPicCount(id, newNum - oldNum);
+            });
+            toRemoveOriginIds.forEach(id -> {
+                Integer oldNum = originMap.get(id);
+                if (oldNum == null){
+                    oldNum = 0;
+                }
+                modPicCount(id, 0 - oldNum);
+            });
+
+            postPicRepository.deleteByPostId(postId);
+            for (int i = 0; i < newIds.size(); i++) {
+                PostPic postPic = new PostPic();
+                Long picId = (Long) CollectionUtils.get(newIds, i);
+                postPic.setId(IdUtils.getId());
+                postPic.setPicId(picId);
+                postPic.setSort(i);
+                postPic.setPostId(postId);
+                postPicRepository.save(postPic);
+            }
+		}
+	}
+
+	public void modPicCount(Long id, Integer diff){
+	    if (diff == 0){
+	        return;
+        }
+        String key = ResourceLock.getPicKey(id);
+        AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+        synchronized (lock){
+            Optional<Pic> picOptional = picRepository.findById(id);
+            if (picOptional.isPresent()){
+                Pic pic = picOptional.get();
+                pic.setCount(pic.getCount() + diff);
+                picRepository.save(pic);
+            }
+        }
+    }
+
+
+
+	public void cleanPostPic(long postId) {
+		postPicRepository.deleteByPostId(postId);
 	}
 }
