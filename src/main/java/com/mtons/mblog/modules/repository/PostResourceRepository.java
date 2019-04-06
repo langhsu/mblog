@@ -14,10 +14,12 @@ import java.util.List;
  */
 public interface PostResourceRepository extends JpaRepository<PostResource, Long>, JpaSpecificationExecutor<PostResource> {
 
-//    int deleteByPostId(long postId);
+    int deleteByPostId(long postId);
 
     int deleteByPostIdAndResourceIdIn(long postId, Collection<Long> resourceId);
 
     List<PostResource> findByResourceId(long resourceId);
+
+    List<PostResource> findByPostId(long postId);
 
 }

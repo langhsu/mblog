@@ -270,7 +270,7 @@ public class PostServiceImpl implements PostService {
 
 		postRepository.deleteById(id);
 		postAttributeRepository.deleteById(id);
-
+		cleanResource(po.getId());
 		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 	}
 
@@ -282,6 +282,7 @@ public class PostServiceImpl implements PostService {
 			list.forEach(po -> {
 				postRepository.delete(po);
 				postAttributeRepository.deleteById(po.getId());
+				cleanResource(po.getId());
 				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 			});
 		}
@@ -392,7 +393,7 @@ public class PostServiceImpl implements PostService {
 		applicationContext.publishEvent(event);
 	}
 
-	public void countResource(Long postId, String originContent, String newContent){
+	private void countResource(Long postId, String originContent, String newContent){
 	    if (StringUtils.isEmpty(originContent)){
 	        originContent = "";
         }
@@ -429,7 +430,17 @@ public class PostServiceImpl implements PostService {
 		}
 	}
 
-	public Set<String> extractImageMd5(String text) {
+	private void cleanResource(long postId) {
+		List<PostResource> list = postResourceRepository.findByPostId(postId);
+		if (null == list || list.isEmpty()) {
+			return;
+		}
+		List<Long> rids = list.stream().map(PostResource::getResourceId).collect(Collectors.toList());
+		resourceRepository.updateAmountByIds(rids, -1);
+		postResourceRepository.deleteByPostId(postId);
+	}
+
+	private Set<String> extractImageMd5(String text) {
 		Pattern pattern = Pattern.compile("(?<=/_signature/)[^/]+?jpg");
 
 		Set<String> md5s = new HashSet<>();
