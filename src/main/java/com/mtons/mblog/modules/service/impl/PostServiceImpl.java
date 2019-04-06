@@ -441,7 +441,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private Set<String> extractImageMd5(String text) {
-		Pattern pattern = Pattern.compile("(?<=/_signature/)[^/]+?jpg");
+		Pattern pattern = Pattern.compile("(?<=/_signature/)[^/]+");
 
 		Set<String> md5s = new HashSet<>();
 
