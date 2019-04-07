@@ -1,6 +1,8 @@
 package com.mtons.mblog.modules.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -32,10 +34,12 @@ public class Resource implements Serializable {
     @Column(name = "amount", columnDefinition = "bigint(20) NOT NULL DEFAULT '0'")
     private long amount;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Generated(GenerationTime.INSERT)
     private LocalDateTime createTime;
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Generated(GenerationTime.ALWAYS)
     private LocalDateTime updateTime;
 
 }

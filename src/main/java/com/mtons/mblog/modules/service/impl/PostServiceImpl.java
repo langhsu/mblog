@@ -34,6 +34,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -168,15 +169,23 @@ public class PostServiceImpl implements PostService {
 		postRepository.save(po);
 		tagService.batchUpdate(po.getTags(), po.getId());
 
-		PostAttribute attr = new PostAttribute();
-		attr.setContent(post.getContent());
-		attr.setEditor(post.getEditor());
-		attr.setId(po.getId());
-		postAttributeRepository.save(attr);
+        String key = ResourceLock.getPostKey(po.getId());
+        AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+        try {
+            synchronized (lock){
+                PostAttribute attr = new PostAttribute();
+                attr.setContent(post.getContent());
+                attr.setEditor(post.getEditor());
+                attr.setId(po.getId());
+                postAttributeRepository.save(attr);
 
-		countResource(po.getId(), null,  attr.getContent());
-		onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
-		return po.getId();
+                countResource(po.getId(), null,  attr.getContent());
+                onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
+                return po.getId();
+            }
+        }finally {
+            ResourceLock.giveUpAtomicInteger(key);
+        }
 	}
 	
 	@Override
@@ -206,36 +215,44 @@ public class PostServiceImpl implements PostService {
 		Optional<Post> optional = postRepository.findById(p.getId());
 
 		if (optional.isPresent()) {
-			Post po = optional.get();
-			po.setTitle(p.getTitle());//标题
-			po.setChannelId(p.getChannelId());
-			po.setThumbnail(p.getThumbnail());
-			po.setStatus(p.getStatus());
+            String key = ResourceLock.getPostKey(p.getId());
+            AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+            try {
+                synchronized (lock){
+                    Post po = optional.get();
+                    po.setTitle(p.getTitle());//标题
+                    po.setChannelId(p.getChannelId());
+                    po.setThumbnail(p.getThumbnail());
+                    po.setStatus(p.getStatus());
 
-			// 处理摘要
-			if (StringUtils.isBlank(p.getSummary())) {
-				po.setSummary(trimSummary(p.getEditor(), p.getContent()));
-			} else {
-				po.setSummary(p.getSummary());
-			}
+                    // 处理摘要
+                    if (StringUtils.isBlank(p.getSummary())) {
+                        po.setSummary(trimSummary(p.getEditor(), p.getContent()));
+                    } else {
+                        po.setSummary(p.getSummary());
+                    }
 
-			po.setTags(p.getTags());//标签
+                    po.setTags(p.getTags());//标签
 
-			// 保存扩展
-			Optional<PostAttribute> attributeOptional = postAttributeRepository.findById(po.getId());
-			String originContent = "";
-			if (attributeOptional.isPresent()){
-				originContent = attributeOptional.get().getContent();
-			}
-			PostAttribute attr = new PostAttribute();
-			attr.setContent(p.getContent());
-			attr.setEditor(p.getEditor());
-			attr.setId(po.getId());
-			postAttributeRepository.save(attr);
+                    // 保存扩展
+                    Optional<PostAttribute> attributeOptional = postAttributeRepository.findById(po.getId());
+                    String originContent = "";
+                    if (attributeOptional.isPresent()){
+                        originContent = attributeOptional.get().getContent();
+                    }
+                    PostAttribute attr = new PostAttribute();
+                    attr.setContent(p.getContent());
+                    attr.setEditor(p.getEditor());
+                    attr.setId(po.getId());
+                    postAttributeRepository.save(attr);
 
-			tagService.batchUpdate(po.getTags(), po.getId());
+                    tagService.batchUpdate(po.getTags(), po.getId());
 
-			countResource(po.getId(), originContent, p.getContent());
+                    countResource(po.getId(), originContent, p.getContent());
+                }
+            }finally {
+                ResourceLock.giveUpAtomicInteger(key);
+            }
 		}
 	}
 
@@ -268,10 +285,18 @@ public class PostServiceImpl implements PostService {
 		// 判断文章是否属于当前登录用户
 		Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
 
-		postRepository.deleteById(id);
-		postAttributeRepository.deleteById(id);
-		cleanResource(po.getId());
-		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+        String key = ResourceLock.getPostKey(po.getId());
+        AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+		try	{
+			synchronized (lock){
+				postRepository.deleteById(id);
+				postAttributeRepository.deleteById(id);
+				cleanResource(po.getId());
+				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+			}
+		}finally {
+			ResourceLock.giveUpAtomicInteger(key);
+		}
 	}
 
 	@Override
@@ -280,10 +305,18 @@ public class PostServiceImpl implements PostService {
 		if (CollectionUtils.isNotEmpty(ids)) {
 			List<Post> list = postRepository.findAllById(ids);
 			list.forEach(po -> {
-				postRepository.delete(po);
-				postAttributeRepository.deleteById(po.getId());
-				cleanResource(po.getId());
-				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+				String key = ResourceLock.getPostKey(po.getId());
+				AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+				try	{
+					synchronized (lock){
+						postRepository.delete(po);
+						postAttributeRepository.deleteById(po.getId());
+						cleanResource(po.getId());
+						onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+					}
+				}finally {
+					ResourceLock.giveUpAtomicInteger(key);
+				}
 			});
 		}
 	}
