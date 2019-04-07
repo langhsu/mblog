@@ -28,7 +28,7 @@
                         <#list themes as row>
                         <li>
                             <span class="mailbox-attachment-icon no-padding">
-                                <img src="${row.previews[0]}" style="width: 100%; height: 132px;"/>
+                                <img src="<@resource src=row.previews[0]/>" style="width: 100%; height: 132px;"/>
                             </span>
                             <div class="mailbox-attachment-info">
                                 <a href="${row.website}" target="_blank" class="mailbox-attachment-name">
