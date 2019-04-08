@@ -56,6 +56,12 @@ public class PreviewTextUtils {
         return Jsoup.clean(html, Whitelist.simpleText());
     }
 
+    public static String removeHideHtml(String html) {
+        if (html == null)
+            return null;
+        return Jsoup.clean(html, (new Whitelist()).addTags("hide"));
+    }
+
     /**
      * 获取文章中的img url
      * @param html 代码
