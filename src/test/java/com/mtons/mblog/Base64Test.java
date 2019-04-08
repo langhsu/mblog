@@ -27,5 +27,7 @@ public class Base64Test {
             }
         }
         System.out.println(src);
+
+        System.out.println("sg[hide]test[/hide]<asf>fsd</sdf>".replaceAll("\\[hide\\]([\\s\\S]*)\\[\\/hide\\]", "$1"));
     }
 }

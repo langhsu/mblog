@@ -46,10 +46,10 @@ public class HidenContentPugin extends InterceptorHookSupport {
             PostVO post = new PostVO();
             BeanUtils.copyProperties(ret, post);
             if (check(ret.getId(), ret.getAuthor().getId())) {
-                post.setContent(replace(post.getContent()));
+                String c = post.getContent().replaceAll("\\[hide\\]([\\s\\S]*)\\[\\/hide\\]", SHOW);
+                post.setContent(c);
             } else {
-                String c = post.getContent().replaceAll("&lt;hide&gt;", "<hide>");
-                c = c.replaceAll("&lt;/hide&gt;", "</hide>");
+                String c = post.getContent().replaceAll("\\[hide\\]([\\s\\S]*)\\[\\/hide\\]", "$1");
                 post.setContent(c);
             }
             modelAndView.getModelMap().put("view", post);
@@ -64,12 +64,6 @@ public class HidenContentPugin extends InterceptorHookSupport {
     @Override
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler) throws Exception {
 
-    }
-
-    private String replace(String content) {
-        String c = content.replaceAll("<hide>([\\s\\S]*)</hide>", SHOW);
-        c = c.replaceAll("&lt;hide&gt;([\\s\\S]*)&lt;/hide&gt;", SHOW);
-        return c;
     }
 
     private boolean check(long id, long userId) {
