@@ -10,20 +10,19 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.base.utils.BeanMapUtils;
-import com.mtons.mblog.base.utils.MarkdownUtils;
-import com.mtons.mblog.base.utils.PreviewTextUtils;
+import com.mtons.mblog.base.utils.*;
 import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
-import com.mtons.mblog.modules.entity.Channel;
-import com.mtons.mblog.modules.entity.Post;
-import com.mtons.mblog.modules.entity.PostAttribute;
+import com.mtons.mblog.modules.entity.*;
 import com.mtons.mblog.modules.event.PostUpdateEvent;
+import com.mtons.mblog.modules.repository.ResourceRepository;
 import com.mtons.mblog.modules.repository.PostAttributeRepository;
+import com.mtons.mblog.modules.repository.PostResourceRepository;
 import com.mtons.mblog.modules.repository.PostRepository;
 import com.mtons.mblog.modules.service.*;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,9 @@ import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -58,6 +60,10 @@ public class PostServiceImpl implements PostService {
 	private TagService tagService;
 	@Autowired
 	private ApplicationContext applicationContext;
+	@Autowired
+	private PostResourceRepository postResourceRepository;
+	@Autowired
+	private ResourceRepository resourceRepository;
 
 	@Override
 	@PostStatusFilter
@@ -163,14 +169,23 @@ public class PostServiceImpl implements PostService {
 		postRepository.save(po);
 		tagService.batchUpdate(po.getTags(), po.getId());
 
-		PostAttribute attr = new PostAttribute();
-		attr.setContent(post.getContent());
-		attr.setEditor(post.getEditor());
-		attr.setId(po.getId());
-		postAttributeRepository.save(attr);
+        String key = ResourceLock.getPostKey(po.getId());
+        AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+        try {
+            synchronized (lock){
+                PostAttribute attr = new PostAttribute();
+                attr.setContent(post.getContent());
+                attr.setEditor(post.getEditor());
+                attr.setId(po.getId());
+                postAttributeRepository.save(attr);
 
-		onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
-		return po.getId();
+                countResource(po.getId(), null,  attr.getContent());
+                onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
+                return po.getId();
+            }
+        }finally {
+            ResourceLock.giveUpAtomicInteger(key);
+        }
 	}
 	
 	@Override
@@ -200,29 +215,44 @@ public class PostServiceImpl implements PostService {
 		Optional<Post> optional = postRepository.findById(p.getId());
 
 		if (optional.isPresent()) {
-			Post po = optional.get();
-			po.setTitle(p.getTitle());//标题
-			po.setChannelId(p.getChannelId());
-			po.setThumbnail(p.getThumbnail());
-			po.setStatus(p.getStatus());
+            String key = ResourceLock.getPostKey(p.getId());
+            AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+            try {
+                synchronized (lock){
+                    Post po = optional.get();
+                    po.setTitle(p.getTitle());//标题
+                    po.setChannelId(p.getChannelId());
+                    po.setThumbnail(p.getThumbnail());
+                    po.setStatus(p.getStatus());
 
-			// 处理摘要
-			if (StringUtils.isBlank(p.getSummary())) {
-				po.setSummary(trimSummary(p.getEditor(), p.getContent()));
-			} else {
-				po.setSummary(p.getSummary());
-			}
+                    // 处理摘要
+                    if (StringUtils.isBlank(p.getSummary())) {
+                        po.setSummary(trimSummary(p.getEditor(), p.getContent()));
+                    } else {
+                        po.setSummary(p.getSummary());
+                    }
 
-			po.setTags(p.getTags());//标签
+                    po.setTags(p.getTags());//标签
 
-			// 保存扩展
-			PostAttribute attr = new PostAttribute();
-			attr.setContent(p.getContent());
-			attr.setEditor(p.getEditor());
-			attr.setId(po.getId());
-			postAttributeRepository.save(attr);
+                    // 保存扩展
+                    Optional<PostAttribute> attributeOptional = postAttributeRepository.findById(po.getId());
+                    String originContent = "";
+                    if (attributeOptional.isPresent()){
+                        originContent = attributeOptional.get().getContent();
+                    }
+                    PostAttribute attr = new PostAttribute();
+                    attr.setContent(p.getContent());
+                    attr.setEditor(p.getEditor());
+                    attr.setId(po.getId());
+                    postAttributeRepository.save(attr);
 
-			tagService.batchUpdate(po.getTags(), po.getId());
+                    tagService.batchUpdate(po.getTags(), po.getId());
+
+                    countResource(po.getId(), originContent, p.getContent());
+                }
+            }finally {
+                ResourceLock.giveUpAtomicInteger(key);
+            }
 		}
 	}
 
@@ -255,10 +285,18 @@ public class PostServiceImpl implements PostService {
 		// 判断文章是否属于当前登录用户
 		Assert.isTrue(po.getAuthorId() == authorId, "认证失败");
 
-		postRepository.deleteById(id);
-		postAttributeRepository.deleteById(id);
-
-		onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+        String key = ResourceLock.getPostKey(po.getId());
+        AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+		try	{
+			synchronized (lock){
+				postRepository.deleteById(id);
+				postAttributeRepository.deleteById(id);
+				cleanResource(po.getId());
+				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+			}
+		}finally {
+			ResourceLock.giveUpAtomicInteger(key);
+		}
 	}
 
 	@Override
@@ -267,9 +305,18 @@ public class PostServiceImpl implements PostService {
 		if (CollectionUtils.isNotEmpty(ids)) {
 			List<Post> list = postRepository.findAllById(ids);
 			list.forEach(po -> {
-				postRepository.delete(po);
-				postAttributeRepository.deleteById(po.getId());
-				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+				String key = ResourceLock.getPostKey(po.getId());
+				AtomicInteger lock = ResourceLock.getAtomicInteger(key);
+				try	{
+					synchronized (lock){
+						postRepository.delete(po);
+						postAttributeRepository.deleteById(po.getId());
+						cleanResource(po.getId());
+						onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
+					}
+				}finally {
+					ResourceLock.giveUpAtomicInteger(key);
+				}
 			});
 		}
 	}
@@ -377,5 +424,68 @@ public class PostServiceImpl implements PostService {
 		event.setUserId(post.getAuthorId());
 		event.setAction(action);
 		applicationContext.publishEvent(event);
+	}
+
+	private void countResource(Long postId, String originContent, String newContent){
+	    if (StringUtils.isEmpty(originContent)){
+	        originContent = "";
+        }
+        if (StringUtils.isEmpty(newContent)){
+	        newContent = "";
+        }
+
+		Set<String> exists = extractImageMd5(originContent);
+		Set<String> news = extractImageMd5(newContent);
+
+        List<String> adds = ListUtils.removeAll(news, exists);
+		List<String> deleteds = ListUtils.removeAll(exists, news);
+
+		if (adds.size() > 0) {
+			List<Resource> resources = resourceRepository.findByMd5In(adds);
+
+			List<PostResource> prs = resources.stream().map(n -> {
+				PostResource pr = new PostResource();
+				pr.setResourceId(n.getId());
+				pr.setPostId(postId);
+				pr.setPath(n.getPath());
+				return pr;
+			}).collect(Collectors.toList());
+			postResourceRepository.saveAll(prs);
+
+			resourceRepository.updateAmount(adds, 1);
+		}
+
+		if (deleteds.size() > 0) {
+			List<Resource> resources = resourceRepository.findByMd5In(deleteds);
+			List<Long> rids = resources.stream().map(Resource::getId).collect(Collectors.toList());
+			postResourceRepository.deleteByPostIdAndResourceIdIn(postId, rids);
+			resourceRepository.updateAmount(deleteds, -1);
+		}
+	}
+
+	private void cleanResource(long postId) {
+		List<PostResource> list = postResourceRepository.findByPostId(postId);
+		if (null == list || list.isEmpty()) {
+			return;
+		}
+		List<Long> rids = list.stream().map(PostResource::getResourceId).collect(Collectors.toList());
+		resourceRepository.updateAmountByIds(rids, -1);
+		postResourceRepository.deleteByPostId(postId);
+	}
+
+	private Set<String> extractImageMd5(String text) {
+		Pattern pattern = Pattern.compile("(?<=/_signature/)(.+?)(?=\\.)");
+//		Pattern pattern = Pattern.compile("(?<=/_signature/)[^/]+?jpg");
+
+		Set<String> md5s = new HashSet<>();
+
+		Matcher originMatcher = pattern.matcher(text);
+		while (originMatcher.find()) {
+			String key = originMatcher.group();
+//			md5s.add(key.substring(0, key.lastIndexOf(".")));
+			md5s.add(key);
+		}
+
+		return md5s;
 	}
 }

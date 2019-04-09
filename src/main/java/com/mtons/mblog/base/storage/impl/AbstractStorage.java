@@ -11,10 +11,10 @@ package com.mtons.mblog.base.storage.impl;
 
 import com.mtons.mblog.base.lang.MtonsException;
 import com.mtons.mblog.base.storage.Storage;
-import com.mtons.mblog.base.utils.FileKit;
-import com.mtons.mblog.base.utils.FilePathUtils;
-import com.mtons.mblog.base.utils.ImageUtils;
+import com.mtons.mblog.base.utils.*;
 import com.mtons.mblog.config.SiteOptions;
+import com.mtons.mblog.modules.entity.Resource;
+import com.mtons.mblog.modules.repository.ResourceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +27,8 @@ import org.springframework.web.multipart.MultipartFile;
 public abstract class AbstractStorage implements Storage {
     @Autowired
     protected SiteOptions options;
+    @Autowired
+    protected ResourceRepository resourceRepository;
 
     protected void validateFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {
@@ -59,7 +61,19 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public String writeToStore(byte[] bytes, String src, String originalFilename) throws Exception {
-        String path = FilePathUtils.wholePathName(src, originalFilename);
-        return writeToStore(bytes, path);
+        String md5 = MD5.md5File(bytes);
+        Resource resource = resourceRepository.findByMd5(md5);
+        if (resource != null){
+            return resource.getPath();
+        }
+        String path = FilePathUtils.wholePathName(src, originalFilename, md5);
+        writeToStore(bytes, path);
+        // 图片入库
+        resource = new Resource();
+        resource.setMd5(md5);
+        resource.setPath(path);
+        resourceRepository.save(resource);
+        return path;
     }
+
 }

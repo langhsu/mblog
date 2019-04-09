@@ -53,7 +53,7 @@ public class ChannelController extends BaseController {
 		return "/admin/channel/view";
 	}
 	
-	@RequestMapping("/update")
+	@RequestMapping("/update") 
 //	@RequiresPermissions("channel:update")
 	public String update(Channel view) {
 		if (view != null) {

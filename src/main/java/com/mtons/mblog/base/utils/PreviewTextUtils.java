@@ -10,7 +10,13 @@ package com.mtons.mblog.base.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by langhsu
@@ -48,6 +54,31 @@ public class PreviewTextUtils {
         if (html == null)
             return null;
         return Jsoup.clean(html, Whitelist.simpleText());
+    }
+
+    public static String removeHideHtml(String html) {
+        if (html == null)
+            return null;
+        return Jsoup.clean(html, (new Whitelist()).addTags("hide"));
+    }
+
+    /**
+     * 获取文章中的img url
+     * @param html 代码
+     * @return string
+     */
+    public static List<String> extractImage(String html) {
+        List<String> urls = new ArrayList<>();
+        if (html == null)
+            return urls;
+        Document doc = Jsoup.parseBodyFragment(html);
+        Elements images = doc.select("img");
+        if (null != images) {
+            for(Element el : images) {
+                urls.add(el.attr("src"));
+            }
+        }
+        return urls;
     }
 
 }
