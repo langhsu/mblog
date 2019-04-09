@@ -1,0 +1,25 @@
+spring:
+    datasource:
+        driver-class-name: org.h2.Driver # 驱动
+        url: jdbc:h2:file:${site.location}/storage/db_mblog #h2 本地数据库文件
+        #schema: classpath*:scripts/schema.sql   #初始化表中记录数据语句
+        username: root
+        password: root
+    jpa:
+        database: h2
+        show-sql: false
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate.format_sql: true
+            hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+            hibernate.cache.use_second_level_cache: false
+            hibernate.search.default.directory_provider: filesystem
+            hibernate.search.default.indexBase: ${site.location}/storage/indexes
+    h2:     #h2数据库远程管理
+        console:
+            enabled: true #是否开启web显示
+            path: /console # 路径
+            settings:
+                web-allow-others: true
+                trace: true #是否可以远程web

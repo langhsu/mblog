@@ -1,0 +1,95 @@
+
+.side-left {
+}
+
+.side-right {
+    padding: 0 0 0 15px;
+    margin-left: -15px;
+}
+
+.search-row {
+    padding-bottom: 10px;
+}
+
+.thumbnail-box {
+    height: 160px;
+    width: 100%;
+}
+
+.thumbnail-box .convent_choice  {
+    background: url(../images/btn-add-image.png) no-repeat scroll center 25px rgba(0, 0, 0, 0);
+    border: 1px dashed #E6E6E6;
+    color: #CCCCCC;
+    font-size: 18px;
+    padding-top: 110px;
+    position: relative;
+    text-align: center;
+    top: 0;
+}
+
+/* 上传按钮 */
+.upload-btn {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.upload-btn label {
+    background-color: #62c162;
+    color: white;
+    padding: 6px 0px;
+    font-size: 40%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    width: 240px;
+    margin: 10px auto 0px auto;
+}
+
+.upload-btn label:hover {
+    background-color: #5cb85c;
+}
+
+.upload-btn span {
+    cursor: pointer;
+}
+
+.upload-btn input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: solid transparent;
+    opacity: .0;
+    filter: alpha(opacity=0);
+    direction: ltr;
+    cursor: pointer;
+}
+
+.mce-fullscreen {
+    z-index: 9999!important;
+}
+.error {
+    color: #b94a48;
+}
+
+/* Tablet (Portrait)
+================================================== */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .side-right {
+        padding: 0 15px 0 15px;
+        margin-left: 0;
+    }
+
+}
+
+/* Mobile (Portrait & Landscape)
+================================================== */
+@media only screen and (max-width: 767px) {
+    .side-right {
+        padding: 0 15px 0 15px;
+        margin-left: 0;
+    }
+}

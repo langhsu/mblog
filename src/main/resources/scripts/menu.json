@@ -1,0 +1,44 @@
+[
+  {
+    "icon": "fa fa-tags icon-xlarge",
+    "name": "栏目管理",
+    "url": "admin/channel/list",
+    "permission": "channel:list"
+  },
+  {
+    "icon": "fa fa-clone icon-xlarge",
+    "name": "文章管理",
+    "url": "admin/post/list",
+    "permission": "post:list"
+  },
+  {
+    "icon": "fa fa-comments-o icon-xlarge",
+    "name": "评论管理",
+    "url": "admin/comment/list",
+    "permission": "comment:list"
+  },
+  {
+    "icon": "fa fa-user icon-xlarge",
+    "name": "用户管理",
+    "url": "admin/user/list",
+    "permission": "user:list"
+  },
+  {
+    "icon": "fa fa fa-registered icon-xlarge",
+    "name": "角色管理",
+    "url": "admin/role/list",
+    "permission": "role:list"
+  },
+  {
+    "icon": "fa fa-circle-o icon-xlarge",
+    "name": "主题管理",
+    "url": "admin/theme/index",
+    "permission": "theme:index"
+  },
+  {
+    "icon": "fa fa-sun-o icon-xlarge",
+    "name": "系统配置",
+    "url": "admin/options/index",
+    "permission": "options:index"
+  }
+]

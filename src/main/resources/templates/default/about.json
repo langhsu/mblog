@@ -1,0 +1,10 @@
+{
+    "name": "default",
+    "slogan": "默认主题",
+    "version": "1.0",
+    "author": "landy",
+    "website": "http://mtons.com",
+    "previews": [
+        "/theme/default/dist/images/preview/1.png"
+    ]
+}

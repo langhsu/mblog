@@ -1,0 +1,23 @@
+spring:
+    datasource:
+        #schema: classpath*:scripts/schema.sql
+        #continue-on-error: false
+        #sql-script-encoding: utf-8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost/db_mblog?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+        username: root
+        password: root
+    flyway:
+        enabled: true
+    jpa:
+        database: mysql
+        show-sql: false
+        hibernate:
+            ddl-auto: update
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        properties:
+            hibernate.format_sql: true
+            hibernate.naming.physical-strategy: org.hibernate.scripts.model.naming.PhysicalNamingStrategyStandardImpl
+            hibernate.cache.use_second_level_cache: false
+            hibernate.search.default.directory_provider: filesystem
+            hibernate.search.default.indexBase: ${site.location}/storage/indexes
