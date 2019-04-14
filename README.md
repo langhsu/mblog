@@ -64,21 +64,15 @@
     16. 新增注册邮箱验证开关(需要手动删除之前的 mto_security_code 表)
         
 ### 图片演示 
-![首页](https://images.gitee.com/uploads/images/2019/0125/142627_fcd67bfd_116277.jpeg "前台首页.jpg")
-![文章](https://images.gitee.com/uploads/images/2019/0125/142647_328aa3d7_116277.jpeg "文章阅读.jpg")
-![后台](https://images.gitee.com/uploads/images/2019/0125/142704_cca6a479_116277.jpeg "后台首页.jpg")
-![后台文章管理](https://images.gitee.com/uploads/images/2019/0125/142725_3754efbf_116277.jpeg "后台文章编辑.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175116_449ed877_1758849.jpeg "1.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175353_6185e4f1_1758849.jpeg "在这里输入图片标题")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175438_f3bf5604_1758849.jpeg "3.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175505_86e7a9d0_1758849.jpeg "4.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175555_7c74ef37_1758849.jpeg "5.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175618_4cc45d39_1758849.jpeg "6.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175658_78ebdc6e_1758849.jpeg "7.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175717_46fc1496_1758849.jpeg "8.jpg")
+
 
 图片来自@weian豆丁
-
-### 这些用户在使用mblog(如需要在此展示您的博客请联系作者)：
-[https://www.lyp82nlf.com/](https://www.lyp82nlf.com/)
-
-[http://www.outshine.cn/](http://www.outshine.cn/)
-
-[http://www.jiangxindc.com](http://www.jiangxindc.com)
-
-[http://www.mhtclub.com/](http://www.mhtclub.com/)
-
-[http://www.maocaoying.com/](http://www.maocaoying.com/)
 
