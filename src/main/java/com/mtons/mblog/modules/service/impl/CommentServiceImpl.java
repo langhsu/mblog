@@ -151,6 +151,11 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	public Comment findById(long id) {
+		return commentRepository.findById(id).orElse(null);
+	}
+
+	@Override
 	@Transactional
 	public long post(CommentVO comment) {
 		Comment po = new Comment();

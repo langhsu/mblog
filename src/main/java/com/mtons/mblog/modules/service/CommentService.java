@@ -37,6 +37,8 @@ public interface CommentService {
 	List<CommentVO> findLatestComments(int maxResults);
 
 	Map<Long, CommentVO> findByIds(Set<Long> ids);
+
+	Comment findById(long id);
 	
 	/**
 	 * 发表评论

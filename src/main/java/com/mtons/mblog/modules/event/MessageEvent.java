@@ -7,11 +7,31 @@ import org.springframework.context.ApplicationEvent;
  */
 public class MessageEvent extends ApplicationEvent {
 	private static final long serialVersionUID = -4261382494171476390L;
-	
+
+    /**
+     * 消息生产者Id
+     */
 	private long fromUserId;
+
+    /**
+     * 消息消费者Id
+     */
     private long toUserId;
+
+    /**
+     * 消息类型
+     */
     private int event;
+
+    /**
+     * 相关文章Id
+     */
     private long postId;
+
+    /**
+     * 如果是回复评论 回复的评论Id
+     */
+    private long commentParentId;
 
     /**
      * Create a new ApplicationEvent.
@@ -52,5 +72,13 @@ public class MessageEvent extends ApplicationEvent {
 
     public void setPostId(long postId) {
         this.postId = postId;
+    }
+
+    public long getCommentParentId() {
+        return commentParentId;
+    }
+
+    public void setCommentParentId(long commentParentId) {
+        this.commentParentId = commentParentId;
     }
 }
