@@ -137,6 +137,9 @@
 }
 
 /* Body */
+.mce-content-body {
+    padding: 15px;
+}
 .markdown-body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
