@@ -143,11 +143,10 @@
 .markdown-body {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-    line-height: 1.5;
+    line-height: 1.8;
     color: #333;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: 14px;
     word-wrap: break-word;
 }
 
@@ -427,6 +426,10 @@
 .markdown-body ol ol,
 .markdown-body ul ol {
     list-style-type: lower-roman;
+}
+
+.markdown-body ul li {
+    list-style: initial;
 }
 
 .markdown-body ul ul ol,

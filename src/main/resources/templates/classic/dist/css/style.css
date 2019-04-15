@@ -1138,8 +1138,8 @@ abbr[data-original-title], abbr[title] {
 
 .markdown-body {
     min-height: 202px;
-    line-height: 26px;
-    font-size: 16px;
+    line-height: 1.8;
+    font-size: 14px;
     word-wrap: break-word;
 }
 
