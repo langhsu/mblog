@@ -14,21 +14,36 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /**
+     * 所属用户Id
+     */
     @Column(name = "user_id")
     private long userId;
 
+    /**
+     * 消息来源用户Id
+     */
     @Column(name = "from_id")
     private long fromId;
 
+    /**
+     * 事件类型 {@link com.mtons.mblog.base.lang.Consts#MESSAGE_EVENT_COMMENT}
+     */
     private int event; // 事件
 
+    /**
+     * 关联文章ID
+     */
     @Column(name = "post_id")
-    private long postId; // 关联文章ID
+    private long postId;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
-    private int status; // 阅读状态
+    /**
+     * 阅读状态 {@link com.mtons.mblog.base.lang.Consts#UNREAD}
+     */
+    private int status;
 
     public long getId() {
         return id;

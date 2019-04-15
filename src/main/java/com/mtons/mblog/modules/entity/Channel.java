@@ -44,6 +44,9 @@ public class Channel implements Serializable {
 	@Column(length = 128)
 	private String thumbnail;
 
+	/**
+	 * 状态 0 显示, 1隐藏
+	 */
 	@Column(length = 5)
 	private int status;
 

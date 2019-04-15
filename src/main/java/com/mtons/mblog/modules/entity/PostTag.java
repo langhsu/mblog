@@ -3,6 +3,7 @@ package com.mtons.mblog.modules.entity;
 import javax.persistence.*;
 
 /**
+ * 文章标签映射表
  * @author : langhsu
  */
 @Entity

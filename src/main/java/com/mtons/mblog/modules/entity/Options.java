@@ -23,12 +23,21 @@ public class Options {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	/**
+	 * 类型(冗余)
+	 */
 	@Column(length = 5)
 	private int type;
-	
+
+	/**
+	 * 标识
+	 */
 	@Column(name = "key_", unique = true, length = 32)
 	private String key;
 
+	/**
+	 * 值
+	 */
 	@Column(length = 300)
 	private String value;
 

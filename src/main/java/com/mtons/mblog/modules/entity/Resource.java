@@ -25,12 +25,21 @@ public class Resource implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /**
+     * 签名
+     */
     @Column(name = "md5", columnDefinition = "varchar(100) NOT NULL DEFAULT ''")
     private String md5;
 
+    /**
+     * 存储路径
+     */
     @Column(name = "path", columnDefinition = "varchar(255) NOT NULL DEFAULT ''")
     private String path;
 
+    /**
+     * 引用次数
+     */
     @Column(name = "amount", columnDefinition = "bigint(20) NOT NULL DEFAULT '0'")
     private long amount;
 

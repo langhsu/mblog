@@ -28,34 +28,70 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	/**
+	 * 用户名
+	 */
 	@Column(name = "username", unique = true, nullable = false, length = 64)
-	private String username; // 用户名
+	private String username;
 
+	/**
+	 * 密码(密文)
+	 */
 	@Column(name = "password", length = 64)
-	private String password; // 密码
+	private String password;
 
-	private String avatar;  // 头像
+	/**
+	 * 头像
+	 */
+	private String avatar;
 
+	/**
+	 * 昵称
+	 */
 	@Column(name = "name", length = 18)
-	private String name;  // 昵称
+	private String name;
 
-	private int gender;   // 性别
+	/**
+	 * 性别
+	 */
+	private int gender;
 
+	/**
+	 * 邮箱
+	 */
 	@Column(name = "email", unique = true, length = 64)
-	private String email;  // 邮箱
+	private String email;
 
-	private int posts; // 文章数
+	/**
+	 * 文章数
+	 */
+	private int posts;
 
-	private int comments; // 发布评论数
+	/**
+	 * 发布评论数
+	 */
+	private int comments;
 
-	private Date created;  // 注册时间
+	/**
+	 * 注册时间
+	 */
+	private Date created;
 
+	/**
+	 * 最后登录时间
+	 */
 	@Column(name = "last_login")
 	private Date lastLogin;
 
-	private String signature; // 个性签名
+	/**
+	 * 个性签名
+	 */
+	private String signature;
 
-	private int status; // 用户状态
+	/**
+	 * 用户状态
+	 */
+	private int status;
 
 	public User() {
 

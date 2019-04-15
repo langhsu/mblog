@@ -79,10 +79,13 @@ public class Post implements Serializable {
 	@Column(length = 64)
 	private String tags;
 
+	/**
+	 * 作者Id
+	 */
 	@Field
 	@NumericField
 	@Column(name = "author_id")
-	private long authorId; // 作者
+	private long authorId;
 
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date created;
@@ -113,7 +116,7 @@ public class Post implements Serializable {
 	private int featured;
 
 	/**
-	 * 置顶状态
+	 * 排序值
 	 */
 	private int weight;
 
