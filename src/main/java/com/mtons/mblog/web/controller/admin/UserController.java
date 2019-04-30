@@ -100,9 +100,9 @@ public class UserController extends BaseController {
 
 		try {
 			userService.updatePassword(id, newPassword);
-			model.put("message", "修改成功");
+			model.put("data", Result.successMessage("修改成功"));
 		} catch (IllegalArgumentException e) {
-			model.put("message", e.getMessage());
+			model.put("data", Result.failure(e.getMessage()));
 		}
 		return "/admin/user/pwd";
 	}

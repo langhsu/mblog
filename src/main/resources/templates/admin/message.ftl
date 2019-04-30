@@ -1,7 +1,7 @@
 <#if message??>
 <div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-    $message
+    ${message}
 </div>
 </#if>
 
