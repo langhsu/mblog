@@ -67,7 +67,8 @@ public abstract class AbstractStorage implements Storage {
             return resource.getPath();
         }
         String path = FilePathUtils.wholePathName(src, originalFilename, md5);
-        writeToStore(bytes, path);
+        path = writeToStore(bytes, path);
+
         // 图片入库
         resource = new Resource();
         resource.setMd5(md5);
