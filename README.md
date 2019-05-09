@@ -1,5 +1,8 @@
 ### Mblog 开源Java博客系统, 支持多用户, 支持切换主题
 
+
+ 最新 Youth开源主题v1 （支持响应式）：https://gitee.com/cuiweiboy/youth
+
 [![Author](https://img.shields.io/badge/author-landy-green.svg?style=flat-square)](http://mtons.com)
 [![JDK](https://img.shields.io/badge/jdk-1.8-green.svg?style=flat-square)](#)
 [![Release](https://img.shields.io/github/release/langhsu/mblog.svg?style=flat-square)](https://github.com/langhsu/mblog)
@@ -63,16 +66,24 @@
     15. 新增标签页
     16. 新增注册邮箱验证开关(需要手动删除之前的 mto_security_code 表)
         
-### 图片演示 
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175116_449ed877_1758849.jpeg "1.jpg")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175353_6185e4f1_1758849.jpeg "在这里输入图片标题")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175438_f3bf5604_1758849.jpeg "3.jpg")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175505_86e7a9d0_1758849.jpeg "4.jpg")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175555_7c74ef37_1758849.jpeg "5.jpg")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175618_4cc45d39_1758849.jpeg "6.jpg")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175658_78ebdc6e_1758849.jpeg "7.jpg")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175717_46fc1496_1758849.jpeg "8.jpg")
-
-
-图片来自@weian豆丁
+ ### 图片演示 
++
++## Praise开源主题 https://gitee.com/cuiweiboy/praise
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175116_449ed877_1758849.jpeg "1.jpg")
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175353_6185e4f1_1758849.jpeg "2.jpg")
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175438_f3bf5604_1758849.jpeg "3.jpg")
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175505_86e7a9d0_1758849.jpeg "4.jpg")
++
++## 后台管理
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175555_7c74ef37_1758849.jpeg "5.jpg")
++
++## 默认主题
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175618_4cc45d39_1758849.jpeg "6.jpg")
++
++## 经典主题
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175658_78ebdc6e_1758849.jpeg "7.jpg")
++
++
++## Delicate透明主题 https://gitee.com/cuiweiboy/delicate
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175717_46fc1496_1758849.jpeg "8.jpg")
 
