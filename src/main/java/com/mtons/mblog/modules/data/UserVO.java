@@ -27,6 +27,8 @@ public class UserVO implements Serializable {
 	private String password;
 	private String avatar;
 	private String name;
+	
+	@JSONField(serialize = false)
 	private String email;
 
 	private int posts; // 文章数
