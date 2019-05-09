@@ -52,6 +52,7 @@ public class AuthenticatedFilter extends OncePerRequestFilter {
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().print(JSON.toJSONString(Result.failure("您还没有登录!")));
             } else {
+		response.setContentType("text/html;charset=UTF-8");
                 response.getWriter().write(new Formatter().format(JS, url).toString());
             }
         }
