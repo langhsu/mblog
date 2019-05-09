@@ -4,7 +4,7 @@
  * Youth主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/youth)
  * Praise主题v1  （支持响应式）[更新中...](https://gitee.com/cuiweiboy/praise)
  * Delicate主题v1 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/delicate)
- * Fresh主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/fresh)
+ * Concise主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/concise)
 
 [![Author](https://img.shields.io/badge/author-landy-green.svg?style=flat-square)](http://mtons.com)
 [![JDK](https://img.shields.io/badge/jdk-1.8-green.svg?style=flat-square)](#)
