@@ -1,7 +1,10 @@
 ### Mblog 开源Java博客系统, 支持多用户, 支持切换主题
 
 
- 最新 Youth开源主题v1 （支持响应式）：https://gitee.com/cuiweiboy/youth
+ * Youth主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/youth)
+ * Praise主题v1  （支持响应式）[更新中...](https://gitee.com/cuiweiboy/praise)
+ * Delicate主题v1 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/delicate)
+ * Fresh主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/fresh)
 
 [![Author](https://img.shields.io/badge/author-landy-green.svg?style=flat-square)](http://mtons.com)
 [![JDK](https://img.shields.io/badge/jdk-1.8-green.svg?style=flat-square)](#)
@@ -72,11 +75,12 @@
 
  ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175116_449ed877_1758849.jpeg "1.jpg")
  ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175353_6185e4f1_1758849.jpeg "2.jpg")
- ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175438_f3bf5604_1758849.jpeg "3.jpg")
- ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175505_86e7a9d0_1758849.jpeg "4.jpg")
 
 ## 后台管理
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175438_f3bf5604_1758849.jpeg "3.jpg")
 
+## 响应式
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175505_86e7a9d0_1758849.jpeg "4.jpg")
  ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175555_7c74ef37_1758849.jpeg "5.jpg")
 
 ## 默认主题
