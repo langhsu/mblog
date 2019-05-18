@@ -41,7 +41,7 @@ public class ForgotController extends BaseController {
             securityCodeService.verify(String.valueOf(user.getId()), Consts.CODE_FORGOT, code);
             userService.updatePassword(user.getId(), password);
             model.put("data", Result.successMessage("恭喜您, 密码重置成功"));
-            view = view(Views.REGISTER);
+            view = view(Views.LOGIN);
         } catch (Exception e) {
             model.put("data", Result.failure(e.getMessage()));
         }
