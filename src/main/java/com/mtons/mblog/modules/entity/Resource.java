@@ -43,7 +43,7 @@ public class Resource implements Serializable {
     @Column(name = "amount", columnDefinition = "bigint(20) NOT NULL DEFAULT '0'")
     private long amount;
 
-    @Column(name = "create_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "create_time")
     @Generated(GenerationTime.INSERT)
     private LocalDateTime createTime;
 

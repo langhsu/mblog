@@ -19,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+
 /**
  * @author langhsu
  * @since 3.0
@@ -73,6 +75,7 @@ public abstract class AbstractStorage implements Storage {
         resource = new Resource();
         resource.setMd5(md5);
         resource.setPath(path);
+        resource.setCreateTime(LocalDateTime.now());
         resourceRepository.save(resource);
         return path;
     }
