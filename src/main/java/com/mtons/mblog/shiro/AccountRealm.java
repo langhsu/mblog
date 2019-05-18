@@ -53,7 +53,12 @@ public class AccountRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        UsernamePasswordToken upToken = (UsernamePasswordToken) token;
         AccountProfile profile = getAccount(userService, token);
+
+        if (null == profile) {
+            throw new UnknownAccountException(upToken.getUsername());
+        }
 
         if (profile.getStatus() == Consts.STATUS_CLOSED) {
             throw new LockedAccountException(profile.getName());

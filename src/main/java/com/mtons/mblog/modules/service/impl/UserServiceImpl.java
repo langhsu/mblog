@@ -80,9 +80,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public AccountProfile login(String username, String password) {
         User po = userRepository.findByUsername(username);
-        AccountProfile u = null;
 
-        Assert.notNull(po, "账户不存在");
+        if (null == po) {
+            return null;
+        }
 
 //		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
 
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
         po.setLastLogin(Calendar.getInstance().getTime());
         userRepository.save(po);
-        u = BeanMapUtils.copyPassport(po);
+        AccountProfile u = BeanMapUtils.copyPassport(po);
 
         BadgesCount badgesCount = new BadgesCount();
         badgesCount.setMessages(messageService.unread4Me(u.getId()));
@@ -102,15 +103,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public AccountProfile findProfile(Long id) {
-        User po = userRepository.findById(id).get();
-        AccountProfile u = null;
+        User po = userRepository.findById(id).orElse(null);
 
         Assert.notNull(po, "账户不存在");
 
 //		Assert.state(po.getStatus() != Const.STATUS_CLOSED, "您的账户已被封禁");
         po.setLastLogin(Calendar.getInstance().getTime());
 
-        u = BeanMapUtils.copyPassport(po);
+        AccountProfile u = BeanMapUtils.copyPassport(po);
 
         BadgesCount badgesCount = new BadgesCount();
         badgesCount.setMessages(messageService.unread4Me(u.getId()));
@@ -131,6 +131,11 @@ public class UserServiceImpl implements UserService {
         User check = userRepository.findByUsername(user.getUsername());
 
         Assert.isNull(check, "用户名已经存在!");
+
+        if (StringUtils.isNotBlank(user.getEmail())) {
+            User emailCheck = userRepository.findByEmail(user.getEmail());
+            Assert.isNull(emailCheck, "邮箱已经存在!");
+        }
 
         User po = new User();
 

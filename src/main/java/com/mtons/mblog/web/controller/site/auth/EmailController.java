@@ -46,6 +46,9 @@ public class EmailController extends BaseController {
                 AccountProfile profile = getProfile();
                 Assert.notNull(profile, "请先登录后再进行此操作");
                 key = String.valueOf(profile.getId());
+
+                UserVO exist = userService.getByEmail(email);
+                Assert.isNull(exist, "该邮箱已被使用");
                 break;
             case Consts.CODE_FORGOT:
                 UserVO user = userService.getByEmail(email);
