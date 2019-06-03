@@ -68,9 +68,7 @@
  * Praise主题v1  （支持响应式）[更新中...](https://gitee.com/cuiweiboy/praise)
  * Delicate主题v1 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/delicate)
  * Concise主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/concise)
- 
- * [演示地址](http://122.139.57.217:8088/)
-        
+      
 ### 图片演示 
 
 ## Praise主题
