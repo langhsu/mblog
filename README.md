@@ -64,9 +64,9 @@
     16. 新增注册邮箱验证开关(需要手动删除之前的 mto_security_code 表)
 
 
- * Youth主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/youth)
- * Praise主题v1  （支持响应式）[更新中...](https://gitee.com/cuiweiboy/praise)
- * Delicate主题v1 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/delicate)
+ * Youth主题v3 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/youth)
+ * Praise主题v2  （支持响应式）[更新中...](https://gitee.com/cuiweiboy/praise)
+ * Delicate主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/delicate)
  * Concise主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/concise)
       
 ### 图片演示 
