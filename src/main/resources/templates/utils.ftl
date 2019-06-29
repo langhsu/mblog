@@ -7,7 +7,7 @@
 
 <#-- 栏目名称显示 -->
 <#macro showChannel row>
-<span class="hidden-xs label label-default <#if (row.featured > 0)>channel_featured</#if> <#if (row.weight > 0)>channel_top</#if>">${row.channel.name}</span>
+<span class=" hidden-xs label label-default <#if (row.featured > 0)>channel_featured</#if> <#if (row.weight > 0)>channel_top</#if>">${row.channel.name}</span>
 </#macro>
 
 <#-- 分页显示 -->
@@ -24,9 +24,9 @@
         <#assign pageNo = p.number + 1/>
         <#assign pageCount = p.totalPages />
         <#if (pageNo > 1)>
-            <li><a href="${cURL}${pageNo - 1}" pageNo="${pageNo - 1}" class="prev">上一页</a></li>
+            <li><a href="${cURL}${pageNo - 1}" pageNo="${pageNo - 1}" class="prev"><i class="fa fa-angle-left"></i></a></li>
         <#else>
-            <li class="disabled"><span>上一页</span></li>
+            <li class="disabled"><span><i class="fa fa-angle-left"></i></span></li>
         </#if>
 
         <#local totalNo = span * 2 + 3 />
@@ -65,9 +65,9 @@
         </#if>
 
         <#if (pageNo < pageCount)>
-            <li><a href="${cURL}${pageNo + 1}" pageNo="${pageNo + 1}" class="next">下一页</a></li>
+            <li><a href="${cURL}${pageNo + 1}" pageNo="${pageNo + 1}" class="next"><i class="fa fa-angle-right"></i></a></li>
         <#else>
-            <li class="disabled"><span>下一页</span></li>
+            <li class="disabled"><span><i class="fa fa-angle-right"></i></span></li>
         </#if>
     </ul>
     </#if>
