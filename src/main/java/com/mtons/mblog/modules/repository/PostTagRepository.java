@@ -18,7 +18,7 @@ public interface PostTagRepository extends JpaRepository<PostTag, Long>, JpaSpec
     Page<PostTag> findAllByTagId(Pageable pageable, long tagId);
     PostTag findByPostIdAndTagId(long postId, long tagId);
 
-    @Query("select tag_id from PostTag where post_id = ?1")
+    @Query("select tagId from PostTag where postId = ?1")
     Set<Long> findTagIdByPostId(long postId);
 
     int deleteByPostId(long postId);
