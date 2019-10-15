@@ -11,6 +11,7 @@ import com.mtons.mblog.modules.repository.TagRepository;
 import com.mtons.mblog.modules.service.TagService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.base.utils.BeanMapUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -115,6 +116,10 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional
     public void deteleMappingByPostId(long postId) {
+        Set<Long> tagIds = postTagRepository.findTagIdByPostId(postId);
+        if (CollectionUtils.isNotEmpty(tagIds)) {
+            tagRepository.decrementPosts(tagIds);
+        }
         postTagRepository.deleteByPostId(postId);
     }
 }

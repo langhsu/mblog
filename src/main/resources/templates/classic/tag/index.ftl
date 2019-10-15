@@ -11,7 +11,7 @@
                                 <a href="${base}/tag/${row.name}/"><i class="fa fa-quote-left"></i> ${row.name}</a>
                                 <span class="label label-default">${row.posts}</span>
                             </h2>
-                            <#if post??>
+                            <#if post?if_exists>
                                 <div class="media">
                                     <div class="media-left">
                                         <@utils.showAva post.author "media-object"/>
