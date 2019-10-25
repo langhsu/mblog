@@ -62,34 +62,8 @@
     14. 邮件服务后台可配
     15. 新增标签页
     16. 新增注册邮箱验证开关(需要手动删除之前的 mto_security_code 表)
-
-
- * Youth主题v3 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/youth)
- * Praise主题v2  （支持响应式）[更新中...](https://gitee.com/cuiweiboy/praise)
- * Delicate主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/delicate)
- * Concise主题v2 （支持响应式）[更新中...](https://gitee.com/cuiweiboy/concise)
       
 ### 图片演示 
 
-## Praise主题
-
  ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175116_449ed877_1758849.jpeg "1.jpg")
  ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175353_6185e4f1_1758849.jpeg "2.jpg")
-
-## 后台管理
- ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175438_f3bf5604_1758849.jpeg "3.jpg")
-
-## 响应式
- ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175505_86e7a9d0_1758849.jpeg "4.jpg")
- ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175555_7c74ef37_1758849.jpeg "5.jpg")
-
-## 默认主题
-
- ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175618_4cc45d39_1758849.jpeg "6.jpg")
-
-## 经典主题
- ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175658_78ebdc6e_1758849.jpeg "7.jpg")
-
-## Delicate主题
- ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175717_46fc1496_1758849.jpeg "8.jpg")
-
