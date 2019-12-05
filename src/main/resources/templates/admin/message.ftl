@@ -18,3 +18,8 @@
     </div>
 	</#if>
 </#if>
+<script>
+    window.setTimeout(function(){
+        $('[data-dismiss="alert"]').alert('close');
+    },3000);
+</script>
