@@ -25,7 +25,7 @@
             </ul>
         </div>
         <div class="text-center">
-            <@utils.pager request.requestURI, results, 5/>
+            <@utils.pager request.requestURI!"" + "?kw=${kw}", results, 5/>
         </div>
     </div>
     <div class="col-xs-12 col-md-3 side-right">

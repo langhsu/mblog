@@ -30,6 +30,7 @@ spring:
         - file:${site.location}/storage/templates
         cache: false
         check-template-location: true
+        request-context-attribute: request
         charset: utf-8
         settings:
             classic_compatible: true #处理空值

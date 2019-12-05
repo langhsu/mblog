@@ -53,7 +53,7 @@
             </div>
 
             <div class="panel-footer text-right remove-padding-horizontal pager-footer">
-                <@utils.pager request.requestURI, results, 5/>
+                <@utils.pager request.requestURI!"" + "?kw=${kw}", results, 5/>
             </div>
         </div>
     </div>
