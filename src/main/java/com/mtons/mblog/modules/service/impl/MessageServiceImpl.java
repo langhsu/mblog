@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author langhsu
@@ -36,25 +37,24 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Page<MessageVO> pagingByUserId(Pageable pageable, long userId) {
         Page<Message> page = messageRepository.findAllByUserId(pageable, userId);
-        List<MessageVO> rets = new ArrayList<>();
 
         Set<Long> postIds = new HashSet<>();
         Set<Long> fromUserIds = new HashSet<>();
 
         // 筛选
-        page.getContent().forEach(po -> {
-            MessageVO no = BeanMapUtils.copy(po);
+        List<MessageVO> rets = page
+                .stream()
+                .map(po -> {
+                    if (po.getPostId() > 0) {
+                        postIds.add(po.getPostId());
+                    }
+                    if (po.getFromId() > 0) {
+                        fromUserIds.add(po.getFromId());
+                    }
 
-            rets.add(no);
-
-            if (no.getPostId() > 0) {
-                postIds.add(no.getPostId());
-            }
-            if (no.getFromId() > 0) {
-                fromUserIds.add(no.getFromId());
-            }
-
-        });
+                    return BeanMapUtils.copy(po);
+                })
+                .collect(Collectors.toList());
 
         // 加载
         Map<Long, PostVO> posts = postService.findMapByIds(postIds);

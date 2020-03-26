@@ -390,16 +390,17 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private List<PostVO> toPosts(List<Post> posts) {
-		List<PostVO> rets = new ArrayList<>();
-
 		HashSet<Long> uids = new HashSet<>();
 		HashSet<Integer> groupIds = new HashSet<>();
 
-		posts.forEach(po -> {
-			uids.add(po.getAuthorId());
-			groupIds.add(po.getChannelId());
-			rets.add(BeanMapUtils.copy(po));
-		});
+		List<PostVO> rets = posts
+				.stream()
+				.map(po -> {
+					uids.add(po.getAuthorId());
+					groupIds.add(po.getChannelId());
+					return BeanMapUtils.copy(po);
+				})
+				.collect(Collectors.toList());
 
 		// 加载用户信息
 		buildUsers(rets, uids);

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author langhsu
@@ -47,9 +48,10 @@ public class ChannelServiceImpl implements ChannelService {
 	@Override
 	public Map<Integer, Channel> findMapByIds(Collection<Integer> ids) {
 		List<Channel> list = channelRepository.findAllById(ids);
-		Map<Integer, Channel> rets = new HashMap<>();
-		list.forEach(po -> rets.put(po.getId(), po));
-		return rets;
+		if (null == list) {
+			return Collections.emptyMap();
+		}
+		return list.stream().collect(Collectors.toMap(Channel::getId, n -> n));
 	}
 
 	@Override
