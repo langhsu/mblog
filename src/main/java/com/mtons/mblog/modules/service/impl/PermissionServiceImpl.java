@@ -87,7 +87,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<Permission> list() {
-        return permissionRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
+        return permissionRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     @Override

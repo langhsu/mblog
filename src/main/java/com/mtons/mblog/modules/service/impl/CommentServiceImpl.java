@@ -10,15 +10,13 @@
 package com.mtons.mblog.modules.service.impl;
 
 import com.mtons.mblog.modules.data.CommentVO;
-import com.mtons.mblog.modules.data.PostVO;
-import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.Comment;
 import com.mtons.mblog.modules.repository.CommentRepository;
 import com.mtons.mblog.modules.service.CommentService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.service.UserEventService;
 import com.mtons.mblog.modules.service.UserService;
-import com.mtons.mblog.base.utils.BeanMapUtils;
+import com.mtons.mblog.modules.service.complementor.CommentComplementor;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -47,17 +45,9 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public Page<CommentVO> paging4Admin(Pageable pageable) {
 		Page<Comment> page = commentRepository.findAll(pageable);
-		List<CommentVO> rets = new ArrayList<>();
-
-		HashSet<Long> uids= new HashSet<>();
-
-		page.getContent().forEach(po -> {
-			uids.add(po.getAuthorId());
-			rets.add(BeanMapUtils.copy(po));
-		});
-
-		buildUsers(rets, uids);
-
+		List<CommentVO> rets = CommentComplementor.of(page.getContent())
+				.flutBuildUser()
+				.getComments();
 		return new PageImpl<>(rets, pageable, page.getTotalElements());
 	}
 
@@ -65,89 +55,40 @@ public class CommentServiceImpl implements CommentService {
 	public Page<CommentVO> pagingByAuthorId(Pageable pageable, long authorId) {
 		Page<Comment> page = commentRepository.findAllByAuthorId(pageable, authorId);
 
-		List<CommentVO> rets = new ArrayList<>();
-		Set<Long> parentIds = new HashSet<>();
-		Set<Long> uids = new HashSet<>();
-		Set<Long> postIds = new HashSet<>();
-
-		page.getContent().forEach(po -> {
-			CommentVO c = BeanMapUtils.copy(po);
-
-			if (c.getPid() > 0) {
-				parentIds.add(c.getPid());
-			}
-			uids.add(c.getAuthorId());
-			postIds.add(c.getPostId());
-
-			rets.add(c);
-		});
-
-		// 加载父节点
-		buildParent(rets, parentIds);
-
-		buildUsers(rets, uids);
-		buildPosts(rets, postIds);
-
+		List<CommentVO> rets = CommentComplementor.of(page.getContent())
+				.flutBuildUser()
+				.flutBuildParent()
+				.flutBuildPost()
+				.getComments();
 		return new PageImpl<>(rets, pageable, page.getTotalElements());
 	}
 
 	@Override
 	public Page<CommentVO> pagingByPostId(Pageable pageable, long postId) {
 		Page<Comment> page = commentRepository.findAllByPostId(pageable, postId);
-		
-		List<CommentVO> rets = new ArrayList<>();
-		Set<Long> parentIds = new HashSet<>();
-		Set<Long> uids = new HashSet<>();
 
-		page.getContent().forEach(po -> {
-			CommentVO c = BeanMapUtils.copy(po);
-
-			if (c.getPid() > 0) {
-				parentIds.add(c.getPid());
-			}
-			uids.add(c.getAuthorId());
-
-			rets.add(c);
-		});
-
-		// 加载父节点
-		buildParent(rets, parentIds);
-
-		buildUsers(rets, uids);
-
+		List<CommentVO> rets = CommentComplementor.of(page.getContent())
+				.flutBuildUser()
+				.flutBuildParent()
+				.getComments();
 		return new PageImpl<>(rets, pageable, page.getTotalElements());
 	}
 
 	@Override
 	public List<CommentVO> findLatestComments(int maxResults) {
-		Pageable pageable = PageRequest.of(0, maxResults, new Sort(Sort.Direction.DESC, "id"));
+		Pageable pageable = PageRequest.of(0, maxResults, Sort.by(Sort.Direction.DESC, "id"));
 		Page<Comment> page = commentRepository.findAll(pageable);
-		List<CommentVO> rets = new ArrayList<>();
-
-		HashSet<Long> uids= new HashSet<>();
-
-		page.getContent().forEach(po -> {
-			uids.add(po.getAuthorId());
-			rets.add(BeanMapUtils.copy(po));
-		});
-
-		buildUsers(rets, uids);
-		return rets;
+		return CommentComplementor.of(page.getContent())
+				.flutBuildUser()
+				.getComments();
 	}
 
 	@Override
 	public Map<Long, CommentVO> findByIds(Set<Long> ids) {
 		List<Comment> list = commentRepository.findAllById(ids);
-		Map<Long, CommentVO> ret = new HashMap<>();
-		Set<Long> uids = new HashSet<>();
-
-		list.forEach(po -> {
-			uids.add(po.getAuthorId());
-			ret.put(po.getId(), BeanMapUtils.copy(po));
-		});
-
-		buildUsers(ret.values(), uids);
-		return ret;
+		return CommentComplementor.of(list)
+				.flutBuildUser()
+				.toMap();
 	}
 
 	@Override
@@ -156,7 +97,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Throwable.class)
 	public long post(CommentVO comment) {
 		Comment po = new Comment();
 		
@@ -172,7 +113,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Throwable.class)
 	public void delete(List<Long> ids) {
 		List<Comment> list = commentRepository.removeByIdIn(ids);
 		if (CollectionUtils.isNotEmpty(list)) {
@@ -183,7 +124,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Throwable.class)
 	public void delete(long id, long authorId) {
 		Optional<Comment> optional = commentRepository.findById(id);
 		if (optional.isPresent()) {
@@ -197,7 +138,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Throwable.class)
 	public void deleteByPostId(long postId) {
 		List<Comment> list = commentRepository.removeByPostId(postId);
 		if (CollectionUtils.isNotEmpty(list)) {
@@ -215,29 +156,6 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public long countByAuthorIdAndPostId(long authorId, long toId) {
 		return commentRepository.countByAuthorIdAndPostId(authorId, toId);
-	}
-
-	private void buildUsers(Collection<CommentVO> posts, Set<Long> uids) {
-		Map<Long, UserVO> userMap = userService.findMapByIds(uids);
-
-		posts.forEach(p -> p.setAuthor(userMap.get(p.getAuthorId())));
-	}
-
-	private void buildPosts(Collection<CommentVO> comments, Set<Long> postIds) {
-		Map<Long, PostVO> postMap = postService.findMapByIds(postIds);
-		comments.forEach(p -> p.setPost(postMap.get(p.getPostId())));
-	}
-
-	private void buildParent(Collection<CommentVO> comments, Set<Long> parentIds) {
-		if (!parentIds.isEmpty()) {
-			Map<Long, CommentVO> pm = findByIds(parentIds);
-
-			comments.forEach(c -> {
-				if (c.getPid() > 0) {
-					c.setParent(pm.get(c.getPid()));
-				}
-			});
-		}
 	}
 
 }
