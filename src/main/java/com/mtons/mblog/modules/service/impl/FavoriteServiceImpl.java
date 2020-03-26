@@ -53,7 +53,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Throwable.class)
     public void add(long userId, long postId) {
         Favorite po = favoriteRepository.findByUserIdAndPostId(userId, postId);
 
@@ -69,7 +69,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Throwable.class)
     public void delete(long userId, long postId) {
         Favorite po = favoriteRepository.findByUserIdAndPostId(userId, postId);
         Assert.notNull(po, "还没有喜欢过此文章");
@@ -77,7 +77,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Throwable.class)
     public void deleteByPostId(long postId) {
         int rows = favoriteRepository.deleteByPostId(postId);
         log.info("favoriteRepository delete {}", rows);

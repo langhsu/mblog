@@ -24,7 +24,7 @@ import java.util.Set;
  * @author langhsu
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = Throwable.class)
 public class UserEventServiceImpl implements UserEventService {
     @Autowired
     private UserRepository userRepository;

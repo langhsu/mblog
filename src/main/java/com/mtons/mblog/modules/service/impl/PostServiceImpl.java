@@ -65,6 +65,8 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private ResourceRepository resourceRepository;
 
+    private static Pattern pattern = Pattern.compile("(?<=/_signature/)(.+?)(?=\\.)");
+
 	@Override
 	@PostStatusFilter
 	public Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds) {
@@ -150,7 +152,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Throwable.class)
 	public long post(PostVO post) {
 		Post po = new Post();
 
@@ -210,7 +212,7 @@ public class PostServiceImpl implements PostService {
 	 * @param p
 	 */
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Throwable.class)
 	public void update(PostVO p){
 		Optional<Post> optional = postRepository.findById(p.getId());
 
@@ -257,7 +259,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Throwable.class)
 	public void updateFeatured(long id, int featured) {
 		Post po = postRepository.findById(id).get();
 		int status = Consts.FEATURED_ACTIVE == featured ? Consts.FEATURED_ACTIVE: Consts.FEATURED_DEFAULT;
@@ -266,7 +268,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Throwable.class)
 	public void updateWeight(long id, int weighted) {
 		Post po = postRepository.findById(id).get();
 
@@ -279,7 +281,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Throwable.class)
 	public void delete(long id, long authorId) {
 		Post po = postRepository.findById(id).get();
 		// 判断文章是否属于当前登录用户
@@ -300,7 +302,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Throwable.class)
 	public void delete(Collection<Long> ids) {
 		if (CollectionUtils.isNotEmpty(ids)) {
 			List<Post> list = postRepository.findAllById(ids);
@@ -322,9 +324,9 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Throwable.class)
 	public void identityViews(long id) {
-		// 次数不清理缓存, 等待文章缓存自动过期
+		// 不清理缓存, 等待文章缓存自动过期
 		postRepository.updateViews(id, Consts.IDENTITY_STEP);
 	}
 
@@ -335,14 +337,14 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Throwable.class)
 	public void favor(long userId, long postId) {
 		postRepository.updateFavors(postId, Consts.IDENTITY_STEP);
 		favoriteService.add(userId, postId);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Throwable.class)
 	public void unfavor(long userId, long postId) {
 		postRepository.updateFavors(postId,  Consts.DECREASE_STEP);
 		favoriteService.delete(userId, postId);
@@ -475,7 +477,6 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private Set<String> extractImageMd5(String text) {
-		Pattern pattern = Pattern.compile("(?<=/_signature/)(.+?)(?=\\.)");
 //		Pattern pattern = Pattern.compile("(?<=/_signature/)[^/]+?jpg");
 
 		Set<String> md5s = new HashSet<>();
