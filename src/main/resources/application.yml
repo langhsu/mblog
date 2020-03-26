@@ -32,6 +32,7 @@ spring:
         check-template-location: true
         request-context-attribute: request
         charset: utf-8
+        suffix: .ftl
         settings:
             classic_compatible: true #处理空值
             template_exception_handler: rethrow
