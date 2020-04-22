@@ -270,20 +270,28 @@
 	<profiles>
 		<!--开发默认环境-->
 		<profile>
-			<id>mysql</id>
+			<id>dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<profileActive>mysql</profileActive>
+				<profileActive>dev</profileActive>
 			</properties>
 		</profile>
 
-		<!--测试环境-->
+		<!--H2环境-->
 		<profile>
 			<id>h2</id>
 			<properties>
 				<profileActive>h2</profileActive>
+			</properties>
+		</profile>
+
+		<!--Docker环境-->
+		<profile>
+			<id>docker</id>
+			<properties>
+				<profileActive>docker</profileActive>
 			</properties>
 		</profile>
 	</profiles>

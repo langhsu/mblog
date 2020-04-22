@@ -7,7 +7,7 @@ ADD . /build
 ENV TZ=Asia/Shanghai
 RUN ln -sf /usr/share/zoneinfo/{TZ} /etc/localtime && echo "{TZ}" > /etc/timezone
 
-RUN cd /build && mvn package -Dmaven.test.skip=true -Ph2 \
+RUN cd /build && mvn package -Dmaven.test.skip=true -Pdocker \
     && cp -f target/mblog-latest.jar /app/mblog && rm -rf /build/*
 
 EXPOSE 8080

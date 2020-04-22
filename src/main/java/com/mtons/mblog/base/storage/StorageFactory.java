@@ -15,6 +15,7 @@ import com.mtons.mblog.base.storage.impl.QiniuStorageImpl;
 import com.mtons.mblog.base.storage.impl.UpYunStorageImpl;
 import com.mtons.mblog.config.SiteOptions;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,7 @@ import java.util.Map;
  * on 2019/1/21
  */
 @Component
-public class StorageFactory {
+public class StorageFactory implements InitializingBean {
     @Autowired
     private ApplicationContext applicationContext;
     @Autowired
@@ -36,12 +37,12 @@ public class StorageFactory {
 
     private Map<String, Storage> fileRepoMap = new HashMap<>();
 
-    @PostConstruct
-    public void init() {
-        fileRepoMap.put("native", applicationContext.getBean(NativeStorageImpl.class));
-        fileRepoMap.put("upyun", applicationContext.getBean(UpYunStorageImpl.class));
-        fileRepoMap.put("aliyun", applicationContext.getBean(AliyunStorageImpl.class));
-        fileRepoMap.put("qiniu", applicationContext.getBean(QiniuStorageImpl.class));
+    public boolean registry(String key, Storage storage) {
+        if (fileRepoMap.containsKey(key)) {
+            return false;
+        }
+        fileRepoMap.put(key, storage);
+        return true;
     }
 
     public Storage get() {
@@ -50,5 +51,13 @@ public class StorageFactory {
             scheme = "native";
         }
         return fileRepoMap.get(scheme);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        fileRepoMap.put("native", applicationContext.getBean(NativeStorageImpl.class));
+        fileRepoMap.put("upyun", applicationContext.getBean(UpYunStorageImpl.class));
+        fileRepoMap.put("aliyun", applicationContext.getBean(AliyunStorageImpl.class));
+        fileRepoMap.put("qiniu", applicationContext.getBean(QiniuStorageImpl.class));
     }
 }

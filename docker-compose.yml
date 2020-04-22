@@ -1,10 +1,26 @@
 version: '3'
 services:
+    mysql:
+        container_name: blog-mysql
+        image: mysql/mysql-server:5.7
+        environment:
+            MYSQL_DATABASE: db_mblog
+            MYSQL_ROOT_PASSWORD: 12345
+            MYSQL_ROOT_HOST: '%'
+            TZ: Asia/Shanghai
+        expose:
+            - "3306"
+        volumes:
+            - ./mysql/mysql_data:/var/lib/mysql
+        restart: always
+
     server:
         container_name: mtons-blog
         image: langhsu/mblog:latest
         environment:
             TZ: Asia/Shanghai
         ports:
-        - "8080:8080"
+            - "8080:8080"
+        depends_on:
+            - mysql
         restart: always
