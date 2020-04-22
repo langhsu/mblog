@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * @author langhsu on 2015/7/10.
+ * @author landy
  */
 @Slf4j
 public class RequestCostFilter implements Filter {
@@ -20,12 +20,14 @@ public class RequestCostFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		StopWatch stopWatch = new StopWatch(System.currentTimeMillis() + "");
+		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		chain.doFilter(request, response);
 		stopWatch.stop();
 
-		log.debug(httpRequest.getRequestURI() + " -> request cost - " + stopWatch.getTotalTimeMillis());
+		log.debug("{} -> request code - {}",
+                httpRequest.getRequestURI(),
+                stopWatch.getTotalTimeMillis());
     }
 
     @Override

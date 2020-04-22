@@ -73,4 +73,8 @@ public class Result<T> implements Serializable {
         return code == SUCCESS;
     }
 
+    public boolean isError() {
+        return !isOk();
+    }
+
 }
