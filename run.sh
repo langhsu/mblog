@@ -1,5 +1,8 @@
 #!/bin/bash
 APP_NAME=mblog-latest.jar
+BASE_PATH=$(cd `dirname $0`; pwd)
+
+echo 'cd $BASE_PATH'
 
 usage() {
     echo "case: sh run.sh [start|stop|restart|status]"

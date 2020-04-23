@@ -59,10 +59,9 @@ shiro:
     rememberMeManager:
         cookie:
             maxAge: 604800
+
 logging:
-    level:
-        org.springframework: WARN
-        org.hibernate: WARN
+    config: classpath:logback-spring.xml
 
 # site.options.theme: [default|classic]
 site:

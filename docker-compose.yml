@@ -11,7 +11,7 @@ services:
         expose:
             - "3306"
         volumes:
-            - ./mysql/mysql_data:/var/lib/mysql
+            - /data/mblog/mysql/mysql_data:/var/lib/mysql
         restart: always
 
     server:
@@ -23,6 +23,9 @@ services:
             TZ: Asia/Shanghai
         ports:
             - "8080:8080"
+        volumes:
+            - /data/mblog/storage:/app/mblog/storage
+            - /data/mblog/logs:/app/mblog/logs
         depends_on:
             - mysql
         restart: always
