@@ -37,7 +37,13 @@
         </root>
     </springProfile>
 
-    <springProfile name="pro">
+    <springProfile name="h2">
+        <root level="info">
+            <appender-ref ref="asyncFile" />
+        </root>
+    </springProfile>
+
+    <springProfile name="docker">
         <root level="info">
             <appender-ref ref="asyncFile" />
         </root>
