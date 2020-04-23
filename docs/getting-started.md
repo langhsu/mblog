@@ -19,3 +19,6 @@
 - 运行 `docker-compose up -d` 命令
 - 启动后，访问 `http://localhost:8080` 
 - 查看日志 `docker-compose logs -f server`
+
+> 新版本中将不再使用H2位docker的默认数据库
+> docker 默认使用镜像运行, 如有二次开发, 请切换为编译安装

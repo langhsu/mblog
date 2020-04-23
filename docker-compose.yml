@@ -1,7 +1,7 @@
 version: '3'
 services:
     mysql:
-        container_name: blog-mysql
+        container_name: mtons-mysql
         image: mysql/mysql-server:5.7
         environment:
             MYSQL_DATABASE: db_mblog
@@ -18,7 +18,7 @@ services:
         container_name: mtons-blog
         #image: langhsu/mblog:latest
         build: .
-        working_dir: /app
+        working_dir: /app/mblog
         environment:
             TZ: Asia/Shanghai
         ports:
