@@ -17,6 +17,8 @@ services:
     server:
         container_name: mtons-blog
         #image: langhsu/mblog:latest
+        build: .
+        working_dir: /app
         environment:
             TZ: Asia/Shanghai
         ports:
