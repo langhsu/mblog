@@ -1,5 +1,5 @@
 FROM maven:3.5.4-jdk-8
-LABEL maintainer="Landy"
+MAINTAINER mtons
 
 WORKDIR /app/mblog
 ADD . /build
