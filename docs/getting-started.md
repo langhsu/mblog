@@ -20,5 +20,11 @@
 - 启动后，访问 `http://localhost:8080` 
 - 查看日志 `docker-compose logs -f server`
 
-> 新版本中将不再使用H2位docker的默认数据库
+> 新版本中将不再使用H2为docker的默认数据库
 > docker 默认使用镜像运行, 如有二次开发, 请切换为编译安装
+
+- 停止服务 `docker-compose down`
+- 进入容器 `docker exec -it {containerId} /bin/bash`
+
+> docker-compose up会优先使用已有的容器，而不是重新创建容器
+> docker-compose up -d --force-recreate 使用 --force-recreate 可以强制重建容器 （否则只能在容器配置有更改时才会重建容器）
