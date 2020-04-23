@@ -1,7 +1,7 @@
 version: '3'
 services:
     mysql:
-        container_name: mtons-mysql
+        container_name: mblog-mysql
         image: mysql/mysql-server:5.7
         environment:
             MYSQL_DATABASE: db_mblog
@@ -15,7 +15,7 @@ services:
         restart: always
 
     server:
-        container_name: mtons-blog
+        container_name: mblog-server
         #image: langhsu/mblog:latest
         build: .
         working_dir: /app/mblog
