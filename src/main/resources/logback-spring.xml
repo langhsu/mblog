@@ -39,7 +39,7 @@
 
     <springProfile name="h2">
         <root level="info">
-            <appender-ref ref="asyncFile" />
+            <appender-ref ref="stdout" />
         </root>
     </springProfile>
 
