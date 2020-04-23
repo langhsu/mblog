@@ -16,7 +16,7 @@ services:
 
     server:
         container_name: mtons-blog
-        image: langhsu/mblog:latest
+        #image: langhsu/mblog:latest
         environment:
             TZ: Asia/Shanghai
         ports:
