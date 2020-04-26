@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "mto_post_resource", indexes = {
-        @Index(name = "IK_POST_ID", columnList = "post_id")
+        @Index(name = "IK_R_POST_ID", columnList = "post_id")
 })
 public class PostResource implements Serializable {
     private static final long serialVersionUID = -2343406058301647253L;

@@ -2,7 +2,7 @@ spring:
     datasource:
         driver-class-name: org.h2.Driver # 驱动
         url: jdbc:h2:file:${site.location}/storage/db_mblog #h2 本地数据库文件
-        #schema: classpath*:scripts/schema.sql   #初始化表中记录数据语句
+#        schema: classpath*:scripts/schema.sql   #初始化表中记录数据语句
         username: root
         password: root
     jpa:

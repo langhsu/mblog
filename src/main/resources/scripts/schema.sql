@@ -27,7 +27,7 @@ CREATE TABLE `mto_channel` (
   `thumbnail` varchar(128) DEFAULT NULL,
   `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Records of mto_channel
@@ -47,7 +47,7 @@ CREATE TABLE `mto_options` (
   `type` int(5) DEFAULT 0,
   `value` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Records of mto_options
@@ -91,7 +91,7 @@ CREATE TABLE `mto_user` (
   `signature` varchar(140) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_USERNAME` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Records of mto_user
@@ -112,7 +112,7 @@ CREATE TABLE `mto_user_oauth` (
   `oauth_user_id` varchar(128) DEFAULT NULL,
   `refresh_token` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Records of mto_user_oauth
@@ -131,7 +131,7 @@ CREATE TABLE `shiro_permission` (
   `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_NAME` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Records of shiro_permission
@@ -167,7 +167,7 @@ CREATE TABLE `shiro_role` (
   `name` varchar(32) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Records of shiro_role
@@ -183,7 +183,7 @@ CREATE TABLE `shiro_role_permission` (
   `permission_id` bigint(20) DEFAULT NULL,
   `role_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Records of shiro_role_permission
@@ -217,7 +217,7 @@ CREATE TABLE `shiro_user_role` (
   `role_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Records of shiro_user_role
