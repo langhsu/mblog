@@ -16,7 +16,7 @@ services:
 
     server:
         container_name: mblog-server
-        #image: langhsu/mblog:latest
+        image: langhsu/mblog:latest
         build: .
         working_dir: /app/mblog
         environment:
