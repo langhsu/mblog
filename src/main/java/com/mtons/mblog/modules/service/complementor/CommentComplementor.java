@@ -51,7 +51,7 @@ public class CommentComplementor {
 
     public CommentComplementor flutBuildPost() {
         Map<Long, PostVO> map = SpringUtils.getBean(PostService.class).findMapByIds(this.postIds);
-        comments.forEach(p -> p.setPost(map.get(p.getAuthorId())));
+        comments.forEach(p -> p.setPost(map.get(p.getPostId())));
         return this;
     }
 
