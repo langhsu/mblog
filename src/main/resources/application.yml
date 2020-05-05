@@ -45,6 +45,10 @@ spring:
         baseline-on-migrate: true
         encoding: UTF-8
         locations: classpath:scripts/migration
+    data:
+        jpa:
+            repositories:
+                bootstrap-mode: deferred
 shiro:
     web:
         enabled: true
