@@ -63,7 +63,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public String writeToStore(byte[] bytes, String src, String originalFilename) throws Exception {
-        String md5 = MD5.md5File(bytes);
+        String md5 = MD5.md5(bytes);
         Resource resource = resourceRepository.findByMd5(md5);
         if (resource != null){
             return resource.getPath();

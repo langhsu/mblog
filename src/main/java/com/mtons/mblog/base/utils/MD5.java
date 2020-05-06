@@ -9,6 +9,7 @@
 */
 package com.mtons.mblog.base.utils;
 
+import com.mtons.mblog.base.lang.MtonsException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigInteger;
@@ -27,14 +28,7 @@ public class MD5 {
 	 * @return md5后的密文
 	 */
 	public static String md5(String input) {
-		byte[] code = null;
-		try {
-			code = MessageDigest.getInstance("md5").digest(input.getBytes());
-		} catch (NoSuchAlgorithmException e) {
-			code = input.getBytes();
-		}
-		BigInteger bi = new BigInteger(code);
-		return bi.abs().toString(32).toUpperCase();
+		return md5(input.getBytes());
 	}
 
 	/**
@@ -56,14 +50,13 @@ public class MD5 {
 	 *
 	 * @param bytes
 	 * @return
-	 * @throws NoSuchAlgorithmException
 	 */
-	public static String md5File(byte[] bytes)  {
-		byte[] code = new byte[0];
+	public static String md5(byte[] bytes)  {
+		byte[] code;
 		try {
 			code = MessageDigest.getInstance("md5").digest(bytes);
 		} catch (NoSuchAlgorithmException e) {
-			return "";
+			throw new MtonsException(e.getMessage());
 		}
 		BigInteger bi = new BigInteger(code);
 		return bi.abs().toString(32).toUpperCase();

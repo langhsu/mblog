@@ -67,4 +67,7 @@ public class SpringUtils implements ApplicationContextAware {
         return applicationContext.getBean(name, clazz);
     }
 
+    public static void autowireBean(Object bean) {
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(bean);
+    }
 }
