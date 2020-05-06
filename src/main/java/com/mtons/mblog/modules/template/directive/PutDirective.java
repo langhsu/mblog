@@ -9,10 +9,8 @@ import static com.mtons.mblog.modules.template.directive.BlockDirective.getBlock
 import static com.mtons.mblog.modules.template.directive.BlockDirective.getBlockTypeVarName;
 
 /**
- * Created on 2020/5/6.
- *
- * @author Landy
- * @since 1.0.0
+ * fork https://github.com/kwon37xi/freemarker-template-inheritance
+ * @since 4.0.0
  */
 public class PutDirective extends TemplateDirective {
     public static final String PUT_DATA_PREFIX = PutDirective.class.getCanonicalName() + ".";

@@ -10,10 +10,8 @@ import freemarker.template.TemplateModelException;
 import java.io.Writer;
 
 /**
- * Created on 2020/5/6.
- *
- * @author Landy
- * @since 1.0.0
+ * fork https://github.com/kwon37xi/freemarker-template-inheritance
+ * @since 4.0.0
  */
 public class BlockDirective extends TemplateDirective {
     public static final String BLOCK_NAME_PARAMETER = "name";
