@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Date;
 import java.util.Map;
 
@@ -45,9 +46,21 @@ public class DirectiveHandler {
     }
 
     public void renderString(String text) throws Exception {
-        StringWriter writer = new StringWriter();
-        writer.append(text);
         env.getOut().write(text);
+    }
+
+    public Environment getEnv() {
+        return env;
+    }
+
+    public String bodyResult() throws IOException, TemplateException {
+        if (body == null) {
+            return "";
+        }
+
+        StringWriter writer = new StringWriter();
+        body.render(writer);
+        return writer.toString();
     }
 
     public DirectiveHandler put(String key, Object value) throws TemplateModelException {
@@ -130,10 +143,6 @@ public class DirectiveHandler {
      */
     public TemplateModel getEnvModel(String name) throws TemplateModelException {
         return env.getVariable(name);
-    }
-
-    public void write(String text) throws IOException {
-        env.getOut().write(text);
     }
 
     private TemplateModel getModel(String name) {
