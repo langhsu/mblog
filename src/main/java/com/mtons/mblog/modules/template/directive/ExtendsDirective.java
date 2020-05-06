@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 /**
- * fork https://github.com/kwon37xi/freemarker-template-inheritance
  * @since 4.0.0
  */
 public class ExtendsDirective extends TemplateDirective {

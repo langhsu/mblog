@@ -9,7 +9,6 @@ import static com.mtons.mblog.modules.template.directive.BlockDirective.getBlock
 import static com.mtons.mblog.modules.template.directive.BlockDirective.getBlockTypeVarName;
 
 /**
- * fork https://github.com/kwon37xi/freemarker-template-inheritance
  * @since 4.0.0
  */
 public class PutDirective extends TemplateDirective {

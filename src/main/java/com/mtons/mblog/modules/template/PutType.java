@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * fork https://github.com/kwon37xi/freemarker-template-inheritance
  * @since 4.0.0
  */
 public enum PutType {
