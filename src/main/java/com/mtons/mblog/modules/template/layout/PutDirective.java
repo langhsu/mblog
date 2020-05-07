@@ -1,16 +1,14 @@
-package com.mtons.mblog.modules.template.directive;
+package com.mtons.mblog.modules.template.layout;
 
 import com.mtons.mblog.modules.template.DirectiveHandler;
-import com.mtons.mblog.modules.template.PutType;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import freemarker.template.SimpleScalar;
-
-import static com.mtons.mblog.modules.template.directive.BlockDirective.getBlockContentsVarName;
-import static com.mtons.mblog.modules.template.directive.BlockDirective.getBlockTypeVarName;
+import org.springframework.stereotype.Component;
 
 /**
  * @since 4.0.0
  */
+@Component
 public class PutDirective extends TemplateDirective {
     public static final String PUT_DATA_PREFIX = PutDirective.class.getCanonicalName() + ".";
     public static final String PUT_BLOCK_NAME_PARAMETER = "block";
@@ -30,13 +28,13 @@ public class PutDirective extends TemplateDirective {
             putType = PutType.valueOf(type.toUpperCase());
         }
         if (putType == null) {
-            putType = PutType.APPEND;
+            putType = PutType.REPLACE;
         }
 
         String bodyResult = handler.bodyResult();
 
-        handler.getEnv().setVariable(getBlockContentsVarName(blockName), new SimpleScalar(bodyResult));
-        handler.getEnv().setVariable(getBlockTypeVarName(blockName), new SimpleScalar(putType.name()));
+        handler.getEnv().setVariable(BlockDirective.getBlockContentsVarName(blockName), new SimpleScalar(bodyResult));
+        handler.getEnv().setVariable(BlockDirective.getBlockTypeVarName(blockName), new SimpleScalar(putType.name()));
     }
 
 }

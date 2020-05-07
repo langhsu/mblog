@@ -1,4 +1,4 @@
-package com.mtons.mblog.modules.template;
+package com.mtons.mblog.modules.template.layout;
 
 import java.io.IOException;
 import java.io.Writer;

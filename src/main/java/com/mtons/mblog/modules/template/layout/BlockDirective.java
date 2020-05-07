@@ -1,23 +1,24 @@
-package com.mtons.mblog.modules.template.directive;
+package com.mtons.mblog.modules.template.layout;
 
 import com.mtons.mblog.modules.template.DirectiveHandler;
-import com.mtons.mblog.modules.template.PutType;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModelException;
+import org.springframework.stereotype.Component;
 
 import java.io.Writer;
 
 /**
  * @since 4.0.0
  */
+@Component
 public class BlockDirective extends TemplateDirective {
     public static final String BLOCK_NAME_PARAMETER = "name";
 
     @Override
     public String getName() {
-        return "layout.bock";
+        return "layout.block";
     }
 
     @Override

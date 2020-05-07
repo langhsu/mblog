@@ -81,7 +81,7 @@ site:
         # 评论开关
         comment: true
     options:
-        theme: classic
+        theme: demo
         site_logo: /dist/images/logo/logo.png
         site_favicon: /dist/images/logo/m.png
         storage_max_width: 800
