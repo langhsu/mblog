@@ -69,7 +69,7 @@ logging:
 
 # site.options.theme: [default|classic]
 site:
-    version: 3.5.0
+    version: 4.0.0
     location: ${user.dir}
     controls:
         # 注册开关

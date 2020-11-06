@@ -1,5 +1,4 @@
 <#-- Layout -->
-<#macro layout title keywords description>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -22,12 +21,22 @@
     <!--[if IE]>
     <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/>
     <![endif]-->
-    <meta name="keywords" content="mtons, ${keywords?default(options['site_keywords'])}">
-    <meta name="description" content="${description?default(options['site_description'])}">
-    <meta name="mtons:mblog" content="${site.version}">
-    ${options['site_metas']}
 
-    <title>${title?default(options['site_name'])}</title>
+    <@layout.block name="title">
+        <title>${options['site_name']}</title>
+    </@layout.block>
+
+    <@layout.block name="keywords">
+        <meta name="keywords" content="mtons, ${options['site_keywords']}">
+    </@layout.block>
+
+    <@layout.block name="keywords">
+        <meta name="description" content="${options['site_description']}">
+    </@layout.block>
+
+    <meta name="mtons:mblog" content="${site.version}">
+
+    ${options['site_metas']}
 
     <link href="${base}/dist/vendors/pace/themes/pace-theme-minimal.css" rel="stylesheet"/>
     <link href="${base}/dist/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
@@ -61,21 +70,26 @@
 </head>
 <body>
 <!-- header -->
-<#include "/default/inc/header.ftl"/>
+<@layout.block name="header">
+    <#include "/classic/inc/header.ftl"/>
+</@layout.block>
 <!-- /header -->
 
 <!-- content -->
 <div class="wrap">
     <!-- Main -->
     <div class="container">
-        <#nested>
+        <@layout.block name="contents">
+            <h2>Contents will be here</h2>
+        </@layout.block>
     </div>
 </div>
 <!-- /content -->
 
 <!-- footer -->
-<#include "/default/inc/footer.ftl"/>
+<@layout.block name="footer">
+    <#include "/classic/inc/footer.ftl"/>
+</@layout.block>
 
 </body>
 </html>
-</#macro>

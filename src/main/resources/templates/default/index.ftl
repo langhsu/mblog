@@ -2,7 +2,6 @@
 
     <@layout.put block="contents">
         <#assign topId = 1 />
-
         <!-- top -->
         <div class="row">
             <@contents channelId=topId size=8>

@@ -37,6 +37,14 @@
 - 官网: [官网地址](http://www.mtons.com)
 - QQ交流群：378433412
     
+### 版本(4.0)更新内容：
+    1. 新增 <@layout.extends name="xxx"></layout.extends> 标签, 用于进入模板文件, 解决主题开发时各种路径带入主题名的问题
+    2. 新增 <@layout.block name="header"></layout.block> 标签, 用于模板的占位, 可配合`layout.put`替换指定block区域内容,
+    3. 新增 <@layout.put block="contents" type="APPEND"></layout.put> 标签, 用户替换模板内容块, 丢弃freemarker变量传递, 增强主题可维护性
+    4. `layout.put`中的type 支持替换类型: APPEND, PREPEND, REPLACE
+    5. 调整`default`, `classic`主题, 使用新的主题开发方式
+    6. 新增markdown编辑器, 可在后台选择tinymce/markdown
+    
 ### 版本(3.5)更新内容：
     1. 文件存储目录可配置, 见 site.location, 默认为 user.dir
     2. 支持在${site.location}/storage/templates 目录下扩展自己的主题(${site.location}具体位置见启动日志)
@@ -67,3 +75,9 @@
 
  ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175116_449ed877_1758849.jpeg "1.jpg")
  ![输入图片说明](https://images.gitee.com/uploads/images/2019/0414/175353_6185e4f1_1758849.jpeg "2.jpg")
+
+### 扩展主题
+[Youth 主题传送门](https://pan.baidu.com/s/1tBwtprEAuCqcqDhVBunMGA) (作者:小崔崔)(提取码: 25e9)
+
+
+- 感谢开发主题大佬们的无私奉献
