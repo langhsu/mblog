@@ -43,6 +43,7 @@
     3. 新增 <@layout.put block="contents" type="APPEND"></layout.put> 标签, 用户替换模板内容块, 丢弃freemarker变量传递, 增强主题可维护性
     4. `layout.put`中的type 支持替换类型: APPEND, PREPEND, REPLACE
     5. 调整`default`, `classic`主题, 使用新的主题开发方式
+    6. `建议MySQL版本5.7`
     
 ### 版本(3.5)更新内容：
     1. 文件存储目录可配置, 见 site.location, 默认为 user.dir
