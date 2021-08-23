@@ -16,7 +16,7 @@
 		<shiro>1.4.0</shiro>
 		<coobird.thumbnailator>0.4.8</coobird.thumbnailator>
 		<alibaba.fastjson>1.2.55</alibaba.fastjson>
-		<org.jsoup>1.9.2</org.jsoup>
+		<org.jsoup>1.14.2</org.jsoup>
 		<apache.lucene>5.5.5</apache.lucene>
 		<upyun.sdk.version>4.0.1</upyun.sdk.version>
 		<aliyun.sdk.version>2.8.3</aliyun.sdk.version>
