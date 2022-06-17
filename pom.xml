@@ -15,7 +15,7 @@
 		<commons.httpclient>3.1</commons.httpclient>
 		<shiro>1.4.0</shiro>
 		<coobird.thumbnailator>0.4.8</coobird.thumbnailator>
-		<alibaba.fastjson>1.2.55</alibaba.fastjson>
+		<alibaba.fastjson>1.2.83</alibaba.fastjson>
 		<org.jsoup>1.9.2</org.jsoup>
 		<apache.lucene>5.5.5</apache.lucene>
 		<upyun.sdk.version>4.0.1</upyun.sdk.version>
