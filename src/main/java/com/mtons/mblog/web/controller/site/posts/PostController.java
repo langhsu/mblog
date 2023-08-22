@@ -68,7 +68,7 @@ public class PostController extends BaseController {
 		Assert.notNull(post, "参数不完整");
 		Assert.state(StringUtils.isNotBlank(post.getTitle()), "标题不能为空");
 		Assert.state(StringUtils.isNotBlank(post.getContent()), "内容不能为空");
-
+		Assert.state(post.getTitle().length() <= 64, "标题不能超过64个字符");
 		AccountProfile profile = getProfile();
 		post.setAuthorId(profile.getId());
 
