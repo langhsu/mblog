@@ -92,8 +92,8 @@ public class PostController extends BaseController {
 	 */
 	@RequestMapping("/delete/{id}")
 	@ResponseBody
-	public Result delete(@PathVariable Long id) {
-		Result data;
+	public Result<Void> delete(@PathVariable Long id) {
+		Result<Void> data;
 		try {
 			postService.delete(id, getProfile().getId());
 			data = Result.success();
