@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class PreviewTextUtils {
     public static String getText(String html) {
         if (html == null)
             return null;
-        return Jsoup.clean(html, Whitelist.none()).trim();
+        return Jsoup.clean(html, Safelist.none()).trim();
     }
 
     /**
@@ -53,13 +53,13 @@ public class PreviewTextUtils {
     public static String getSimpleHtml(String html) {
         if (html == null)
             return null;
-        return Jsoup.clean(html, Whitelist.simpleText());
+        return Jsoup.clean(html, Safelist.simpleText());
     }
 
     public static String removeHideHtml(String html) {
         if (html == null)
             return null;
-        return Jsoup.clean(html, (new Whitelist()).addTags("hide"));
+        return Jsoup.clean(html, Safelist.none().addTags("hide"));
     }
 
     /**
