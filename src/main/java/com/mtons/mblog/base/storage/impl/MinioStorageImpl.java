@@ -6,6 +6,7 @@ import com.mtons.mblog.base.utils.FileKit;
 import com.upyun.UpYunUtils;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -45,10 +46,7 @@ public class MinioStorageImpl extends AbstractStorage implements Storage {
         String key = UpYunUtils.md5(bytes);
         String path = src + key + FileKit.getSuffix(pathAndFileName);
 
-        MinioClient minioClient = MinioClient.builder()
-                .endpoint(domain)
-                .credentials(accessKey,secretKey)
-                .build();
+        MinioClient minioClient = builder();
         minioClient.putObject(PutObjectArgs.builder()
                         .bucket(bucket)
                         .object(path)
@@ -60,5 +58,29 @@ public class MinioStorageImpl extends AbstractStorage implements Storage {
 
     @Override
     public void deleteFile(String storePath) {
+
+        MinioClient client = builder();
+        String bucket = options.getValue(oss_bucket);
+        String path = StringUtils.remove(storePath,oss_domain + "/" + bucket.trim());
+        try {
+            client.removeObject(
+                    RemoveObjectArgs.builder().bucket(bucket).object(path).build());
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+        }
+    }
+    private MinioClient builder() {
+        String accessKey = options.getValue(oss_key);
+        String secretKey = options.getValue(oss_secret);
+        String domain = options.getValue(oss_domain);
+
+        if (StringUtils.isAnyBlank(domain, accessKey, secretKey)) {
+            throw new MtonsException("请先在后台设置MinIO配置信息");
+        };
+        MinioClient minioClient = MinioClient.builder()
+                .endpoint(domain)
+                .credentials(accessKey, secretKey)
+                .build();
+        return minioClient;
     }
 }
