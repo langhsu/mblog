@@ -61,7 +61,7 @@ public class MinioStorageImpl extends AbstractStorage implements Storage {
 
         MinioClient client = builder();
         String bucket = options.getValue(oss_bucket);
-        String path = StringUtils.remove(storePath,oss_domain + "/" + bucket.trim());
+        String path = StringUtils.remove(storePath,options.getValue(oss_domain) + "/" + bucket.trim());
         try {
             client.removeObject(
                     RemoveObjectArgs.builder().bucket(bucket).object(path).build());
