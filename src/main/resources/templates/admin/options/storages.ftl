@@ -7,6 +7,7 @@
                 <option value="upyun">又拍云</option>
                 <option value="aliyun">阿里云</option>
                 <option value="qiniu">七牛云</option>
+                <option value="minio">Minio</option>
             </select>
         </div>
     </div>
@@ -103,6 +104,38 @@
             <label class="col-sm-2 control-label">文件目录</label>
             <div class="col-sm-6">
                 <input type="text" name="qiniu_oss_src" class="form-control" value="${options['qiniu_oss_src']}" placeholder="示例: /static/">
+            </div>
+        </div>
+    </div>
+    <div class="scheme" data-scheme="minio">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">空间名称</label>
+            <div class="col-sm-6">
+                <input type="text" name="minio_oss_bucket" class="form-control" value="${options['minio_oss_bucket']}" placeholder="Minio oss bucket名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">AccessKey</label>
+            <div class="col-sm-6">
+                <input type="text" name="minio_oss_key" class="form-control" value="${options['minio_oss_key']}" placeholder="AccessKeyId">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">AccessSecret</label>
+            <div class="col-sm-6">
+                <input type="text" name="minio_oss_secret" class="form-control" value="${options['minio_oss_secret']}" placeholder="AccessKeySecret">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">EndPoint</label>
+            <div class="col-sm-6">
+                <input type="text" name="minio_oss_domain" class="form-control" value="${options['minio_oss_domain']}" placeholder="示例: oss-cn-beijing.aliyuncs.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">文件目录</label>
+            <div class="col-sm-6">
+                <input type="text" name="minio_oss_src" class="form-control" value="${options['minio_oss_src']}" placeholder="示例: static/images/">
             </div>
         </div>
     </div>
